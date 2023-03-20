@@ -16,6 +16,10 @@
 		2869F63F29C2E07200CADFD7 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F63E29C2E07200CADFD7 /* LandingViewController.swift */; };
 		2869F64129C2E08500CADFD7 /* LandingViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F64029C2E08500CADFD7 /* LandingViewController+TableView.swift */; };
 		2869F64329C2E09A00CADFD7 /* LandingViewController+Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F64229C2E09A00CADFD7 /* LandingViewController+Network.swift */; };
+		2869F64629C8552D00CADFD7 /* MainArticleTableVewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2869F64529C8552D00CADFD7 /* MainArticleTableVewCell.xib */; };
+		2869F64929C8557900CADFD7 /* MainArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F64829C8557900CADFD7 /* MainArticleTableViewCell.swift */; };
+		2869F64B29C855AF00CADFD7 /* NewsArticleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2869F64A29C855AF00CADFD7 /* NewsArticleTableViewCell.xib */; };
+		2869F64D29C855BE00CADFD7 /* NewsArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F64C29C855BE00CADFD7 /* NewsArticleTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,10 @@
 		2869F63E29C2E07200CADFD7 /* LandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
 		2869F64029C2E08500CADFD7 /* LandingViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LandingViewController+TableView.swift"; sourceTree = "<group>"; };
 		2869F64229C2E09A00CADFD7 /* LandingViewController+Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LandingViewController+Network.swift"; sourceTree = "<group>"; };
+		2869F64529C8552D00CADFD7 /* MainArticleTableVewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainArticleTableVewCell.xib; sourceTree = "<group>"; };
+		2869F64829C8557900CADFD7 /* MainArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainArticleTableViewCell.swift; sourceTree = "<group>"; };
+		2869F64A29C855AF00CADFD7 /* NewsArticleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsArticleTableViewCell.xib; sourceTree = "<group>"; };
+		2869F64C29C855BE00CADFD7 /* NewsArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +84,7 @@
 		2869F63A29C1D21B00CADFD7 /* LandingView */ = {
 			isa = PBXGroup;
 			children = (
+				2869F64429C854F600CADFD7 /* Components */,
 				2869F63D29C2E04A00CADFD7 /* ViewModel */,
 				2869F63C29C2E04000CADFD7 /* Protocol */,
 				2869F63B29C1D22600CADFD7 /* ViewController */,
@@ -106,6 +115,17 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2869F64429C854F600CADFD7 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2869F64529C8552D00CADFD7 /* MainArticleTableVewCell.xib */,
+				2869F64829C8557900CADFD7 /* MainArticleTableViewCell.swift */,
+				2869F64A29C855AF00CADFD7 /* NewsArticleTableViewCell.xib */,
+				2869F64C29C855BE00CADFD7 /* NewsArticleTableViewCell.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,6 +187,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2869F63329C1B22F00CADFD7 /* LaunchScreen.storyboard in Resources */,
+				2869F64629C8552D00CADFD7 /* MainArticleTableVewCell.xib in Resources */,
+				2869F64B29C855AF00CADFD7 /* NewsArticleTableViewCell.xib in Resources */,
 				2869F63029C1B22F00CADFD7 /* Assets.xcassets in Resources */,
 				2869F62E29C1B22E00CADFD7 /* LandingViewController.storyboard in Resources */,
 			);
@@ -184,7 +206,9 @@
 				2869F62729C1B22E00CADFD7 /* AppDelegate.swift in Sources */,
 				2869F64329C2E09A00CADFD7 /* LandingViewController+Network.swift in Sources */,
 				2869F63F29C2E07200CADFD7 /* LandingViewController.swift in Sources */,
+				2869F64D29C855BE00CADFD7 /* NewsArticleTableViewCell.swift in Sources */,
 				2869F62929C1B22E00CADFD7 /* SceneDelegate.swift in Sources */,
+				2869F64929C8557900CADFD7 /* MainArticleTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
