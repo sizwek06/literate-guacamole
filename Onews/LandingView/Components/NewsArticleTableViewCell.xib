@@ -16,7 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="153" id="t2J-NG-wpK">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="153" id="t2J-NG-wpK" customClass="NewsArticleTableViewCell" customModule="Onews" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="498" height="153"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t2J-NG-wpK" id="zj6-Rg-lUa">
@@ -50,6 +50,13 @@
                     </imageView>
                 </subviews>
             </tableViewCellContentView>
+            <accessibility key="accessibilityConfiguration" identifier="newsArticle"/>
+            <connections>
+                <outlet property="articleImg" destination="seF-Nu-kdv" id="kdM-yF-Eyh"/>
+                <outlet property="articleLabel" destination="iVa-ps-uQq" id="Fmi-32-KP4"/>
+                <outlet property="timeLabel" destination="k8W-4b-XZx" id="Jg3-LZ-4cj"/>
+                <outlet property="websiteLabel" destination="c9Q-Fv-zc5" id="yCu-qq-TQl"/>
+            </connections>
             <point key="canvasLocation" x="274.80916030534348" y="-79.929577464788736"/>
         </tableViewCell>
     </objects>
