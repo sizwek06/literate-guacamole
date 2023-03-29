@@ -24,6 +24,7 @@
 		28ECF5A629CD71A4006876B7 /* NewsArticleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ECF5A529CD71A4006876B7 /* NewsArticleData.swift */; };
 		28ECF5A829CF32FB006876B7 /* NewsArticleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ECF5A729CF32FB006876B7 /* NewsArticleModel.swift */; };
 		28ECF5AA29CF34A1006876B7 /* LandingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ECF5A929CF34A1006876B7 /* LandingViewModel.swift */; };
+		28ECF5AC29CF3ED5006876B7 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ECF5AB29CF3ED5006876B7 /* K.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		28ECF5A529CD71A4006876B7 /* NewsArticleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewsArticleData.swift; path = Onews/LandingView/Components/NewsArticleData.swift; sourceTree = SOURCE_ROOT; };
 		28ECF5A729CF32FB006876B7 /* NewsArticleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewsArticleModel.swift; path = Onews/LandingView/Components/NewsArticleModel.swift; sourceTree = SOURCE_ROOT; };
 		28ECF5A929CF34A1006876B7 /* LandingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LandingViewModel.swift; path = Onews/LandingView/Components/LandingViewModel.swift; sourceTree = SOURCE_ROOT; };
+		28ECF5AB29CF3ED5006876B7 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				2869F63A29C1D21B00CADFD7 /* LandingView */,
 				2869F62629C1B22E00CADFD7 /* AppDelegate.swift */,
 				2869F62829C1B22E00CADFD7 /* SceneDelegate.swift */,
+				28ECF5AB29CF3ED5006876B7 /* K.swift */,
 				2869F62A29C1B22E00CADFD7 /* ViewController.swift */,
 				2869F62F29C1B22F00CADFD7 /* Assets.xcassets */,
 				2869F63129C1B22F00CADFD7 /* LaunchScreen.storyboard */,
@@ -231,6 +234,7 @@
 				28ECF5AA29CF34A1006876B7 /* LandingViewModel.swift in Sources */,
 				2869F64D29C855BE00CADFD7 /* NewsArticleTableViewCell.swift in Sources */,
 				28ECF5A629CD71A4006876B7 /* NewsArticleData.swift in Sources */,
+				28ECF5AC29CF3ED5006876B7 /* K.swift in Sources */,
 				2869F62929C1B22E00CADFD7 /* SceneDelegate.swift in Sources */,
 				2869F64929C8557900CADFD7 /* MainArticleTableViewCell.swift in Sources */,
 			);
