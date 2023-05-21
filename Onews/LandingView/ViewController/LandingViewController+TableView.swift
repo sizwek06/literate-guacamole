@@ -50,12 +50,12 @@ extension LandingViewController {
             cell.backgroundColor = .none
             
             downloadImg(urlString: article.articleImgURL, imgView: cell.articleImg)
-            cell.articleImg.layer.cornerRadius = 30.0
+            cell.articleImg.layer.cornerRadius = 8.0
             cell.articleImg.clipsToBounds = true
             
             cell.articleLabel.text = article.articleTitle
             cell.websiteLabel.text = article.articleSource.name
-            cell.timeLabel.text = article.publishedDate.asString()
+            cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedDate!)
             
             return cell
         } else {
@@ -69,7 +69,7 @@ extension LandingViewController {
 //            downloadImg(urlString: mainArticle.articleImgURL, imgView: cell.articleImg)
             cell.articleLabel.text = mainArticle.articleTitle
             cell.websiteLabel.text = mainArticle.articleSource.name
-            cell.timeLabel.text = mainArticle.publishedDate.asString()
+//            cell.timeLabel.text = mainArticle.publishedDate.asString()
             
             return cell
         }

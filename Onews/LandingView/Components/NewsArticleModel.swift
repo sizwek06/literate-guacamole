@@ -10,7 +10,6 @@ import Foundation
 struct NewsArticleModel {
     
     let articleTitle, articleDescription, articleURL, articleImgURL: String
-    let articleAuthor, articleContent: String?
-    let publishedDate: Date
+    let articleAuthor, articleContent, publishedDate: String?
     let articleSource: Source
 }
