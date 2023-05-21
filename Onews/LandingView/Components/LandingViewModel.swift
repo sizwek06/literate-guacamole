@@ -10,6 +10,7 @@ import UIKit
 
 struct LandingViewModel {
     
+    static let shared = LandingViewModel()
     
     var articlesArray: [NewsArticleModel] =
     [
