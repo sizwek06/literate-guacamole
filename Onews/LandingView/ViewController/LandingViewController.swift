@@ -38,11 +38,16 @@ extension Date {
         let dayHourMinuteSecond: Set<Calendar.Component> = [.day, .hour, .minute, .second]
         let difference = NSCalendar.current.dateComponents(dayHourMinuteSecond, from: date, to: self)
 
-        let hours = "\(difference.hour ?? 0)h " + "ago"
-        let days = "\(difference.day ?? 0)d" + " " + hours
-
-        if let day = difference.day, day          > 0 { return days }
-        if let hour = difference.hour, hour       > 0 { return hours }
+        let hours = "\(difference.hour ?? 0)h ago"
+        let days = "\(difference.day ?? 0)d ago"
+        
+        if let daysTimeSince = difference.day, let hoursTimeSince = difference.hour {
+            if hoursTimeSince < 24 && daysTimeSince == 0 {
+                if let hour = difference.hour, hour       > 0 { return hours }
+            } else {
+                if let day = difference.day, day          > 0 { return days }
+            }
+        }
         return ""
     }
 }
