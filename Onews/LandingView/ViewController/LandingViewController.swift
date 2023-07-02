@@ -10,12 +10,16 @@ import UIKit
 
 class LandingViewController: UITableViewController {
     
+    var articlesManager = ArticleManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        articlesManager.fetchNewsArticles()
         tableView.rowHeight = 150
         tableView.register(UINib(nibName: "MainArticleTableVewCell", bundle: nil), forCellReuseIdentifier: "mainArticle")
         tableView.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
+        tableView.reloadData()
     }
     
     func downloadImg(urlString: String, imgView: UIImageView){
@@ -23,8 +27,6 @@ class LandingViewController: UITableViewController {
         let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
         imgView.image = UIImage(data: data!)
     }
-
-
 }
 
 extension Date {
@@ -49,5 +51,22 @@ extension Date {
             }
         }
         return ""
+    }
+}
+
+//MARK: Articles Manager Delegate
+extension LandingViewController: ArticleDelegate {
+    
+    func reloadNewsArticles() {
+        articlesManager.fetchNewsArticles()
+        tableView.reloadData()
+    }
+    
+    func didReceiveArticlesSuccessfully() {
+        tableView.reloadData()
+    }
+    
+    func didFailWithError(error: Error) {
+        print("Error fetchings news articles: \(error)")
     }
 }
