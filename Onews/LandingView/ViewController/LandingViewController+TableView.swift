@@ -40,38 +40,39 @@ extension LandingViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0
-        {
+//        if indexPath.section == 0
+//        {
             let article = LandingViewModel.shared.articlesArray[indexPath.row]
+            print("Article at: \(indexPath.row)  is \(article)")
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "newsArticle", for: indexPath) as! NewsArticleTableViewCell
             
             cell.selectionStyle = .none
             cell.backgroundColor = .none
             
-            downloadImg(urlString: article.articleImgURL, imgView: cell.articleImg)
+            downloadImg(urlString: article.urlToImage!, imgView: cell.articleImg)
             cell.articleImg.layer.cornerRadius = 8.0
             cell.articleImg.clipsToBounds = true
             
-            cell.articleLabel.text = article.articleTitle
-            cell.websiteLabel.text = article.articleSource.name
-            cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedDate!)
+            cell.articleLabel.text = article.title
+            cell.websiteLabel.text = article.source.name
+            cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
             
             return cell
-        } else {
-            let mainArticle = LandingViewModel.shared.articlesArray[indexPath.row]
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "mainArticle", for: indexPath) as! MainArticleTableViewCell
-            
-            cell.selectionStyle = .none
-            cell.backgroundColor = .none
-            
-//            downloadImg(urlString: mainArticle.articleImgURL, imgView: cell.articleImg)
-            cell.articleLabel.text = mainArticle.articleTitle
-            cell.websiteLabel.text = mainArticle.articleSource.name
-//            cell.timeLabel.text = mainArticle.publishedDate.asString()
-            
-            return cell
-        }
+//        } else {
+//            let mainArticle = LandingViewModel.shared.articlesArray[indexPath.row]
+//
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "mainArticle", for: indexPath) as! MainArticleTableViewCell
+//
+//            cell.selectionStyle = .none
+//            cell.backgroundColor = .none
+//
+////            downloadImg(urlString: mainArticle.articleImgURL, imgView: cell.articleImg)
+//            cell.articleLabel.text = mainArticle.title
+//            cell.websiteLabel.text = mainArticle.source.name
+////            cell.timeLabel.text = mainArticle.publishedDate.asString()
+//
+//            return cell
+//        }
     }
 }
