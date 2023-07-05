@@ -56,6 +56,7 @@ extension LandingViewController {
             
             cell.articleLabel.text = article.title
             cell.websiteLabel.text = article.source.name
+            cell.websiteLabel.textColor = returnSourceColour()
             cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
             
             return cell

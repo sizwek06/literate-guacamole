@@ -44,7 +44,6 @@ struct ArticleManager {
         do {
             let decodedData = try decoder.decode(NewsArticle.self, from: newsData)
             LandingViewModel.shared.articlesArray = decodedData.articles
-            print("Article Manager: \(LandingViewModel.shared.articlesArray)")
         } catch {
             delegate?.didFailWithError(error: error)
         }
