@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 // MARK: - NewsArticle
 struct NewsArticle: Codable {
     let status: String
