@@ -50,7 +50,7 @@ extension LandingViewController {
             cell.selectionStyle = .none
             cell.backgroundColor = .none
             
-            downloadImg(urlString: article.urlToImage!, imgView: cell.articleImg)
+            downloadImg(urlString: article.urlToImage, imgView: cell.articleImg)
             cell.articleImg.layer.cornerRadius = 8.0
             cell.articleImg.clipsToBounds = true
             
