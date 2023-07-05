@@ -15,19 +15,23 @@ class LandingViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        articlesManager.delegate = self
         articlesManager.fetchNewsArticles()
+        
         tableView.rowHeight = 150
         tableView.register(UINib(nibName: "MainArticleTableVewCell", bundle: nil), forCellReuseIdentifier: "mainArticle")
         tableView.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
-        tableView.reloadData()
     }
     
-    func downloadImg(urlString: String, imgView: UIImageView){
-        let url = URL(string: urlString)
-        let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-        imgView.image = UIImage(data: data!)
+    func downloadImg(urlString: String?, imgView: UIImageView){
+        if let urlStr = urlString
+        {
+            let url = URL(string: urlStr)
+            let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+            imgView.image = UIImage(data: data!)
+        }
     }
-}
+    }
 
 extension Date {
     
