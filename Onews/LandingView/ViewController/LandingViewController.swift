@@ -8,30 +8,65 @@
 import Foundation
 import UIKit
 
-class LandingViewController: UITableViewController {
+class LandingViewController: UIViewController {
     
     var articlesManager = ArticleManager()
+    internal let tableView: UITableView = {
+        let table = UITableView(frame: .zero, style: .insetGrouped)
+        table.register(UINib(nibName: "MainArticleTableVewCell", bundle: nil), forCellReuseIdentifier: "mainArticle")
+        table.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
+        return table
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Onews"
+        
         articlesManager.delegate = self
         articlesManager.fetchNewsArticles()
         
+        view.addSubview(tableView)
+        
         tableView.rowHeight = 150
-        tableView.register(UINib(nibName: "MainArticleTableVewCell", bundle: nil), forCellReuseIdentifier: "mainArticle")
-        tableView.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
+        tableView.separatorStyle = .singleLine
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.frame = view.bounds
     }
     
-    func downloadImg(urlString: String?, imgView: UIImageView){
-        if let urlStr = urlString
-        {
-            let url = URL(string: urlStr)
-            let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-            imgView.image = UIImage(data: data!)
+    func downloadImg(urlString: String?, imgView: UIImageView) {
+        DispatchQueue.main.async {
+            if let urlStr = urlString
+            {
+                let url = URL(string: urlStr)
+                let data = try? Data(contentsOf: url!)
+                imgView.image = UIImage(data: data!)
+            }
         }
     }
+    
+    func returnSourceColour() -> UIColor {
+        //TODO: Introduce source enums and map colours for
+        //for e.g. you-tube = oNewsRed, tech-crunch = oNewsRed, default still black.
+        let randomInt = Int.random(in: 1..<12)
+        
+        switch randomInt {
+        case 0:
+           return K.newsColor.oNewsBlue
+        case 1..<3:
+            return K.newsColor.oNewsGold
+        case 4..<6:
+            return K.newsColor.oNewsMaroon
+        case 7..<9:
+            return K.newsColor.oNewsGreen
+        case 10..<12:
+            return K.newsColor.oNewsOrange
+        default:
+            return K.newsColor.oNewsBlack
+        }
     }
+}
 
 extension Date {
     
