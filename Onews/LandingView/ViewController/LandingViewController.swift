@@ -8,19 +8,31 @@
 import Foundation
 import UIKit
 
-class LandingViewController: UITableViewController {
+class LandingViewController: UIViewController {
     
     var articlesManager = ArticleManager()
+    internal let tableView: UITableView = {
+        let table = UITableView(frame: .zero, style: .insetGrouped)
+        table.register(UINib(nibName: "MainArticleTableVewCell", bundle: nil), forCellReuseIdentifier: "mainArticle")
+        table.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
+        return table
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Onews"
+        
         articlesManager.delegate = self
         articlesManager.fetchNewsArticles()
         
+        view.addSubview(tableView)
+        
         tableView.rowHeight = 150
-        tableView.register(UINib(nibName: "MainArticleTableVewCell", bundle: nil), forCellReuseIdentifier: "mainArticle")
-        tableView.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
+        tableView.separatorStyle = .singleLine
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.frame = view.bounds
     }
     
     func downloadImg(urlString: String?, imgView: UIImageView) {
@@ -28,13 +40,15 @@ class LandingViewController: UITableViewController {
             if let urlStr = urlString
             {
                 let url = URL(string: urlStr)
-                let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                let data = try? Data(contentsOf: url!)
                 imgView.image = UIImage(data: data!)
             }
         }
     }
     
     func returnSourceColour() -> UIColor {
+        //TODO: Introduce source enums and map colours for
+        //for e.g. you-tube = oNewsRed, tech-crunch = oNewsRed, default still black.
         let randomInt = Int.random(in: 1..<12)
         
         switch randomInt {
