@@ -47,8 +47,6 @@ extension LandingViewController: UITableViewDelegate, UITableViewDataSource {
             cell.backgroundColor = .none
             
             downloadImg(urlString: article.urlToImage, imgView: cell.articleImg)
-            cell.articleImg.layer.cornerRadius = 8.0
-            cell.articleImg.clipsToBounds = true
             
             cell.articleLabel.text = article.title
             cell.websiteLabel.text = article.source.name

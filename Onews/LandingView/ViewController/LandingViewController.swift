@@ -22,7 +22,6 @@ class LandingViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Onews"
-        
         articlesManager.delegate = self
         articlesManager.fetchNewsArticles()
         
