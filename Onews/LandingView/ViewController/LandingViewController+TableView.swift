@@ -49,7 +49,7 @@ extension LandingViewController: UITableViewDelegate, UITableViewDataSource {
             downloadImg(urlString: article.urlToImage, imgView: cell.articleImg)
             
             cell.articleLabel.text = article.title
-            cell.websiteLabel.text = article.source.name
+            cell.websiteLabel.text = article.source.name.uppercased()
             cell.websiteLabel.textColor = returnSourceColour()
             cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
             
@@ -64,7 +64,7 @@ extension LandingViewController: UITableViewDelegate, UITableViewDataSource {
 
             downloadImg(urlString: mainArticle.urlToImage, imgView: cell.articleImg)
             cell.articleLabel.text = mainArticle.title
-            cell.websiteLabel.text = mainArticle.source.name
+            cell.websiteLabel.text = mainArticle.source.name.uppercased()
             cell.websiteLabel.textColor = returnSourceColour()
             cell.timeLabel.text = Date().convertStringToDate(dateString: mainArticle.publishedAt)
 
