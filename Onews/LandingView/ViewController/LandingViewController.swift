@@ -37,13 +37,11 @@ class LandingViewController: UIViewController {
     }
     
     func downloadImg(urlString: String?, imgView: UIImageView) {
-        DispatchQueue.main.async {
-            if let urlStr = urlString
-            {
-                let url = URL(string: urlStr)
-                let data = try? Data(contentsOf: url!)
-                imgView.image = UIImage(data: data!)
-            }
+        if let urlStr = urlString
+        {
+            let url = URL(string: urlStr)
+            let data = try? Data(contentsOf: url!)
+            imgView.image = UIImage(data: data!)
         }
     }
     
