@@ -11,6 +11,7 @@ import UIKit
 class LandingViewController: UIViewController {
     
     var articlesManager = ArticleManager()
+    
     internal let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
         table.register(UINib(nibName: "MainArticleTableVewCell", bundle: nil), forCellReuseIdentifier: "mainArticle")
@@ -27,6 +28,7 @@ class LandingViewController: UIViewController {
         
         view.addSubview(tableView)
         
+        self.view.addBlurToView()
         tableView.rowHeight = 150
         tableView.separatorStyle = .singleLine
         tableView.delegate = self
