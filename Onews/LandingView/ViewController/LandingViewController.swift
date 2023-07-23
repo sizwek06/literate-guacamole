@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class LandingViewController: UIViewController {
     
@@ -40,8 +41,8 @@ class LandingViewController: UIViewController {
         if let urlStr = urlString
         {
             let url = URL(string: urlStr)
-            let data = try? Data(contentsOf: url!)
-            imgView.image = UIImage(data: data!)
+            imgView.kf.indicatorType = .activity
+            imgView.kf.setImage(with: url, options: [.transition(.fade(0.2))])
         }
     }
     
