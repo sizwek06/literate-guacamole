@@ -67,8 +67,10 @@ extension LandingViewController: UITableViewDelegate, UITableViewDataSource {
             cell.websiteLabel.text = mainArticle.source.name.uppercased()
             cell.websiteLabel.textColor = returnSourceColour()
             cell.timeLabel.text = Date().convertStringToDate(dateString: mainArticle.publishedAt)
-
+            
+            view.removeBlurFromView()
             return cell
         }
+        
     }
 }
