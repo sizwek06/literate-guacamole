@@ -18,5 +18,8 @@ class NewsArticleTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        articleImg.layer.cornerRadius = 8.0
+        articleImg.clipsToBounds = true
     }
 }
