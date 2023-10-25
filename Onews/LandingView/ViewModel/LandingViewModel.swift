@@ -28,6 +28,3 @@ class LandingViewModel {
 //    NewsArticleModel(articleTitle: "San Diego State ousts top overall seed Alabama to reach Elite Eight - ESPN", articleDescription: "Fifth-seeded San Diego State upset top overall seed Alabama on Friday to clinch the program's first-ever berth in the Elite Eight.", articleURL: "https://www.espn.com/mens-college-basketball/story/_/id/35937403/san-diego-state-ousts-top-overall-seed-alabama-reach-elite-eight", articleImgURL: "https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2023%2F0325%2Fr1149690_1296x729_16%2D9.jpg", articleAuthor: "Pete Thamel", articleContent: "LOUISVILLE, KY. -- No. 1 overall seed Alabama, which emerged as the most dominant and divisive team during a turbulent 2022-23 season, sputtered offensively and found an exit from the NCAA tournament… [+7077 chars]", publishedDate: "2023-02-27T19:15:11Z", articleSource: Source(id: nil, name: "ESPN"))
 //    ]
 }
-
-
-

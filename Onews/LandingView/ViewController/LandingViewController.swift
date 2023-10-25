@@ -38,8 +38,7 @@ class LandingViewController: UIViewController {
     }
     
     func downloadImg(urlString: String?, imgView: UIImageView) {
-        if let urlStr = urlString
-        {
+        if let urlStr = urlString {
             let url = URL(string: urlStr)
             imgView.kf.indicatorType = .activity
             imgView.kf.setImage(with: url, options: [.transition(.fade(0.2))])
@@ -47,8 +46,8 @@ class LandingViewController: UIViewController {
     }
     
     func returnSourceColour() -> UIColor {
-        //TODO: Introduce source enums and map colours for
-        //for e.g. you-tube = oNewsRed, tech-crunch = oNewsRed, default still black.
+        // TODO: Introduce source enums and map colours for
+        // for e.g. you-tube = oNewsRed, tech-crunch = oNewsRed, default still black.
         let randomInt = Int.random(in: 1..<12)
         
         switch randomInt {
@@ -93,7 +92,7 @@ extension Date {
     }
 }
 
-//MARK: Articles Manager Delegate
+// MARK: Articles Manager Delegate
 extension LandingViewController: ArticleDelegate {
     
     func reloadNewsArticles() {
@@ -105,7 +104,16 @@ extension LandingViewController: ArticleDelegate {
         tableView.reloadData()
     }
     
-    func didFailWithError(error: Error) {
-        print("Error fetchings news articles: \(error)")
+    func didFailWithError(error: String) {
+        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Retry", style: UIAlertAction.Style.default, handler: { (_) in
+            self.reloadNewsArticles()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (_) in
+            self.dismiss(animated: true)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }

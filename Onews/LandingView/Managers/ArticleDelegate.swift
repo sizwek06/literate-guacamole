@@ -9,5 +9,5 @@ import Foundation
 
 protocol ArticleDelegate {
     func didReceiveArticlesSuccessfully()
-    func didFailWithError(error: Error)
+    func didFailWithError(error: String)
 }
