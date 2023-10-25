@@ -26,11 +26,11 @@ extension LandingViewController: UITableViewDelegate, UITableViewDataSource {
         return section == 0 ? 1 : LandingViewModel.shared.articlesArray.count
     }
 
-    //From Gugs
-    //MainArticle needs section headerView. (code in chat with Gugs 03 Apr)
-    //Tesla News is a headerInSection, hide...
-    //consider footerInSection to have Load More (paging)
-    //group via sources/genre
+    // From Gugs
+    // MainArticle needs section headerView. (code in chat with Gugs 03 Apr)
+    // Tesla News is a headerInSection, hide...
+    // consider footerInSection to have Load More (paging)
+    // group via sources/genre
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension

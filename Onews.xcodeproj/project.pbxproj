@@ -15,7 +15,6 @@
 		2869F63329C1B22F00CADFD7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2869F63129C1B22F00CADFD7 /* LaunchScreen.storyboard */; };
 		2869F63F29C2E07200CADFD7 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F63E29C2E07200CADFD7 /* LandingViewController.swift */; };
 		2869F64129C2E08500CADFD7 /* LandingViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F64029C2E08500CADFD7 /* LandingViewController+TableView.swift */; };
-		2869F64329C2E09A00CADFD7 /* LandingViewController+Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F64229C2E09A00CADFD7 /* LandingViewController+Network.swift */; };
 		2869F64629C8552D00CADFD7 /* MainArticleTableVewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2869F64529C8552D00CADFD7 /* MainArticleTableVewCell.xib */; };
 		2869F64929C8557900CADFD7 /* MainArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F64829C8557900CADFD7 /* MainArticleTableViewCell.swift */; };
 		2869F64B29C855AF00CADFD7 /* NewsArticleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2869F64A29C855AF00CADFD7 /* NewsArticleTableViewCell.xib */; };
@@ -42,7 +41,6 @@
 		2869F63429C1B22F00CADFD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2869F63E29C2E07200CADFD7 /* LandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
 		2869F64029C2E08500CADFD7 /* LandingViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LandingViewController+TableView.swift"; sourceTree = "<group>"; };
-		2869F64229C2E09A00CADFD7 /* LandingViewController+Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LandingViewController+Network.swift"; sourceTree = "<group>"; };
 		2869F64529C8552D00CADFD7 /* MainArticleTableVewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainArticleTableVewCell.xib; sourceTree = "<group>"; };
 		2869F64829C8557900CADFD7 /* MainArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainArticleTableViewCell.swift; sourceTree = "<group>"; };
 		2869F64A29C855AF00CADFD7 /* NewsArticleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsArticleTableViewCell.xib; sourceTree = "<group>"; };
@@ -78,7 +76,6 @@
 				FD25F74ADA769349F60B2BFD /* Pods-Onews.debug.xcconfig */,
 				39B9B8A47DE1DA4D41CA5553 /* Pods-Onews.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -142,7 +139,6 @@
 				2869F63E29C2E07200CADFD7 /* LandingViewController.swift */,
 				2869F62C29C1B22E00CADFD7 /* LandingViewController.storyboard */,
 				2869F64029C2E08500CADFD7 /* LandingViewController+TableView.swift */,
-				2869F64229C2E09A00CADFD7 /* LandingViewController+Network.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -326,7 +322,6 @@
 			files = (
 				2869F64129C2E08500CADFD7 /* LandingViewController+TableView.swift in Sources */,
 				2869F62729C1B22E00CADFD7 /* AppDelegate.swift in Sources */,
-				2869F64329C2E09A00CADFD7 /* LandingViewController+Network.swift in Sources */,
 				28A909542A6D35390037C24D /* ArticleDelegate.swift in Sources */,
 				2869F63F29C2E07200CADFD7 /* LandingViewController.swift in Sources */,
 				28ECF5A829CF32FB006876B7 /* NewsArticleModel.swift in Sources */,

@@ -15,8 +15,5 @@ class MainArticleTableViewCell: UITableViewCell {
     @IBOutlet weak var websiteLabel: UILabel!
     @IBOutlet weak var articleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+
 }
