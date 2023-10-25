@@ -22,6 +22,7 @@
 		2869F64D29C855BE00CADFD7 /* NewsArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F64C29C855BE00CADFD7 /* NewsArticleTableViewCell.swift */; };
 		28A909522A6D2EED0037C24D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A909512A6D2EED0037C24D /* UIView.swift */; };
 		28A909542A6D35390037C24D /* ArticleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A909532A6D35390037C24D /* ArticleDelegate.swift */; };
+		28D0BFF22AE7BDD700DC08F2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 28D0BFF12AE7BDD700DC08F2 /* .swiftlint.yml */; };
 		28ECF5A429CB4C7A006876B7 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28ECF5A329CB4C7A006876B7 /* SF-Pro.ttf */; };
 		28ECF5A629CD71A4006876B7 /* NewsArticleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ECF5A529CD71A4006876B7 /* NewsArticleData.swift */; };
 		28ECF5A829CF32FB006876B7 /* NewsArticleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ECF5A729CF32FB006876B7 /* NewsArticleModel.swift */; };
@@ -48,6 +49,7 @@
 		2869F64C29C855BE00CADFD7 /* NewsArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleTableViewCell.swift; sourceTree = "<group>"; };
 		28A909512A6D2EED0037C24D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		28A909532A6D35390037C24D /* ArticleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDelegate.swift; sourceTree = "<group>"; };
+		28D0BFF12AE7BDD700DC08F2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		28ECF5A329CB4C7A006876B7 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 		28ECF5A529CD71A4006876B7 /* NewsArticleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewsArticleData.swift; path = Onews/LandingView/ViewModel/NewsArticleData.swift; sourceTree = SOURCE_ROOT; };
 		28ECF5A729CF32FB006876B7 /* NewsArticleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewsArticleModel.swift; path = Onews/LandingView/ViewModel/NewsArticleModel.swift; sourceTree = SOURCE_ROOT; };
@@ -92,6 +94,7 @@
 		2869F61A29C1B22E00CADFD7 = {
 			isa = PBXGroup;
 			children = (
+				28D0BFF12AE7BDD700DC08F2 /* .swiftlint.yml */,
 				2869F62529C1B22E00CADFD7 /* Onews */,
 				2869F62429C1B22E00CADFD7 /* Products */,
 				181D59313C10A1FBF6DEDA8A /* Pods */,
@@ -194,6 +197,7 @@
 				2869F62029C1B22E00CADFD7 /* Frameworks */,
 				2869F62129C1B22E00CADFD7 /* Resources */,
 				2B5989BC0B3306B250A83FB2 /* [CP] Embed Pods Frameworks */,
+				28D0BFF02AE7BB2A00DC08F2 /* SwiftLint Script */,
 			);
 			buildRules = (
 			);
@@ -245,6 +249,7 @@
 				2869F63329C1B22F00CADFD7 /* LaunchScreen.storyboard in Resources */,
 				28ECF5A429CB4C7A006876B7 /* SF-Pro.ttf in Resources */,
 				2869F64629C8552D00CADFD7 /* MainArticleTableVewCell.xib in Resources */,
+				28D0BFF22AE7BDD700DC08F2 /* .swiftlint.yml in Resources */,
 				2869F64B29C855AF00CADFD7 /* NewsArticleTableViewCell.xib in Resources */,
 				2869F63029C1B22F00CADFD7 /* Assets.xcassets in Resources */,
 				2869F62E29C1B22E00CADFD7 /* LandingViewController.storyboard in Resources */,
@@ -254,6 +259,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		28D0BFF02AE7BB2A00DC08F2 /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		2B5989BC0B3306B250A83FB2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
