@@ -7,5 +7,6 @@ target 'Onews' do
 
   # Pods for Onews
 pod 'Kingfisher', '~> 7.0'
+pod 'SwiftLint'
 
 end
