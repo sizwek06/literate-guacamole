@@ -33,7 +33,7 @@ extension LandingViewController: UITableViewDelegate, UITableViewDataSource {
     // group via sources/genre
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return indexPath.section == 0 ? 515 : UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,24 +53,16 @@ extension LandingViewController: UITableViewDelegate, UITableViewDataSource {
             cell.websiteLabel.textColor = returnSourceColour()
             cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
             
+            view.removeBlurFromView()
             return cell
         } else {
             guard let mainArticle = LandingViewModel.shared.mainArticle else { return UITableViewCell() }
-
-            let cell = tableView.dequeueReusableCell(withIdentifier: "mainArticle", for: indexPath) as! MainArticleTableViewCell
-
-            cell.selectionStyle = .none
-            cell.backgroundColor = .none
-
-            downloadImg(urlString: mainArticle.urlToImage, imgView: cell.articleImg)
-            cell.articleLabel.text = mainArticle.title
-            cell.websiteLabel.text = mainArticle.source.name.uppercased()
-            cell.websiteLabel.textColor = returnSourceColour()
-            cell.timeLabel.text = Date().convertStringToDate(dateString: mainArticle.publishedAt)
             
-            view.removeBlurFromView()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MainArticleTableViewCell.identifier) as? MainArticleTableViewCell else { return UITableViewCell() }
+            
+            cell.mainArticleView.articlesArray = Array(LandingViewModel.shared.articlesArray.prefix(3))
+            
             return cell
         }
-        
     }
 }
