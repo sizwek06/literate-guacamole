@@ -36,16 +36,12 @@ extension UIView {
     }
     
     func removeBlurFromView() {
-        for subview in subviews {
-            if subview is UIVisualEffectView {
-                subview.removeFromSuperview()
-            }
+        for subview in subviews where subview is UIVisualEffectView {
+            subview.removeFromSuperview()
         }
         
-        for subview in subviews {
-            if subview is UIActivityIndicatorView {
-                subview.removeFromSuperview()
-            }
+        for subview in subviews where subview is UIActivityIndicatorView {
+            subview.removeFromSuperview()
         }
     }
 }

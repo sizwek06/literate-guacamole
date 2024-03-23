@@ -8,12 +8,10 @@
 import Foundation
 
 struct ArticleManager {
-    
     var delegate: ArticleDelegate?
-    
     func fetchNewsArticles() {
         var urlString = ""
-        
+
         urlString = K.newsArticleURL
         performRequest(with: urlString)
     }
@@ -22,13 +20,12 @@ struct ArticleManager {
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             
-            let task = session.dataTask(with: url) { (data, response, error) in
+            let task = session.dataTask(with: url) { (data, _, error) in
                 DispatchQueue.main.async {
-                    if error != nil {
-                        delegate?.didFailWithError(error: error!)
+                    if let error = error {
+                        delegate?.didFailWithError(error: error.localizedDescription)
                         return
-                    }
-                    if let safeData = data {
+                    } else if let safeData = data {
                         self.parseJSON(safeData)
                         self.delegate?.didReceiveArticlesSuccessfully()
                     }
@@ -47,8 +44,7 @@ struct ArticleManager {
             LandingViewModel.shared.mainArticle = decodedData.articles.first
             LandingViewModel.shared.articlesArray.remove(at: 0)
         } catch {
-            delegate?.didFailWithError(error: error)
+            delegate?.didFailWithError(error: error.localizedDescription)
         }
     }
-    
 }
