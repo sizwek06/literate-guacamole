@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2805A8142BAEE1E4007FDA16 /* MainArticleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2805A8132BAEE1E4007FDA16 /* MainArticleTableViewCell.xib */; };
+		2805A8162BAEE272007FDA16 /* TableViewCellIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2805A8152BAEE272007FDA16 /* TableViewCellIdentifier.swift */; };
+		2805A8182BAEE2CE007FDA16 /* MainArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2805A8172BAEE2CE007FDA16 /* MainArticleTableViewCell.swift */; };
+		2805A81A2BAEE325007FDA16 /* MainArticleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2805A8192BAEE325007FDA16 /* MainArticleCollectionViewCell.xib */; };
+		2805A81C2BAEE374007FDA16 /* MainArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2805A81B2BAEE374007FDA16 /* MainArticleView.swift */; };
+		2805A81E2BAEE5E0007FDA16 /* MainArticleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2805A81D2BAEE5E0007FDA16 /* MainArticleCollectionViewCell.swift */; };
 		2824BC912A507C0900A81CE6 /* ArticleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2824BC902A507C0900A81CE6 /* ArticleManager.swift */; };
 		2869F62729C1B22E00CADFD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F62629C1B22E00CADFD7 /* AppDelegate.swift */; };
 		2869F62929C1B22E00CADFD7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F62829C1B22E00CADFD7 /* SceneDelegate.swift */; };
@@ -15,8 +21,6 @@
 		2869F63329C1B22F00CADFD7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2869F63129C1B22F00CADFD7 /* LaunchScreen.storyboard */; };
 		2869F63F29C2E07200CADFD7 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F63E29C2E07200CADFD7 /* LandingViewController.swift */; };
 		2869F64129C2E08500CADFD7 /* LandingViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F64029C2E08500CADFD7 /* LandingViewController+TableView.swift */; };
-		2869F64629C8552D00CADFD7 /* MainArticleTableVewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2869F64529C8552D00CADFD7 /* MainArticleTableVewCell.xib */; };
-		2869F64929C8557900CADFD7 /* MainArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F64829C8557900CADFD7 /* MainArticleTableViewCell.swift */; };
 		2869F64B29C855AF00CADFD7 /* NewsArticleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2869F64A29C855AF00CADFD7 /* NewsArticleTableViewCell.xib */; };
 		2869F64D29C855BE00CADFD7 /* NewsArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F64C29C855BE00CADFD7 /* NewsArticleTableViewCell.swift */; };
 		28A909522A6D2EED0037C24D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A909512A6D2EED0037C24D /* UIView.swift */; };
@@ -31,6 +35,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2805A8132BAEE1E4007FDA16 /* MainArticleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainArticleTableViewCell.xib; sourceTree = "<group>"; };
+		2805A8152BAEE272007FDA16 /* TableViewCellIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellIdentifier.swift; sourceTree = "<group>"; };
+		2805A8172BAEE2CE007FDA16 /* MainArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainArticleTableViewCell.swift; sourceTree = "<group>"; };
+		2805A8192BAEE325007FDA16 /* MainArticleCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainArticleCollectionViewCell.xib; sourceTree = "<group>"; };
+		2805A81B2BAEE374007FDA16 /* MainArticleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainArticleView.swift; sourceTree = "<group>"; };
+		2805A81D2BAEE5E0007FDA16 /* MainArticleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainArticleCollectionViewCell.swift; sourceTree = "<group>"; };
 		2824BC902A507C0900A81CE6 /* ArticleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManager.swift; sourceTree = "<group>"; };
 		2869F62329C1B22E00CADFD7 /* Onews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Onews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2869F62629C1B22E00CADFD7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -41,8 +51,6 @@
 		2869F63429C1B22F00CADFD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2869F63E29C2E07200CADFD7 /* LandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
 		2869F64029C2E08500CADFD7 /* LandingViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LandingViewController+TableView.swift"; sourceTree = "<group>"; };
-		2869F64529C8552D00CADFD7 /* MainArticleTableVewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainArticleTableVewCell.xib; sourceTree = "<group>"; };
-		2869F64829C8557900CADFD7 /* MainArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainArticleTableViewCell.swift; sourceTree = "<group>"; };
 		2869F64A29C855AF00CADFD7 /* NewsArticleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsArticleTableViewCell.xib; sourceTree = "<group>"; };
 		2869F64C29C855BE00CADFD7 /* NewsArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleTableViewCell.swift; sourceTree = "<group>"; };
 		28A909512A6D2EED0037C24D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -146,11 +154,15 @@
 		2869F64429C854F600CADFD7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				2869F64529C8552D00CADFD7 /* MainArticleTableVewCell.xib */,
-				2869F64829C8557900CADFD7 /* MainArticleTableViewCell.swift */,
 				2869F64A29C855AF00CADFD7 /* NewsArticleTableViewCell.xib */,
 				2869F64C29C855BE00CADFD7 /* NewsArticleTableViewCell.swift */,
 				28A909512A6D2EED0037C24D /* UIView.swift */,
+				2805A8132BAEE1E4007FDA16 /* MainArticleTableViewCell.xib */,
+				2805A8152BAEE272007FDA16 /* TableViewCellIdentifier.swift */,
+				2805A8172BAEE2CE007FDA16 /* MainArticleTableViewCell.swift */,
+				2805A8192BAEE325007FDA16 /* MainArticleCollectionViewCell.xib */,
+				2805A81B2BAEE374007FDA16 /* MainArticleView.swift */,
+				2805A81D2BAEE5E0007FDA16 /* MainArticleCollectionViewCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -243,8 +255,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2869F63329C1B22F00CADFD7 /* LaunchScreen.storyboard in Resources */,
+				2805A81A2BAEE325007FDA16 /* MainArticleCollectionViewCell.xib in Resources */,
+				2805A8142BAEE1E4007FDA16 /* MainArticleTableViewCell.xib in Resources */,
 				28ECF5A429CB4C7A006876B7 /* SF-Pro.ttf in Resources */,
-				2869F64629C8552D00CADFD7 /* MainArticleTableVewCell.xib in Resources */,
 				28D0BFF22AE7BDD700DC08F2 /* .swiftlint.yml in Resources */,
 				2869F64B29C855AF00CADFD7 /* NewsArticleTableViewCell.xib in Resources */,
 				2869F63029C1B22F00CADFD7 /* Assets.xcassets in Resources */,
@@ -321,8 +334,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2869F64129C2E08500CADFD7 /* LandingViewController+TableView.swift in Sources */,
+				2805A81C2BAEE374007FDA16 /* MainArticleView.swift in Sources */,
 				2869F62729C1B22E00CADFD7 /* AppDelegate.swift in Sources */,
 				28A909542A6D35390037C24D /* ArticleDelegate.swift in Sources */,
+				2805A8162BAEE272007FDA16 /* TableViewCellIdentifier.swift in Sources */,
 				2869F63F29C2E07200CADFD7 /* LandingViewController.swift in Sources */,
 				28ECF5A829CF32FB006876B7 /* NewsArticleModel.swift in Sources */,
 				28ECF5AA29CF34A1006876B7 /* LandingViewModel.swift in Sources */,
@@ -332,7 +347,8 @@
 				28A909522A6D2EED0037C24D /* UIView.swift in Sources */,
 				2869F62929C1B22E00CADFD7 /* SceneDelegate.swift in Sources */,
 				2824BC912A507C0900A81CE6 /* ArticleManager.swift in Sources */,
-				2869F64929C8557900CADFD7 /* MainArticleTableViewCell.swift in Sources */,
+				2805A81E2BAEE5E0007FDA16 /* MainArticleCollectionViewCell.swift in Sources */,
+				2805A8182BAEE2CE007FDA16 /* MainArticleTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +499,7 @@
 				DEVELOPMENT_TEAM = U7HFT6QF4H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Onews/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Onews;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.news";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
@@ -517,6 +534,7 @@
 				DEVELOPMENT_TEAM = U7HFT6QF4H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Onews/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Onews;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.news";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
