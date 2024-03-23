@@ -56,8 +56,6 @@ extension LandingViewController: UITableViewDelegate, UITableViewDataSource {
             view.removeBlurFromView()
             return cell
         } else {
-            guard let mainArticle = LandingViewModel.shared.mainArticle else { return UITableViewCell() }
-            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MainArticleTableViewCell.identifier) as? MainArticleTableViewCell else { return UITableViewCell() }
             
             cell.mainArticleView.articlesArray = Array(LandingViewModel.shared.articlesArray.prefix(3))
