@@ -23,7 +23,7 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 1 : LandingViewModel.shared.articlesArray.count
+        return section == 0 ? 1 : ArticlesListViewModel.shared.articlesArray.count
     }
 
     // From Gugs
@@ -39,7 +39,7 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 1 {
-            let article = LandingViewModel.shared.articlesArray[indexPath.row]
+            let article = ArticlesListViewModel.shared.articlesArray[indexPath.row]
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "newsArticle", for: indexPath) as! NewsArticleTableViewCell
             
@@ -58,7 +58,7 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MainArticleTableViewCell.identifier) as? MainArticleTableViewCell else { return UITableViewCell() }
             
-            cell.mainArticleView.articlesArray = Array(LandingViewModel.shared.articlesArray.prefix(3))
+            cell.mainArticleView.articlesArray = Array(ArticlesListViewModel.shared.articlesArray.prefix(3))
             
             cell.mainArticleView.didSelectArticle = { articleClicked in
                 self.handleOpenArticleURL(url: articleClicked)
@@ -69,7 +69,7 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let articleURL = LandingViewModel.shared.articlesArray[indexPath.row].url
+        let articleURL = ArticlesListViewModel.shared.articlesArray[indexPath.row].url
         
         DispatchQueue.main.async {
             self.handleOpenArticleURL(url: articleURL)

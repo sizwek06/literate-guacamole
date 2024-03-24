@@ -11,7 +11,7 @@ import UIKit
 extension ArticlesListViewController: ArticleDelegate {
     
     func reloadNewsArticles() {
-        articlesManager.fetchNewsArticles()
+        articlesListViewModel.fetchNewsArticles()
         tableView.reloadData()
     }
     

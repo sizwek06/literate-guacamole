@@ -87,7 +87,7 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        didSelectArticle?(LandingViewModel.shared.articlesArray[indexPath.row].url)
+        didSelectArticle?(ArticlesListViewModel.shared.articlesArray[indexPath.row].url)
     }
 }
 
