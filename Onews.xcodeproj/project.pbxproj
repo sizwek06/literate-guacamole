@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28058C702BB080930014700E /* ArticleWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28058C6F2BB080930014700E /* ArticleWebViewController.swift */; };
 		2805A8142BAEE1E4007FDA16 /* MainArticleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2805A8132BAEE1E4007FDA16 /* MainArticleTableViewCell.xib */; };
 		2805A8162BAEE272007FDA16 /* TableViewCellIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2805A8152BAEE272007FDA16 /* TableViewCellIdentifier.swift */; };
 		2805A8182BAEE2CE007FDA16 /* MainArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2805A8172BAEE2CE007FDA16 /* MainArticleTableViewCell.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28058C6F2BB080930014700E /* ArticleWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleWebViewController.swift; sourceTree = "<group>"; };
 		2805A8132BAEE1E4007FDA16 /* MainArticleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainArticleTableViewCell.xib; sourceTree = "<group>"; };
 		2805A8152BAEE272007FDA16 /* TableViewCellIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellIdentifier.swift; sourceTree = "<group>"; };
 		2805A8172BAEE2CE007FDA16 /* MainArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainArticleTableViewCell.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				2869F62C29C1B22E00CADFD7 /* ArticlesListViewController.storyboard */,
 				2869F64029C2E08500CADFD7 /* ArticlesListViewController+TableView.swift */,
 				2805A8202BB04D31007FDA16 /* ArticlesListController+Delegate.swift */,
+				28058C6F2BB080930014700E /* ArticleWebViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				28ECF5AA29CF34A1006876B7 /* LandingViewModel.swift in Sources */,
 				2805A8212BB04D31007FDA16 /* ArticlesListController+Delegate.swift in Sources */,
 				2869F64D29C855BE00CADFD7 /* NewsArticleTableViewCell.swift in Sources */,
+				28058C702BB080930014700E /* ArticleWebViewController.swift in Sources */,
 				28ECF5A629CD71A4006876B7 /* NewsArticleData.swift in Sources */,
 				28ECF5AC29CF3ED5006876B7 /* K.swift in Sources */,
 				28A909522A6D2EED0037C24D /* UIView.swift in Sources */,

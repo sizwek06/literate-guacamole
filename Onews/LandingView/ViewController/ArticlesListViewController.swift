@@ -12,6 +12,7 @@ import Kingfisher
 class ArticlesListViewController: UIViewController {
     
     var articlesManager = ArticleManager()
+    var openArticleURL: ((String) -> Void)?
     
     internal let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
@@ -19,6 +20,15 @@ class ArticlesListViewController: UIViewController {
         table.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
         return table
     }()
+    
+    init(articlesManager: ArticleManager = ArticleManager()) {
+        super.init(nibName: nil, bundle: nil)
+        self.articlesManager = articlesManager
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +74,11 @@ class ArticlesListViewController: UIViewController {
         default:
             return K.newsColor.oNewsBlack
         }
+    }
+    
+    func handleOpenArticleURL(url: String) {
+        let articleWebViewController = ArticleWebViewController(url: url)
+        self.present(articleWebViewController, animated: true)
     }
 }
 

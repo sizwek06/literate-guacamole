@@ -60,7 +60,19 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.mainArticleView.articlesArray = Array(LandingViewModel.shared.articlesArray.prefix(3))
             
+            cell.mainArticleView.didSelectArticle = { articleClicked in
+                self.handleOpenArticleURL(url: articleClicked)
+            }
+            
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let articleURL = LandingViewModel.shared.articlesArray[indexPath.row].url
+        
+        DispatchQueue.main.async {
+            self.handleOpenArticleURL(url: articleURL)
         }
     }
 }

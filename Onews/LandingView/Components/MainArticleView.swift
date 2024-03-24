@@ -10,6 +10,8 @@ import UIKit
 
 class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    var didSelectArticle: ((String) -> Void)?
+    
     var articlesArray: [Article] = [] {
         didSet {
             if articlesArray.count > 3 {
@@ -25,15 +27,15 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
         flowLayout.estimatedItemSize = CGSize(width: (UIScreen.main.bounds.width - 144.0) / 3, height: (UIScreen.main.bounds.width - 144.0) / 3)
         flowLayout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = UIColor.white
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.allowsSelection = false
+        collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = true
         collectionView.register(UINib(nibName: "MainArticleCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "articleId")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isUserInteractionEnabled = true
         return collectionView
     }()
     
@@ -82,6 +84,10 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (UIScreen.main.bounds.width - 144.0) / 3, height: (UIScreen.main.bounds.width - 144.0) / 3)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        didSelectArticle?(LandingViewModel.shared.articlesArray[indexPath.row].url)
     }
 }
 

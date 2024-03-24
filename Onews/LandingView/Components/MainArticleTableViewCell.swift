@@ -13,13 +13,13 @@ class MainArticleTableViewCell: UITableViewCell {
     lazy var mainArticleView: MainArticleView = {
         let mainArticle = MainArticleView()
         mainArticle.translatesAutoresizingMaskIntoConstraints = false
+        mainArticle.isUserInteractionEnabled = true
         return mainArticle
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = UIColor.white
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = .zero
         
@@ -31,7 +31,6 @@ class MainArticleTableViewCell: UITableViewCell {
     }
     
     func setupView() {
-        backgroundColor = UIColor(named: "CollectionColor")
         accessoryType = .none
         selectionStyle = .none
         
