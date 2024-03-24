@@ -11,7 +11,8 @@ import Kingfisher
 
 class ArticlesListViewController: UIViewController {
     
-    var articlesManager = ArticleManager()
+    var articlesListViewModel = ArticlesListViewModel()
+    var openArticleURL: ((String) -> Void)?
     
     internal let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
@@ -24,8 +25,8 @@ class ArticlesListViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Onews"
-        articlesManager.delegate = self
-        articlesManager.fetchNewsArticles()
+        articlesListViewModel.delegate = self
+        articlesListViewModel.fetchNewsArticles()
         
         view.addSubview(tableView)
         
@@ -64,6 +65,12 @@ class ArticlesListViewController: UIViewController {
         default:
             return K.newsColor.oNewsBlack
         }
+    }
+    
+    func handleOpenArticleURL(url: String, source: String) {
+        let articleWebViewController = ArticleWebViewController(url: url, source: source)
+        let navController = UINavigationController(rootViewController: articleWebViewController)
+        self.present(navController, animated: true, completion: nil)
     }
 }
 

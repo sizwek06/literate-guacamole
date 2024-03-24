@@ -10,7 +10,7 @@ import UIKit
 
 struct K {
     
-    static let newsArticleURL = "https://newsapi.org/v2/top-headlines?country=us&apiKey=59fd1c88fc3f43d8a4dab7d839612abf"
+    static let newsArticleURL = "https://newsapi.org/v2/top-headlines?country=us&pageSize=35&apiKey=59fd1c88fc3f43d8a4dab7d839612abf"
     static let mainArticleHeader = "TOP NEWS"
     static let otherArticlesHeader = "OTHER ARTICLES"
     
