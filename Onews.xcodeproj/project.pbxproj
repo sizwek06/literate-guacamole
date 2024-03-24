@@ -24,7 +24,6 @@
 		2869F64129C2E08500CADFD7 /* ArticlesListViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F64029C2E08500CADFD7 /* ArticlesListViewController+TableView.swift */; };
 		2869F64B29C855AF00CADFD7 /* NewsArticleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2869F64A29C855AF00CADFD7 /* NewsArticleTableViewCell.xib */; };
 		2869F64D29C855BE00CADFD7 /* NewsArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F64C29C855BE00CADFD7 /* NewsArticleTableViewCell.swift */; };
-		28A909522A6D2EED0037C24D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A909512A6D2EED0037C24D /* UIView.swift */; };
 		28A909542A6D35390037C24D /* ArticleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A909532A6D35390037C24D /* ArticleDelegate.swift */; };
 		28D0BFF22AE7BDD700DC08F2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 28D0BFF12AE7BDD700DC08F2 /* .swiftlint.yml */; };
 		28ECF5A429CB4C7A006876B7 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28ECF5A329CB4C7A006876B7 /* SF-Pro.ttf */; };
@@ -55,7 +54,6 @@
 		2869F64029C2E08500CADFD7 /* ArticlesListViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticlesListViewController+TableView.swift"; sourceTree = "<group>"; };
 		2869F64A29C855AF00CADFD7 /* NewsArticleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsArticleTableViewCell.xib; sourceTree = "<group>"; };
 		2869F64C29C855BE00CADFD7 /* NewsArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleTableViewCell.swift; sourceTree = "<group>"; };
-		28A909512A6D2EED0037C24D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		28A909532A6D35390037C24D /* ArticleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDelegate.swift; sourceTree = "<group>"; };
 		28D0BFF12AE7BDD700DC08F2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		28ECF5A329CB4C7A006876B7 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
@@ -159,7 +157,6 @@
 			children = (
 				2869F64A29C855AF00CADFD7 /* NewsArticleTableViewCell.xib */,
 				2869F64C29C855BE00CADFD7 /* NewsArticleTableViewCell.swift */,
-				28A909512A6D2EED0037C24D /* UIView.swift */,
 				2805A8132BAEE1E4007FDA16 /* MainArticleTableViewCell.xib */,
 				2805A8152BAEE272007FDA16 /* TableViewCellIdentifier.swift */,
 				2805A8172BAEE2CE007FDA16 /* MainArticleTableViewCell.swift */,
@@ -349,7 +346,6 @@
 				28058C702BB080930014700E /* ArticleWebViewController.swift in Sources */,
 				28ECF5A629CD71A4006876B7 /* NewsArticleData.swift in Sources */,
 				28ECF5AC29CF3ED5006876B7 /* K.swift in Sources */,
-				28A909522A6D2EED0037C24D /* UIView.swift in Sources */,
 				2869F62929C1B22E00CADFD7 /* SceneDelegate.swift in Sources */,
 				2805A81E2BAEE5E0007FDA16 /* MainArticleCollectionViewCell.swift in Sources */,
 				2805A8182BAEE2CE007FDA16 /* MainArticleTableViewCell.swift in Sources */,

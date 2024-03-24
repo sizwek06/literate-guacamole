@@ -53,7 +53,6 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
             cell.websiteLabel.textColor = returnSourceColour()
             cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
             
-            view.removeBlurFromView()
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MainArticleTableViewCell.identifier) as? MainArticleTableViewCell else { return UITableViewCell() }
