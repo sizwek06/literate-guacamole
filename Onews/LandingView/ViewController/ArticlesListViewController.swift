@@ -42,7 +42,6 @@ class ArticlesListViewController: UIViewController {
         search.delegate = self
         search.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: createSearchButton(), style: .plain, target: self, action: #selector(showSearchBar))
     }
     
     override func viewWillLayoutSubviews() {
@@ -84,15 +83,6 @@ class ArticlesListViewController: UIViewController {
         let navController = UINavigationController(rootViewController: articleWebViewController)
         navController.navigationBar.barTintColor = UIColor(named: "CollectionColor")
         self.present(navController, animated: true, completion: nil)
-    }
-    
-    func createSearchButton() -> UIImage {
-        let config = UIImage.SymbolConfiguration(scale: .large)
-        return (UIImage(systemName: "sparkle.magnifyingglass", withConfiguration: config)?.withTintColor(UIColor(named: "CollectionColor")!))!
-    }
-    
-    @objc func showSearchBar() {
-        searchBarCancelButtonClicked(search.searchBar)
     }
 }
 
