@@ -31,7 +31,7 @@ class MainArticleTableViewCell: UITableViewCell {
     }
     
     func setupView() {
-        backgroundColor = .white
+        backgroundColor = UIColor(named: "CollectionColor")
         accessoryType = .none
         selectionStyle = .none
         
