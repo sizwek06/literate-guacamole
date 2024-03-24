@@ -12,7 +12,6 @@ class ArticlesListViewModel {
     static let shared = ArticlesListViewModel()
     
     var articlesArray: [Article] = []
-    var mainArticle: Article?
     
     var delegate: ArticleDelegate?
     func fetchNewsArticles() {
@@ -46,9 +45,7 @@ class ArticlesListViewModel {
         
         do {
             let decodedData = try decoder.decode(NewsArticle.self, from: newsData)
-            ArticlesListViewModel.shared.articlesArray = decodedData.articles
-            ArticlesListViewModel.shared.mainArticle = decodedData.articles.first
-            ArticlesListViewModel.shared.articlesArray.remove(at: 0)
+            self.articlesArray = decodedData.articles
         } catch {
             delegate?.didFailWithError(error: error.localizedDescription)
         }

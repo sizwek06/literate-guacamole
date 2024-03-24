@@ -67,9 +67,10 @@ class ArticlesListViewController: UIViewController {
         }
     }
     
-    func handleOpenArticleURL(url: String) {
-        let articleWebViewController = ArticleWebViewController(url: url)
-        self.present(articleWebViewController, animated: true)
+    func handleOpenArticleURL(url: String, source: String) {
+        let articleWebViewController = ArticleWebViewController(url: url, source: source)
+        let navController = UINavigationController(rootViewController: articleWebViewController)
+        self.present(navController, animated: true, completion: nil)
     }
 }
 

@@ -23,7 +23,7 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 1 : ArticlesListViewModel.shared.articlesArray.count
+        return section == 0 ? 1 : articlesListViewModel.articlesArray.count
     }
 
     // From Gugs
@@ -39,7 +39,7 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 1 {
-            let article = ArticlesListViewModel.shared.articlesArray[indexPath.row]
+            let article = articlesListViewModel.articlesArray[indexPath.row]
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "newsArticle", for: indexPath) as! NewsArticleTableViewCell
             
@@ -58,10 +58,10 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MainArticleTableViewCell.identifier) as? MainArticleTableViewCell else { return UITableViewCell() }
             
-            cell.mainArticleView.articlesArray = Array(ArticlesListViewModel.shared.articlesArray.prefix(3))
+            cell.mainArticleView.articlesArray = Array(articlesListViewModel.articlesArray.prefix(3))
             
-            cell.mainArticleView.didSelectArticle = { articleClicked in
-                self.handleOpenArticleURL(url: articleClicked)
+            cell.mainArticleView.didSelectArticle = { articleClicked, articleSource in
+                self.handleOpenArticleURL(url: articleClicked, source: articleSource)
             }
             
             return cell
@@ -69,10 +69,10 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let articleURL = ArticlesListViewModel.shared.articlesArray[indexPath.row].url
+        let article = articlesListViewModel.articlesArray[indexPath.row]
         
         DispatchQueue.main.async {
-            self.handleOpenArticleURL(url: articleURL)
+            self.handleOpenArticleURL(url: article.url, source: article.source.name)
         }
     }
 }

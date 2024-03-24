@@ -10,7 +10,7 @@ import UIKit
 
 class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    var didSelectArticle: ((String) -> Void)?
+    var didSelectArticle: ((String, String) -> Void)?
     
     var articlesArray: [Article] = [] {
         didSet {
@@ -39,8 +39,9 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
         return collectionView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(articlesArray: [Article]) {
+        super.init(frame: .zero)
+        self.articlesArray = articlesArray
         setupView()
     }
     
@@ -87,7 +88,7 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        didSelectArticle?(ArticlesListViewModel.shared.articlesArray[indexPath.row].url)
+        didSelectArticle?(articlesArray[indexPath.row].url, articlesArray[indexPath.row].source.name)
     }
 }
 
