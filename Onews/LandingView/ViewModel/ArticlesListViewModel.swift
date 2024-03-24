@@ -1,13 +1,18 @@
 //
-//  ArticleManager.swift
+//  LandingViewModel.swift
 //  Onews
 //
-//  Created by Sizwe Khathi on 2023/07/01.
+//  Created by Sizwe Khathi on 2023/03/25.
 //
 
 import Foundation
 
-struct ArticleManager {
+class ArticlesListViewModel {
+    
+    static let shared = ArticlesListViewModel()
+    
+    var articlesArray: [Article] = []
+    
     var delegate: ArticleDelegate?
     func fetchNewsArticles() {
         var urlString = ""
@@ -23,7 +28,7 @@ struct ArticleManager {
             let task = session.dataTask(with: url) { (data, _, error) in
                 DispatchQueue.main.async {
                     if let error = error {
-                        delegate?.didFailWithError(error: error.localizedDescription)
+                        self.delegate?.didFailWithError(error: error.localizedDescription)
                         return
                     } else if let safeData = data {
                         self.parseJSON(safeData)
@@ -40,9 +45,7 @@ struct ArticleManager {
         
         do {
             let decodedData = try decoder.decode(NewsArticle.self, from: newsData)
-            LandingViewModel.shared.articlesArray = decodedData.articles
-            LandingViewModel.shared.mainArticle = decodedData.articles.first
-            LandingViewModel.shared.articlesArray.remove(at: 0)
+            self.articlesArray = decodedData.articles
         } catch {
             delegate?.didFailWithError(error: error.localizedDescription)
         }

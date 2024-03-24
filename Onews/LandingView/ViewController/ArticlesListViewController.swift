@@ -9,9 +9,10 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class LandingViewController: UIViewController {
+class ArticlesListViewController: UIViewController {
     
-    var articlesManager = ArticleManager()
+    var articlesListViewModel = ArticlesListViewModel()
+    var openArticleURL: ((String) -> Void)?
     
     internal let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
@@ -24,8 +25,8 @@ class LandingViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Onews"
-        articlesManager.delegate = self
-        articlesManager.fetchNewsArticles()
+        articlesListViewModel.delegate = self
+        articlesListViewModel.fetchNewsArticles()
         
         view.addSubview(tableView)
         
@@ -65,6 +66,12 @@ class LandingViewController: UIViewController {
             return K.newsColor.oNewsBlack
         }
     }
+    
+    func handleOpenArticleURL(url: String, source: String) {
+        let articleWebViewController = ArticleWebViewController(url: url, source: source)
+        let navController = UINavigationController(rootViewController: articleWebViewController)
+        self.present(navController, animated: true, completion: nil)
+    }
 }
 
 extension Date {
@@ -89,31 +96,5 @@ extension Date {
             }
         }
         return ""
-    }
-}
-
-// MARK: Articles Manager Delegate
-extension LandingViewController: ArticleDelegate {
-    
-    func reloadNewsArticles() {
-        articlesManager.fetchNewsArticles()
-        tableView.reloadData()
-    }
-    
-    func didReceiveArticlesSuccessfully() {
-        tableView.reloadData()
-    }
-    
-    func didFailWithError(error: String) {
-        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Retry", style: UIAlertAction.Style.default, handler: { (_) in
-            self.reloadNewsArticles()
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (_) in
-            self.dismiss(animated: true)
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
     }
 }
