@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class LandingViewController: UIViewController {
+class ArticlesListViewController: UIViewController {
     
     var articlesManager = ArticleManager()
     

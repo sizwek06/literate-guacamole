@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension LandingViewController: UITableViewDelegate, UITableViewDataSource {
+extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2

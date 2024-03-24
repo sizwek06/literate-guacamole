@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension LandingViewController: ArticleDelegate {
+extension ArticlesListViewController: ArticleDelegate {
     
     func reloadNewsArticles() {
         articlesManager.fetchNewsArticles()
