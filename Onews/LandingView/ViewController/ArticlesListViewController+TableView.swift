@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension LandingViewController: UITableViewDelegate, UITableViewDataSource {
+extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -23,7 +23,7 @@ extension LandingViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 1 : LandingViewModel.shared.articlesArray.count
+        return section == 0 ? 1 : articlesListViewModel.articlesArray.count
     }
 
     // From Gugs
@@ -39,7 +39,7 @@ extension LandingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 1 {
-            let article = LandingViewModel.shared.articlesArray[indexPath.row]
+            let article = articlesListViewModel.articlesArray[indexPath.row]
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "newsArticle", for: indexPath) as! NewsArticleTableViewCell
             
@@ -56,13 +56,23 @@ extension LandingViewController: UITableViewDelegate, UITableViewDataSource {
             view.removeBlurFromView()
             return cell
         } else {
-            guard let mainArticle = LandingViewModel.shared.mainArticle else { return UITableViewCell() }
-            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MainArticleTableViewCell.identifier) as? MainArticleTableViewCell else { return UITableViewCell() }
             
-            cell.mainArticleView.articlesArray = Array(LandingViewModel.shared.articlesArray.prefix(3))
+            cell.mainArticleView.articlesArray = Array(articlesListViewModel.articlesArray.prefix(3))
+            
+            cell.mainArticleView.didSelectArticle = { articleClicked, articleSource in
+                self.handleOpenArticleURL(url: articleClicked, source: articleSource)
+            }
             
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let article = articlesListViewModel.articlesArray[indexPath.row]
+        
+        DispatchQueue.main.async {
+            self.handleOpenArticleURL(url: article.url, source: article.source.name)
         }
     }
 }

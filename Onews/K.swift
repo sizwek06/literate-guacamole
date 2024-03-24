@@ -10,12 +10,12 @@ import UIKit
 
 struct K {
     
-    static let newsArticleURL = "https://newsapi.org/v2/top-headlines?country=us&apiKey=59fd1c88fc3f43d8a4dab7d839612abf"
+    static let newsArticleURL = "https://newsapi.org/v2/top-headlines?country=us&pageSize=35&apiKey=59fd1c88fc3f43d8a4dab7d839612abf"
     static let mainArticleHeader = "TOP NEWS"
     static let otherArticlesHeader = "OTHER ARTICLES"
     
     struct newsColor {
-        static let oNewsBlack = UIColor.black
+        static let oNewsBlack = UIColor.darkGray
         static let oNewsGold = UIColor(red: 0.99, green: 0.80, blue: 0.00, alpha: 1.00)
         static let oNewsGreen = UIColor(red: 0.00, green: 0.55, blue: 0.01, alpha: 1.00)
         static let oNewsMaroon = UIColor(red: 0.72, green: 0.00, blue: 0.00, alpha: 1.00)
