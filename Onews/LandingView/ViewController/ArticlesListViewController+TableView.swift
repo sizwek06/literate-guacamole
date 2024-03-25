@@ -67,11 +67,63 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let shareAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
+            self.shareArticleLink(with: self.articlesListViewModel.articlesArray[indexPath.row].url)
+            
+            completionHandler(true)
+        }
+        
+        let likeAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
+            self.shareArticleLink(with: self.articlesListViewModel.articlesArray[indexPath.row].url)
+            
+            completionHandler(true)
+        }
+        
+        shareAction.backgroundColor = K.newsColor.oNewsBlue
+        likeAction.backgroundColor = K.newsColor.oNewsMaroon
+        
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [likeAction, shareAction])
+        swipeConfiguration.performsFirstActionWithFullSwipe = false
+        
+        likeAction.image = addLabelToImage(imageString: "bookmark", labelString: "Save")
+        shareAction.image = addLabelToImage(imageString: "square.and.arrow.up", labelString: "Share")
+        
+        return swipeConfiguration
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articlesListViewModel.articlesArray[indexPath.row]
         
         DispatchQueue.main.async {
             self.handleOpenArticleURL(url: article.url, source: article.source.name)
         }
+    }
+    
+    private func addLabelToImage(imageString: String, labelString: String) -> UIImage? {
+        var image = UIImage()
+        
+        let tempView = UIStackView(frame: CGRect(x: 0, y: 0, width: 90, height: 50))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: image.size.height, height: image.size.height))
+        
+        let readLabel = UILabel()
+        readLabel.text = labelString
+        readLabel.font = UIFont(name: "SF-Pro", size: 20)
+        readLabel.sizeToFit()
+        readLabel.textColor = .white
+        
+        imageView.contentMode = .scaleAspectFit
+        tempView.axis = .vertical
+        tempView.alignment = .center
+        tempView.spacing = 8
+        imageView.image = UIImage(systemName: imageString)?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        tempView.addArrangedSubview(imageView)
+        tempView.addArrangedSubview(readLabel)
+        let renderer = UIGraphicsImageRenderer(bounds: tempView.bounds)
+        image = renderer.image { rendererContext in
+            tempView.layer.render(in: rendererContext.cgContext)
+        }
+        return image
     }
 }
