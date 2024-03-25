@@ -23,7 +23,7 @@ class MainArticleCollectionViewCell: UICollectionViewCell {
         articleImg.layer.cornerRadius = 8.0
         articleImg.clipsToBounds = true
         view.backgroundColor = UIColor(named: "CollectionColor")
-        view.layer.borderWidth = 0.1
+        view.layer.borderWidth = 0.3
         view.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
     }
 }

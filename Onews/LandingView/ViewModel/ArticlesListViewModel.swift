@@ -16,17 +16,11 @@ class ArticlesListViewModel {
     var delegate: ArticleDelegate?
     
     func fetchNewsArticles() {
-        var urlString = ""
-
-        urlString = K.newsArticleURL
-        performRequest(with: urlString)
+        performRequest(with: K.newsArticleURL)
     }
     
     func searchArticleTopic(with searchPhrase: String) {
-        var urlString = ""
-        
-        urlString = K.searchURL + searchPhrase
-        performRequest(with: urlString)
+        performRequest(with: K.searchURL + searchPhrase)
     }
     
     func performRequest(with urlString: String) {
@@ -54,6 +48,7 @@ class ArticlesListViewModel {
         do {
             let decodedData = try decoder.decode(NewsArticle.self, from: newsData)
             self.articlesArray = decodedData.articles
+            self.articlesArray = articlesArray.filter { $0.title != "[Removed]" }
         } catch {
             delegate?.didFailWithError(error: error.localizedDescription)
         }

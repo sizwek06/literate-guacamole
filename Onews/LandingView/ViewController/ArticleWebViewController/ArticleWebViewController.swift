@@ -30,12 +30,11 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
         webView.load(URLRequest(url: URL(string: self.url!)!))
         webView.allowsBackForwardNavigationGestures = true
         
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeWebView))
         navigationItem.title = self.source
         navigationItem.rightBarButtonItems = 
-        [UIBarButtonItem(image: createRefreshButton(), style: .plain, target: self, action: #selector(reloadWebView)),
-         UIBarButtonItem(image: createShareButton(), style: .plain, target: self, action: #selector(shareNewsArticleLink))]
+        [UIBarButtonItem(image: createBarButton(using: "arrow.clockwise"), style: .plain, target: self, action: #selector(reloadWebView)),
+         UIBarButtonItem(image: createBarButton(using: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareNewsArticleLink))]
     }
     
     override func loadView() {
@@ -58,22 +57,16 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
     }
     
     @objc func shareNewsArticleLink() {
-        
         guard let articleURL = self.url else { return }
         
         let activityViewController = UIActivityViewController(activityItems: [articleURL], applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        activityViewController.popoverPresentationController?.sourceView = self.view
         
         self.present(activityViewController, animated: true, completion: nil)
     }
     
-    func createRefreshButton() -> UIImage {
-        let config = UIImage.SymbolConfiguration(scale: .large)
-        return UIImage(systemName: "arrow.clockwise", withConfiguration: config)!
-    }
-    
-    func createShareButton() -> UIImage {
-        let config = UIImage.SymbolConfiguration(scale: .large)
-        return UIImage(systemName: "square.and.arrow.up", withConfiguration: config)!
+    func createBarButton(using systemName: String) -> UIImage {
+        let config = UIImage.SymbolConfiguration(scale: .medium)
+        return UIImage(systemName: systemName, withConfiguration: config)!
     }
 }

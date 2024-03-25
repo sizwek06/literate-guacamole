@@ -123,10 +123,6 @@ extension MainArticleView: ArticleDelegate {
         }
     }
     
-    func reloadNewsArticles() {
-        mainArticleCollectionView.reloadData()
-    }
-    
     func didReceiveArticlesSuccessfully() {
         mainArticleCollectionView.reloadData()
     }

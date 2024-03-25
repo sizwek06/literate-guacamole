@@ -25,12 +25,6 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 : articlesListViewModel.articlesArray.count
     }
-
-    // From Gugs
-    // MainArticle needs section headerView. (code in chat with Gugs 03 Apr)
-    // Tesla News is a headerInSection, hide...
-    // consider footerInSection to have Load More (paging)
-    // group via sources/genre
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return indexPath.section == 0 ? 515 : UITableView.automaticDimension
@@ -107,11 +101,11 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
         let tempView = UIStackView(frame: CGRect(x: 0, y: 0, width: 90, height: 50))
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: image.size.height, height: image.size.height))
         
-        let readLabel = UILabel()
-        readLabel.text = labelString
-        readLabel.font = UIFont(name: "SF-Pro", size: 20)
-        readLabel.sizeToFit()
-        readLabel.textColor = .white
+        let textLabel = UILabel()
+        textLabel.text = labelString
+        textLabel.font = UIFont(name: "SF-Pro", size: 20)
+        textLabel.sizeToFit()
+        textLabel.textColor = .white
         
         imageView.contentMode = .scaleAspectFit
         tempView.axis = .vertical
@@ -119,7 +113,7 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
         tempView.spacing = 8
         imageView.image = UIImage(systemName: imageString)?.withTintColor(.white, renderingMode: .alwaysOriginal)
         tempView.addArrangedSubview(imageView)
-        tempView.addArrangedSubview(readLabel)
+        tempView.addArrangedSubview(textLabel)
         let renderer = UIGraphicsImageRenderer(bounds: tempView.bounds)
         image = renderer.image { rendererContext in
             tempView.layer.render(in: rendererContext.cgContext)
