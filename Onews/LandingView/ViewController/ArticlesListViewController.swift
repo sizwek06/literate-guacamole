@@ -84,6 +84,14 @@ class ArticlesListViewController: UIViewController {
         navController.navigationBar.barTintColor = UIColor(named: "CollectionColor")
         self.present(navController, animated: true, completion: nil)
     }
+    
+    func shareArticleLink(with urlString: String) {
+        let textToShare = [ urlString ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        
+        self.present(activityViewController, animated: true, completion: nil)
+    }
 }
 
 extension Date {

@@ -33,7 +33,9 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeWebView))
         navigationItem.title = self.source
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: createRefreshButton(), style: .plain, target: self, action: #selector(reloadWebView))
+        navigationItem.rightBarButtonItems = 
+        [UIBarButtonItem(image: createRefreshButton(), style: .plain, target: self, action: #selector(reloadWebView)),
+         UIBarButtonItem(image: createShareButton(), style: .plain, target: self, action: #selector(shareNewsArticleLink))]
     }
     
     override func loadView() {
@@ -49,14 +51,29 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
     @objc func reloadWebView() {
         
         if webView.url != nil {
-                webView.reload()
-            } else {
-                webView.load(URLRequest(url: URL(string: self.url!)!))
-            }
+            webView.reload()
+        } else {
+            webView.load(URLRequest(url: URL(string: self.url!)!))
+        }
+    }
+    
+    @objc func shareNewsArticleLink() {
+        
+        guard let articleURL = self.url else { return }
+        
+        let activityViewController = UIActivityViewController(activityItems: [articleURL], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     func createRefreshButton() -> UIImage {
         let config = UIImage.SymbolConfiguration(scale: .large)
         return UIImage(systemName: "arrow.clockwise", withConfiguration: config)!
+    }
+    
+    func createShareButton() -> UIImage {
+        let config = UIImage.SymbolConfiguration(scale: .large)
+        return UIImage(systemName: "square.and.arrow.up", withConfiguration: config)!
     }
 }
