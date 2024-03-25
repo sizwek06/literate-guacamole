@@ -16,17 +16,11 @@ class ArticlesListViewModel {
     var delegate: ArticleDelegate?
     
     func fetchNewsArticles() {
-        var urlString = ""
-
-        urlString = K.newsArticleURL
-        performRequest(with: urlString)
+        performRequest(with: K.newsArticleURL)
     }
     
     func searchArticleTopic(with searchPhrase: String) {
-        var urlString = ""
-        
-        urlString = K.searchURL + searchPhrase
-        performRequest(with: urlString)
+        performRequest(with: K.searchURL + searchPhrase)
     }
     
     func performRequest(with urlString: String) {
