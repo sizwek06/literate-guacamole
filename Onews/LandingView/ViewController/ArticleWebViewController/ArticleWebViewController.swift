@@ -33,8 +33,8 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeWebView))
         navigationItem.title = self.source
         navigationItem.rightBarButtonItems = 
-        [UIBarButtonItem(image: createBarButtonRefreshButton(using: "arrow.clockwise"), style: .plain, target: self, action: #selector(reloadWebView)),
-         UIBarButtonItem(image: createBarButtonRefreshButton(using: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareNewsArticleLink))]
+        [UIBarButtonItem(image: createBarButton(using: "arrow.clockwise"), style: .plain, target: self, action: #selector(reloadWebView)),
+         UIBarButtonItem(image: createBarButton(using: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareNewsArticleLink))]
     }
     
     override func loadView() {
@@ -65,7 +65,7 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
         self.present(activityViewController, animated: true, completion: nil)
     }
     
-    func createBarButtonRefreshButton(using systemName: String) -> UIImage {
+    func createBarButton(using systemName: String) -> UIImage {
         let config = UIImage.SymbolConfiguration(scale: .medium)
         return UIImage(systemName: systemName, withConfiguration: config)!
     }
