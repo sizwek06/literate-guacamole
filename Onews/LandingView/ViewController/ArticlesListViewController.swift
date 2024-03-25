@@ -13,11 +13,14 @@ class ArticlesListViewController: UIViewController {
     
     var articlesListViewModel = ArticlesListViewModel()
     var openArticleURL: ((String) -> Void)?
+    var searchText: String = ""
+    let search = UISearchController(searchResultsController: nil)
     
-    internal let tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
         table.register(MainArticleTableViewCell.self, forCellReuseIdentifier: MainArticleTableViewCell.identifier)
         table.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
+        table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
     
@@ -30,12 +33,20 @@ class ArticlesListViewController: UIViewController {
         
         view.addSubview(tableView)
         
-        self.view.addBlurToView()
         tableView.rowHeight = 150
         tableView.separatorStyle = .singleLine
         tableView.delegate = self
         tableView.dataSource = self
         tableView.frame = view.bounds
+        
+        search.delegate = self
+        search.searchBar.delegate = self
+        navigationItem.hidesSearchBarWhenScrolling = true
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.navigationItem.searchController = search
     }
     
     func downloadImg(urlString: String?, imgView: UIImageView) {
@@ -70,6 +81,7 @@ class ArticlesListViewController: UIViewController {
     func handleOpenArticleURL(url: String, source: String) {
         let articleWebViewController = ArticleWebViewController(url: url, source: source)
         let navController = UINavigationController(rootViewController: articleWebViewController)
+        navController.navigationBar.barTintColor = UIColor(named: "CollectionColor")
         self.present(navController, animated: true, completion: nil)
     }
 }
@@ -96,5 +108,19 @@ extension Date {
             }
         }
         return ""
+    }
+}
+
+extension ArticlesListViewController: UISearchControllerDelegate, UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchText = ""
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchPhrase = searchBar.text else { return }
+        
+        articlesListViewModel.searchArticleTopic(with: searchPhrase)
+        return
     }
 }

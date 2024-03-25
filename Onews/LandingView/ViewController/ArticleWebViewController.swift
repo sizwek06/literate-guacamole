@@ -47,14 +47,12 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
     }
     
     @objc func reloadWebView() {
-        self.webView.addBlurToView()
         
         if webView.url != nil {
                 webView.reload()
             } else {
                 webView.load(URLRequest(url: URL(string: self.url!)!))
             }
-        self.webView.removeBlurFromView()
     }
     
     func createRefreshButton() -> UIImage {

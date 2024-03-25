@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension ArticlesListViewController: ArticleDelegate {
-    
+
     func reloadNewsArticles() {
         articlesListViewModel.fetchNewsArticles()
         tableView.reloadData()
