@@ -48,6 +48,7 @@ class ArticlesListViewModel {
         do {
             let decodedData = try decoder.decode(NewsArticle.self, from: newsData)
             self.articlesArray = decodedData.articles
+            self.articlesArray = articlesArray.filter { $0.title != "[Removed]" }
         } catch {
             delegate?.didFailWithError(error: error.localizedDescription)
         }
