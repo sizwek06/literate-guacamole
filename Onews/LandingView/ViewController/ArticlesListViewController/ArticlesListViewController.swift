@@ -20,6 +20,10 @@ class ArticlesListViewController: UIViewController {
         let table = UITableView(frame: .zero, style: .insetGrouped)
         table.register(MainArticleTableViewCell.self, forCellReuseIdentifier: MainArticleTableViewCell.identifier)
         table.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
+        table.refreshControl = UIRefreshControl()
+        table.refreshControl?.addTarget(self, action:
+                                            #selector(tableViewReloadNewsArticles),
+                                          for: .valueChanged)
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -91,6 +95,11 @@ class ArticlesListViewController: UIViewController {
         activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
         
         self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    @objc func tableViewReloadNewsArticles() {
+        articlesListViewModel.fetchNewsArticles()
+        tableView.refreshControl?.endRefreshing()
     }
 }
 

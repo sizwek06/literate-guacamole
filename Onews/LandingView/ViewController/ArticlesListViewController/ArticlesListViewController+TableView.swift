@@ -87,6 +87,23 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
         return swipeConfiguration
     }
     
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
+            self.articlesListViewModel.articlesArray.remove(at: indexPath.row)
+            
+            self.didReceiveArticlesSuccessfully()
+            completionHandler(true)
+        }
+        removeAction.backgroundColor = .systemBlue
+        
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [removeAction])
+        swipeConfiguration.performsFirstActionWithFullSwipe = true
+        
+        removeAction.image = addLabelToImage(imageString: "envelope.open", labelString: "Read")
+        
+        return swipeConfiguration
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         showNewsLoading()
         let article = articlesListViewModel.articlesArray[indexPath.row]
@@ -105,8 +122,7 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
         
         let textLabel = UILabel()
         textLabel.text = labelString
-        textLabel.font = UIFont(name: "SF-Pro", size: 20)
-        textLabel.sizeToFit()
+        textLabel.font = UIFont(name: "SF-Pro-Bold", size: 12)
         textLabel.textColor = .white
         
         imageView.contentMode = .scaleAspectFit
