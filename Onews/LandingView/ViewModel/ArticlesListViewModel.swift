@@ -9,23 +9,24 @@ import Foundation
 
 class ArticlesListViewModel {
     
-    static let shared = ArticlesListViewModel()
-    
     var articlesArray: [Article] = []
-    
     var delegate: ArticleDelegate?
+    
     func fetchNewsArticles() {
-        var urlString = ""
-
-        urlString = K.newsArticleURL
-        performRequest(with: urlString)
+        performRequest(with: K.newsArticleURL)
+    }
+    
+    func searchArticleTopic(with searchPhrase: String) {
+        performRequest(with: K.searchURL + searchPhrase)
     }
     
     func performRequest(with urlString: String) {
+        self.delegate?.showNewsLoading()
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             
             let task = session.dataTask(with: url) { (data, _, error) in
+                self.delegate?.hideNewsLoading()
                 DispatchQueue.main.async {
                     if let error = error {
                         self.delegate?.didFailWithError(error: error.localizedDescription)
@@ -46,6 +47,7 @@ class ArticlesListViewModel {
         do {
             let decodedData = try decoder.decode(NewsArticle.self, from: newsData)
             self.articlesArray = decodedData.articles
+            self.articlesArray = articlesArray.filter { $0.title != "[Removed]" }
         } catch {
             delegate?.didFailWithError(error: error.localizedDescription)
         }

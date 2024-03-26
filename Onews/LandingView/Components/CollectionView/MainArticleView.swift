@@ -92,7 +92,7 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
     }
 }
 
-extension MainArticleView: ArticleDelegate {
+extension MainArticleView {
     
     func downloadImg(urlString: String?, imgView: UIImageView) {
         if let urlStr = urlString {
@@ -121,10 +121,6 @@ extension MainArticleView: ArticleDelegate {
         default:
             return K.newsColor.oNewsBlack
         }
-    }
-    
-    func reloadNewsArticles() {
-        mainArticleCollectionView.reloadData()
     }
     
     func didReceiveArticlesSuccessfully() {

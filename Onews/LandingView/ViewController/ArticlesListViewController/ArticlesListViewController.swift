@@ -13,11 +13,18 @@ class ArticlesListViewController: UIViewController {
     
     var articlesListViewModel = ArticlesListViewModel()
     var openArticleURL: ((String) -> Void)?
+    var searchText: String = ""
+    let search = UISearchController(searchResultsController: nil)
     
-    internal let tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
         table.register(MainArticleTableViewCell.self, forCellReuseIdentifier: MainArticleTableViewCell.identifier)
         table.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
+        table.refreshControl = UIRefreshControl()
+        table.refreshControl?.addTarget(self, action:
+                                            #selector(tableViewReloadNewsArticles),
+                                          for: .valueChanged)
+        table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
     
@@ -30,12 +37,20 @@ class ArticlesListViewController: UIViewController {
         
         view.addSubview(tableView)
         
-        self.view.addBlurToView()
         tableView.rowHeight = 150
         tableView.separatorStyle = .singleLine
         tableView.delegate = self
         tableView.dataSource = self
         tableView.frame = view.bounds
+        
+        search.delegate = self
+        search.searchBar.delegate = self
+        navigationItem.hidesSearchBarWhenScrolling = true
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.navigationItem.searchController = search
     }
     
     func downloadImg(urlString: String?, imgView: UIImageView) {
@@ -70,7 +85,21 @@ class ArticlesListViewController: UIViewController {
     func handleOpenArticleURL(url: String, source: String) {
         let articleWebViewController = ArticleWebViewController(url: url, source: source)
         let navController = UINavigationController(rootViewController: articleWebViewController)
+        navController.navigationBar.barTintColor = UIColor(named: "CollectionColor")
         self.present(navController, animated: true, completion: nil)
+    }
+    
+    func shareArticleLink(with urlString: String) {
+        let textToShare = [ urlString ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    @objc func tableViewReloadNewsArticles() {
+        articlesListViewModel.fetchNewsArticles()
+        tableView.refreshControl?.endRefreshing()
     }
 }
 
@@ -96,5 +125,19 @@ extension Date {
             }
         }
         return ""
+    }
+}
+
+extension ArticlesListViewController: UISearchControllerDelegate, UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchText = ""
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchPhrase = searchBar.text else { return }
+        
+        articlesListViewModel.searchArticleTopic(with: searchPhrase)
+        return
     }
 }
