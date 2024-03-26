@@ -124,7 +124,7 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
     
-    private func addLabelToImage(imageString: String, labelString: String) -> UIImage? {
+    func addLabelToImage(imageString: String, labelString: String) -> UIImage? {
         var image = UIImage()
         
         let tempView = UIStackView(frame: CGRect(x: 0, y: 0, width: 90, height: 50))
