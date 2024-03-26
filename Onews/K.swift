@@ -14,6 +14,9 @@ struct K {
     static let searchURL = "https://newsapi.org/v2/everything?apiKey=59fd1c88fc3f43d8a4dab7d839612abf&from=2024-03-23&to=2024-03-23&sortBy=popularity&q="
     static let mainArticleHeader = "TOP NEWS"
     static let otherArticlesHeader = "OTHER ARTICLES"
+    static let loadingText = "Loading news, please wait."
+    static let newsLogo = UIImage(named: "NewsApp")
+    static let newsFont = UIFont(name: "SF-Pro", size: 20)
     
     struct newsColor {
         static let oNewsBlack = UIColor.darkGray
