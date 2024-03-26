@@ -20,7 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarViewController = TabBarController()
         
         let articlesNavigationController = UINavigationController(rootViewController: ArticlesListViewController())
+        articlesNavigationController.title = "Onews"
         let userNavigationController = UINavigationController(rootViewController: UserViewController())
+        userNavigationController.title = "Profile"
         
         articlesNavigationController.tabBarItem.image = UIImage(systemName: "newspaper")
         articlesNavigationController.tabBarItem.selectedImage = UIImage(systemName: "newspaper.fill")

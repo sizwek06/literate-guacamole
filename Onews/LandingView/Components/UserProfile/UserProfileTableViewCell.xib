@@ -21,8 +21,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="445" height="250"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZZ-Fb-H4d" userLabel="usernameLabel">
-                        <rect key="frame" x="113" y="33" width="200" height="23"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZZ-Fb-H4d" userLabel="usernameLabel">
+                        <rect key="frame" x="113" y="33" width="200" height="57"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="29G-3U-9Ec"/>
                         </constraints>
@@ -30,17 +30,24 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0t7-qu-y14">
-                        <rect key="frame" x="118" y="95" width="199" height="50"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0t7-qu-y14">
+                        <rect key="frame" x="118" y="129" width="199" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="199" id="FHQ-xc-DjB"/>
+                            <constraint firstAttribute="height" constant="50" id="UE9-pB-4gc"/>
+                        </constraints>
                         <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                        <buttonConfiguration key="configuration" style="filled" title="Sign Out"/>
                     </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="0t7-qu-y14" secondAttribute="trailing" constant="108" id="1DN-Sh-E2Q"/>
                     <constraint firstAttribute="trailing" secondItem="MZZ-Fb-H4d" secondAttribute="trailing" constant="134" id="CBr-V0-fji"/>
+                    <constraint firstItem="0t7-qu-y14" firstAttribute="leading" secondItem="0Yz-YR-gw9" secondAttribute="leadingMargin" constant="98" id="LzG-S6-B47"/>
                     <constraint firstItem="MZZ-Fb-H4d" firstAttribute="leading" secondItem="0Yz-YR-gw9" secondAttribute="leading" constant="113" id="QxD-5x-dN3"/>
+                    <constraint firstItem="0t7-qu-y14" firstAttribute="top" secondItem="MZZ-Fb-H4d" secondAttribute="bottom" constant="39" id="jfm-dg-G5J"/>
                     <constraint firstItem="MZZ-Fb-H4d" firstAttribute="top" secondItem="0Yz-YR-gw9" secondAttribute="top" constant="33" id="l30-DL-Y0s"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="0t7-qu-y14" secondAttribute="bottom" constant="60" id="uYf-fe-aWQ"/>
                 </constraints>
             </tableViewCellContentView>
             <accessibility key="accessibilityConfiguration" identifier="userProfileTableViewCell"/>

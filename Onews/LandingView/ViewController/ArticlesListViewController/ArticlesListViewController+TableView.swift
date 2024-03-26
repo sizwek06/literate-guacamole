@@ -63,45 +63,55 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let shareAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
-            self.shareArticleLink(with: self.articlesListViewModel.articlesArray[indexPath.row].url)
+        if indexPath.section == 1 {
+            let shareAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
+                self.shareArticleLink(with: self.articlesListViewModel.articlesArray[indexPath.row].url)
+                
+                completionHandler(true)
+            }
             
-            completionHandler(true)
-        }
-        
-        let likeAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
-            self.shareArticleLink(with: self.articlesListViewModel.articlesArray[indexPath.row].url)
+            let likeAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
+                self.shareArticleLink(with: self.articlesListViewModel.articlesArray[indexPath.row].url)
+                
+                completionHandler(true)
+            }
             
-            completionHandler(true)
+            shareAction.backgroundColor = K.newsColor.oNewsBlue
+            likeAction.backgroundColor = K.newsColor.oNewsMaroon
+            
+            let swipeConfiguration = UISwipeActionsConfiguration(actions: [likeAction, shareAction])
+            swipeConfiguration.performsFirstActionWithFullSwipe = false
+            
+            likeAction.image = addLabelToImage(imageString: "bookmark", labelString: "Save")
+            shareAction.image = addLabelToImage(imageString: "square.and.arrow.up", labelString: "Share")
+            
+            return swipeConfiguration
+        } else {
+            let swipeConfiguration = UISwipeActionsConfiguration()
+            return swipeConfiguration
         }
-        
-        shareAction.backgroundColor = K.newsColor.oNewsBlue
-        likeAction.backgroundColor = K.newsColor.oNewsMaroon
-        
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [likeAction, shareAction])
-        swipeConfiguration.performsFirstActionWithFullSwipe = false
-        
-        likeAction.image = addLabelToImage(imageString: "bookmark", labelString: "Save")
-        shareAction.image = addLabelToImage(imageString: "square.and.arrow.up", labelString: "Share")
-        
-        return swipeConfiguration
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
-            self.articlesListViewModel.articlesArray.remove(at: indexPath.row)
+        if indexPath.section == 1 {
+            let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
+                self.articlesListViewModel.articlesArray.remove(at: indexPath.row)
+                
+                self.didReceiveArticlesSuccessfully()
+                completionHandler(true)
+            }
+            removeAction.backgroundColor = .systemBlue
             
-            self.didReceiveArticlesSuccessfully()
-            completionHandler(true)
+            let swipeConfiguration = UISwipeActionsConfiguration(actions: [removeAction])
+            swipeConfiguration.performsFirstActionWithFullSwipe = true
+            
+            removeAction.image = addLabelToImage(imageString: "envelope.open", labelString: "Read")
+            
+            return swipeConfiguration
+        } else {
+            let swipeConfiguration = UISwipeActionsConfiguration()
+            return swipeConfiguration
         }
-        removeAction.backgroundColor = .systemBlue
-        
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [removeAction])
-        swipeConfiguration.performsFirstActionWithFullSwipe = true
-        
-        removeAction.image = addLabelToImage(imageString: "envelope.open", labelString: "Read")
-        
-        return swipeConfiguration
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
