@@ -19,7 +19,7 @@ class UserViewController: UIViewController {
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
         table.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
-        table.register(UINib(nibName: "UserProfileCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
+        table.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         table.refreshControl = UIRefreshControl()
 //        table.refreshControl?.addTarget(self, action:
 //                                            #selector(tableViewReloadNewsArticles),
@@ -31,18 +31,34 @@ class UserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Profile"
+        
         tableView.rowHeight = 150
         tableView.separatorStyle = .singleLine
         tableView.delegate = self
         tableView.dataSource = self
         tableView.frame = view.bounds
+        
+        view.addSubview(tableView)
     }
 }
 
 extension UserViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return section == 0 ? "User Profile" : "Articles"
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return section == 0 ? 1 : self.articlesArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.section == 0 ? 250 : UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,7 +66,7 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 1 {
             let article = self.articlesArray[indexPath.row]
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "newsArticle", for: indexPath) as! NewsArticleTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsArticle", for: indexPath) as? NewsArticleTableViewCell else { return UITableViewCell() }
                         
             cell.selectionStyle = .none
             cell.backgroundColor = .none
@@ -64,7 +80,11 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
             
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileCell", for: indexPath) as! UserProfileTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell", for: indexPath) as? UserProfileTableViewCell else { return UITableViewCell() }
+            
+            cell.selectionStyle = .none
+            cell.backgroundColor = .none
+            
             cell.usernameLabel.text = "@seezus"
             
             return cell

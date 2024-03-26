@@ -30,7 +30,7 @@
 		289C43E42BB28209000FFE64 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289C43E32BB28209000FFE64 /* UIImage+Gif.swift */; };
 		28A335D32BB2BFAC00A0D861 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A335D22BB2BFAC00A0D861 /* TabBarController.swift */; };
 		28A335D62BB2CD6400A0D861 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A335D52BB2CD6300A0D861 /* UserViewController.swift */; };
-		28A335DE2BB2D64F00A0D861 /* UserProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28A335DD2BB2D64F00A0D861 /* UserProfileCell.xib */; };
+		28A335DE2BB2D64F00A0D861 /* UserProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28A335DD2BB2D64F00A0D861 /* UserProfileTableViewCell.xib */; };
 		28A335E02BB2EF4E00A0D861 /* UserProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A335DF2BB2EF4E00A0D861 /* UserProfileTableViewCell.swift */; };
 		28A909542A6D35390037C24D /* ArticleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A909532A6D35390037C24D /* ArticleDelegate.swift */; };
 		28D0BFF22AE7BDD700DC08F2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 28D0BFF12AE7BDD700DC08F2 /* .swiftlint.yml */; };
@@ -67,7 +67,7 @@
 		289C43E32BB28209000FFE64 /* UIImage+Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		28A335D22BB2BFAC00A0D861 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		28A335D52BB2CD6300A0D861 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
-		28A335DD2BB2D64F00A0D861 /* UserProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileCell.xib; sourceTree = "<group>"; };
+		28A335DD2BB2D64F00A0D861 /* UserProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileTableViewCell.xib; sourceTree = "<group>"; };
 		28A335DF2BB2EF4E00A0D861 /* UserProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTableViewCell.swift; sourceTree = "<group>"; };
 		28A909532A6D35390037C24D /* ArticleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDelegate.swift; sourceTree = "<group>"; };
 		28D0BFF12AE7BDD700DC08F2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -255,7 +255,7 @@
 		28A335D82BB2D55D00A0D861 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
-				28A335DD2BB2D64F00A0D861 /* UserProfileCell.xib */,
+				28A335DD2BB2D64F00A0D861 /* UserProfileTableViewCell.xib */,
 				28A335DF2BB2EF4E00A0D861 /* UserProfileTableViewCell.swift */,
 			);
 			path = UserProfile;
@@ -351,7 +351,7 @@
 				289C43E02BB27BC7000FFE64 /* OnewsLoader.xib in Resources */,
 				2805A81A2BAEE325007FDA16 /* MainArticleCollectionViewCell.xib in Resources */,
 				2805A8142BAEE1E4007FDA16 /* MainArticleTableViewCell.xib in Resources */,
-				28A335DE2BB2D64F00A0D861 /* UserProfileCell.xib in Resources */,
+				28A335DE2BB2D64F00A0D861 /* UserProfileTableViewCell.xib in Resources */,
 				28ECF5A429CB4C7A006876B7 /* SF-Pro.ttf in Resources */,
 				28D0BFF22AE7BDD700DC08F2 /* .swiftlint.yml in Resources */,
 				2869F64B29C855AF00CADFD7 /* NewsArticleTableViewCell.xib in Resources */,

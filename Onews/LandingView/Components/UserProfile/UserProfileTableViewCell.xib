@@ -14,14 +14,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserProfileTableViewCell" rowHeight="289" id="5il-tI-jBp" customClass="UserProfileCell" customModule="Onews" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="447" height="289"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userProfileTableViewCell" rowHeight="265" id="5il-tI-jBp" customClass="UserProfileTableViewCell" customModule="Onews" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="445" height="250"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5il-tI-jBp" id="0Yz-YR-gw9">
-                <rect key="frame" x="0.0" y="0.0" width="447" height="289"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5il-tI-jBp" id="0Yz-YR-gw9">
+                <rect key="frame" x="0.0" y="0.0" width="445" height="250"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZZ-Fb-H4d">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZZ-Fb-H4d" userLabel="usernameLabel">
                         <rect key="frame" x="113" y="33" width="200" height="23"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="29G-3U-9Ec"/>
@@ -43,9 +43,10 @@
                     <constraint firstItem="MZZ-Fb-H4d" firstAttribute="top" secondItem="0Yz-YR-gw9" secondAttribute="top" constant="33" id="l30-DL-Y0s"/>
                 </constraints>
             </tableViewCellContentView>
+            <accessibility key="accessibilityConfiguration" identifier="userProfileTableViewCell"/>
             <connections>
                 <outlet property="userProfileButton" destination="0t7-qu-y14" id="gTw-fD-ydM"/>
-                <outlet property="usernameLabel" destination="MZZ-Fb-H4d" id="vsr-N2-ViF"/>
+                <outlet property="usernameLabel" destination="MZZ-Fb-H4d" id="pim-hy-mzF"/>
             </connections>
             <point key="canvasLocation" x="301.52671755725191" y="-26.408450704225352"/>
         </tableViewCell>
