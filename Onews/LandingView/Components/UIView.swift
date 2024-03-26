@@ -35,6 +35,19 @@ extension UIView {
         self.addSubview(activitInd)
     }
     
+    func addActivityIndicatorView() {
+        
+        let activitInd = UIActivityIndicatorView(style: .large)
+        activitInd.color = .lightGray
+        activitInd.hidesWhenStopped = true
+        activitInd.frame = CGRect(x: 0.0, y: 00, width: 80.0, height: 80.0)
+        activitInd.center = self.center
+        
+        activitInd.startAnimating()
+                   
+        self.addSubview(activitInd)
+    }
+    
     func removeBlurFromView() {
         for subview in subviews where subview is UIVisualEffectView {
             subview.removeFromSuperview()
