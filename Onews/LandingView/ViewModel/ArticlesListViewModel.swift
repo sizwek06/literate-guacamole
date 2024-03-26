@@ -9,10 +9,7 @@ import Foundation
 
 class ArticlesListViewModel {
     
-    static let shared = ArticlesListViewModel()
-    
     var articlesArray: [Article] = []
-    
     var delegate: ArticleDelegate?
     
     func fetchNewsArticles() {
@@ -24,10 +21,12 @@ class ArticlesListViewModel {
     }
     
     func performRequest(with urlString: String) {
+        self.delegate?.showNewsLoading()
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             
             let task = session.dataTask(with: url) { (data, _, error) in
+                self.delegate?.hideNewsLoading()
                 DispatchQueue.main.async {
                     if let error = error {
                         self.delegate?.didFailWithError(error: error.localizedDescription)

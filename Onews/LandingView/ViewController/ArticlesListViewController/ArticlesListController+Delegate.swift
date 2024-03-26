@@ -9,6 +9,14 @@ import Foundation
 import UIKit
 
 extension ArticlesListViewController: ArticleDelegate {
+    
+    func showNewsLoading() {
+        OnewsLoaderViewController.sharedInstance.show()
+    }
+    
+    func hideNewsLoading() {
+        OnewsLoaderViewController.sharedInstance.hide()
+    }
 
     func reloadNewsArticles() {
         articlesListViewModel.fetchNewsArticles()

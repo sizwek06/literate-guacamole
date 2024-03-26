@@ -48,20 +48,22 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
     }
     
     @objc func reloadWebView() {
-        
+        OnewsLoaderViewController.sharedInstance.show()
         if webView.url != nil {
             webView.reload()
         } else {
             webView.load(URLRequest(url: URL(string: self.url!)!))
         }
+        OnewsLoaderViewController.sharedInstance.hide()
     }
     
     @objc func shareNewsArticleLink() {
+        OnewsLoaderViewController.sharedInstance.show()
         guard let articleURL = self.url else { return }
         
         let activityViewController = UIActivityViewController(activityItems: [articleURL], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
-        
+        OnewsLoaderViewController.sharedInstance.hide()
         self.present(activityViewController, animated: true, completion: nil)
     }
     
