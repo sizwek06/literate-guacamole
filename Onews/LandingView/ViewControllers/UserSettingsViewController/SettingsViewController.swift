@@ -10,17 +10,31 @@ import UIKit
 
 class SettingsViewController: ArticlesListViewController {
     
+    var isSignedIn = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Settings"
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
-        super.tableView.register(SettingsSignOutTableViewCell.self, forCellReuseIdentifier: SettingsSignOutTableViewCell.identifier)
+        super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         
         tableView.frame = view.bounds
         super.search.searchBar.isHidden = true
         view.addSubview(tableView)
+    }
+    
+    func showUserAccessController() {
+        let storyboard = UIStoryboard(name: "ArticlesListViewController", bundle: Bundle(for: ArticlesListViewController.self))
+        
+        let userAccessViewController = storyboard.instantiateViewController(withIdentifier: "UserAccessScreenViewController")
+        
+        if let userAccessViewController = userAccessViewController.presentationController as? UISheetPresentationController {
+            userAccessViewController.detents = [.large()]
+        }
+        
+        self.present(userAccessViewController, animated: true, completion: nil)
     }
 }
 
@@ -46,7 +60,8 @@ extension SettingsViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell", for: indexPath) as? UserProfileTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell", for: indexPath) as? UserProfileTableViewCell 
+            else { return UITableViewCell() }
             
             cell.selectionStyle = .none
             cell.backgroundColor = .none
@@ -60,8 +75,14 @@ extension SettingsViewController {
             
             return cell
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsSignOutTableViewCell.identifier) as? SettingsSignOutTableViewCell else { return UITableViewCell() }
-            // TODO: Create enum of settings to recursive the cells
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell 
+            else { return UITableViewCell() }
+            
+            cell.signOutLabel.font = UIFont(name: "SF-Pro-Display-Bold", size: 15)
+            
+            cell.signOutLabel.text = isSignedIn ? K.signOutText : K.signInText
+            cell.signOutLabel.textColor = isSignedIn ? .red : .systemBlue
+        
             return cell
         default:
             break
@@ -81,5 +102,10 @@ extension SettingsViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 2 {
+            showUserAccessController()
+        } else {
+            showUserAccessController()
+        }
     }
 }

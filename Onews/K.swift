@@ -17,7 +17,7 @@ struct K {
     static let otherArticlesHeader = "OTHER ARTICLES"
     public static let loadingText = "Loading news, please wait."
     static let signInText = "Sign In"
-    static let signOutText = "Sign Out"
+    public static let signOutText = "Sign Out"
     
     static let newsLogo = UIImage(named: "NewsApp")
     static let newsFont = UIFont(name: "SF-Pro", size: 20)

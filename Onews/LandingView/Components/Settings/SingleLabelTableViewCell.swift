@@ -8,20 +8,17 @@
 import Foundation
 import UIKit
 
-class SettingsSignOutTableViewCell: UITableViewCell {
+class SingleLabelTableViewCell: UITableViewCell {
     
     lazy var cellView: UIView = {
         let view = UIView(frame: .zero)
-        view.backgroundColor = .systemBackground
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     lazy var signOutLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.text = K.signOutText
-        label.textColor = .red
-        label.backgroundColor = .systemBackground
+        label.font = UIFont(name: "SF-Pro-Bold", size: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

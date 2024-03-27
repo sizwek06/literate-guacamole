@@ -136,7 +136,7 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
         
         let textLabel = UILabel()
         textLabel.text = labelString
-        textLabel.font = UIFont(name: "SF-Pro-Bold", size: 12)
+        textLabel.font = UIFont(name: "SF-Pro-Semibold", size: 12)
         textLabel.textColor = .white
         
         imageView.contentMode = .scaleAspectFit
