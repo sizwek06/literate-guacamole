@@ -11,6 +11,7 @@ import UIKit
 extension ArticlesListViewController: ArticleDelegate {
     
     func showNewsLoading() {
+        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingText)
         OnewsLoaderViewController.sharedInstance.show()
     }
     

@@ -11,7 +11,7 @@ import UIKit
 extension UserViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "User Profile" : "Articles"
+        return section == 0 ? "" : "Articles"
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -19,7 +19,7 @@ extension UserViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 250 : UITableView.automaticDimension
+        return indexPath.section == 0 ? 180 : UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -42,12 +42,6 @@ extension UserViewController {
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell", for: indexPath) as? UserProfileTableViewCell else { return UITableViewCell() }
-            
-            cell.selectionStyle = .none
-            cell.backgroundColor = .none
-            
-            cell.usernameLabel.text = self.userName
-            cell.userProfileButton.titleLabel?.text = userName.isEmpty ? "Sign In" : "Sign Out"
             
             return cell
         }

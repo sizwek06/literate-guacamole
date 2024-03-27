@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-open class OnewsLoader: UIView {
+open class OnewsLoaderUIView: UIView {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var loadingTextLabel: UILabel!
     @IBOutlet weak var loaderView: UIView!
 
-   public var loadingText: String?
+    public var loadingText: String?
 
     public init(loadingText: String = "This will only take a moment.") {
 
@@ -23,20 +23,23 @@ open class OnewsLoader: UIView {
         self.loadingText = loadingText
     }
 
-   public override init(frame: CGRect) { // for using CustomView in code
+   public override init(frame: CGRect) {
         super.init(frame: frame)
         self.commonInit()
-
     }
 
-    public required init?(coder aDecoder: NSCoder) { // for using CustomView in IB
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.commonInit()
+    }
+    
+    public func setText(_ loadingText: String) {
+        self.loadingTextLabel.text = loadingText
     }
 
     public func commonInit() {
 
-        Bundle(for: OnewsLoader.self).loadNibNamed("OnewsLoader", owner: self, options: nil)
+        Bundle(for: OnewsLoaderUIView.self).loadNibNamed("OnewsLoader", owner: self, options: nil)
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         self.addSubview(contentView)
@@ -51,7 +54,7 @@ open class OnewsLoader: UIView {
 
         if let window = window {
             imageView.loadGif(asset: "NewsApp")
-            loadingTextLabel.text = K.loadingText
+            loadingTextLabel.text = self.loadingText
 
             window.addSubview(self)
 

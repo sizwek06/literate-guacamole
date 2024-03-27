@@ -18,10 +18,6 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
         return section == 0 ? K.mainArticleHeader : K.otherArticlesHeader
     }
 
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 : articlesListViewModel.articlesArray.count
     }
@@ -55,6 +51,14 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.mainArticleView.didSelectArticle = { articleClicked, articleSource in
                 self.handleOpenArticleURL(url: articleClicked, source: articleSource)
+            }
+            
+            cell.mainArticleView.didSaveArticle = { articleSource in
+                self.handleOpenArticleURL(url: articleSource, source: articleSource)
+            }
+            
+            cell.mainArticleView.didShareArticle = { articleSource in
+                self.shareArticleLink(with: articleSource)
             }
             
             return cell
