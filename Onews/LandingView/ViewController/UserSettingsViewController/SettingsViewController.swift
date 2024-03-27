@@ -20,6 +20,7 @@ class SettingsViewController: ArticlesListViewController {
         
         tableView.frame = view.bounds
         super.search.searchBar.isHidden = true
+        super.tableView.allowsSelection = false
         view.addSubview(tableView)
     }
 }
@@ -40,7 +41,7 @@ extension SettingsViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? UITableView.automaticDimension : 50
+        return indexPath.section == 0 ? UITableView.automaticDimension : 54
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,7 +55,10 @@ extension SettingsViewController {
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell") as? SettingsTableViewCell else { return UITableViewCell() }
-            // TODO: Create enum of settings to recursive the cells
+            
+           indexPath.row == 0 ? cell.setUpSettingsCell(using: "bell.badge.fill", backgroundColor: UIColor.red, label: "Notification")
+            : cell.setUpSettingsCell(using: "faceid", backgroundColor: UIColor.systemGreen, label: "FaceID")
+            
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsSignOutTableViewCell.identifier) as? SettingsSignOutTableViewCell else { return UITableViewCell() }
@@ -64,5 +68,19 @@ extension SettingsViewController {
             break
         }
         return UITableViewCell()
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    
+        let swipeConfiguration = UISwipeActionsConfiguration()
+        return swipeConfiguration
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let swipeConfiguration = UISwipeActionsConfiguration()
+        return swipeConfiguration
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }

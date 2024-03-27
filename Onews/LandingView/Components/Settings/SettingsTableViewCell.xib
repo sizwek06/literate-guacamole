@@ -10,69 +10,67 @@
     </dependencies>
     <customFonts key="customFonts">
         <array key="SF-Pro.ttf">
-            <string>SFPro-Medium</string>
+            <string>SFPro-Regular</string>
         </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="62" id="BDJ-SM-oTv" customClass="SettingsTableViewCell" customModule="Onews" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="462" height="62"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="54" id="BDJ-SM-oTv" customClass="SettingsTableViewCell" customModule="Onews" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="462" height="54"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BDJ-SM-oTv" id="O8w-pd-ugN">
-                <rect key="frame" x="0.0" y="0.0" width="462" height="62"/>
+                <rect key="frame" x="0.0" y="0.0" width="462" height="54"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2QA-oy-Kb4">
-                        <rect key="frame" x="11" y="6.6666666666666643" width="40" height="44.000000000000007"/>
+                        <rect key="frame" x="13" y="6.6666666666666643" width="35" height="39.666666666666671"/>
                         <color key="backgroundColor" systemColor="linkColor"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="wR8-YQ-7cn"/>
+                            <constraint firstAttribute="width" constant="35" id="RwX-X2-5Ti"/>
+                            <constraint firstAttribute="height" constant="35" id="l3N-Wm-dhH"/>
                         </constraints>
                         <imageReference key="image" image="lock" catalog="system" symbolScale="large"/>
                     </imageView>
-                    <switch opaque="NO" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OHq-W6-xZn">
-                        <rect key="frame" x="392" y="9" width="51" height="31"/>
-                        <color key="onTintColor" systemColor="systemGreenColor"/>
-                    </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tvg-7k-Ppj">
-                        <rect key="frame" x="66" y="20" width="266" height="20.000000000000004"/>
+                        <rect key="frame" x="65" y="16" width="266" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="k0l-EI-p9m"/>
-                            <constraint firstAttribute="width" constant="266" id="ybP-6q-L2q"/>
+                            <constraint firstAttribute="height" constant="20" id="poS-Cs-Nmv"/>
+                            <constraint firstAttribute="width" constant="266" id="wWl-J6-XyM"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="SFPro-Regular" family="SF Pro" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w5R-ON-7Zw">
+                        <rect key="frame" x="394" y="13" width="51" height="31"/>
+                    </switch>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="2QA-oy-Kb4" secondAttribute="bottom" constant="13.666666666666686" id="FbF-yO-cXu"/>
-                    <constraint firstAttribute="bottom" secondItem="OHq-W6-xZn" secondAttribute="bottom" constant="22" id="Iw8-xc-zGg"/>
-                    <constraint firstItem="OHq-W6-xZn" firstAttribute="top" secondItem="O8w-pd-ugN" secondAttribute="top" constant="9" id="Oe8-n1-mYz"/>
-                    <constraint firstItem="Tvg-7k-Ppj" firstAttribute="leading" secondItem="2QA-oy-Kb4" secondAttribute="trailing" constant="15" id="VfO-JR-5mf"/>
-                    <constraint firstItem="2QA-oy-Kb4" firstAttribute="top" secondItem="O8w-pd-ugN" secondAttribute="top" constant="8.9999999999999929" id="Yhe-98-Y3o"/>
-                    <constraint firstAttribute="trailing" secondItem="OHq-W6-xZn" secondAttribute="trailing" constant="21" id="cMV-rP-HoP"/>
-                    <constraint firstItem="2QA-oy-Kb4" firstAttribute="leading" secondItem="O8w-pd-ugN" secondAttribute="leading" constant="11" id="mKB-Ey-EBm"/>
-                    <constraint firstItem="Tvg-7k-Ppj" firstAttribute="centerY" secondItem="2QA-oy-Kb4" secondAttribute="centerY" constant="2.0000000000000178" id="sb9-uc-Vwv"/>
+                    <constraint firstItem="w5R-ON-7Zw" firstAttribute="top" secondItem="O8w-pd-ugN" secondAttribute="top" constant="13" id="0Nm-VZ-CTj"/>
+                    <constraint firstAttribute="bottom" secondItem="2QA-oy-Kb4" secondAttribute="bottom" constant="10" id="CwE-0m-l4v"/>
+                    <constraint firstItem="Tvg-7k-Ppj" firstAttribute="top" secondItem="O8w-pd-ugN" secondAttribute="top" constant="16" id="DR9-ZY-nAS"/>
+                    <constraint firstAttribute="trailing" secondItem="w5R-ON-7Zw" secondAttribute="trailing" constant="19" id="J3p-PY-oas"/>
+                    <constraint firstAttribute="bottom" secondItem="Tvg-7k-Ppj" secondAttribute="bottom" constant="18" id="L6L-bp-9KL"/>
+                    <constraint firstItem="2QA-oy-Kb4" firstAttribute="leading" secondItem="O8w-pd-ugN" secondAttribute="leading" constant="13" id="Vki-VT-Ymy"/>
+                    <constraint firstItem="2QA-oy-Kb4" firstAttribute="top" secondItem="O8w-pd-ugN" secondAttribute="top" constant="9" id="aeS-OS-CWU"/>
+                    <constraint firstItem="Tvg-7k-Ppj" firstAttribute="leading" secondItem="2QA-oy-Kb4" secondAttribute="trailing" constant="17" id="i9y-9y-aTM"/>
+                    <constraint firstAttribute="bottom" secondItem="w5R-ON-7Zw" secondAttribute="bottom" constant="10" id="iKW-qo-fO1"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="settingsImageView" destination="2QA-oy-Kb4" id="MUI-Vf-Sx6"/>
                 <outlet property="settingsLabel" destination="Tvg-7k-Ppj" id="9zT-Yj-9bs"/>
-                <outlet property="settingsSwitch" destination="OHq-W6-xZn" id="amR-MU-uv1"/>
+                <outlet property="settingsSwitch" destination="w5R-ON-7Zw" id="QSA-pM-UDW"/>
             </connections>
-            <point key="canvasLocation" x="-256.48854961832058" y="-69.014084507042256"/>
+            <point key="canvasLocation" x="-256.48854961832058" y="-71.83098591549296"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="lock" catalog="system" width="125" height="128"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

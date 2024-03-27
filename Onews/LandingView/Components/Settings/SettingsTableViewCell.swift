@@ -20,4 +20,10 @@ class SettingsTableViewCell: UITableViewCell {
         settingsImageView.layer.cornerRadius = 8.0
     }
     
+    
+    func setUpSettingsCell(using sfSymbol: String, backgroundColor: UIColor, label: String) {
+        settingsImageView.image = UIImage(systemName: sfSymbol)
+        settingsImageView.backgroundColor = backgroundColor
+        settingsLabel.text = label
+    }
 }
