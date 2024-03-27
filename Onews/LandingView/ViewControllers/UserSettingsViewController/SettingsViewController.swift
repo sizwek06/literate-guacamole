@@ -16,7 +16,7 @@ class SettingsViewController: ArticlesListViewController {
         title = "Settings"
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
-        super.tableView.register(SettingsSignOutTableViewCell.self, forCellReuseIdentifier: SettingsSignOutTableViewCell.identifier)
+        super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         
         tableView.frame = view.bounds
         super.search.searchBar.isHidden = true
@@ -46,7 +46,8 @@ extension SettingsViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell", for: indexPath) as? UserProfileTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell", for: indexPath) as? UserProfileTableViewCell 
+            else { return UITableViewCell() }
             
             cell.selectionStyle = .none
             cell.backgroundColor = .none
@@ -60,8 +61,13 @@ extension SettingsViewController {
             
             return cell
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsSignOutTableViewCell.identifier) as? SettingsSignOutTableViewCell else { return UITableViewCell() }
-            // TODO: Create enum of settings to recursive the cells
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell 
+            else { return UITableViewCell() }
+            
+            cell.signOutLabel.text = K.signOutText
+            cell.signOutLabel.font = UIFont(name: "SF-Pro-Display-Bold", size: 15)
+            cell.signOutLabel.textColor = .red
+            
             return cell
         default:
             break

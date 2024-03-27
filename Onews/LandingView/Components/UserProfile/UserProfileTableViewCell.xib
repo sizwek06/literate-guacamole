@@ -7,8 +7,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="SF-Pro.ttf">
-            <string>SFPro-ExpandedSemibold</string>
+        <array key="SF-Pro-Rounded-Bold.otf">
+            <string>SFProRounded-Bold</string>
         </array>
     </customFonts>
     <objects>
@@ -28,7 +28,7 @@
                             <constraint firstAttribute="width" constant="342" id="fM1-ct-fXN"/>
                         </constraints>
                         <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                        <fontDescription key="fontDescription" name="SFPro-ExpandedSemibold" family="SF Pro" pointSize="18"/>
+                        <fontDescription key="fontDescription" name="SFProRounded-Bold" family="SF Pro Rounded" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
