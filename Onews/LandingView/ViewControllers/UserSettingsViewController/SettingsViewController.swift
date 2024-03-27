@@ -22,6 +22,18 @@ class SettingsViewController: ArticlesListViewController {
         super.search.searchBar.isHidden = true
         view.addSubview(tableView)
     }
+    
+    func showUserAccessController() {
+        let storyboard = UIStoryboard(name: "ArticlesListViewController", bundle: Bundle(for: ArticlesListViewController.self))
+        
+        let userAccessViewController = storyboard.instantiateViewController(withIdentifier: "UserAccessScreenViewController")
+        
+        if let userAccessViewController = userAccessViewController.presentationController as? UISheetPresentationController {
+            userAccessViewController.detents = [.large()]
+        }
+        
+        self.present(userAccessViewController, animated: true, completion: nil)
+    }
 }
 
 // MARK: - TableView Content
@@ -87,5 +99,10 @@ extension SettingsViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 2 {
+            showUserAccessController()
+        } else {
+            showUserAccessController()
+        }
     }
 }
