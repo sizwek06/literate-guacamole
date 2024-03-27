@@ -11,7 +11,6 @@ import UIKit
 class NewsArticleTableViewCell: UITableViewCell {
     
     @IBOutlet weak var articleImg: UIImageView!
-    
     @IBOutlet weak var websiteLabel: UILabel!
     @IBOutlet weak var articleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!

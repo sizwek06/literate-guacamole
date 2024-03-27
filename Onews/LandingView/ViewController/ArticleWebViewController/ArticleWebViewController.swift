@@ -30,6 +30,8 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
         webView.load(URLRequest(url: URL(string: self.url!)!))
         webView.allowsBackForwardNavigationGestures = true
         
+        navigationController?.navigationBar.backgroundColor = UIColor(named: "CollectionColor")
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeWebView))
         navigationItem.title = self.source
         navigationItem.rightBarButtonItems = 
