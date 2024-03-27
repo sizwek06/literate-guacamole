@@ -17,5 +17,8 @@ class UserProfileTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         self.usernameLabel.text = "@sizwe44"
+        
+        self.selectionStyle = .none
+        self.backgroundColor = .none
     }
 }

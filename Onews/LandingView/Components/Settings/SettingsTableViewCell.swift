@@ -18,8 +18,9 @@ class SettingsTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         settingsImageView.layer.cornerRadius = 8.0
+        self.selectionStyle = .none
+        self.backgroundColor = .none
     }
-    
     
     func setUpSettingsCell(using sfSymbol: String, backgroundColor: UIColor, label: String) {
         settingsImageView.image = UIImage(systemName: sfSymbol)

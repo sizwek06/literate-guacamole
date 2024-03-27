@@ -13,7 +13,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OnewsLoader" customModule="Onews" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OnewsLoaderUIView" customModule="Onews" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="xYT-Id-khi" id="2Uf-9z-uvj"/>
                 <outlet property="imageView" destination="wIz-Pc-UCL" id="7UP-UB-FlK"/>

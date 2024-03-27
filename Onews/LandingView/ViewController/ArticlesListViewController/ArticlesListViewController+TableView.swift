@@ -53,6 +53,14 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
                 self.handleOpenArticleURL(url: articleClicked, source: articleSource)
             }
             
+            cell.mainArticleView.didSaveArticle = { articleSource in
+                self.handleOpenArticleURL(url: articleSource, source: articleSource)
+            }
+            
+            cell.mainArticleView.didShareArticle = { articleSource in
+                self.shareArticleLink(with: articleSource)
+            }
+            
             return cell
         }
     }

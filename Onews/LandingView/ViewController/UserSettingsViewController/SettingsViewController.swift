@@ -20,7 +20,6 @@ class SettingsViewController: ArticlesListViewController {
         
         tableView.frame = view.bounds
         super.search.searchBar.isHidden = true
-        super.tableView.allowsSelection = false
         view.addSubview(tableView)
     }
 }
@@ -41,7 +40,7 @@ extension SettingsViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? UITableView.automaticDimension : 54
+        return indexPath.section == 0 ? 180 : 54
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

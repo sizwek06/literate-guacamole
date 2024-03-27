@@ -11,6 +11,8 @@ import UIKit
 class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var didSelectArticle: ((String, String) -> Void)?
+    var didShareArticle: ((String) -> Void)?
+    var didSaveArticle: ((String) -> Void)?
     
     var articlesArray: [Article] = [] {
         didSet {
@@ -70,11 +72,19 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
             print("The Article is", article)
               
             downloadImg(urlString: article.urlToImage, imgView: cell.articleImg)
-            
+            cell.currentArticle = article
             cell.articleLabel.text = article.title
             cell.websiteLabel.text = article.source.name.uppercased()
             cell.websiteLabel.textColor = returnSourceColour()
             cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
+            
+            cell.didSaveArticle = { currentURL in
+                self.didSaveArticle?(currentURL)
+            }
+            
+            cell.didShareArticle = { currentURL in
+                self.didShareArticle?(currentURL)
+            }
             
             return cell
         } else {
