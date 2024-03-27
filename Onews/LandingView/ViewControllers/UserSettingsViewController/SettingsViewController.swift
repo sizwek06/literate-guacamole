@@ -10,6 +10,8 @@ import UIKit
 
 class SettingsViewController: ArticlesListViewController {
     
+    var isSignedIn = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,10 +78,11 @@ extension SettingsViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell 
             else { return UITableViewCell() }
             
-            cell.signOutLabel.text = K.signOutText
             cell.signOutLabel.font = UIFont(name: "SF-Pro-Display-Bold", size: 15)
-            cell.signOutLabel.textColor = .red
             
+            cell.signOutLabel.text = isSignedIn ? K.signOutText : K.signInText
+            cell.signOutLabel.textColor = isSignedIn ? .red : .systemBlue
+        
             return cell
         default:
             break

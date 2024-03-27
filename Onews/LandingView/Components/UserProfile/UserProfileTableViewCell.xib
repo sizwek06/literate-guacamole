@@ -21,7 +21,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="460" height="180"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVeryLongTestingNameForTest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MZZ-Fb-H4d" userLabel="usernameLabel">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVeryLongTestingNameForTest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="MZZ-Fb-H4d" userLabel="usernameLabel">
                         <rect key="frame" x="58" y="80" width="342" height="23"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="23" id="3LN-Mh-9XL"/>
