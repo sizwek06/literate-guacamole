@@ -13,6 +13,7 @@ class ArticlesListViewController: BaseTableViewController {
     
     var articlesListViewModel = ArticlesListViewModel()
     
+    let search = UISearchController(searchResultsController: nil)
     var searchText: String = ""
     
     override func viewDidLoad() {

@@ -29,7 +29,6 @@ class UserViewController: BaseTableViewController {
         // TODO: Refresh from Firestore
         
         tableView.frame = view.bounds
-        super.search.searchBar.isHidden = true
         view.addSubview(tableView)
     }
 }

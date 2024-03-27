@@ -11,7 +11,6 @@ import UIKit
 class BaseTableViewController: UIViewController {
     
     var openArticleURL: ((String) -> Void)?
-    let search = UISearchController(searchResultsController: nil)
     
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)

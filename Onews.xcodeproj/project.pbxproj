@@ -27,6 +27,7 @@
 		2831C4382BB4B1A900B48920 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C4372BB4B1A900B48920 /* BaseTableViewController.swift */; };
 		2831C43A2BB4B29400B48920 /* BaseTableViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C4392BB4B29400B48920 /* BaseTableViewController+TableView.swift */; };
 		2831C43C2BB4B3F900B48920 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C43B2BB4B3F900B48920 /* DateExtension.swift */; };
+		2831C43E2BB4BE8000B48920 /* SettingsViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C43D2BB4BE8000B48920 /* SettingsViewController+TableView.swift */; };
 		2869F62729C1B22E00CADFD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F62629C1B22E00CADFD7 /* AppDelegate.swift */; };
 		2869F62929C1B22E00CADFD7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F62829C1B22E00CADFD7 /* SceneDelegate.swift */; };
 		2869F62E29C1B22E00CADFD7 /* ArticlesListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2869F62C29C1B22E00CADFD7 /* ArticlesListViewController.storyboard */; };
@@ -77,6 +78,7 @@
 		2831C4372BB4B1A900B48920 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		2831C4392BB4B29400B48920 /* BaseTableViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTableViewController+TableView.swift"; sourceTree = "<group>"; };
 		2831C43B2BB4B3F900B48920 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		2831C43D2BB4BE8000B48920 /* SettingsViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+TableView.swift"; sourceTree = "<group>"; };
 		2869F62329C1B22E00CADFD7 /* Onews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Onews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2869F62629C1B22E00CADFD7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2869F62829C1B22E00CADFD7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				2811C5C92BB3EE6200880C52 /* SettingsViewController.swift */,
+				2831C43D2BB4BE8000B48920 /* SettingsViewController+TableView.swift */,
 			);
 			path = UserSettingsViewController;
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 				2805A8182BAEE2CE007FDA16 /* MainArticleTableViewCell.swift in Sources */,
 				289C43E22BB27F3F000FFE64 /* OnewsLoaderController.swift in Sources */,
 				289C43DE2BB27AF9000FFE64 /* OnewsLoaderUIView.swift in Sources */,
+				2831C43E2BB4BE8000B48920 /* SettingsViewController+TableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
