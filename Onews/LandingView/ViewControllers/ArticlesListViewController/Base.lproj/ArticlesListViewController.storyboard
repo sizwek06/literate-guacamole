@@ -46,9 +46,15 @@
                                 <rect key="frame" x="53" y="94" width="276" height="165"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aKt-33-Dpp">
-                                <rect key="frame" x="45" y="285" width="292" height="34"/>
+                                <rect key="frame" x="45" y="285" width="292" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="0jC-lf-ayB"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="zQj-Qd-zbC" id="0Gn-33-nE1"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffl-Hb-RRD">
                                 <rect key="frame" x="50" y="33" width="284" height="20"/>
@@ -57,23 +63,28 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="VDb-kw-OpS">
-                                <rect key="frame" x="46" y="349" width="292" height="34"/>
+                                <rect key="frame" x="46" y="360" width="292" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="ZKR-b7-BRG"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="zQj-Qd-zbC" id="T3L-1M-SGB"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ztf-n2-laX">
-                                <rect key="frame" x="27" y="408" width="158" height="40"/>
+                                <rect key="frame" x="27" y="430" width="158" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="bzN-8o-LCk"/>
+                                    <constraint firstAttribute="height" constant="45" id="bzN-8o-LCk"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Sign In"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IVI-mp-ICq">
-                                <rect key="frame" x="198" y="408" width="158" height="40"/>
+                                <rect key="frame" x="198" y="430" width="158" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="h1H-yV-NBY"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="v5d-Jt-ASr"/>
+                                    <constraint firstAttribute="height" constant="45" id="h1H-yV-NBY"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Register"/>

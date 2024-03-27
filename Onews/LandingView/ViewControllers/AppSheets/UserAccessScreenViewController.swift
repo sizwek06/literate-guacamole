@@ -29,3 +29,19 @@ class UserAccessScreenViewController: UIViewController {
     }
     
 }
+
+extension UserAccessScreenViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+            case usernameTextField:
+                passwordTextfield.becomeFirstResponder()
+            case passwordTextfield:
+                print("Password field returns")
+            default:
+                textField.resignFirstResponder()
+            }
+            return false
+    }
+    
+}
