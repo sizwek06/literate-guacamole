@@ -10,7 +10,7 @@ import UIKit
 
 extension UserViewController {
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section == 0 ? "" : "Articles"
     }
     
@@ -47,20 +47,20 @@ extension UserViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articlesArray[indexPath.row]
         
         DispatchQueue.main.async {
             self.handleOpenArticleURL(url: article.url, source: article.source.name)
-            self.hideNewsLoading()
         }
     }
     
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        print("Array count is: \(self.articlesArray.count)")
         
         if indexPath.section == 1 {
             let shareAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
-                self.shareArticleLink(with: self.articlesListViewModel.articlesArray[indexPath.row].url)
+                self.shareArticleLink(with: self.articlesArray[indexPath.row].url)
                 
                 completionHandler(true)
             }
@@ -79,12 +79,12 @@ extension UserViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         if indexPath.section == 1 {
             let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
-                self.articlesListViewModel.articlesArray.remove(at: indexPath.row)
                 
-                self.didReceiveArticlesSuccessfully()
+                self.articlesArray.remove(at: indexPath.row)
+                
                 completionHandler(true)
             }
             removeAction.backgroundColor = .systemRed
@@ -93,6 +93,8 @@ extension UserViewController {
             swipeConfiguration.performsFirstActionWithFullSwipe = true
             
             removeAction.image = addLabelToImage(imageString: "trash.fill", labelString: "Delete")
+            
+            tableView.reloadData()
             
             return swipeConfiguration
         } else {

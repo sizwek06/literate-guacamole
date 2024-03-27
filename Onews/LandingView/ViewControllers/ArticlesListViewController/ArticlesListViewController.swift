@@ -38,7 +38,7 @@ class ArticlesListViewController: BaseTableViewController {
         self.navigationItem.searchController = search
     }
     
-    @objc override func tableViewReloadNewsArticles() {
+    @objc func tableViewReloadNewsArticles() {
         articlesListViewModel.fetchNewsArticles()
         tableView.refreshControl?.endRefreshing()
     }
