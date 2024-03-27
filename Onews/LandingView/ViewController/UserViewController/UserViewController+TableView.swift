@@ -46,7 +46,6 @@ extension UserViewController {
             cell.selectionStyle = .none
             cell.backgroundColor = .none
             
-            cell.usernameLabel.text = self.userName
             cell.userProfileButton.titleLabel?.text = userName.isEmpty ? "Sign In" : "Sign Out"
             
             return cell
