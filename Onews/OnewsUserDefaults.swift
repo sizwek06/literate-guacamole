@@ -13,8 +13,8 @@ open class OnewsUserDefaults {
     public static let sharedInstance = OnewsUserDefaults()
     
     public var user: User?
-    //TODO: isBiometricLogIn
-    //TODO: isNotificationsOn
+    // TODO: isBiometricLogIn
+    // TODO: isNotificationsOn
     
     public init() {
         loadDefaults()

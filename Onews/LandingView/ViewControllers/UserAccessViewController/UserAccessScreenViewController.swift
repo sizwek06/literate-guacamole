@@ -96,7 +96,7 @@ extension UserAccessScreenViewController: UITextFieldDelegate {
 
 extension UserAccessScreenViewController: UserAcessDelegate {
     
-    func successfulRegistration(user: User, isRegistration: Bool) {
+    func successfulUserSignIn(user: User, isRegistration: Bool) {
         self.dismiss(animated: true)
         print("User email: ", user.email as Any)
         print("User details: ", user.displayName as Any)
