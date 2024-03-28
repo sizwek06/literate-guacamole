@@ -7,10 +7,12 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 class UserViewController: BaseTableViewController {
     
     var userName = "@seezus"
+    var currentUser: User?
     
     var articlesArray = [
         Article(source: Source(id: "abc-news", name: "ABC News"), author: "Will McDuffie", title: "7 dead in 'destructive' Mississippi tornado, official says - ABC News", description: "A deadly tornado touched down in Mississippi, officials said.", url: "https://abcnews.go.com/US/7-dead-mississippi-tornado-official/story?id=98117564", urlToImage: "https://s.abcnews.com/images/US/mississipppi-tornado_1679721477403_hpMain_16x9_992.jpg", publishedAt: "2023-05-21T19:15:11Z", content: "At least seven people died in a \"destructive\" tornado that rolled across Mississippi late Friday, leaving a trail of damage for more than 100 miles, local and federal authorities said.\r\nSearch and re… [+1791 chars]"),
@@ -27,6 +29,7 @@ class UserViewController: BaseTableViewController {
         title = "Profile"
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         // TODO: Refresh from Firestore
+//        self.currentUser = userdef.object(forKey: "currentUser") as? User ?? nil
         
         tableView.frame = view.bounds
         view.addSubview(tableView)

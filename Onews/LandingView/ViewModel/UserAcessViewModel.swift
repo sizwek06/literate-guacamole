@@ -11,6 +11,7 @@ import FirebaseAuth
 class UserAcessViewModel {
     
     var delegate: UserAcessDelegate?
+    let userDefaults = UserDefaults.standard
     
     func registerUser(email: String, password: String) {
         self.delegate?.showLoader()
@@ -24,7 +25,8 @@ class UserAcessViewModel {
                     
                     self.delegate?.successfulRegistration(user: auth.user,
                                                           isRegistration: true)
-                    let user = Auth.auth().currentUser
+                    self.userDefaults.set(auth.user, forKey: "currentUser")
+//                    let user = Auth.auth().currentUser
                     
                 }
             }

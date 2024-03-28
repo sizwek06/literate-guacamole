@@ -16,8 +16,6 @@ class UserProfileTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.usernameLabel.text = "@sizwe44"
-        
         self.selectionStyle = .none
         self.backgroundColor = .none
     }

@@ -42,7 +42,7 @@ extension UserViewController {
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell", for: indexPath) as? UserProfileTableViewCell else { return UITableViewCell() }
-            
+            cell.usernameLabel.text = currentUser?.email ?? "No user"
             return cell
         }
     }
