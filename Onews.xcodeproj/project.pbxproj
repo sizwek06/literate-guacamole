@@ -24,6 +24,10 @@
 		2831C4322BB48EA100B48920 /* UserAcessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C4312BB48EA100B48920 /* UserAcessViewModel.swift */; };
 		2831C4342BB48F9C00B48920 /* UserAcessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C4332BB48F9C00B48920 /* UserAcessDelegate.swift */; };
 		2831C4362BB4ABAA00B48920 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2831C4352BB4ABAA00B48920 /* GoogleService-Info.plist */; };
+		2831C4382BB4B1A900B48920 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C4372BB4B1A900B48920 /* BaseTableViewController.swift */; };
+		2831C43A2BB4B29400B48920 /* BaseTableViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C4392BB4B29400B48920 /* BaseTableViewController+TableView.swift */; };
+		2831C43C2BB4B3F900B48920 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C43B2BB4B3F900B48920 /* DateExtension.swift */; };
+		2831C43E2BB4BE8000B48920 /* SettingsViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C43D2BB4BE8000B48920 /* SettingsViewController+TableView.swift */; };
 		2869F62729C1B22E00CADFD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F62629C1B22E00CADFD7 /* AppDelegate.swift */; };
 		2869F62929C1B22E00CADFD7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F62829C1B22E00CADFD7 /* SceneDelegate.swift */; };
 		2869F62E29C1B22E00CADFD7 /* ArticlesListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2869F62C29C1B22E00CADFD7 /* ArticlesListViewController.storyboard */; };
@@ -71,6 +75,10 @@
 		2831C4312BB48EA100B48920 /* UserAcessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAcessViewModel.swift; sourceTree = "<group>"; };
 		2831C4332BB48F9C00B48920 /* UserAcessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAcessDelegate.swift; sourceTree = "<group>"; };
 		2831C4352BB4ABAA00B48920 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2831C4372BB4B1A900B48920 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		2831C4392BB4B29400B48920 /* BaseTableViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTableViewController+TableView.swift"; sourceTree = "<group>"; };
+		2831C43B2BB4B3F900B48920 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		2831C43D2BB4BE8000B48920 /* SettingsViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+TableView.swift"; sourceTree = "<group>"; };
 		2869F62329C1B22E00CADFD7 /* Onews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Onews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2869F62629C1B22E00CADFD7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2869F62829C1B22E00CADFD7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				2811C5C92BB3EE6200880C52 /* SettingsViewController.swift */,
+				2831C43D2BB4BE8000B48920 /* SettingsViewController+TableView.swift */,
 			);
 			path = UserSettingsViewController;
 			sourceTree = "<group>";
@@ -193,9 +202,11 @@
 			children = (
 				289C43D92BB1DCD5000FFE64 /* AppSheets */,
 				28A335D12BB2BF9700A0D861 /* TabBarController */,
-				28A335D42BB2CD4A00A0D861 /* UserViewController */,
+				28A335D42BB2CD4A00A0D861 /* UserProfileViewController */,
 				289C43D82BB1DCC7000FFE64 /* ArticlesListViewController */,
 				2811C5C82BB3EE4600880C52 /* UserSettingsViewController */,
+				2831C4372BB4B1A900B48920 /* BaseTableViewController.swift */,
+				2831C4392BB4B29400B48920 /* BaseTableViewController+TableView.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -208,6 +219,8 @@
 				28A335D82BB2D55D00A0D861 /* UserProfile */,
 				28A335D72BB2D54300A0D861 /* ArticlesList */,
 				2805A8152BAEE272007FDA16 /* TableViewCellIdentifier.swift */,
+				289C43E32BB28209000FFE64 /* UIImage+Gif.swift */,
+				2831C43B2BB4B3F900B48920 /* DateExtension.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -269,7 +282,6 @@
 				289C43DD2BB27AF9000FFE64 /* OnewsLoaderUIView.swift */,
 				289C43DF2BB27BC7000FFE64 /* OnewsLoader.xib */,
 				289C43E12BB27F3F000FFE64 /* OnewsLoaderController.swift */,
-				289C43E32BB28209000FFE64 /* UIImage+Gif.swift */,
 			);
 			path = NewsLoader;
 			sourceTree = "<group>";
@@ -282,13 +294,13 @@
 			path = TabBarController;
 			sourceTree = "<group>";
 		};
-		28A335D42BB2CD4A00A0D861 /* UserViewController */ = {
+		28A335D42BB2CD4A00A0D861 /* UserProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
 				28A335D52BB2CD6300A0D861 /* UserViewController.swift */,
 				2811C5BE2BB333A800880C52 /* UserViewController+TableView.swift */,
 			);
-			path = UserViewController;
+			path = UserProfileViewController;
 			sourceTree = "<group>";
 		};
 		28A335D72BB2D54300A0D861 /* ArticlesList */ = {
@@ -489,6 +501,7 @@
 				28A335D62BB2CD6400A0D861 /* UserViewController.swift in Sources */,
 				2871DD152BB3F384007B6561 /* SettingsTableViewCell.swift in Sources */,
 				2831C4342BB48F9C00B48920 /* UserAcessDelegate.swift in Sources */,
+				2831C43C2BB4B3F900B48920 /* DateExtension.swift in Sources */,
 				2805A81C2BAEE374007FDA16 /* MainArticleView.swift in Sources */,
 				2869F62729C1B22E00CADFD7 /* AppDelegate.swift in Sources */,
 				2871DD172BB3F71D007B6561 /* SingleLabelTableViewCell.swift in Sources */,
@@ -496,12 +509,14 @@
 				2811C5BF2BB333A800880C52 /* UserViewController+TableView.swift in Sources */,
 				2831C4322BB48EA100B48920 /* UserAcessViewModel.swift in Sources */,
 				289C43E42BB28209000FFE64 /* UIImage+Gif.swift in Sources */,
+				2831C43A2BB4B29400B48920 /* BaseTableViewController+TableView.swift in Sources */,
 				2805A8162BAEE272007FDA16 /* TableViewCellIdentifier.swift in Sources */,
 				2831C42D2BB4668F00B48920 /* UserAccessScreenViewController.swift in Sources */,
 				2869F63F29C2E07200CADFD7 /* ArticlesListViewController.swift in Sources */,
 				28ECF5AA29CF34A1006876B7 /* ArticlesListViewModel.swift in Sources */,
 				2805A8212BB04D31007FDA16 /* ArticlesListController+Delegate.swift in Sources */,
 				2869F64D29C855BE00CADFD7 /* NewsArticleTableViewCell.swift in Sources */,
+				2831C4382BB4B1A900B48920 /* BaseTableViewController.swift in Sources */,
 				28058C702BB080930014700E /* ArticleWebViewController.swift in Sources */,
 				28ECF5A629CD71A4006876B7 /* NewsArticleData.swift in Sources */,
 				28A335D32BB2BFAC00A0D861 /* TabBarController.swift in Sources */,
@@ -513,6 +528,7 @@
 				2805A8182BAEE2CE007FDA16 /* MainArticleTableViewCell.swift in Sources */,
 				289C43E22BB27F3F000FFE64 /* OnewsLoaderController.swift in Sources */,
 				289C43DE2BB27AF9000FFE64 /* OnewsLoaderUIView.swift in Sources */,
+				2831C43E2BB4BE8000B48920 /* SettingsViewController+TableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

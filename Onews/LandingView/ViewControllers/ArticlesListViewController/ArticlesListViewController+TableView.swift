@@ -8,25 +8,15 @@
 import Foundation
 import UIKit
 
-extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
+extension ArticlesListViewController {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section == 0 ? K.mainArticleHeader : K.otherArticlesHeader
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 : articlesListViewModel.articlesArray.count
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 515 : UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 1 {
             let article = articlesListViewModel.articlesArray[indexPath.row]
@@ -126,30 +116,5 @@ extension ArticlesListViewController: UITableViewDelegate, UITableViewDataSource
             self.handleOpenArticleURL(url: article.url, source: article.source.name)
             self.hideNewsLoading()
         }
-    }
-    
-    func addLabelToImage(imageString: String, labelString: String) -> UIImage? {
-        var image = UIImage()
-        
-        let tempView = UIStackView(frame: CGRect(x: 0, y: 0, width: 90, height: 50))
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: image.size.height, height: image.size.height))
-        
-        let textLabel = UILabel()
-        textLabel.text = labelString
-        textLabel.font = UIFont(name: "SF-Pro-Semibold", size: 12)
-        textLabel.textColor = .white
-        
-        imageView.contentMode = .scaleAspectFit
-        tempView.axis = .vertical
-        tempView.alignment = .center
-        tempView.spacing = 8
-        imageView.image = UIImage(systemName: imageString)?.withTintColor(.white, renderingMode: .alwaysOriginal)
-        tempView.addArrangedSubview(imageView)
-        tempView.addArrangedSubview(textLabel)
-        let renderer = UIGraphicsImageRenderer(bounds: tempView.bounds)
-        image = renderer.image { rendererContext in
-            tempView.layer.render(in: rendererContext.cgContext)
-        }
-        return image
     }
 }

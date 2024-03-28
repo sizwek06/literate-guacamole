@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class UserViewController: ArticlesListViewController {
+class UserViewController: BaseTableViewController {
     
     var userName = "@seezus"
     
@@ -26,9 +26,9 @@ class UserViewController: ArticlesListViewController {
         
         title = "Profile"
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
+        // TODO: Refresh from Firestore
         
         tableView.frame = view.bounds
-        super.search.searchBar.isHidden = true
         view.addSubview(tableView)
     }
 }
