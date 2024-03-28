@@ -202,7 +202,7 @@
 			children = (
 				289C43D92BB1DCD5000FFE64 /* AppSheets */,
 				28A335D12BB2BF9700A0D861 /* TabBarController */,
-				28A335D42BB2CD4A00A0D861 /* UserViewController */,
+				28A335D42BB2CD4A00A0D861 /* UserProfileViewController */,
 				289C43D82BB1DCC7000FFE64 /* ArticlesListViewController */,
 				2811C5C82BB3EE4600880C52 /* UserSettingsViewController */,
 				2831C4372BB4B1A900B48920 /* BaseTableViewController.swift */,
@@ -294,13 +294,13 @@
 			path = TabBarController;
 			sourceTree = "<group>";
 		};
-		28A335D42BB2CD4A00A0D861 /* UserViewController */ = {
+		28A335D42BB2CD4A00A0D861 /* UserProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
 				28A335D52BB2CD6300A0D861 /* UserViewController.swift */,
 				2811C5BE2BB333A800880C52 /* UserViewController+TableView.swift */,
 			);
-			path = UserViewController;
+			path = UserProfileViewController;
 			sourceTree = "<group>";
 		};
 		28A335D72BB2D54300A0D861 /* ArticlesList */ = {

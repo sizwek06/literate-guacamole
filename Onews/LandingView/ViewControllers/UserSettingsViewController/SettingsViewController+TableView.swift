@@ -59,22 +59,11 @@ extension SettingsViewController {
         return UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    
-        let swipeConfiguration = UISwipeActionsConfiguration()
-        return swipeConfiguration
-    }
-    
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let swipeConfiguration = UISwipeActionsConfiguration()
-        return swipeConfiguration
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
-            showUserAccessController()
+            showSignInSheet()
         } else {
-            showUserAccessController()
+            showSignInSheet()
         }
     }
 }

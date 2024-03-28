@@ -22,7 +22,9 @@ class SettingsTableViewCell: UITableViewCell {
         self.backgroundColor = .none
     }
     
-    func setUpSettingsCell(using sfSymbol: String, backgroundColor: UIColor, label: String) {
+    func setUpSettingsCell(using sfSymbol: String, backgroundColor: UIColor, 
+                           label: String) {
+        
         settingsImageView.image = UIImage(systemName: sfSymbol)
         settingsImageView.backgroundColor = backgroundColor
         settingsLabel.text = label
