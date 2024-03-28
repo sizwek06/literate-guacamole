@@ -54,6 +54,16 @@ class UserAccessScreenViewController: UIViewController {
         
         pageHeaderLabel.text = "Onews \(pageText)"
         signInButton.setTitle(pageText, for: .normal)
+        
+        signInButton.isEnabled = false
+    }
+    
+    func checkTextfieldsContent() {
+        guard let passwordFieldText = passwordTextfield.text,
+        let emailFieldText = passwordTextfield.text
+        else { return }
+        
+        signInButton.isEnabled = !passwordFieldText.isEmpty && !emailFieldText.isEmpty ? true : false
     }
 }
 
@@ -70,6 +80,17 @@ extension UserAccessScreenViewController: UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case emailTextField:
+            checkTextfieldsContent()
+        case passwordTextfield:
+            checkTextfieldsContent()
+        default:
+            checkTextfieldsContent()
+        }
     }
 }
 

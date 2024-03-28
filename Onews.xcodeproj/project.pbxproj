@@ -205,6 +205,7 @@
 				28A335D42BB2CD4A00A0D861 /* UserProfileViewController */,
 				289C43D82BB1DCC7000FFE64 /* ArticlesListViewController */,
 				2811C5C82BB3EE4600880C52 /* UserSettingsViewController */,
+				28889F382BB5B455003FB07E /* UserAccessViewController */,
 				2831C4372BB4B1A900B48920 /* BaseTableViewController.swift */,
 				2831C4392BB4B29400B48920 /* BaseTableViewController+TableView.swift */,
 			);
@@ -233,6 +234,14 @@
 				2871DD162BB3F71D007B6561 /* SingleLabelTableViewCell.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		28889F382BB5B455003FB07E /* UserAccessViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2831C42C2BB4668F00B48920 /* UserAccessScreenViewController.swift */,
+			);
+			path = UserAccessViewController;
 			sourceTree = "<group>";
 		};
 		289C43D62BB1DC40000FFE64 /* TableView */ = {
@@ -270,7 +279,6 @@
 		289C43D92BB1DCD5000FFE64 /* AppSheets */ = {
 			isa = PBXGroup;
 			children = (
-				2831C42C2BB4668F00B48920 /* UserAccessScreenViewController.swift */,
 				28058C6F2BB080930014700E /* ArticleWebViewController.swift */,
 			);
 			path = AppSheets;

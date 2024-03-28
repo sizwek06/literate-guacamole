@@ -57,7 +57,7 @@
                                     <constraint firstAttribute="height" constant="45" id="ZKR-b7-BRG"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
                                 <connections>
                                     <outlet property="delegate" destination="zQj-Qd-zbC" id="T3L-1M-SGB"/>
                                 </connections>
@@ -73,23 +73,23 @@
                                     <outlet property="delegate" destination="zQj-Qd-zbC" id="fdU-r4-AMo"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ztf-n2-laX">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" role="primary" translatesAutoresizingMaskIntoConstraints="NO" id="Ztf-n2-laX">
                                 <rect key="frame" x="197" y="494" width="158" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="bzN-8o-LCk"/>
                                 </constraints>
-                                <buttonConfiguration key="configuration" style="filled" title="Sign In"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Sign In" titleAlignment="center"/>
                                 <connections>
                                     <action selector="signInButtonPressed:" destination="zQj-Qd-zbC" eventType="touchUpInside" id="utw-BF-e4R"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IVI-mp-ICq">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" role="destructive" translatesAutoresizingMaskIntoConstraints="NO" id="IVI-mp-ICq">
                                 <rect key="frame" x="24" y="494" width="158" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="h1H-yV-NBY"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Cancel"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Cancel" titleAlignment="center"/>
                                 <connections>
                                     <action selector="cancelBtnPressed:" destination="zQj-Qd-zbC" eventType="touchUpInside" id="lFO-V3-SxB"/>
                                 </connections>

@@ -46,7 +46,7 @@ class SettingsViewController: BaseTableViewController {
                 self.showUserAccessController(false)
             }))
 
-        alert.addAction(UIAlertAction(title: K.signInText, style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: K.signInText, style: .destructive, handler: { _ in
                 self.showUserAccessController(true)
             }))
             
