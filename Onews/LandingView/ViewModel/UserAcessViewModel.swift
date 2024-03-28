@@ -12,7 +12,7 @@ class UserAcessViewModel {
     
     var delegate: UserAcessDelegate?
     
-    func registerUser(email: String, password: String, username: String) {
+    func registerUser(email: String, password: String) {
         self.delegate?.showLoader()
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                 self.delegate?.hideLoader()
@@ -25,20 +25,21 @@ class UserAcessViewModel {
                     self.delegate?.successfulRegistration(user: auth.user,
                                                           isRegistration: true)
                     let user = Auth.auth().currentUser
-                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                    changeRequest?.displayName = username
                     
-                    changeRequest?.commitChanges { (error) in
-                        if let e = error {
-                            self.delegate?.didFailWithError(error: e.localizedDescription,
-                                                            isRegistration: true)
-                        }
-                    }
                 }
             }
         }
     
+    //TODO: Register and add username?
 //    func addUserDisplayName(currentUser: User, displayName: String) {
-//        
+//        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+//    changeRequest?.displayName = username
+//    
+//    changeRequest?.commitChanges { (error) in
+//        if let e = error {
+//            self.delegate?.didFailWithError(error: e.localizedDescription,
+//                                            isRegistration: true)
+//        }
+//    }
 //    }
 }

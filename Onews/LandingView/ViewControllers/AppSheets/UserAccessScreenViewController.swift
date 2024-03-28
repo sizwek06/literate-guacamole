@@ -11,29 +11,30 @@ import FirebaseAuth
 
 class UserAccessScreenViewController: UIViewController {
     
-    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var pageHeaderLabel: UILabel!
+    
     @IBOutlet weak var passwordTextfield: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     
-    @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
     
     var userAccessViewModel = UserAcessViewModel()
+    public var isSignIn: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         userAccessViewModel.delegate = self
-        
-        navigationItem.title = "Onews Sign In"
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        usernameTextField.becomeFirstResponder()
+        emailTextField.becomeFirstResponder()
     }
     
-    @IBAction func registerBtnPressed(_ sender: Any) {
-        registerUser()
+    @IBAction func cancelBtnPressed(_ sender: Any) {
+        self.dismiss(animated: true)
     }
     
     @IBAction func signInButtonPressed(_ sender: Any) {
@@ -42,11 +43,17 @@ class UserAccessScreenViewController: UIViewController {
     
     func registerUser() {
         guard let email = self.emailTextField.text,
-              let password = self.passwordTextfield.text,
-              let username = usernameTextField.text
+              let password = self.passwordTextfield.text
         else { return }
         
-        self.userAccessViewModel.registerUser(email: email, password: password, username: username)
+        self.userAccessViewModel.registerUser(email: email, password: password)
+    }
+    
+    func setupView() {
+        let pageText = self.isSignIn ? K.signInText : K.signUpText
+        
+        pageHeaderLabel.text = "Onews \(pageText)"
+        signInButton.setTitle(pageText, for: .normal)
     }
 }
 
@@ -54,8 +61,6 @@ extension UserAccessScreenViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     switch textField {
-        case usernameTextField:
-            emailTextField.becomeFirstResponder()
         case emailTextField:
             passwordTextfield.becomeFirstResponder()
         case passwordTextfield:

@@ -259,8 +259,8 @@
 		289C43D82BB1DCC7000FFE64 /* ArticlesListViewController */ = {
 			isa = PBXGroup;
 			children = (
-				2869F63E29C2E07200CADFD7 /* ArticlesListViewController.swift */,
 				2869F62C29C1B22E00CADFD7 /* ArticlesListViewController.storyboard */,
+				2869F63E29C2E07200CADFD7 /* ArticlesListViewController.swift */,
 				2869F64029C2E08500CADFD7 /* ArticlesListViewController+TableView.swift */,
 				2805A8202BB04D31007FDA16 /* ArticlesListController+Delegate.swift */,
 			);

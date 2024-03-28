@@ -24,10 +24,13 @@ class SettingsViewController: BaseTableViewController {
         view.addSubview(tableView)
     }
     
-    func showUserAccessController() {
-        let storyboard = UIStoryboard(name: "ArticlesListViewController", bundle: Bundle(for: ArticlesListViewController.self))
+    func showUserAccessController(_ isSignIn: Bool) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "ArticlesListViewController", bundle: Bundle(for: ArticlesListViewController.self))
         
-        let userAccessViewController = storyboard.instantiateViewController(withIdentifier: "UserAccessScreenViewController")
+        let userAccessViewController: UserAccessScreenViewController = storyboard.instantiateViewController(withIdentifier: "UserAccessScreenViewController") as!
+        UserAccessScreenViewController
+        
+        userAccessViewController.isSignIn = isSignIn
         
         if let userAccessViewController = userAccessViewController.presentationController as? UISheetPresentationController {
             userAccessViewController.detents = [.large()]
@@ -39,15 +42,15 @@ class SettingsViewController: BaseTableViewController {
     func showSignInSheet() {
         let alert = UIAlertController(title: nil, message: "Please Select an Option to continue", preferredStyle: .actionSheet)
             
-            alert.addAction(UIAlertAction(title: "Register", style: .default, handler: { _ in
-                self.showUserAccessController()
+        alert.addAction(UIAlertAction(title: K.signUpText, style: .default, handler: { _ in
+                self.showUserAccessController(false)
             }))
 
-            alert.addAction(UIAlertAction(title: "Sign In", style: .default, handler: { _ in
-                self.showSignInSheet()
+        alert.addAction(UIAlertAction(title: K.signInText, style: .default, handler: { _ in
+                self.showUserAccessController(true)
             }))
             
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+        alert.addAction(UIAlertAction(title: K.alertCancel, style: .cancel, handler: { _ in
                 alert.dismiss(animated: true)
             }))
         

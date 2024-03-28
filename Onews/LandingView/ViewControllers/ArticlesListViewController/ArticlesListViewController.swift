@@ -25,6 +25,7 @@ class ArticlesListViewController: BaseTableViewController {
         
         view.addSubview(tableView)
         
+        tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action:
                                                 #selector(tableViewReloadNewsArticles),
                                               for: .valueChanged)
