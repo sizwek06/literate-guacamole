@@ -39,15 +39,15 @@ class SettingsViewController: BaseTableViewController {
     func showSignInSheet() {
         let alert = UIAlertController(title: nil, message: "Please Select an Option to continue", preferredStyle: .actionSheet)
             
-            alert.addAction(UIAlertAction(title: "Register", style: .default, handler: { (UIAlertAction) in
+            alert.addAction(UIAlertAction(title: "Register", style: .default, handler: { _ in
                 self.showUserAccessController()
             }))
 
-            alert.addAction(UIAlertAction(title: "Sign In", style: .default, handler: { (UIAlertAction) in
+            alert.addAction(UIAlertAction(title: "Sign In", style: .default, handler: { _ in
                 self.showSignInSheet()
             }))
             
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
                 alert.dismiss(animated: true)
             }))
         
