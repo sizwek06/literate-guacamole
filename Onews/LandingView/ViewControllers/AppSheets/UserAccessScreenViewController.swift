@@ -84,7 +84,7 @@ extension UserAccessScreenViewController: UserAcessDelegate {
     }
     
     func showLoader() {
-        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: "Processing request, chill")
+        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserText)
         OnewsLoaderViewController.sharedInstance.show()
     }
     
@@ -95,11 +95,11 @@ extension UserAccessScreenViewController: UserAcessDelegate {
     func didFailWithError(error: String, isRegistration: Bool) {
         let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Retry", style: UIAlertAction.Style.default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: K.alertRetry, style: UIAlertAction.Style.default, handler: { (_) in
             self.registerUser()
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (_) in
+        alert.addAction(UIAlertAction(title: K.alertCancel, style: UIAlertAction.Style.cancel, handler: { (_) in
             alert.dismiss(animated: true)
         }))
         

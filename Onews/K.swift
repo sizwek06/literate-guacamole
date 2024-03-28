@@ -15,7 +15,8 @@ struct K {
     
     static let mainArticleHeader = "TOP NEWS"
     static let otherArticlesHeader = "OTHER ARTICLES"
-    public static let loadingText = "Loading news, please wait."
+    public static let loadingNewsText = "Loading news, please wait."
+    public static let loadingUserText = "Loading, please wait."
     static let signInText = "Sign In"
     static let signUpText = "Sign Up"
     public static let signOutText = "Sign Out"
