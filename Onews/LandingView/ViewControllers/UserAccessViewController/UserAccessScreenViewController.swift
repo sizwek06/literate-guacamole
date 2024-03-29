@@ -55,6 +55,11 @@ class UserAccessScreenViewController: UIViewController {
         pageHeaderLabel.text = "Onews \(pageText)"
         signInButton.setTitle(pageText, for: .normal)
         
+        passwordTextfield.enablesReturnKeyAutomatically = true
+        emailTextField.enablesReturnKeyAutomatically = true
+        
+        passwordTextfield.returnKeyType = self.isUserRegistration ? .join : .go
+        
         signInButton.isEnabled = false
     }
     

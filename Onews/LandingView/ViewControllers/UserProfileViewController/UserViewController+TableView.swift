@@ -11,7 +11,7 @@ import UIKit
 extension UserViewController: UITabBarDelegate {
     
      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-         return section == 0 ? "" : (self.isSignedIn ? "You currently have no Articles" : "Articles")
+         return section == 0 ? "" : (self.isSignedIn ? "Articles" : "")
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

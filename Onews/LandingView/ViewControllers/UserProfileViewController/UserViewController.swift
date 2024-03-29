@@ -39,7 +39,12 @@ class UserViewController: BaseTableViewController {
         // if it is nil, show the sign in button OR 'sign in' to get started
         // tableView.count is then equal to 1 -
         // with click here to view current articles which sends the user to the article screen?
-        
+           
+        tableView.frame = view.bounds
+        view.addSubview(tableView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         if let user = OnewsUserDefaults.sharedInstance.user {
             self.userName = user.email!
             self.currentUser = user
@@ -48,8 +53,5 @@ class UserViewController: BaseTableViewController {
             self.userName = "Not signed in, click below to get started"
             self.isSignedIn = false
         }
-        
-        tableView.frame = view.bounds
-        view.addSubview(tableView)
     }
 }
