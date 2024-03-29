@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension UserViewController: UITabBarDelegate {
+extension UserViewController {
     
      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
          return section == 0 ? "" : (self.isSignedIn ? "Articles" : "")
@@ -47,8 +47,16 @@ extension UserViewController: UITabBarDelegate {
         if indexPath.section == 0 {
             // TODO: Maybe show loader with icon bouncing and about text?
         } else {
-            self.showUserAccessController(false)
-        }
+            if isSignedIn {
+                let article = articlesArray[indexPath.row]
+                
+                DispatchQueue.main.async {
+                    self.handleOpenArticleURL(url: article.url, source: article.source.name)
+                }
+            } else {
+                    self.showUserAccessController(false)
+                }
+            }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

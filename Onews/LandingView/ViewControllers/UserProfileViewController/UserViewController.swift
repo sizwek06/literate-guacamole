@@ -31,7 +31,6 @@ class UserViewController: BaseTableViewController {
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         
-        tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(setUpView), for: .valueChanged)
         // TODO: Refresh Articles from Firestore
 

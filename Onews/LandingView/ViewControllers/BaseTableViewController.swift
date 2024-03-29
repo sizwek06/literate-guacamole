@@ -15,6 +15,7 @@ class BaseTableViewController: UIViewController {
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
         table.register(MainArticleTableViewCell.self, forCellReuseIdentifier: MainArticleTableViewCell.identifier)
+        table.refreshControl = UIRefreshControl()
         table.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
         table.translatesAutoresizingMaskIntoConstraints = false
         return table

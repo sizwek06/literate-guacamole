@@ -7,11 +7,12 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
-class SettingsViewController: BaseTableViewController {
+class SettingsViewController: UserViewController {
     
-    var isSignedIn = false
-
+    var userAccessViewModel = UserAcessViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,6 +20,9 @@ class SettingsViewController: BaseTableViewController {
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
         super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
+        tableView.refreshControl?.addTarget(self, action: #selector(setUpView), for: .valueChanged)
+        
+        userAccessViewModel.delegate = self
         
         tableView.frame = view.bounds
         view.addSubview(tableView)
@@ -41,4 +45,35 @@ class SettingsViewController: BaseTableViewController {
         
         self.present(alert, animated: true)
     }
+}
+
+extension SettingsViewController: UserAcessDelegate {
+    
+    func successfulUserSignIn(user: User, isRegistration: Bool) {
+    }
+    
+    func didFailWithError(error: String, isRegistration: Bool) {
+        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: K.alertOK, style: UIAlertAction.Style.default, handler: { (_) in
+            alert.dismiss(animated: true)
+        }))
+        
+        alert.addAction(UIAlertAction(title: K.alertCancel, style: UIAlertAction.Style.cancel, handler: { (_) in
+            alert.dismiss(animated: true)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showLoader() {
+        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserText)
+        OnewsLoaderViewController.sharedInstance.show()
+    }
+    
+    func hideLoader() {
+        OnewsLoaderViewController.sharedInstance.hide()
+    }
+    
+    
 }

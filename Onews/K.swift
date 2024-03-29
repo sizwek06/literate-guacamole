@@ -25,6 +25,7 @@ struct K {
     static let newsFont = UIFont(name: "SF-Pro", size: 20)
     
     static let alertRetry = "Retry"
+    static let alertOK = "OK"
     static let alertCancel = "Cancel"
     
     struct newsColor {

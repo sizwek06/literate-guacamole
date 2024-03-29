@@ -12,7 +12,7 @@ class UserAcessViewModel {
     
     var delegate: UserAcessDelegate?
     
-    func registerUser(email: String, password: String) {
+    func signUp(email: String, password: String) {
         self.delegate?.showLoader()
         
             Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
@@ -27,13 +27,12 @@ class UserAcessViewModel {
                     self.delegate?.successfulUserSignIn(user: auth.user,
                                                           isRegistration: true)
                     
-                    guard let email = auth.user.email else { return }
                     OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: email)
                 }
             }
         }
     
-    func logInUser(email: String, password: String) {
+    func signInUser(email: String, password: String) {
         print("Logg In called")
         self.delegate?.showLoader()
         
@@ -47,11 +46,21 @@ class UserAcessViewModel {
             } else if let auth = authResult {
                 self.delegate?.successfulUserSignIn(user: auth.user,
                                                       isRegistration: true)
-                print("Logg In Successful")
-                guard let email = auth.user.email else { return }
-                OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: email)
-                print("Log In Successful with OnewsUserDefaults: ", OnewsUserDefaults.sharedInstance.userEmail)
             }
+        }
+    }
+    
+    func signOutUser() {
+        self.delegate?.showLoader()
+      
+        do {
+            self.delegate?.hideLoader()
+            try Auth.auth().signOut()
+            OnewsUserDefaults.sharedInstance.clearLoggedInUser()
+            print("signOutsuccessful")
+        } catch {
+            self.delegate?.didFailWithError(error: error.localizedDescription,
+                                            isRegistration: true)
         }
     }
     

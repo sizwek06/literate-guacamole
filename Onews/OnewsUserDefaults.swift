@@ -23,7 +23,7 @@ open class OnewsUserDefaults {
     public func loadDefaults() {
         let userDefaults = UserDefaults.standard
         
-        self.userEmail = userDefaults.object(forKey: "userEmail") as? String ?? ""
+        self.userEmail = userDefaults.object(forKey: "userEmail") as? String
         self.isSignedIn = userDefaults.object(forKey: "isSignedIn") as? Bool ?? false
     }
     

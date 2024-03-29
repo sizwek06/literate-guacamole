@@ -47,9 +47,9 @@ class UserAccessScreenViewController: UIViewController {
         else { return }
         
         if self.isUserRegistration {
-            self.userAccessViewModel.registerUser(email: email, password: password)
+            self.userAccessViewModel.signUp(email: email, password: password)
         } else {
-            self.userAccessViewModel.logInUser(email: email, password: password)
+            self.userAccessViewModel.signInUser(email: email, password: password)
         }
     }
     
@@ -105,7 +105,14 @@ extension UserAccessScreenViewController: UITextFieldDelegate {
 extension UserAccessScreenViewController: UserAcessDelegate {
     
     func successfulUserSignIn(user: User, isRegistration: Bool) {
+        
+        guard let email = user.email else { return }
+        OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: email)
+        
+        print("Sign In/Up Successful with OnewsUserDefaults: ", OnewsUserDefaults.sharedInstance.userEmail)
+        
         self.dismiss(animated: true)
+        
         print("User email: ", user.email as Any)
         print("User details: ", user.displayName as Any)
     }
