@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 
 protocol UserAcessDelegate {
-    func successfulRegistration(user: User, isRegistration: Bool)
+    func successfulUserSignIn(user: User, isRegistration: Bool)
     func didFailWithError(error: String, isRegistration: Bool)
     func showLoader()
     func hideLoader()

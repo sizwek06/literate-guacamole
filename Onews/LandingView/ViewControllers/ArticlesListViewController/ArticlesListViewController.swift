@@ -21,10 +21,8 @@ class ArticlesListViewController: BaseTableViewController {
         
         title = "Onews"
         articlesListViewModel.delegate = self
-        articlesListViewModel.fetchNewsArticles()
         
         view.addSubview(tableView)
-        
         tableView.refreshControl?.addTarget(self, action:
                                                 #selector(tableViewReloadNewsArticles),
                                               for: .valueChanged)
@@ -32,6 +30,10 @@ class ArticlesListViewController: BaseTableViewController {
         search.delegate = self
         search.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        articlesListViewModel.fetchNewsArticles()
     }
     
     override func viewWillLayoutSubviews() {

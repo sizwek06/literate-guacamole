@@ -7,10 +7,13 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 class UserViewController: BaseTableViewController {
     
-    var userName = "@seezus"
+    var userName: String?
+    var currentUser: String?
+    var isSignedIn: Bool = false
     
     var articlesArray = [
         Article(source: Source(id: "abc-news", name: "ABC News"), author: "Will McDuffie", title: "7 dead in 'destructive' Mississippi tornado, official says - ABC News", description: "A deadly tornado touched down in Mississippi, officials said.", url: "https://abcnews.go.com/US/7-dead-mississippi-tornado-official/story?id=98117564", urlToImage: "https://s.abcnews.com/images/US/mississipppi-tornado_1679721477403_hpMain_16x9_992.jpg", publishedAt: "2023-05-21T19:15:11Z", content: "At least seven people died in a \"destructive\" tornado that rolled across Mississippi late Friday, leaving a trail of damage for more than 100 miles, local and federal authorities said.\r\nSearch and re… [+1791 chars]"),
@@ -26,9 +29,43 @@ class UserViewController: BaseTableViewController {
         
         title = "Profile"
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
-        // TODO: Refresh from Firestore
+        super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         
+        tableView.refreshControl?.addTarget(self, action: #selector(setUpView), for: .valueChanged)
+        // TODO: Refresh Articles from Firestore
+
+        // if user is not nil
+        // Add the email address/name to the profile
+        // grab the articles
+        // if it is nil, show the sign in button OR 'sign in' to get started
+        // tableView.count is then equal to 1 -
+        // with click here to view current articles which sends the user to the article screen?
+           
         tableView.frame = view.bounds
         view.addSubview(tableView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setUpView()
+    }
+    
+    @objc func setUpView() {
+        print("User Logged In as", OnewsUserDefaults.sharedInstance.userEmail)
+        if let user = OnewsUserDefaults.sharedInstance.userEmail {
+            self.userName = user
+            self.isSignedIn = true
+        } else {
+            self.userName = "Not signed in, click below to get started"
+            self.isSignedIn = false
+        }
+        //User email:  Optional("test@gg.com")
+//        User details:  Optional("testing")
+        tableView.refreshControl?.endRefreshing()
+    }
+    
+    func navigateToSettingsSignIn() {
+        let tabBarController = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
+        tabBarController.selectedIndex = 2
+        self.dismiss(animated: true, completion: {})
     }
 }

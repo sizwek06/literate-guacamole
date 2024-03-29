@@ -17,15 +17,15 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userProfileTableViewCell" rowHeight="195" id="5il-tI-jBp" customClass="UserProfileTableViewCell" customModule="Onews" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="460" height="180"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5il-tI-jBp" id="0Yz-YR-gw9">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5il-tI-jBp" id="0Yz-YR-gw9">
                 <rect key="frame" x="0.0" y="0.0" width="460" height="180"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVeryLongTestingNameForTest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="MZZ-Fb-H4d" userLabel="usernameLabel">
-                        <rect key="frame" x="58" y="80" width="342" height="23"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVeryLongTestingNameForTest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="MZZ-Fb-H4d" userLabel="usernameLabel">
+                        <rect key="frame" x="22" y="80" width="412" height="23"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="23" id="3LN-Mh-9XL"/>
-                            <constraint firstAttribute="width" constant="342" id="fM1-ct-fXN"/>
+                            <constraint firstAttribute="width" constant="412" id="fM1-ct-fXN"/>
                         </constraints>
                         <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                         <fontDescription key="fontDescription" name="SFProRounded-Bold" family="SF Pro Rounded" pointSize="18"/>
@@ -35,15 +35,15 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="MZZ-Fb-H4d" firstAttribute="top" secondItem="0Yz-YR-gw9" secondAttribute="top" constant="80" id="Mha-rK-D8M"/>
-                    <constraint firstAttribute="trailing" secondItem="MZZ-Fb-H4d" secondAttribute="trailing" constant="45" id="cJP-ky-yba"/>
-                    <constraint firstItem="MZZ-Fb-H4d" firstAttribute="leading" secondItem="0Yz-YR-gw9" secondAttribute="leading" constant="58" id="sSH-NA-WId"/>
+                    <constraint firstAttribute="trailing" secondItem="MZZ-Fb-H4d" secondAttribute="trailing" constant="26" id="cJP-ky-yba"/>
+                    <constraint firstItem="MZZ-Fb-H4d" firstAttribute="leading" secondItem="0Yz-YR-gw9" secondAttribute="leading" constant="22" id="sSH-NA-WId"/>
                 </constraints>
             </tableViewCellContentView>
             <accessibility key="accessibilityConfiguration" identifier="userProfileTableViewCell"/>
             <connections>
                 <outlet property="usernameLabel" destination="MZZ-Fb-H4d" id="pim-hy-mzF"/>
             </connections>
-            <point key="canvasLocation" x="290.07633587786256" y="-51.408450704225352"/>
+            <point key="canvasLocation" x="287.02290076335879" y="-51.408450704225352"/>
         </tableViewCell>
     </objects>
 </document>

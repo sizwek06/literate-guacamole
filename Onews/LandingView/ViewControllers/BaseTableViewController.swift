@@ -15,6 +15,7 @@ class BaseTableViewController: UIViewController {
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
         table.register(MainArticleTableViewCell.self, forCellReuseIdentifier: MainArticleTableViewCell.identifier)
+        table.refreshControl = UIRefreshControl()
         table.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
@@ -77,5 +78,20 @@ class BaseTableViewController: UIViewController {
         activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
         
         self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    func showUserAccessController(_ isUserRegistration: Bool) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "ArticlesListViewController", bundle: Bundle(for: ArticlesListViewController.self))
+        
+        let userAccessViewController: UserAccessScreenViewController = storyboard.instantiateViewController(withIdentifier: "UserAccessScreenViewController") as!
+        UserAccessScreenViewController
+        
+        userAccessViewController.isUserRegistration = isUserRegistration
+        
+        if let userAccessViewController = userAccessViewController.presentationController as? UISheetPresentationController {
+            userAccessViewController.detents = [.large()]
+        }
+        
+        self.present(userAccessViewController, animated: true, completion: nil)
     }
 }

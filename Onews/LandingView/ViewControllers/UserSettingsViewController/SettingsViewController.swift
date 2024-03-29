@@ -7,11 +7,12 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
-class SettingsViewController: BaseTableViewController {
+class SettingsViewController: UserViewController {
     
-    var isSignedIn = false
-
+    var userAccessViewModel = UserAcessViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,38 +20,60 @@ class SettingsViewController: BaseTableViewController {
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
         super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
+        tableView.refreshControl?.addTarget(self, action: #selector(setUpView), for: .valueChanged)
+        
+        userAccessViewModel.delegate = self
         
         tableView.frame = view.bounds
         view.addSubview(tableView)
     }
     
-    func showUserAccessController() {
-        let storyboard = UIStoryboard(name: "ArticlesListViewController", bundle: Bundle(for: ArticlesListViewController.self))
-        
-        let userAccessViewController = storyboard.instantiateViewController(withIdentifier: "UserAccessScreenViewController")
-        
-        if let userAccessViewController = userAccessViewController.presentationController as? UISheetPresentationController {
-            userAccessViewController.detents = [.large()]
-        }
-        
-        self.present(userAccessViewController, animated: true, completion: nil)
-    }
-    
     func showSignInSheet() {
         let alert = UIAlertController(title: nil, message: "Please Select an Option to continue", preferredStyle: .actionSheet)
             
-            alert.addAction(UIAlertAction(title: "Register", style: .default, handler: { _ in
-                self.showUserAccessController()
+        alert.addAction(UIAlertAction(title: K.signUpText, style: .default, handler: { _ in
+                self.showUserAccessController(true)
             }))
 
-            alert.addAction(UIAlertAction(title: "Sign In", style: .default, handler: { _ in
-                self.showSignInSheet()
+        alert.addAction(UIAlertAction(title: K.signInText, style: .destructive, handler: { _ in
+                self.showUserAccessController(false)
             }))
             
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+        alert.addAction(UIAlertAction(title: K.alertCancel, style: .cancel, handler: { _ in
                 alert.dismiss(animated: true)
             }))
         
         self.present(alert, animated: true)
     }
+}
+
+extension SettingsViewController: UserAcessDelegate {
+    
+    func successfulUserSignIn(user: User, isRegistration: Bool) {
+    }
+    
+    func didFailWithError(error: String, isRegistration: Bool) {
+        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: K.alertOK, style: UIAlertAction.Style.default, handler: { (_) in
+            alert.dismiss(animated: true)
+        }))
+        
+        alert.addAction(UIAlertAction(title: K.alertCancel, style: UIAlertAction.Style.cancel, handler: { (_) in
+            alert.dismiss(animated: true)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showLoader() {
+        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserText)
+        OnewsLoaderViewController.sharedInstance.show()
+    }
+    
+    func hideLoader() {
+        OnewsLoaderViewController.sharedInstance.hide()
+    }
+    
+    
 }

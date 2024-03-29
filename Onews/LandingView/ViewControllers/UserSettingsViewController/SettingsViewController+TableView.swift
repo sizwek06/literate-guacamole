@@ -14,16 +14,12 @@ extension SettingsViewController {
         return 3
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return ""
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 1 ? 2 : 1
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 180 : 54
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -32,14 +28,13 @@ extension SettingsViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell", for: indexPath) as? UserProfileTableViewCell
             else { return UITableViewCell() }
             
-            cell.selectionStyle = .none
-            cell.backgroundColor = .none
+            cell.usernameLabel.text = self.userName
 
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell") as? SettingsTableViewCell else { return UITableViewCell() }
             
-           indexPath.row == 0 ? cell.setUpSettingsCell(using: "bell.badge.fill", backgroundColor: UIColor.red, label: "Notification")
+           indexPath.row == 0 ? cell.setUpSettingsCell(using: "bell.badge.fill", backgroundColor: UIColor.red, label: "Notifications")
             : cell.setUpSettingsCell(using: "faceid", backgroundColor: UIColor.systemGreen, label: "FaceID")
             
             return cell
@@ -59,11 +54,22 @@ extension SettingsViewController {
         return UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 2 {
-            showSignInSheet()
-        } else {
-            showSignInSheet()
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 2:
+            isSignedIn ?  userAccessViewModel.signOutUser() : showSignInSheet()
+        default:
+            break
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let swipeConfiguration = UISwipeActionsConfiguration()
+        return swipeConfiguration
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let swipeConfiguration = UISwipeActionsConfiguration()
+        return swipeConfiguration
     }
 }

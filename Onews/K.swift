@@ -15,12 +15,18 @@ struct K {
     
     static let mainArticleHeader = "TOP NEWS"
     static let otherArticlesHeader = "OTHER ARTICLES"
-    public static let loadingText = "Loading news, please wait."
+    public static let loadingNewsText = "Loading news, please wait."
+    public static let loadingUserText = "Loading, please wait."
     static let signInText = "Sign In"
+    static let signUpText = "Sign Up"
     public static let signOutText = "Sign Out"
     
     static let newsLogo = UIImage(named: "NewsApp")
     static let newsFont = UIFont(name: "SF-Pro", size: 20)
+    
+    static let alertRetry = "Retry"
+    static let alertOK = "OK"
+    static let alertCancel = "Cancel"
     
     struct newsColor {
         static let oNewsBlack = UIColor.darkGray

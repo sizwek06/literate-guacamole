@@ -107,14 +107,4 @@ extension ArticlesListViewController {
             return swipeConfiguration
         }
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showNewsLoading()
-        let article = articlesListViewModel.articlesArray[indexPath.row]
-        
-        DispatchQueue.main.async {
-            self.handleOpenArticleURL(url: article.url, source: article.source.name)
-            self.hideNewsLoading()
-        }
-    }
 }
