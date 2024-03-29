@@ -13,5 +13,6 @@ protocol UserAcessDelegate {
     func successfulUserSignIn(user: User, isRegistration: Bool)
     func didFailWithError(error: String, isRegistration: Bool)
     func showLoader()
+    func confirmLogOut()
     func hideLoader()
 }

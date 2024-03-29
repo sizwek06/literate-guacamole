@@ -104,6 +104,9 @@ extension UserAccessScreenViewController: UITextFieldDelegate {
 
 extension UserAccessScreenViewController: UserAcessDelegate {
     
+    func confirmLogOut() {
+    }
+    
     func successfulUserSignIn(user: User, isRegistration: Bool) {
         
         guard let email = user.email else { return }
@@ -113,7 +116,7 @@ extension UserAccessScreenViewController: UserAcessDelegate {
         
         self.dismiss(animated: true)
         
-        print("User email: ", user.email as Any)
+        print("User email: ", email as Any)
         print("User details: ", user.displayName as Any)
     }
     

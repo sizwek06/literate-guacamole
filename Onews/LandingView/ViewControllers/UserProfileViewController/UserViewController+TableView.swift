@@ -62,7 +62,7 @@ extension UserViewController {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         print("Array count is: \(self.articlesArray.count)")
         
-        if indexPath.section == 1 {
+        if indexPath.section == 1 && isSignedIn {
             let shareAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
                 self.shareArticleLink(with: self.articlesArray[indexPath.row].url)
                 
@@ -84,7 +84,7 @@ extension UserViewController {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        if indexPath.section == 1 {
+        if indexPath.section == 1 && isSignedIn {
             let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
                 
                 self.articlesArray.remove(at: indexPath.row)

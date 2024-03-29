@@ -26,8 +26,6 @@ class UserAcessViewModel {
                 } else if let auth = authResult {
                     self.delegate?.successfulUserSignIn(user: auth.user,
                                                           isRegistration: true)
-                    
-                    OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: email)
                 }
             }
         }
@@ -42,10 +40,10 @@ class UserAcessViewModel {
             
             if let e = error {
                 self.delegate?.didFailWithError(error: e.localizedDescription,
-                                                isRegistration: true)
+                                                isRegistration: false)
             } else if let auth = authResult {
                 self.delegate?.successfulUserSignIn(user: auth.user,
-                                                      isRegistration: true)
+                                                      isRegistration: false)
             }
         }
     }
