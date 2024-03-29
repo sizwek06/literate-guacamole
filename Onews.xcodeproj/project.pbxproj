@@ -179,12 +179,12 @@
 				2869F63A29C1D21B00CADFD7 /* LandingView */,
 				2869F62629C1B22E00CADFD7 /* AppDelegate.swift */,
 				2869F62829C1B22E00CADFD7 /* SceneDelegate.swift */,
+				28889F392BB6292D003FB07E /* OnewsUserDefaults.swift */,
 				28ECF5AB29CF3ED5006876B7 /* K.swift */,
 				2869F62F29C1B22F00CADFD7 /* Assets.xcassets */,
 				2869F63129C1B22F00CADFD7 /* LaunchScreen.storyboard */,
 				2869F63429C1B22F00CADFD7 /* Info.plist */,
 				2831C4352BB4ABAA00B48920 /* GoogleService-Info.plist */,
-				28889F392BB6292D003FB07E /* OnewsUserDefaults.swift */,
 			);
 			path = Onews;
 			sourceTree = "<group>";

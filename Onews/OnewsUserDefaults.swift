@@ -27,15 +27,22 @@ open class OnewsUserDefaults {
         self.isSignedIn = userDefaults.object(forKey: "isSignedIn") as? Bool ?? false
     }
     
-    public func saveLoggedInUser(user: String) {
+    public func saveLoggedInUser(email: String) {
         let userDefaults = UserDefaults.standard
-        userDefaults.set(user, forKey: "userEmail")
+        userDefaults.set(email, forKey: "userEmail")
+        userDefaults.synchronize()
+    }
+    
+    public func saveLoggedInUserState(state: Bool) {
+        let userDefaults = UserDefaults.standard
         userDefaults.set(isSignedIn, forKey: "isSignedIn")
+        userDefaults.synchronize()
     }
     
     public func clearLoggedInUser() {
         let userDefaults = UserDefaults.standard
         userDefaults.removeObject(forKey: "userEmail")
         userDefaults.set(false, forKey: "isSignedIn")
+        userDefaults.synchronize()
     }
 }

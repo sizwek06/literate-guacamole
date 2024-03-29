@@ -110,7 +110,7 @@ extension UserAccessScreenViewController: UserAcessDelegate {
     func successfulUserSignIn(user: User, isRegistration: Bool) {
         
         guard let email = user.email else { return }
-        OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: email)
+        OnewsUserDefaults.sharedInstance.saveLoggedInUser(email: email)
         
         print("Sign In/Up Successful with OnewsUserDefaults: ", OnewsUserDefaults.sharedInstance.userEmail)
         

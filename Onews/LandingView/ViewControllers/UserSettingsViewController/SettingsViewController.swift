@@ -79,7 +79,7 @@ extension SettingsViewController: UserAcessDelegate {
         self.setUpView()
         guard let email = user.email else { return }
        
-        OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: email)
+        OnewsUserDefaults.sharedInstance.saveLoggedInUser(email: email)
         
         OnewsUserDefaults.sharedInstance.loadDefaults()
         
