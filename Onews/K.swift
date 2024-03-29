@@ -26,6 +26,7 @@ struct K {
     
     static let alertRetry = "Retry"
     static let alertOK = "OK"
+    static let alertYes = "Yes"
     static let alertCancel = "Cancel"
     
     struct newsColor {

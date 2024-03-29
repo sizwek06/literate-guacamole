@@ -46,15 +46,12 @@ class MainArticleCollectionViewCell: UICollectionViewCell {
 
         @objc func shareImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
             _ = tapGestureRecognizer.view as! UIImageView
-            print("Share Image Clicked")
-            
             guard let article = currentArticle else { return }
             didShareArticle?(article.url)
         }
     
         @objc func saveImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
             _ = tapGestureRecognizer.view as! UIImageView
-            print("Save Image Clicked")
             guard let article = currentArticle else { return }
             didSaveArticle?(article.url)
         }

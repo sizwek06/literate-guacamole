@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 extension ArticlesListViewController {
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section == 0 ? K.mainArticleHeader : K.otherArticlesHeader
     }
@@ -16,6 +17,7 @@ extension ArticlesListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 : articlesListViewModel.articlesArray.count
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 1 {
@@ -52,6 +54,14 @@ extension ArticlesListViewController {
             }
             
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let article = articlesListViewModel.articlesArray[indexPath.row]
+        
+        if indexPath.section == 1 {
+            self.handleOpenArticleURL(url: article.url, source: article.source.name)
         }
     }
     

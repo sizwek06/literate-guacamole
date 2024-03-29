@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 
-class UserAcessViewModel {
+class UserAccessViewModel {
     
     var delegate: UserAcessDelegate?
     
@@ -26,14 +26,11 @@ class UserAcessViewModel {
                 } else if let auth = authResult {
                     self.delegate?.successfulUserSignIn(user: auth.user,
                                                           isRegistration: true)
-                    
-                    OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: email)
                 }
             }
         }
     
     func signInUser(email: String, password: String) {
-        print("Logg In called")
         self.delegate?.showLoader()
         
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
@@ -42,10 +39,10 @@ class UserAcessViewModel {
             
             if let e = error {
                 self.delegate?.didFailWithError(error: e.localizedDescription,
-                                                isRegistration: true)
+                                                isRegistration: false)
             } else if let auth = authResult {
                 self.delegate?.successfulUserSignIn(user: auth.user,
-                                                      isRegistration: true)
+                                                      isRegistration: false)
             }
         }
     }
@@ -56,8 +53,8 @@ class UserAcessViewModel {
         do {
             self.delegate?.hideLoader()
             try Auth.auth().signOut()
-            OnewsUserDefaults.sharedInstance.clearLoggedInUser()
-            print("signOutsuccessful")
+            UserDefaults.standard.removeObject(forKey: "userEmail")
+            UserDefaults.standard.synchronize()
         } catch {
             self.delegate?.didFailWithError(error: error.localizedDescription,
                                             isRegistration: true)

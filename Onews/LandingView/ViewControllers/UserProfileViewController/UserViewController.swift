@@ -50,16 +50,20 @@ class UserViewController: BaseTableViewController {
     }
     
     @objc func setUpView() {
-        print("User Logged In as", OnewsUserDefaults.sharedInstance.userEmail)
-        if let user = OnewsUserDefaults.sharedInstance.userEmail {
+        
+        if let user = UserDefaults.standard.string(forKey: "userEmail") {
             self.userName = user
-            self.isSignedIn = true
+            self.isSignedIn = !user.isEmpty
+            
         } else {
+            
             self.userName = "Not signed in, click below to get started"
             self.isSignedIn = false
         }
         //User email:  Optional("test@gg.com")
 //        User details:  Optional("testing")
+        
+        self.tableView.reloadData()
         tableView.refreshControl?.endRefreshing()
     }
     

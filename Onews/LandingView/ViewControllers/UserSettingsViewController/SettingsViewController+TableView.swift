@@ -57,7 +57,7 @@ extension SettingsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 2:
-            isSignedIn ?  userAccessViewModel.signOutUser() : showSignInSheet()
+            isSignedIn ? confirmLogOut() : showSignInSheet()
         default:
             break
         }

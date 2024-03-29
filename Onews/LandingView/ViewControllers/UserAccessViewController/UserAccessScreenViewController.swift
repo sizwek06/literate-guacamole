@@ -19,7 +19,7 @@ class UserAccessScreenViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
     
-    var userAccessViewModel = UserAcessViewModel()
+    var userAccessViewModel = UserAccessViewModel()
     public var isUserRegistration: Bool = false
     
     override func viewDidLoad() {
@@ -33,11 +33,23 @@ class UserAccessScreenViewController: UIViewController {
         emailTextField.becomeFirstResponder()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if let settingViewController = presentingViewController as? SettingsViewController {
+            DispatchQueue.main.async {
+                settingViewController.setUpView()
+            }
+        }
+    }
+    
     @IBAction func cancelBtnPressed(_ sender: Any) {
         self.dismiss(animated: true)
     }
     
     @IBAction func signInButtonPressed(_ sender: Any) {
+        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "PeformAfterPresenting"), object: nil))
+
         authenticateUserDetails()
     }
     
@@ -100,21 +112,30 @@ extension UserAccessScreenViewController: UITextFieldDelegate {
             checkTextfieldsContent()
         }
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case passwordTextfield:
+            signInButton.isEnabled = true
+        default:
+            checkTextfieldsContent()
+        }
+    }
 }
 
 extension UserAccessScreenViewController: UserAcessDelegate {
     
+    func confirmLogOut() {
+    }
+    
     func successfulUserSignIn(user: User, isRegistration: Bool) {
         
         guard let email = user.email else { return }
-        OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: email)
         
-        print("Sign In/Up Successful with OnewsUserDefaults: ", OnewsUserDefaults.sharedInstance.userEmail)
+        UserDefaults.standard.set(email, forKey: "userEmail")
+        UserDefaults.standard.synchronize()
         
         self.dismiss(animated: true)
-        
-        print("User email: ", user.email as Any)
-        print("User details: ", user.displayName as Any)
     }
     
     func showLoader() {
