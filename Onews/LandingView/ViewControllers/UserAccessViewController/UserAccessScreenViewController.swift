@@ -20,7 +20,7 @@ class UserAccessScreenViewController: UIViewController {
     @IBOutlet weak var signInButton: UIButton!
     
     var userAccessViewModel = UserAcessViewModel()
-    public var isSignIn: Bool = false
+    public var isUserRegistration: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +50,7 @@ class UserAccessScreenViewController: UIViewController {
     }
     
     func setupView() {
-        let pageText = self.isSignIn ? K.signInText : K.signUpText
+        let pageText = self.isUserRegistration ?  K.signUpText : K.signInText
         
         pageHeaderLabel.text = "Onews \(pageText)"
         signInButton.setTitle(pageText, for: .normal)

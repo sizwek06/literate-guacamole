@@ -78,4 +78,19 @@ class BaseTableViewController: UIViewController {
         
         self.present(activityViewController, animated: true, completion: nil)
     }
+    
+    func showUserAccessController(_ isUserRegistration: Bool) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "ArticlesListViewController", bundle: Bundle(for: ArticlesListViewController.self))
+        
+        let userAccessViewController: UserAccessScreenViewController = storyboard.instantiateViewController(withIdentifier: "UserAccessScreenViewController") as!
+        UserAccessScreenViewController
+        
+        userAccessViewController.isUserRegistration = isUserRegistration
+        
+        if let userAccessViewController = userAccessViewController.presentationController as? UISheetPresentationController {
+            userAccessViewController.detents = [.large()]
+        }
+        
+        self.present(userAccessViewController, animated: true, completion: nil)
+    }
 }

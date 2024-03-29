@@ -24,30 +24,15 @@ class SettingsViewController: BaseTableViewController {
         view.addSubview(tableView)
     }
     
-    func showUserAccessController(_ isSignIn: Bool) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "ArticlesListViewController", bundle: Bundle(for: ArticlesListViewController.self))
-        
-        let userAccessViewController: UserAccessScreenViewController = storyboard.instantiateViewController(withIdentifier: "UserAccessScreenViewController") as!
-        UserAccessScreenViewController
-        
-        userAccessViewController.isSignIn = isSignIn
-        
-        if let userAccessViewController = userAccessViewController.presentationController as? UISheetPresentationController {
-            userAccessViewController.detents = [.large()]
-        }
-        
-        self.present(userAccessViewController, animated: true, completion: nil)
-    }
-    
     func showSignInSheet() {
         let alert = UIAlertController(title: nil, message: "Please Select an Option to continue", preferredStyle: .actionSheet)
             
         alert.addAction(UIAlertAction(title: K.signUpText, style: .default, handler: { _ in
-                self.showUserAccessController(false)
+                self.showUserAccessController(true)
             }))
 
         alert.addAction(UIAlertAction(title: K.signInText, style: .destructive, handler: { _ in
-                self.showUserAccessController(true)
+                self.showUserAccessController(false)
             }))
             
         alert.addAction(UIAlertAction(title: K.alertCancel, style: .cancel, handler: { _ in

@@ -52,7 +52,7 @@ class UserAcessViewModel {
         }
     }
     
-    //TODO: Register and add username?
+    // TODO: Register and add username?
 //    self.addUserDisplayName(currentUser: auth.user, displayName: username)
 //    func addUserDisplayName(currentUser: User, displayName: String) {
 //        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
