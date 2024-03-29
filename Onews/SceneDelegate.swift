@@ -16,11 +16,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
-        let articlesListViewController = ArticlesListViewController()
-        let navigationController = UINavigationController(rootViewController: articlesListViewController)
+        
+        let tabBarViewController = TabBarController()
+        
+        let articlesNavigationController = UINavigationController(rootViewController: ArticlesListViewController())
+        articlesNavigationController.title = "Onews"
+        let userNavigationController = UINavigationController(rootViewController: UserViewController())
+        userNavigationController.title = "Profile"
+        let settingsNavigationController = UINavigationController(rootViewController: SettingsViewController())
+        settingsNavigationController.title = "Settings"
+        
+        articlesNavigationController.tabBarItem.image = UIImage(systemName: "newspaper")
+        articlesNavigationController.tabBarItem.selectedImage = UIImage(systemName: "newspaper.fill")
+        
+        userNavigationController.tabBarItem.image = UIImage(systemName: "person.crop.circle")
+        userNavigationController.tabBarItem.selectedImage = UIImage(systemName: "person.crop.circle.fill")
+        
+        settingsNavigationController.tabBarItem.image = UIImage(systemName: "gearshape")
+        settingsNavigationController.tabBarItem.selectedImage = UIImage(systemName: "gearshape.fill")
+        
+        tabBarViewController.tabBar.tintColor = UIColor(named: "AppearanceColor")
+        tabBarViewController.setViewControllers([userNavigationController, articlesNavigationController, settingsNavigationController], animated: true)
+        
         if let windowScene = scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
-            self.window?.rootViewController = navigationController
+            self.window?.rootViewController = tabBarViewController
             self.window?.makeKeyAndVisible()
         }
     }

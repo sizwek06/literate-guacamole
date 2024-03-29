@@ -10,14 +10,19 @@ import UIKit
 
 public class OnewsLoaderViewController {
     
-    internal var loader: OnewsLoader? = OnewsLoader.init()
+    internal var loader: OnewsLoaderUIView? = OnewsLoaderUIView.init()
     
     public static let sharedInstance = OnewsLoaderViewController()
     
     public init() {}
     
-    public func setDisplay(title: String, description: String) {
-        loader = OnewsLoader.init()
+    public func setDisplay(loadingText: String) {
+        loader = OnewsLoaderUIView.init(loadingText: loadingText)
+    }
+    
+    public func setText(title: String) {
+        
+        loader?.setText(title)
     }
     
     public func show() {

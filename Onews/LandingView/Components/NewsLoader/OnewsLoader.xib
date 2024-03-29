@@ -4,17 +4,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="SF-Pro.ttf">
-            <string>SFPro-Heavy</string>
+        <array key="SF-Pro-Rounded-Bold.otf">
+            <string>SFProRounded-Bold</string>
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OnewsLoader" customModule="Onews" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OnewsLoaderUIView" customModule="Onews" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="xYT-Id-khi" id="2Uf-9z-uvj"/>
                 <outlet property="imageView" destination="wIz-Pc-UCL" id="7UP-UB-FlK"/>
@@ -32,15 +31,16 @@
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchImg" translatesAutoresizingMaskIntoConstraints="NO" id="wIz-Pc-UCL">
                             <rect key="frame" x="45" y="16" width="160" height="96"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8W-0r-2Hg">
                             <rect key="frame" x="30" y="123" width="188" height="21"/>
-                            <fontDescription key="fontDescription" name="SFPro-Heavy" family="SF Pro" pointSize="13"/>
-                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" name="SFProRounded-Bold" family="SF Pro Rounded" pointSize="15"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" name="CollectionColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="s8W-0r-2Hg" firstAttribute="leading" secondItem="KOf-RC-bqF" secondAttribute="leading" constant="30" id="2rW-u2-Gxf"/>
                         <constraint firstItem="wIz-Pc-UCL" firstAttribute="leading" secondItem="KOf-RC-bqF" secondAttribute="leading" constant="45" id="EjB-df-Ioo"/>
@@ -66,8 +66,5 @@
     </objects>
     <resources>
         <image name="launchImg" width="500" height="500"/>
-        <namedColor name="CollectionColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
     </resources>
 </document>

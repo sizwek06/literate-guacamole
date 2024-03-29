@@ -1,29 +1,22 @@
 //
-//  LandingViewController.swift
+//  BaseTableViewController.swift
 //  Onews
 //
-//  Created by Sizwe Khathi on 2023/03/16.
+//  Created by Sizwe Khathi on 2024/03/27.
 //
 
 import Foundation
 import UIKit
-import Kingfisher
 
-class ArticlesListViewController: UIViewController {
+class BaseTableViewController: UIViewController {
     
-    var articlesListViewModel = ArticlesListViewModel()
     var openArticleURL: ((String) -> Void)?
-    var searchText: String = ""
-    let search = UISearchController(searchResultsController: nil)
     
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
         table.register(MainArticleTableViewCell.self, forCellReuseIdentifier: MainArticleTableViewCell.identifier)
-        table.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
         table.refreshControl = UIRefreshControl()
-        table.refreshControl?.addTarget(self, action:
-                                            #selector(tableViewReloadNewsArticles),
-                                          for: .valueChanged)
+        table.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -32,25 +25,15 @@ class ArticlesListViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Onews"
-        articlesListViewModel.delegate = self
-        articlesListViewModel.fetchNewsArticles()
         
         view.addSubview(tableView)
         
-        tableView.rowHeight = 150
         tableView.separatorStyle = .singleLine
         tableView.delegate = self
         tableView.dataSource = self
         tableView.frame = view.bounds
         
-        search.delegate = self
-        search.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        self.navigationItem.searchController = search
     }
     
     func downloadImg(urlString: String?, imgView: UIImageView) {
@@ -97,47 +80,18 @@ class ArticlesListViewController: UIViewController {
         self.present(activityViewController, animated: true, completion: nil)
     }
     
-    @objc func tableViewReloadNewsArticles() {
-        articlesListViewModel.fetchNewsArticles()
-        tableView.refreshControl?.endRefreshing()
-    }
-}
-
-extension Date {
-    
-    func convertStringToDate(dateString: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        guard let date = dateFormatter.date(from: dateString) else { return "Date Failed" }
-
-        let dayHourMinuteSecond: Set<Calendar.Component> = [.day, .hour, .minute, .second]
-        let difference = NSCalendar.current.dateComponents(dayHourMinuteSecond, from: date, to: self)
-
-        let hours = "\(difference.hour ?? 0)h ago"
-        let days = "\(difference.day ?? 0)d ago"
+    func showUserAccessController(_ isUserRegistration: Bool) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "ArticlesListViewController", bundle: Bundle(for: ArticlesListViewController.self))
         
-        if let daysTimeSince = difference.day, let hoursTimeSince = difference.hour {
-            if hoursTimeSince < 24 && daysTimeSince == 0 {
-                if let hour = difference.hour, hour       > 0 { return hours }
-            } else {
-                if let day = difference.day, day          > 0 { return days }
-            }
+        let userAccessViewController: UserAccessScreenViewController = storyboard.instantiateViewController(withIdentifier: "UserAccessScreenViewController") as!
+        UserAccessScreenViewController
+        
+        userAccessViewController.isUserRegistration = isUserRegistration
+        
+        if let userAccessViewController = userAccessViewController.presentationController as? UISheetPresentationController {
+            userAccessViewController.detents = [.large()]
         }
-        return ""
-    }
-}
-
-extension ArticlesListViewController: UISearchControllerDelegate, UISearchBarDelegate {
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.searchText = ""
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchPhrase = searchBar.text else { return }
         
-        articlesListViewModel.searchArticleTopic(with: searchPhrase)
-        return
+        self.present(userAccessViewController, animated: true, completion: nil)
     }
 }
