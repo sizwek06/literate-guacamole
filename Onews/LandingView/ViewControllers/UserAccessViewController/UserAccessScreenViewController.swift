@@ -112,6 +112,15 @@ extension UserAccessScreenViewController: UITextFieldDelegate {
             checkTextfieldsContent()
         }
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case passwordTextfield:
+            signInButton.isEnabled = true
+        default:
+            checkTextfieldsContent()
+        }
+    }
 }
 
 extension UserAccessScreenViewController: UserAcessDelegate {
