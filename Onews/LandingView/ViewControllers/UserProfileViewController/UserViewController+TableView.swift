@@ -54,7 +54,7 @@ extension UserViewController {
                     self.handleOpenArticleURL(url: article.url, source: article.source.name)
                 }
             } else {
-                    self.showUserAccessController(false)
+                    self.navigateToSettingsSignIn()
                 }
             }
     }

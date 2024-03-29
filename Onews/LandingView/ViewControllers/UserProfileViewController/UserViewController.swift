@@ -62,4 +62,10 @@ class UserViewController: BaseTableViewController {
 //        User details:  Optional("testing")
         tableView.refreshControl?.endRefreshing()
     }
+    
+    func navigateToSettingsSignIn() {
+        let tabBarController = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
+        tabBarController.selectedIndex = 2
+        self.dismiss(animated: true, completion: {})
+    }
 }
