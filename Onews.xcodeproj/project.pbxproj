@@ -21,7 +21,7 @@
 		2831C4232BB4601000B48920 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2831C4202BB4601000B48920 /* SF-Pro-Text-Regular.otf */; };
 		2831C4252BB4608300B48920 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2831C4242BB4608300B48920 /* SF-Pro-Rounded-Bold.otf */; };
 		2831C42D2BB4668F00B48920 /* UserAccessScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C42C2BB4668F00B48920 /* UserAccessScreenViewController.swift */; };
-		2831C4322BB48EA100B48920 /* UserAcessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C4312BB48EA100B48920 /* UserAcessViewModel.swift */; };
+		2831C4322BB48EA100B48920 /* UserAccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C4312BB48EA100B48920 /* UserAccessViewModel.swift */; };
 		2831C4342BB48F9C00B48920 /* UserAcessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C4332BB48F9C00B48920 /* UserAcessDelegate.swift */; };
 		2831C4362BB4ABAA00B48920 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2831C4352BB4ABAA00B48920 /* GoogleService-Info.plist */; };
 		2831C4382BB4B1A900B48920 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C4372BB4B1A900B48920 /* BaseTableViewController.swift */; };
@@ -40,7 +40,6 @@
 		2871DD132BB3F2C6007B6561 /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2871DD122BB3F2C6007B6561 /* SettingsTableViewCell.xib */; };
 		2871DD152BB3F384007B6561 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2871DD142BB3F384007B6561 /* SettingsTableViewCell.swift */; };
 		2871DD172BB3F71D007B6561 /* SingleLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2871DD162BB3F71D007B6561 /* SingleLabelTableViewCell.swift */; };
-		28889F3A2BB6292D003FB07E /* OnewsUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28889F392BB6292D003FB07E /* OnewsUserDefaults.swift */; };
 		289C43DE2BB27AF9000FFE64 /* OnewsLoaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289C43DD2BB27AF9000FFE64 /* OnewsLoaderUIView.swift */; };
 		289C43E02BB27BC7000FFE64 /* OnewsLoader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 289C43DF2BB27BC7000FFE64 /* OnewsLoader.xib */; };
 		289C43E22BB27F3F000FFE64 /* OnewsLoaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289C43E12BB27F3F000FFE64 /* OnewsLoaderController.swift */; };
@@ -73,7 +72,7 @@
 		2831C4202BB4601000B48920 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		2831C4242BB4608300B48920 /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; };
 		2831C42C2BB4668F00B48920 /* UserAccessScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccessScreenViewController.swift; sourceTree = "<group>"; };
-		2831C4312BB48EA100B48920 /* UserAcessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAcessViewModel.swift; sourceTree = "<group>"; };
+		2831C4312BB48EA100B48920 /* UserAccessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccessViewModel.swift; sourceTree = "<group>"; };
 		2831C4332BB48F9C00B48920 /* UserAcessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAcessDelegate.swift; sourceTree = "<group>"; };
 		2831C4352BB4ABAA00B48920 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2831C4372BB4B1A900B48920 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
@@ -94,7 +93,6 @@
 		2871DD122BB3F2C6007B6561 /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
 		2871DD142BB3F384007B6561 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		2871DD162BB3F71D007B6561 /* SingleLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLabelTableViewCell.swift; sourceTree = "<group>"; };
-		28889F392BB6292D003FB07E /* OnewsUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnewsUserDefaults.swift; sourceTree = "<group>"; };
 		289C43DD2BB27AF9000FFE64 /* OnewsLoaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnewsLoaderUIView.swift; sourceTree = "<group>"; };
 		289C43DF2BB27BC7000FFE64 /* OnewsLoader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnewsLoader.xib; sourceTree = "<group>"; };
 		289C43E12BB27F3F000FFE64 /* OnewsLoaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnewsLoaderController.swift; sourceTree = "<group>"; };
@@ -179,7 +177,6 @@
 				2869F63A29C1D21B00CADFD7 /* LandingView */,
 				2869F62629C1B22E00CADFD7 /* AppDelegate.swift */,
 				2869F62829C1B22E00CADFD7 /* SceneDelegate.swift */,
-				28889F392BB6292D003FB07E /* OnewsUserDefaults.swift */,
 				28ECF5AB29CF3ED5006876B7 /* K.swift */,
 				2869F62F29C1B22F00CADFD7 /* Assets.xcassets */,
 				2869F63129C1B22F00CADFD7 /* LaunchScreen.storyboard */,
@@ -337,7 +334,7 @@
 			children = (
 				28ECF5A529CD71A4006876B7 /* NewsArticleData.swift */,
 				28ECF5A929CF34A1006876B7 /* ArticlesListViewModel.swift */,
-				2831C4312BB48EA100B48920 /* UserAcessViewModel.swift */,
+				2831C4312BB48EA100B48920 /* UserAccessViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -518,7 +515,7 @@
 				2871DD172BB3F71D007B6561 /* SingleLabelTableViewCell.swift in Sources */,
 				28A909542A6D35390037C24D /* ArticleDelegate.swift in Sources */,
 				2811C5BF2BB333A800880C52 /* UserViewController+TableView.swift in Sources */,
-				2831C4322BB48EA100B48920 /* UserAcessViewModel.swift in Sources */,
+				2831C4322BB48EA100B48920 /* UserAccessViewModel.swift in Sources */,
 				289C43E42BB28209000FFE64 /* UIImage+Gif.swift in Sources */,
 				2831C43A2BB4B29400B48920 /* BaseTableViewController+TableView.swift in Sources */,
 				2805A8162BAEE272007FDA16 /* TableViewCellIdentifier.swift in Sources */,
@@ -538,7 +535,6 @@
 				2805A81E2BAEE5E0007FDA16 /* MainArticleCollectionViewCell.swift in Sources */,
 				2805A8182BAEE2CE007FDA16 /* MainArticleTableViewCell.swift in Sources */,
 				289C43E22BB27F3F000FFE64 /* OnewsLoaderController.swift in Sources */,
-				28889F3A2BB6292D003FB07E /* OnewsUserDefaults.swift in Sources */,
 				289C43DE2BB27AF9000FFE64 /* OnewsLoaderUIView.swift in Sources */,
 				2831C43E2BB4BE8000B48920 /* SettingsViewController+TableView.swift in Sources */,
 			);

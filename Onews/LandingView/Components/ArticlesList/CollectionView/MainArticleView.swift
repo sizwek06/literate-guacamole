@@ -88,7 +88,6 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
             
             return cell
         } else {
-            print("Array Empty :(")
             return cell
         }
     }

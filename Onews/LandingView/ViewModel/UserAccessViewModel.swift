@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 
-class UserAcessViewModel {
+class UserAccessViewModel {
     
     var delegate: UserAcessDelegate?
     
@@ -31,7 +31,6 @@ class UserAcessViewModel {
         }
     
     func signInUser(email: String, password: String) {
-        print("Logg In called")
         self.delegate?.showLoader()
         
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
@@ -54,8 +53,8 @@ class UserAcessViewModel {
         do {
             self.delegate?.hideLoader()
             try Auth.auth().signOut()
-            OnewsUserDefaults.sharedInstance.clearLoggedInUser()
-            print("signOutsuccessful")
+            UserDefaults.standard.removeObject(forKey: "userEmail")
+            UserDefaults.standard.synchronize()
         } catch {
             self.delegate?.didFailWithError(error: error.localizedDescription,
                                             isRegistration: true)
