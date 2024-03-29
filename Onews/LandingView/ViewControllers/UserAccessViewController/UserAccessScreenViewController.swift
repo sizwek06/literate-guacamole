@@ -38,15 +38,19 @@ class UserAccessScreenViewController: UIViewController {
     }
     
     @IBAction func signInButtonPressed(_ sender: Any) {
-        // TODO: Add sign in
+        authenticateUserDetails()
     }
     
-    func registerUser() {
+    func authenticateUserDetails() {
         guard let email = self.emailTextField.text,
               let password = self.passwordTextfield.text
         else { return }
         
-        self.userAccessViewModel.registerUser(email: email, password: password)
+        if self.isUserRegistration {
+            self.userAccessViewModel.registerUser(email: email, password: password)
+        } else {
+            self.userAccessViewModel.logInUser(email: email, password: password)
+        }
     }
     
     func setupView() {
@@ -79,8 +83,7 @@ extension UserAccessScreenViewController: UITextFieldDelegate {
         case emailTextField:
             passwordTextfield.becomeFirstResponder()
         case passwordTextfield:
-            print("Password field returns")
-         registerUser()
+            authenticateUserDetails()
         default:
             textField.resignFirstResponder()
         }
@@ -105,8 +108,6 @@ extension UserAccessScreenViewController: UserAcessDelegate {
         self.dismiss(animated: true)
         print("User email: ", user.email as Any)
         print("User details: ", user.displayName as Any)
-        
-        // TODO: Task if registration or sign in
     }
     
     func showLoader() {
@@ -122,7 +123,7 @@ extension UserAccessScreenViewController: UserAcessDelegate {
         let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: K.alertRetry, style: UIAlertAction.Style.default, handler: { (_) in
-            self.registerUser()
+            self.authenticateUserDetails()
         }))
         
         alert.addAction(UIAlertAction(title: K.alertCancel, style: UIAlertAction.Style.cancel, handler: { (_) in

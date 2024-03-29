@@ -12,7 +12,7 @@ import FirebaseAuth
 class UserViewController: BaseTableViewController {
     
     var userName: String?
-    var currentUser: User?
+    var currentUser: String?
     var isSignedIn: Bool = false
     
     var articlesArray = [
@@ -31,6 +31,8 @@ class UserViewController: BaseTableViewController {
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(setUpView), for: .valueChanged)
         // TODO: Refresh Articles from Firestore
 
         // if user is not nil
@@ -45,13 +47,20 @@ class UserViewController: BaseTableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let user = OnewsUserDefaults.sharedInstance.user {
-            self.userName = user.email!
-            self.currentUser = user
+        setUpView()
+    }
+    
+    @objc func setUpView() {
+        print("User Logged In as", OnewsUserDefaults.sharedInstance.userEmail)
+        if let user = OnewsUserDefaults.sharedInstance.userEmail {
+            self.userName = user
             self.isSignedIn = true
         } else {
             self.userName = "Not signed in, click below to get started"
             self.isSignedIn = false
         }
+        //User email:  Optional("test@gg.com")
+//        User details:  Optional("testing")
+        tableView.refreshControl?.endRefreshing()
     }
 }

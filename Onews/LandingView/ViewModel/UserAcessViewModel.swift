@@ -11,7 +11,6 @@ import FirebaseAuth
 class UserAcessViewModel {
     
     var delegate: UserAcessDelegate?
-    let userDefaults = UserDefaults.standard
     
     func registerUser(email: String, password: String) {
         self.delegate?.showLoader()
@@ -28,12 +27,14 @@ class UserAcessViewModel {
                     self.delegate?.successfulUserSignIn(user: auth.user,
                                                           isRegistration: true)
                     
-                    OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: auth.user)
+                    guard let email = auth.user.email else { return }
+                    OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: email)
                 }
             }
         }
     
     func logInUser(email: String, password: String) {
+        print("Logg In called")
         self.delegate?.showLoader()
         
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
@@ -46,8 +47,10 @@ class UserAcessViewModel {
             } else if let auth = authResult {
                 self.delegate?.successfulUserSignIn(user: auth.user,
                                                       isRegistration: true)
-                
-                OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: auth.user)
+                print("Logg In Successful")
+                guard let email = auth.user.email else { return }
+                OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: email)
+                print("Log In Successful with OnewsUserDefaults: ", OnewsUserDefaults.sharedInstance.userEmail)
             }
         }
     }
