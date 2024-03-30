@@ -46,7 +46,7 @@ extension ArticlesListViewController {
             }
             
             cell.mainArticleView.didSaveArticle = { article in
-                self.saveNewsArticle(using: article)
+                self.articlesListViewModel.saveNewsArticle(using: article)
             }
             
             cell.mainArticleView.didShareArticle = { articleSource in
@@ -75,7 +75,7 @@ extension ArticlesListViewController {
             }
             
             let likeAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
-                self.saveNewsArticle(using: self.articlesListViewModel.articlesArray[indexPath.row])
+                self.articlesListViewModel.saveNewsArticle(using: self.articlesListViewModel.articlesArray[indexPath.row])
                 
                 completionHandler(true)
             }

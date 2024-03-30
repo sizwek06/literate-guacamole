@@ -12,7 +12,6 @@ import FirebaseFirestore
 class BaseTableViewController: UIViewController {
     
     var openArticleURL: ((String) -> Void)?
-    let fireBaseDB = Firestore.firestore()
     
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)

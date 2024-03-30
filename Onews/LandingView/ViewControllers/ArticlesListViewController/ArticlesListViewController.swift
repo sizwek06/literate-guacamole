@@ -45,23 +45,6 @@ class ArticlesListViewController: BaseTableViewController {
         articlesListViewModel.fetchNewsArticles()
         tableView.refreshControl?.endRefreshing()
     }
-    
-    func saveNewsArticle(using newsArticle: Article) {
-        showNewsLoading()
-        let newsArticleDb = fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).document()
-            
-        if let userUID = UserDefaults.standard.object(forKey: K.fireStoreDb.userDefaultUUIDKey) {
-        do {
-            var dbArticle = newsArticle
-            dbArticle.uuid = userUID as? String
-            
-            try newsArticleDb.setData(from: dbArticle)
-            hideNewsLoading()
-            } catch {
-                print("Error encountered: \(error)")
-            }
-        }
-    }
 }
 
 extension ArticlesListViewController: UISearchControllerDelegate, UISearchBarDelegate {
