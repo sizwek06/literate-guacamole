@@ -33,15 +33,15 @@ class UserAccessScreenViewController: UIViewController {
         emailTextField.becomeFirstResponder()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if let settingViewController = presentingViewController as? SettingsViewController {
-            DispatchQueue.main.async {
-                settingViewController.setUpView()
-            }
-        }
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//
+//        if let settingViewController = presentingViewController as? SettingsViewController {
+//            DispatchQueue.main.async {
+//                settingViewController.setUpView()
+//            }
+//        }
+//    }
     
     @IBAction func cancelBtnPressed(_ sender: Any) {
         self.dismiss(animated: true)

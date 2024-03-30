@@ -47,16 +47,20 @@ class UserViewController: BaseTableViewController {
         view.addSubview(tableView)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+     func viewWillAppear(_ animated: Bool) async {
         setUpView()
     }
     
     @objc func setUpView() {
         
-        if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey) {
+        if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey),
+           let uuid = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultUUIDKey) {
             self.userName = user
             self.isSignedIn = !user.isEmpty
             
+            Task {
+                await queryUserArticles(using: uuid)
+            }
         } else {
             
             self.userName = "Not signed in, click below to get started"
@@ -81,21 +85,16 @@ class UserViewController: BaseTableViewController {
         self.dismiss(animated: true, completion: {})
     }
     
-    func setupDB() {
-        let fireBaseDB = Firestore.firestore()
-        let newsArticleDb = fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection)
-
-        newsArticleDb.document("ReferenceArticle").setData([
-          "author": "Tesing Onew",
-          "title": "Samsung QN900D QLED 8K TV First Look | It’s 8K Anyway - Digital Trends",
-          "description": "The Samsung QN900D 8K Neo QLED TV is proof that Samsung has no intention of taking its foot off the gas when it comes to 8K TVs.  As one of the last TV brand...",
-          "url": "https://www.youtube.com/watch?v=1JkzpDXUpzA",
-          "publishedAt": "2024-03-25T12:59:00Z",
-          "urlToImage": "https://i.ytimg.com/vi/1JkzpDXUpzA/maxresdefault.jpg",
-          "UUID": "UpusXEDiVCVVmRtNY5aLUwSvP7p2",
-          "source": Source(id: nil, name: "YouTube")
-        ])
+    func queryUserArticles(using uuid: String) async {
         
-//        Article(source: Onews.Source(id: nil, name: "YouTube"), author: "Tesing Onew", title: "Samsung QN900D QLED 8K TV First Look | It’s 8K Anyway - Digital Trends", description: Optional("The Samsung QN900D 8K Neo QLED TV is proof that Samsung has no intention of taking its foot off the gas when it comes to 8K TVs.  As one of the last TV brand..."), url: "https://www.youtube.com/watch?v=1JkzpDXUpzA", urlToImage: Optional("https://i.ytimg.com/vi/1JkzpDXUpzA/maxresdefault.jpg"), publishedAt: "2024-03-25T12:59:00Z", content: nil)
+        do {
+            let querySnapshot =
+            try await fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).whereField(K.fireStoreDb.artileUUIDfield, isEqualTo: uuid).getDocuments()
+            for document in querySnapshot.documents {
+                print("\(document.documentID) => \(document.data())")
+            }
+        } catch {
+            print("Error getting documents: \(error)")
+        }
     }
 }

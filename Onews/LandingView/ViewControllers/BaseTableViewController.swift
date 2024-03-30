@@ -81,19 +81,4 @@ class BaseTableViewController: UIViewController {
         
         self.present(activityViewController, animated: true, completion: nil)
     }
-    
-    func saveNewsArticle(using newsArticle: Article) {
-        let newsArticleDb = fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).document()
-            
-        if let userUID = UserDefaults.standard.object(forKey: K.fireStoreDb.userDefaultUUIDKey) {
-        do {
-            var dbArticle = newsArticle
-            dbArticle.uuid = userUID as? String
-            
-            try newsArticleDb.setData(from: dbArticle)
-            } catch {
-                print("Error encountered: \(error)")
-            }
-        }
-    }
 }

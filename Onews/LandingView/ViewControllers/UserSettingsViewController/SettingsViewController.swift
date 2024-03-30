@@ -29,8 +29,8 @@ class SettingsViewController: UserViewController {
         view.addSubview(tableView)
     }
     
-    @objc func testFunc() {
-        self.setUpView()
+    @objc func testFunc() async {
+        await self.setUpView()
     }
     
     func showSignInSheet() {
