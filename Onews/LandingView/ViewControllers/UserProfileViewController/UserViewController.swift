@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class UserViewController: BaseTableViewController {
     
@@ -51,7 +52,7 @@ class UserViewController: BaseTableViewController {
     
     @objc func setUpView() {
         
-        if let user = UserDefaults.standard.string(forKey: "userEmail") {
+        if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey) {
             self.userName = user
             self.isSignedIn = !user.isEmpty
             
@@ -71,5 +72,23 @@ class UserViewController: BaseTableViewController {
         let tabBarController = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
         tabBarController.selectedIndex = 2
         self.dismiss(animated: true, completion: {})
+    }
+    
+    func setupDB() {
+        let fireBaseDB = Firestore.firestore()
+        let newsArticleDb = fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection)
+
+        newsArticleDb.document("ReferenceArticle").setData([
+          "author": "Tesing Onew",
+          "title": "Samsung QN900D QLED 8K TV First Look | It’s 8K Anyway - Digital Trends",
+          "description": "The Samsung QN900D 8K Neo QLED TV is proof that Samsung has no intention of taking its foot off the gas when it comes to 8K TVs.  As one of the last TV brand...",
+          "url": "https://www.youtube.com/watch?v=1JkzpDXUpzA",
+          "publishedAt": "2024-03-25T12:59:00Z",
+          "urlToImage": "https://i.ytimg.com/vi/1JkzpDXUpzA/maxresdefault.jpg",
+          "UUID": "UpusXEDiVCVVmRtNY5aLUwSvP7p2",
+          "source": Source(id: nil, name: "YouTube")
+        ])
+        
+//        Article(source: Onews.Source(id: nil, name: "YouTube"), author: "Tesing Onew", title: "Samsung QN900D QLED 8K TV First Look | It’s 8K Anyway - Digital Trends", description: Optional("The Samsung QN900D 8K Neo QLED TV is proof that Samsung has no intention of taking its foot off the gas when it comes to 8K TVs.  As one of the last TV brand..."), url: "https://www.youtube.com/watch?v=1JkzpDXUpzA", urlToImage: Optional("https://i.ytimg.com/vi/1JkzpDXUpzA/maxresdefault.jpg"), publishedAt: "2024-03-25T12:59:00Z", content: nil)
     }
 }
