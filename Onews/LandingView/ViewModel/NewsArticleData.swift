@@ -9,25 +9,51 @@ import Foundation
 
 // MARK: - NewsArticle
 struct NewsArticle: Codable {
-    let status: String
-    let totalResults: Int
-    let articles: [Article]
+    var status: String
+    var totalResults: Int
+    var articles: [Article]
 }
 
 // MARK: - Article
 struct Article: Codable {
-    let source: Source
-    let author: String?
-    let title: String
-    let description: String?
-    let url: String
-    let urlToImage: String?
-    let publishedAt: String
-    let content: String?
+    var source: Source
+    var author: String?
+    var title: String
+    var description: String?
+    var url: String
+    var urlToImage: String?
+    var publishedAt: String
+    var content: String?
+    var uuid: String?
+    
+    private enum ArticleCodingKeys: CodingKey {
+            case source
+            case author
+            case title
+            case description
+            case url
+            case urlToImage
+            case publishedAt
+            case content
+            case uuid
+        }
+
+        init(from decoder: Decoder, uuid: String?) throws {
+            var container = try decoder.container(keyedBy: ArticleCodingKeys.self)
+            self.source = try container.decode(Source.self, forKey: .source)
+            self.author = try? container.decode(String.self, forKey: .author)
+            self.title = try container.decode(String.self, forKey: .title)
+            self.description = try container.decode(String.self, forKey: .description)
+            self.url = try container.decode(String.self, forKey: .url)
+            self.urlToImage = try? container.decode(String.self, forKey: .urlToImage)
+            self.publishedAt = try container.decode(String.self, forKey: .publishedAt)
+            self.content = try? container.decode(String.self, forKey: .publishedAt)
+            self.uuid = uuid
+        }
 }
 
 // MARK: - Source
 struct Source: Codable {
-    let id: String?
-    let name: String
+    var id: String?
+    var name: String
 }

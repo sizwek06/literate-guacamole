@@ -21,7 +21,7 @@ class MainArticleCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var articleSaveButton: UIImageView!
     
     var didShareArticle: ((String) -> Void)?
-    var didSaveArticle: ((String) -> Void)?
+    var didSaveArticle: ((Article) -> Void)?
     
     var currentArticle: Article?
     
@@ -53,6 +53,6 @@ class MainArticleCollectionViewCell: UICollectionViewCell {
         @objc func saveImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
             _ = tapGestureRecognizer.view as! UIImageView
             guard let article = currentArticle else { return }
-            didSaveArticle?(article.url)
+            didSaveArticle?(article)
         }
 }

@@ -23,7 +23,7 @@ class SettingsViewController: UserViewController {
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
         super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         
-        userAccessViewModel.delegate = self
+        userAccessViewModel.userAccessDelegate = self
         
         tableView.frame = view.bounds
         view.addSubview(tableView)
@@ -34,7 +34,7 @@ class SettingsViewController: UserViewController {
     }
     
     func showSignInSheet() {
-        let alert = UIAlertController(title: "More awaits...", message: "Please select an option to continue", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Already a member?", message: "Please select an option to continue", preferredStyle: .actionSheet)
             
         alert.addAction(UIAlertAction(title: K.signInText, style: .destructive, handler: { _ in
                 self.showUserAccessController(false)
@@ -72,56 +72,5 @@ class SettingsViewController: UserViewController {
         }
         
         self.present(userAccessViewController, animated: true, completion: nil)
-    }
-}
-
-extension SettingsViewController: UserAcessDelegate {
-    
-    func confirmLogOut() {
-        let alert = UIAlertController(title: "Log out", message: "\nAre you sure you want to Log Out", preferredStyle: .alert)
-            
-        alert.addAction(UIAlertAction(title: K.alertYes, style: .destructive, handler: { _ in
-                self.userAccessViewModel.signOutUser()
-                self.refreshUserDetails(1)
-            }))
-            
-        alert.addAction(UIAlertAction(title: K.alertCancel, style: .cancel, handler: { _ in
-                alert.dismiss(animated: true)
-            }))
-        
-        self.present(alert, animated: true)
-    }
-    
-    func successfulUserSignIn(user: User, isRegistration: Bool) {
-        
-        guard let email = user.email else { return }
-       
-        UserDefaults.standard.set(email, forKey: "userEmail")
-        UserDefaults.standard.synchronize()
-        
-        self.dismiss(animated: true)
-    }
-    
-    func didFailWithError(error: String, isRegistration: Bool) {
-        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: K.alertOK, style: UIAlertAction.Style.default, handler: { (_) in
-            alert.dismiss(animated: true)
-        }))
-        
-        alert.addAction(UIAlertAction(title: K.alertCancel, style: UIAlertAction.Style.cancel, handler: { (_) in
-            alert.dismiss(animated: true)
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func showLoader() {
-        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserText)
-        OnewsLoaderViewController.sharedInstance.show()
-    }
-    
-    func hideLoader() {
-        OnewsLoaderViewController.sharedInstance.hide()
     }
 }

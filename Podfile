@@ -9,7 +9,6 @@ target 'Onews' do
 pod 'Kingfisher', '~> 7.0'
 pod 'SwiftLint'
 pod 'FirebaseAuth'
-pod 'FirebaseFirestore'
 pod 'FirebaseFirestoreSwift'
 
 post_install do |installer|

@@ -18,7 +18,6 @@ class SingleLabelTableViewCell: UITableViewCell {
     
     lazy var signOutLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.font = UIFont(name: "SF-Pro-Bold", size: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
