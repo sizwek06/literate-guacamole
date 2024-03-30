@@ -16,15 +16,15 @@ struct NewsArticle: Codable {
 
 // MARK: - Article
 struct Article: Codable {
-    let source: Source
-    let author: String?
-    let title: String
-    let description: String?
-    let url: String
-    let urlToImage: String?
-    let publishedAt: String
-    let content: String?
-    let uuid: String?
+    var source: Source
+    var author: String?
+    var title: String
+    var description: String?
+    var url: String
+    var urlToImage: String?
+    var publishedAt: String
+    var content: String?
+    var uuid: String?
     
     private enum ArticleCodingKeys: CodingKey {
             case source
@@ -39,7 +39,7 @@ struct Article: Codable {
         }
 
         init(from decoder: Decoder, uuid: String?) throws {
-            let container = try decoder.container(keyedBy: ArticleCodingKeys.self)
+            var container = try decoder.container(keyedBy: ArticleCodingKeys.self)
             self.source = try container.decode(Source.self, forKey: .source)
             self.author = try? container.decode(String.self, forKey: .author)
             self.title = try container.decode(String.self, forKey: .title)
