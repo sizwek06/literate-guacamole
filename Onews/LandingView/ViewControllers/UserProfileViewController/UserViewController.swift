@@ -84,10 +84,10 @@ class UserViewController: BaseTableViewController {
     }
     
     func queryUserArticles(using uuid: String) {
-        self.showLoader()
+        self.showNewsLoading()
         fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection)
             .addSnapshotListener { (querySnapshot, err) in
-                self.hideLoader()
+                self.hideNewsLoading()
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
