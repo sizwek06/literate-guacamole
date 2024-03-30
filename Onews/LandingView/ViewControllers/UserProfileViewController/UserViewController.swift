@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 import FirebaseAuth
-import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class UserViewController: BaseTableViewController {
     
@@ -58,9 +58,7 @@ class UserViewController: BaseTableViewController {
             self.userName = user
             self.isSignedIn = !user.isEmpty
             
-            Task {
-                await queryUserArticles(using: uuid)
-            }
+            self.queryUserArticles(using: uuid)
         } else {
             
             self.userName = "Not signed in, click below to get started"
@@ -85,16 +83,32 @@ class UserViewController: BaseTableViewController {
         self.dismiss(animated: true, completion: {})
     }
     
-    func queryUserArticles(using uuid: String) async {
-        
-        do {
-            let querySnapshot =
-            try await fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).whereField(K.fireStoreDb.artileUUIDfield, isEqualTo: uuid).getDocuments()
-            for document in querySnapshot.documents {
-                print("\(document.documentID) => \(document.data())")
+    func queryUserArticles(using uuid: String) {
+        self.showLoader()
+        fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection)
+            .addSnapshotListener { (querySnapshot, err) in
+                self.hideLoader()
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    guard let documents = querySnapshot?.documents else {
+                        print("no documents")
+                        return
+                    }
+                    self.articlesArray = documents
+                        .compactMap { document -> Article in
+                            return try! document.data(as: Article.self)
+                        }
+                }
             }
-        } catch {
-            print("Error getting documents: \(error)")
-        }
     }
 }
+//
+//func getAddresses(at path: String, completion: @escaping (([Address]) -> ())) {
+//    let data = Firestore.firestore().collection(path)
+//    data.getDocuments { (snapshot, error) in
+//        let dictionaries = snapshot?.documents.compactMap({$0.data()}) ?? []
+//        let addresses = dictionaries.compactMap({Address($0)})
+//        completion(addresses)
+//    }
+//}
