@@ -97,7 +97,7 @@ extension SettingsViewController: UserAcessDelegate {
         guard let email = user.email else { return }
        
         UserDefaults.standard.set(email, forKey: K.fireStoreDb.userDefaultEmailKey)
-        UserDefaults.standard.set(email, forKey: K.fireStoreDb.userDefaultUUIDKey)
+        UserDefaults.standard.set(user.uid, forKey: K.fireStoreDb.userDefaultUUIDKey)
         UserDefaults.standard.synchronize()
         
         self.dismiss(animated: true)

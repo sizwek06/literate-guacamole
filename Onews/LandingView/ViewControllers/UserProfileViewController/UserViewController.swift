@@ -41,7 +41,8 @@ class UserViewController: BaseTableViewController {
         // if it is nil, show the sign in button OR 'sign in' to get started
         // tableView.count is then equal to 1 -
         // with click here to view current articles which sends the user to the article screen?
-           
+        setUpView()
+        
         tableView.frame = view.bounds
         view.addSubview(tableView)
     }
@@ -71,6 +72,12 @@ class UserViewController: BaseTableViewController {
     func navigateToSettingsSignIn() {
         let tabBarController = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
         tabBarController.selectedIndex = 2
+        self.dismiss(animated: true, completion: {})
+    }
+    
+    func navigateToArticles() {
+        let tabBarController = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
+        tabBarController.selectedIndex = 1
         self.dismiss(animated: true, completion: {})
     }
     

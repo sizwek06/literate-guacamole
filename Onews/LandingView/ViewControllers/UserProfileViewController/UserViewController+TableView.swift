@@ -18,7 +18,13 @@ extension UserViewController {
         if section == 0 {
             return 1
         } else {
-            return self.isSignedIn ? self.articlesArray.count : 1
+            if self.isSignedIn && self.articlesArray.isEmpty {
+                return 1
+            } else if !self.articlesArray.isEmpty {
+                return self.articlesArray.count
+            } else {
+                return 1
+            }
         }
     }
     
@@ -27,9 +33,12 @@ extension UserViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("Array count is: \(self.articlesArray.count)")
         
         if indexPath.section == 1 {
-            if self.isSignedIn {
+            if self.isSignedIn && self.articlesArray.isEmpty {
+               return createNoSignInTableViewCell()
+            } else if self.isSignedIn {
                 let article = self.articlesArray[indexPath.row]
                 
                 return createArticleTableViewCell(with: article)
@@ -45,22 +54,23 @@ extension UserViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            // TODO: Maybe show loader with icon bouncing and about text?
+            // TODO: Maybe show loader with icon bouncing and about text? - BING BONG! For 2s
         } else {
-            if isSignedIn {
+            if self.isSignedIn && self.articlesArray.isEmpty {
+                self.navigateToArticles()
+            } else if !self.articlesArray.isEmpty {
                 let article = articlesArray[indexPath.row]
                 
                 DispatchQueue.main.async {
                     self.handleOpenArticleURL(url: article.url, source: article.source.name)
                 }
             } else {
-                    self.navigateToSettingsSignIn()
-                }
+                self.navigateToSettingsSignIn()
             }
+        }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        print("Array count is: \(self.articlesArray.count)")
         
         if indexPath.section == 1 && isSignedIn {
             let shareAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
@@ -84,6 +94,7 @@ extension UserViewController {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
         if indexPath.section == 1 && isSignedIn {
             let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
                 
@@ -111,10 +122,12 @@ extension UserViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
         else { return UITableViewCell() }
         
-        cell.signOutLabel.font = UIFont(name: "SF-Pro-Display-Bold", size: 15)
-        
-        cell.signOutLabel.text = K.signInText
-        cell.signOutLabel.textColor = .systemBlue
+        cell.signOutLabel.font = 
+        self.isSignedIn ? UIFont(name: "SF-Pro-Text-SemiBold", size: 15.0) : UIFont(name: "SF-Pro-Rounded-Bold", size: 15.0)
+
+
+        cell.signOutLabel.text = self.isSignedIn ? K.getMoreArticlesText: K.signInText
+        cell.signOutLabel.textColor = self.isSignedIn ? .black : .systemBlue
         
         return cell
     }
