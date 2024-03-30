@@ -15,17 +15,26 @@ class UserArticlesViewModel {
     
     var articlesArray: [Article] = []
     
-    func featchUserArticles() async {
+    func queryUserArticles(using uuid: String, completion: @escaping ([Article])->()) {
         self.userArticleDelegate?.showNewsLoading()
-        let docRef = fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).document("ReferenceArticle")
-        
-        do {
+        fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).addSnapshotListener { [weak self] (querySnapshot, err) in
+            
+            guard let self else { return }
             self.userArticleDelegate?.hideNewsLoading()
-            let document = try await docRef.getDocument(as: Article.self)
-             print(document)
-        } catch {
-            self.userArticleDelegate?.didFailWithError(error: error.localizedDescription)
-            print("Error getting document: \(error)")
+            if let err = err {
+                self.userArticleDelegate?.didFailWithError(error: err.localizedDescription)
+            } else {
+                guard let documents = querySnapshot?.documents else {
+                    print("no documents")
+                    return
+                }
+                self.articlesArray = documents
+                    .compactMap { document -> Article in
+                        return try! document.data(as: Article.self)
+                    }
+                completion(self.articlesArray)
+                self.userArticleDelegate?.didReceiveArticlesSuccessfully()
+            }
         }
     }
 }

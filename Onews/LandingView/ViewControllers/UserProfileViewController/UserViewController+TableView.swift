@@ -18,10 +18,10 @@ extension UserViewController {
         if section == 0 {
             return 1
         } else {
-            if self.isSignedIn && self.articlesArray.isEmpty {
+            if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
                 return 1
-            } else if !self.articlesArray.isEmpty {
-                return self.articlesArray.count
+            } else if !self.userArticlesViewModel.articlesArray.isEmpty {
+                return self.userArticlesViewModel.articlesArray.count
             } else {
                 return 1
             }
@@ -33,13 +33,13 @@ extension UserViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("Array count is: \(self.articlesArray.count)")
+        print("Array count is: \(self.userArticlesViewModel.articlesArray.count)")
         
         if indexPath.section == 1 {
-            if self.isSignedIn && self.articlesArray.isEmpty {
+            if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
                return createNoSignInTableViewCell()
             } else if self.isSignedIn {
-                let article = self.articlesArray[indexPath.row]
+                let article = self.userArticlesViewModel.articlesArray[indexPath.row]
                 
                 return createArticleTableViewCell(with: article)
             } else {
@@ -56,10 +56,10 @@ extension UserViewController {
         if indexPath.section == 0 {
             // TODO: Maybe show loader with icon bouncing and about text? - BING BONG! For 2s
         } else {
-            if self.isSignedIn && self.articlesArray.isEmpty {
+            if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
                 self.navigateToArticles()
-            } else if !self.articlesArray.isEmpty {
-                let article = articlesArray[indexPath.row]
+            } else if !self.userArticlesViewModel.articlesArray.isEmpty {
+                let article = userArticlesViewModel.articlesArray[indexPath.row]
                 
                 DispatchQueue.main.async {
                     self.handleOpenArticleURL(url: article.url, source: article.source.name)
@@ -74,7 +74,7 @@ extension UserViewController {
         
         if indexPath.section == 1 && isSignedIn {
             let shareAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
-                self.shareArticleLink(with: self.articlesArray[indexPath.row].url)
+                self.shareArticleLink(with: self.userArticlesViewModel.articlesArray[indexPath.row].url)
                 
                 completionHandler(true)
             }
@@ -98,7 +98,7 @@ extension UserViewController {
         if indexPath.section == 1 && isSignedIn {
             let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
                 
-                self.articlesArray.remove(at: indexPath.row)
+                self.userArticlesViewModel.articlesArray.remove(at: indexPath.row)
                 
                 completionHandler(true)
             }

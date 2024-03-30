@@ -29,8 +29,8 @@ class SettingsViewController: UserViewController {
         view.addSubview(tableView)
     }
     
-    @objc func testFunc() async {
-        await self.setUpView()
+    @objc func testFunc() {
+        self.setUpView()
     }
     
     func showSignInSheet() {
@@ -78,7 +78,7 @@ class SettingsViewController: UserViewController {
 extension SettingsViewController: UserAcessDelegate {
     
     func confirmLogOut() {
-        let alert = UIAlertController(title: "Log out", message: "\nAre you sure you want to Log Out", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Sign out", message: "\nAre you sure you want to Sign out", preferredStyle: .alert)
             
         alert.addAction(UIAlertAction(title: K.alertYes, style: .destructive, handler: { _ in
                 self.userAccessViewModel.signOutUser()

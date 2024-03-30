@@ -24,7 +24,9 @@ extension UserViewController: UserArticlesDelegate {
     }
     
     func didReceiveArticlesSuccessfully() {
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.setUpView()
+        }
     }
     
     func didFailWithError(error: String) {
