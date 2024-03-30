@@ -34,7 +34,7 @@ class SettingsViewController: UserViewController {
     }
     
     func showSignInSheet() {
-        let alert = UIAlertController(title: "More awaits...", message: "Please select an option to continue", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Already a member?", message: "Please select an option to continue", preferredStyle: .actionSheet)
             
         alert.addAction(UIAlertAction(title: K.signInText, style: .destructive, handler: { _ in
                 self.showUserAccessController(false)
@@ -72,57 +72,5 @@ class SettingsViewController: UserViewController {
         }
         
         self.present(userAccessViewController, animated: true, completion: nil)
-    }
-}
-
-extension SettingsViewController: UserAcessDelegate {
-    
-    func confirmLogOut() {
-        let alert = UIAlertController(title: "Sign out", message: "\nAre you sure you want to Sign out", preferredStyle: .alert)
-            
-        alert.addAction(UIAlertAction(title: K.alertYes, style: .destructive, handler: { _ in
-                self.userAccessViewModel.signOutUser()
-                self.refreshUserDetails(1)
-            }))
-            
-        alert.addAction(UIAlertAction(title: K.alertCancel, style: .cancel, handler: { _ in
-                alert.dismiss(animated: true)
-            }))
-        
-        self.present(alert, animated: true)
-    }
-    
-    func successfulUserSignIn(user: User, isRegistration: Bool) {
-        
-        guard let email = user.email else { return }
-       
-        UserDefaults.standard.set(email, forKey: K.fireStoreDb.userDefaultEmailKey)
-        UserDefaults.standard.set(user.uid, forKey: K.fireStoreDb.userDefaultUUIDKey)
-        UserDefaults.standard.synchronize()
-        
-        self.dismiss(animated: true)
-    }
-    
-    func didFailWithError(error: String, isRegistration: Bool) {
-        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: K.alertOK, style: UIAlertAction.Style.default, handler: { (_) in
-            alert.dismiss(animated: true)
-        }))
-        
-        alert.addAction(UIAlertAction(title: K.alertCancel, style: UIAlertAction.Style.cancel, handler: { (_) in
-            alert.dismiss(animated: true)
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func showLoader() {
-        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserText)
-        OnewsLoaderViewController.sharedInstance.show()
-    }
-    
-    func hideLoader() {
-        OnewsLoaderViewController.sharedInstance.hide()
     }
 }

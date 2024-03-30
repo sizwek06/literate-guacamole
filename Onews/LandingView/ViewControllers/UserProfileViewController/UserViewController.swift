@@ -26,15 +26,7 @@ class UserViewController: BaseTableViewController {
         super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         
         tableView.refreshControl?.addTarget(self, action: #selector(setUpView), for: .valueChanged)
-        // TODO: Refresh Articles from Firestore
 
-        // if user is not nil
-        // Add the email address/name to the profile
-        // grab the articles
-        // if it is nil, show the sign in button OR 'sign in' to get started
-        // tableView.count is then equal to 1 -
-        // with click here to view current articles which sends the user to the article screen?
-         
         tableView.frame = view.bounds
         view.addSubview(tableView)
     }
