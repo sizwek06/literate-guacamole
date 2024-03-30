@@ -19,7 +19,6 @@
 		2811C5CB2BB3F17600880C52 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2811C5C92BB3EE6200880C52 /* SettingsViewController.swift */; };
 		2831C4212BB4601000B48920 /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2831C41E2BB4600F00B48920 /* SF-Pro-Text-Semibold.otf */; };
 		2831C4232BB4601000B48920 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2831C4202BB4601000B48920 /* SF-Pro-Text-Regular.otf */; };
-		2831C4252BB4608300B48920 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2831C4242BB4608300B48920 /* SF-Pro-Rounded-Bold.otf */; };
 		2831C42D2BB4668F00B48920 /* UserAccessScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C42C2BB4668F00B48920 /* UserAccessScreenViewController.swift */; };
 		2831C4322BB48EA100B48920 /* UserAccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C4312BB48EA100B48920 /* UserAccessViewModel.swift */; };
 		2831C4342BB48F9C00B48920 /* UserAcessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C4332BB48F9C00B48920 /* UserAcessDelegate.swift */; };
@@ -28,6 +27,7 @@
 		2831C43A2BB4B29400B48920 /* BaseTableViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C4392BB4B29400B48920 /* BaseTableViewController+TableView.swift */; };
 		2831C43C2BB4B3F900B48920 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C43B2BB4B3F900B48920 /* DateExtension.swift */; };
 		2831C43E2BB4BE8000B48920 /* SettingsViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C43D2BB4BE8000B48920 /* SettingsViewController+TableView.swift */; };
+		28346F4A2BB7AC6F007270A9 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2831C4242BB4608300B48920 /* SF-Pro-Rounded-Bold.otf */; };
 		2869F62729C1B22E00CADFD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F62629C1B22E00CADFD7 /* AppDelegate.swift */; };
 		2869F62929C1B22E00CADFD7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F62829C1B22E00CADFD7 /* SceneDelegate.swift */; };
 		2869F62E29C1B22E00CADFD7 /* ArticlesListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2869F62C29C1B22E00CADFD7 /* ArticlesListViewController.storyboard */; };
@@ -425,6 +425,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28346F4A2BB7AC6F007270A9 /* SF-Pro-Rounded-Bold.otf in Resources */,
 				2831C4212BB4601000B48920 /* SF-Pro-Text-Semibold.otf in Resources */,
 				2869F63329C1B22F00CADFD7 /* LaunchScreen.storyboard in Resources */,
 				2831C4362BB4ABAA00B48920 /* GoogleService-Info.plist in Resources */,
@@ -435,7 +436,6 @@
 				2831C4232BB4601000B48920 /* SF-Pro-Text-Regular.otf in Resources */,
 				28ECF5A429CB4C7A006876B7 /* SF-Pro.ttf in Resources */,
 				2871DD132BB3F2C6007B6561 /* SettingsTableViewCell.xib in Resources */,
-				2831C4252BB4608300B48920 /* SF-Pro-Rounded-Bold.otf in Resources */,
 				28D0BFF22AE7BDD700DC08F2 /* .swiftlint.yml in Resources */,
 				2869F64B29C855AF00CADFD7 /* NewsArticleTableViewCell.xib in Resources */,
 				2869F63029C1B22F00CADFD7 /* Assets.xcassets in Resources */,

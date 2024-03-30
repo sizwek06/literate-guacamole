@@ -29,6 +29,8 @@ struct K {
     static let alertYes = "Yes"
     static let alertCancel = "Cancel"
     
+    static let getMoreArticlesText = "No articles, add more"
+    
     struct fireStoreDb {
         static let userDefaultEmailKey = "userEmail"
         static let userDefaultUUIDKey = "userUUID"
