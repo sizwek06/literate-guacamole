@@ -23,7 +23,7 @@ class SettingsViewController: UserViewController {
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
         super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         
-        userAccessViewModel.delegate = self
+        userAccessViewModel.userAccessDelegate = self
         
         tableView.frame = view.bounds
         view.addSubview(tableView)
@@ -96,7 +96,8 @@ extension SettingsViewController: UserAcessDelegate {
         
         guard let email = user.email else { return }
        
-        UserDefaults.standard.set(email, forKey: "userEmail")
+        UserDefaults.standard.set(email, forKey: K.fireStoreDb.userDefaultEmailKey)
+        UserDefaults.standard.set(email, forKey: K.fireStoreDb.userDefaultUUIDKey)
         UserDefaults.standard.synchronize()
         
         self.dismiss(animated: true)

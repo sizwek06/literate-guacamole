@@ -29,6 +29,16 @@ struct K {
     static let alertYes = "Yes"
     static let alertCancel = "Cancel"
     
+    struct fireStoreDb {
+        static let userDefaultEmailKey = "userEmail"
+        static let userDefaultUUIDKey = "userUUID"
+        
+        static let articleField = "article"
+        static let artileUUIDfield = "uuid"
+        
+        static let fireStoreDbCollection = "newsArticles"
+    }
+    
     struct newsColor {
         static let oNewsBlack = UIColor.darkGray
         static let oNewsGold = UIColor(red: 0.99, green: 0.80, blue: 0.00, alpha: 1.00)

@@ -12,7 +12,7 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
     
     var didSelectArticle: ((String, String) -> Void)?
     var didShareArticle: ((String) -> Void)?
-    var didSaveArticle: ((String) -> Void)?
+    var didSaveArticle: ((Article) -> Void)?
     
     var articlesArray: [Article] = [] {
         didSet {
@@ -78,8 +78,8 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
             cell.websiteLabel.textColor = returnSourceColour()
             cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
             
-            cell.didSaveArticle = { currentURL in
-                self.didSaveArticle?(currentURL)
+            cell.didSaveArticle = { article in
+                self.didSaveArticle?(article)
             }
             
             cell.didShareArticle = { currentURL in

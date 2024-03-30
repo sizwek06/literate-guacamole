@@ -7,10 +7,12 @@
 
 import Foundation
 import UIKit
+import FirebaseFirestore
 
 class BaseTableViewController: UIViewController {
     
     var openArticleURL: ((String) -> Void)?
+    let fireBaseDB = Firestore.firestore()
     
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
@@ -78,5 +80,18 @@ class BaseTableViewController: UIViewController {
         activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
         
         self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    func saveNewsArticle(using newsArticle: Article) {
+        let newsArticleDb = fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).document()
+        let docId = newsArticleDb.documentID
+            
+        if let userUID = UserDefaults.standard.object(forKey: K.fireStoreDb.userDefaultUUIDKey) {
+        do {
+            try newsArticleDb.setData(from: newsArticle)
+            } catch {
+                print("Error encountered: \(error)")
+            }
+        }
     }
 }

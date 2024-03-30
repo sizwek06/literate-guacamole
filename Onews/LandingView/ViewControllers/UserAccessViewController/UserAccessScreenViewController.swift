@@ -25,7 +25,7 @@ class UserAccessScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userAccessViewModel.delegate = self
+        userAccessViewModel.userAccessDelegate = self
         setupView()
     }
     
@@ -123,6 +123,7 @@ extension UserAccessScreenViewController: UITextFieldDelegate {
     }
 }
 
+// TODO: Review if the below is required
 extension UserAccessScreenViewController: UserAcessDelegate {
     
     func confirmLogOut() {
@@ -132,7 +133,8 @@ extension UserAccessScreenViewController: UserAcessDelegate {
         
         guard let email = user.email else { return }
         
-        UserDefaults.standard.set(email, forKey: "userEmail")
+        UserDefaults.standard.set(email, forKey: K.fireStoreDb.userDefaultEmailKey)
+        UserDefaults.standard.set(email, forKey: K.fireStoreDb.userDefaultUUIDKey)
         UserDefaults.standard.synchronize()
         
         self.dismiss(animated: true)
