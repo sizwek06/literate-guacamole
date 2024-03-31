@@ -41,6 +41,7 @@ class UserViewController: BaseTableViewController {
     }
     
     @objc override func setUpView() {
+        UserDefaults.standard.synchronize()
         
         DispatchQueue.main.async {
             if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey),

@@ -53,7 +53,7 @@ extension ArticlesListViewController {
             cell.mainArticleView.didShareArticle = { articleSource in
                 self.shareArticleLink(with: articleSource)
             }
-            
+            cell.mainArticleView.reload()
             return cell
         }
     }

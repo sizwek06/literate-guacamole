@@ -44,4 +44,8 @@ class MainArticleTableViewCell: UITableViewCell {
         mainArticleView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 10).isActive = true
         mainArticleView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: -10).isActive = true
     }
+    
+    func reload() {
+        self.mainArticleView.reload()
+    }
 }

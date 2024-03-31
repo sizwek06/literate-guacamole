@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
+class MainArticleView: UIView {
     
     var didSelectArticle: ((String, String) -> Void)?
     var didShareArticle: ((String) -> Void)?
@@ -57,61 +57,22 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
         mainArticleCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -5).isActive = true
         mainArticleCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
         
+        UserDefaults.standard.synchronize()
+        
         if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey) {
             self.isSignedIn = !user.isEmpty
+        }
+    }
+    
+    func reload() {
+        DispatchQueue.main.async {
+            self.mainArticleCollectionView.reloadData()
         }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return articlesArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = mainArticleCollectionView.dequeueReusableCell(withReuseIdentifier: "articleId", for: indexPath) as? MainArticleCollectionViewCell else { return UICollectionViewCell() }
-      
-        if !articlesArray.isEmpty {
-            let article = articlesArray[indexPath.row]
-            print("The Article is", article)
-              
-            downloadImg(urlString: article.urlToImage, imgView: cell.articleImg)
-            cell.currentArticle = article
-            cell.articleLabel.text = article.title
-            cell.websiteLabel.text = article.source.name.uppercased()
-            cell.websiteLabel.textColor = returnSourceColour()
-            cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
-            
-            if let userSignedIn = self.isSignedIn {
-                cell.setUpSaveImage(using: userSignedIn)
-            }
-            
-            cell.didSaveArticle = { article in
-                self.didSaveArticle?(article)
-            }
-            
-            cell.didShareArticle = { currentURL in
-                self.didShareArticle?(currentURL)
-            }
-            
-            return cell
-        } else {
-            return cell
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (UIScreen.main.bounds.width - 144.0) / 3, height: (UIScreen.main.bounds.width - 144.0) / 3)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        didSelectArticle?(articlesArray[indexPath.row].url, articlesArray[indexPath.row].source.name)
-    }
-}
-
-extension MainArticleView {
     
     func downloadImg(urlString: String?, imgView: UIImageView) {
         if let urlStr = urlString {

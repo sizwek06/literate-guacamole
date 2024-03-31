@@ -38,6 +38,11 @@ class BaseTableViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpView()
+    }
+    
     func downloadImg(urlString: String?, imgView: UIImageView) {
         if let urlStr = urlString {
             let url = URL(string: urlStr)
