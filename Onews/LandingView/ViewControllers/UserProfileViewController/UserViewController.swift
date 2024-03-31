@@ -14,7 +14,6 @@ class UserViewController: BaseTableViewController {
     
     var userName: String?
     var currentUser: String?
-    var isSignedIn: Bool = false
     
     var userArticlesViewModel = UserArticlesViewModel()
     
@@ -41,7 +40,7 @@ class UserViewController: BaseTableViewController {
         self.setUpView()
     }
     
-    @objc func setUpView() {
+    @objc override func setUpView() {
         
         DispatchQueue.main.async {
             if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey),

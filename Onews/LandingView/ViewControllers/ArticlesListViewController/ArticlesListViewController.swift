@@ -26,7 +26,7 @@ class ArticlesListViewController: BaseTableViewController {
         tableView.refreshControl?.addTarget(self, action:
                                                 #selector(tableViewReloadNewsArticles),
                                               for: .valueChanged)
-        
+        setUpView()
         search.delegate = self
         search.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
@@ -34,6 +34,7 @@ class ArticlesListViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         articlesListViewModel.fetchNewsArticles()
+        tableView.reloadData()
     }
     
     override func viewWillLayoutSubviews() {

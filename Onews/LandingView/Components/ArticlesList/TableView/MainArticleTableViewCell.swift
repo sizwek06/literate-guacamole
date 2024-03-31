@@ -11,9 +11,11 @@ import UIKit
 class MainArticleTableViewCell: UITableViewCell {
     
     var articlesArray: [Article]?
+    var isUserSignedIn: Bool?
     
     lazy var mainArticleView: MainArticleView = {
-        let mainArticle = MainArticleView(articlesArray: articlesArray ?? [])
+        let mainArticle = MainArticleView(articlesArray: articlesArray ?? [],
+                                          isSignedIn: isUserSignedIn ?? false)
         mainArticle.translatesAutoresizingMaskIntoConstraints = false
         mainArticle.isUserInteractionEnabled = true
         return mainArticle

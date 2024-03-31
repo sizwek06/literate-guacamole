@@ -13,6 +13,7 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
     var didSelectArticle: ((String, String) -> Void)?
     var didShareArticle: ((String) -> Void)?
     var didSaveArticle: ((Article) -> Void)?
+    var isSignedIn: Bool?
     
     var articlesArray: [Article] = [] {
         didSet {
@@ -41,9 +42,10 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
         return collectionView
     }()
     
-    init(articlesArray: [Article]) {
+    init(articlesArray: [Article], isSignedIn: Bool) {
         super.init(frame: .zero)
         self.articlesArray = articlesArray
+        self.isSignedIn = isSignedIn
         setupView()
     }
     
@@ -54,6 +56,10 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
         mainArticleCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         mainArticleCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -5).isActive = true
         mainArticleCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
+        
+        if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey) {
+            self.isSignedIn = !user.isEmpty
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -77,6 +83,10 @@ class MainArticleView: UIView, UICollectionViewDelegate, UICollectionViewDataSou
             cell.websiteLabel.text = article.source.name.uppercased()
             cell.websiteLabel.textColor = returnSourceColour()
             cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
+            
+            if let userSignedIn = self.isSignedIn {
+                cell.setUpSaveImage(using: userSignedIn)
+            }
             
             cell.didSaveArticle = { article in
                 self.didSaveArticle?(article)

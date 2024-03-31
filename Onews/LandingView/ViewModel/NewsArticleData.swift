@@ -39,7 +39,7 @@ struct Article: Codable {
         }
 
         init(from decoder: Decoder, uuid: String?) throws {
-            var container = try decoder.container(keyedBy: ArticleCodingKeys.self)
+            let container = try decoder.container(keyedBy: ArticleCodingKeys.self)
             self.source = try container.decode(Source.self, forKey: .source)
             self.author = try? container.decode(String.self, forKey: .author)
             self.title = try container.decode(String.self, forKey: .title)

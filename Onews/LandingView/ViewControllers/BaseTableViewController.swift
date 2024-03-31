@@ -12,6 +12,7 @@ import FirebaseFirestore
 class BaseTableViewController: UIViewController {
     
     var openArticleURL: ((String) -> Void)?
+    var isSignedIn: Bool = false
     
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
@@ -79,5 +80,17 @@ class BaseTableViewController: UIViewController {
         activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
         
         self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    func setUpView() {
+        DispatchQueue.main.async {
+            if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey) {
+                self.isSignedIn = !user.isEmpty
+            }
+            print("Article List is user signed in? ", self.isSignedIn)
+            
+            self.tableView.reloadData()
+            self.tableView.refreshControl?.endRefreshing()
+        }
     }
 }
