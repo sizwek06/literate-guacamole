@@ -16,6 +16,7 @@ class ProfileViewController: BaseTableViewController {
     var currentUser: String?
     
     var userArticlesViewModel = UserArticlesViewModel()
+    private let biometricAuthManager = BiometricAuthManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class ProfileViewController: BaseTableViewController {
         
         tableView.refreshControl?.addTarget(self, action: #selector(setUpView), for: .valueChanged)
 
+        verifyUser()
         tableView.frame = view.bounds
         view.addSubview(tableView)
     }
@@ -75,5 +77,25 @@ class ProfileViewController: BaseTableViewController {
         let tabBarController = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
         tabBarController.selectedIndex = 1
         self.dismiss(animated: true, completion: {})
+    }
+    
+    func verifyUser() {
+        biometricAuthManager.canEvaluate { (canEvaluate, _, canEvaluateError) in
+            guard canEvaluate else {
+                // Face ID/Touch ID may not be available or configured
+                print("Face ID/Touch ID may not be available or configured")
+                return
+            }
+            
+            biometricAuthManager.evaluate { [weak self] (success, error) in
+                guard let self else { return }
+                guard success else {
+                    // Face ID/Touch ID may not be configured
+                    return
+                }
+                
+                // You are successfully verified
+            }
+        }
     }
 }

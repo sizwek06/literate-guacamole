@@ -41,6 +41,8 @@ struct K {
     struct fireStoreDb {
         static let userDefaultEmailKey = "userEmail"
         static let userDefaultUUIDKey = "userUUID"
+        static let userDefaultBiometricsKey = "faceID"
+        static let userDefaultNotificationsKey = "notification"
         
         static let articleField = "article"
         static let artileUUIDfield = "uuid"
@@ -56,5 +58,27 @@ struct K {
         static let oNewsMaroon = UIColor(red: 0.72, green: 0.00, blue: 0.00, alpha: 1.00)
         static let oNewsOrange = UIColor(red: 0.86, green: 0.24, blue: 0.00, alpha: 1.00)
         static let oNewsBlue = UIColor(red: 0.25, green: 0.47, blue: 0.77, alpha: 1.00)
+    }
+}
+
+enum BiometricError: LocalizedError {
+    case authenticationFailed
+    case userCancel
+    case userFallback
+    case biometryNotAvailable
+    case biometryNotEnrolled
+    case biometryLockout
+    case unknown
+
+    var errorDescription: String? {
+        switch self {
+        case .authenticationFailed: return "There was a problem verifying your identity."
+        case .userCancel: return "You pressed cancel."
+        case .userFallback: return "You pressed password."
+        case .biometryNotAvailable: return "Face ID/Touch ID is not available."
+        case .biometryNotEnrolled: return "Face ID/Touch ID is not set up."
+        case .biometryLockout: return "Face ID/Touch ID is locked."
+        case .unknown: return "Face ID/Touch ID may not be configured"
+        }
     }
 }
