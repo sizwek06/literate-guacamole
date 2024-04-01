@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 class ArticlesListViewModel {
     
     var articlesArray: [Article] = []
     var delegate: ArticleDelegate?
+    let fireBaseDB = Firestore.firestore()
     
     func fetchNewsArticles() {
         performRequest(with: K.newsArticleURL)
@@ -48,8 +50,27 @@ class ArticlesListViewModel {
             let decodedData = try decoder.decode(NewsArticle.self, from: newsData)
             self.articlesArray = decodedData.articles
             self.articlesArray = articlesArray.filter { $0.title != "[Removed]" }
+
         } catch {
             delegate?.didFailWithError(error: error.localizedDescription)
+        }
+    }
+    
+    func saveNewsArticle(using newsArticle: Article) {
+        self.delegate?.showNewsLoading()
+        let newsArticleDb = fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).document()
+            
+        if let userUID = UserDefaults.standard.object(forKey: K.fireStoreDb.userDefaultUUIDKey) {
+            
+        self.delegate?.hideNewsLoading()
+        do {
+            var dbArticle = newsArticle
+            dbArticle.uuid = userUID as? String
+            
+            try newsArticleDb.setData(from: dbArticle)
+            } catch {
+                self.delegate?.didFailWithError(error: error.localizedDescription)
+            }
         }
     }
 }

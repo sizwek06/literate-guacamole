@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro.ttf">
+            <string>SFPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="54" id="BDJ-SM-oTv" customClass="SettingsTableViewCell" customModule="Onews" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="462" height="54"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BDJ-SM-oTv" id="O8w-pd-ugN">
+                <rect key="frame" x="0.0" y="0.0" width="462" height="54"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2QA-oy-Kb4">
+                        <rect key="frame" x="13" y="6.6666666666666643" width="35" height="39.666666666666671"/>
+                        <color key="backgroundColor" systemColor="linkColor"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="35" id="RwX-X2-5Ti"/>
+                            <constraint firstAttribute="height" constant="35" id="l3N-Wm-dhH"/>
+                        </constraints>
+                        <imageReference key="image" image="lock" catalog="system" symbolScale="large"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tvg-7k-Ppj">
+                        <rect key="frame" x="65" y="16" width="266" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="poS-Cs-Nmv"/>
+                            <constraint firstAttribute="width" constant="266" id="wWl-J6-XyM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SFPro-Regular" family="SF Pro" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w5R-ON-7Zw">
+                        <rect key="frame" x="394" y="13" width="51" height="31"/>
+                    </switch>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="w5R-ON-7Zw" firstAttribute="top" secondItem="O8w-pd-ugN" secondAttribute="top" constant="13" id="0Nm-VZ-CTj"/>
+                    <constraint firstAttribute="bottom" secondItem="2QA-oy-Kb4" secondAttribute="bottom" constant="10" id="CwE-0m-l4v"/>
+                    <constraint firstItem="Tvg-7k-Ppj" firstAttribute="top" secondItem="O8w-pd-ugN" secondAttribute="top" constant="16" id="DR9-ZY-nAS"/>
+                    <constraint firstAttribute="trailing" secondItem="w5R-ON-7Zw" secondAttribute="trailing" constant="19" id="J3p-PY-oas"/>
+                    <constraint firstAttribute="bottom" secondItem="Tvg-7k-Ppj" secondAttribute="bottom" constant="18" id="L6L-bp-9KL"/>
+                    <constraint firstItem="2QA-oy-Kb4" firstAttribute="leading" secondItem="O8w-pd-ugN" secondAttribute="leading" constant="13" id="Vki-VT-Ymy"/>
+                    <constraint firstItem="2QA-oy-Kb4" firstAttribute="top" secondItem="O8w-pd-ugN" secondAttribute="top" constant="9" id="aeS-OS-CWU"/>
+                    <constraint firstItem="Tvg-7k-Ppj" firstAttribute="leading" secondItem="2QA-oy-Kb4" secondAttribute="trailing" constant="17" id="i9y-9y-aTM"/>
+                    <constraint firstAttribute="bottom" secondItem="w5R-ON-7Zw" secondAttribute="bottom" constant="10" id="iKW-qo-fO1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="settingsImageView" destination="2QA-oy-Kb4" id="MUI-Vf-Sx6"/>
+                <outlet property="settingsLabel" destination="Tvg-7k-Ppj" id="9zT-Yj-9bs"/>
+                <outlet property="settingsSwitch" destination="w5R-ON-7Zw" id="QSA-pM-UDW"/>
+            </connections>
+            <point key="canvasLocation" x="-256.48854961832058" y="-71.83098591549296"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="lock" catalog="system" width="125" height="128"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

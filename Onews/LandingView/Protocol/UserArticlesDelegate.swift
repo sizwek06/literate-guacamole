@@ -1,14 +1,14 @@
 //
-//  ArticleDelegate.swift
+//  UserArticlesDelegate.swift
 //  Onews
 //
-//  Created by SizweKhathi on 2023/07/01.
+//  Created by Sizwe Khathi on 2024/03/29.
 //
 
 import Foundation
 import UIKit
 
-protocol ArticleDelegate {
+protocol UserArticlesDelegate {
     func didReceiveArticlesSuccessfully()
     func didFailWithError(error: String)
     func showNewsLoading()

@@ -8,6 +8,8 @@ target 'Onews' do
   # Pods for Onews
 pod 'Kingfisher', '~> 7.0'
 pod 'SwiftLint'
+pod 'FirebaseAuth'
+pod 'FirebaseFirestoreSwift'
 
 post_install do |installer|
  installer.pods_project.targets.each do |target|
