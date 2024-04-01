@@ -10,7 +10,7 @@ import UIKit
 
 struct K {
     
-    static let newsArticleURL = "https://newsapi.org/v2/top-headlines?country=us&pageSize=35&apiKey=59fd1c88fc3f43d8a4dab7d839612abf"
+    static let newsArticleURL = "https://newsapi.org/v2/top-headlines?country=us&pageSize=50&apiKey=59fd1c88fc3f43d8a4dab7d839612abf"
     static let searchURL = "https://newsapi.org/v2/everything?apiKey=59fd1c88fc3f43d8a4dab7d839612abf&from=2024-03-23&to=2024-03-23&sortBy=popularity&q="
     
     static let profileViewHeader = "Profile"
@@ -22,6 +22,7 @@ struct K {
     
     public static let loadingNewsText = "Loading news, please wait."
     public static let loadingUserText = "Loading, please wait."
+    public static let loadingUserSignedInText = "Bing Bong!, You're Logged In!"
     
     static let signInText = "Sign in"
     static let signUpText = "Sign up"
@@ -35,7 +36,7 @@ struct K {
     static let alertYes = "Yes"
     static let alertCancel = "Cancel"
     
-    static let getMoreArticlesText = "No articles, add more"
+    static let getMoreArticlesText = "No articles, start reading!"
     
     struct fireStoreDb {
         static let userDefaultEmailKey = "userEmail"
@@ -43,6 +44,7 @@ struct K {
         
         static let articleField = "article"
         static let artileUUIDfield = "uuid"
+        static let artileUrlField = "url"
         
         static let fireStoreDbCollection = "newsArticles"
     }

@@ -55,7 +55,17 @@ extension ProfileViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            // TODO: Maybe show loader with icon bouncing and about text? - BING BONG! For 2s
+            if self.isSignedIn {
+                OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserSignedInText)
+                OnewsLoaderViewController.sharedInstance.show()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+                    guard let self else { return }
+                    self.hideNewsLoading()
+                }
+            } else {
+                self.navigateToSettingsSignIn()
+            }
         } else {
             if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
                 self.navigateToArticles()
@@ -87,6 +97,8 @@ extension ProfileViewController {
             
             shareAction.image = addLabelToImage(imageString: "square.and.arrow.up", labelString: "Share")
             
+            self.setUpView()
+            
             return swipeConfiguration
         } else {
             let swipeConfiguration = UISwipeActionsConfiguration()
@@ -99,7 +111,10 @@ extension ProfileViewController {
         if indexPath.section == 1 && isSignedIn {
             let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
                 
-                self.userArticlesViewModel.articlesArray.remove(at: indexPath.row)
+                guard let uuid = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultUUIDKey) else { return }
+                
+                self.userArticlesViewModel.deleteUserArticles(using: self.userArticlesViewModel.articlesArray[indexPath.row].url,
+                                                              uuid: uuid)
                 
                 completionHandler(true)
             }
@@ -110,7 +125,7 @@ extension ProfileViewController {
             
             removeAction.image = addLabelToImage(imageString: "trash.fill", labelString: "Delete")
             
-            tableView.reloadData()
+            self.setUpView()
             
             return swipeConfiguration
         } else {
