@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension UserViewController {
+extension ProfileViewController {
     
      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
          return section == 0 ? "" : (self.isSignedIn ? "Articles" : "")
@@ -34,6 +34,7 @@ extension UserViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("Array count is: \(self.userArticlesViewModel.articlesArray.count)")
+        print("Array: \(self.userArticlesViewModel.articlesArray)")
         
         if indexPath.section == 1 {
             if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
@@ -54,7 +55,17 @@ extension UserViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            // TODO: Maybe show loader with icon bouncing and about text? - BING BONG! For 2s
+            if self.isSignedIn {
+                OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserSignedInText)
+                OnewsLoaderViewController.sharedInstance.show()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                    guard let self else { return }
+                    self.hideNewsLoading()
+                }
+            } else {
+                self.navigateToSettingsSignIn()
+            }
         } else {
             if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
                 self.navigateToArticles()
@@ -86,6 +97,8 @@ extension UserViewController {
             
             shareAction.image = addLabelToImage(imageString: "square.and.arrow.up", labelString: "Share")
             
+            self.setUpView()
+            
             return swipeConfiguration
         } else {
             let swipeConfiguration = UISwipeActionsConfiguration()
@@ -98,7 +111,10 @@ extension UserViewController {
         if indexPath.section == 1 && isSignedIn {
             let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
                 
-                self.userArticlesViewModel.articlesArray.remove(at: indexPath.row)
+                guard let uuid = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultUUIDKey) else { return }
+                
+                self.userArticlesViewModel.deleteUserArticles(using: self.userArticlesViewModel.articlesArray[indexPath.row].url,
+                                                              uuid: uuid)
                 
                 completionHandler(true)
             }
@@ -109,7 +125,7 @@ extension UserViewController {
             
             removeAction.image = addLabelToImage(imageString: "trash.fill", labelString: "Delete")
             
-            tableView.reloadData()
+            self.setUpView()
             
             return swipeConfiguration
         } else {

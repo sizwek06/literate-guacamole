@@ -22,7 +22,6 @@ class MainArticleCollectionViewCell: UICollectionViewCell {
     
     var didShareArticle: ((String) -> Void)?
     var didSaveArticle: ((Article) -> Void)?
-    
     var currentArticle: Article?
     
     override func awakeFromNib() {
@@ -36,23 +35,34 @@ class MainArticleCollectionViewCell: UICollectionViewCell {
         view.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
         
         let tapShareGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(shareImageTapped(tapGestureRecognizer:)))
-            articleShareButton.isUserInteractionEnabled = true
-            articleShareButton.addGestureRecognizer(tapShareGestureRecognizer)
-    
+        articleShareButton.isUserInteractionEnabled = true
+        articleShareButton.addGestureRecognizer(tapShareGestureRecognizer)
+        
         let tapSaveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(saveImageTapped(tapGestureRecognizer:)))
-            articleSaveButton.isUserInteractionEnabled = true
-            articleSaveButton.addGestureRecognizer(tapSaveGestureRecognizer)
-        }
-
-        @objc func shareImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-            _ = tapGestureRecognizer.view as! UIImageView
-            guard let article = currentArticle else { return }
-            didShareArticle?(article.url)
-        }
+        articleSaveButton.isUserInteractionEnabled = true
+        articleSaveButton.addGestureRecognizer(tapSaveGestureRecognizer)
+    }
     
-        @objc func saveImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-            _ = tapGestureRecognizer.view as! UIImageView
-            guard let article = currentArticle else { return }
-            didSaveArticle?(article)
-        }
+    @objc func shareImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        _ = tapGestureRecognizer.view as! UIImageView
+        guard let article = currentArticle else { return }
+        didShareArticle?(article.url)
+    }
+    
+    @objc func saveImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        _ = tapGestureRecognizer.view as! UIImageView
+        guard let article = currentArticle else { return }
+        didSaveArticle?(article)
+    }
+    
+    func setUpSaveImage(using userSignedIn: Bool) {
+        print("setUpSaveImage userSignedIn: ", userSignedIn)
+        let imageString = userSignedIn ? "bookmark" : "bookmark.slash"
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold, scale: .medium)
+        
+        let image = UIImage(systemName: imageString, withConfiguration: largeConfig)
+        
+        self.articleSaveButton.isUserInteractionEnabled = userSignedIn
+        self.articleSaveButton.image = image
+    }
 }

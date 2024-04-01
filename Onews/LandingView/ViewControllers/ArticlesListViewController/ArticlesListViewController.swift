@@ -26,7 +26,6 @@ class ArticlesListViewController: BaseTableViewController {
         tableView.refreshControl?.addTarget(self, action:
                                                 #selector(tableViewReloadNewsArticles),
                                               for: .valueChanged)
-        
         search.delegate = self
         search.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
@@ -34,6 +33,7 @@ class ArticlesListViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         articlesListViewModel.fetchNewsArticles()
+        setUpView()
     }
     
     override func viewWillLayoutSubviews() {
@@ -44,23 +44,6 @@ class ArticlesListViewController: BaseTableViewController {
     @objc func tableViewReloadNewsArticles() {
         articlesListViewModel.fetchNewsArticles()
         tableView.refreshControl?.endRefreshing()
-    }
-    
-    func saveNewsArticle(using newsArticle: Article) {
-        showNewsLoading()
-        let newsArticleDb = fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).document()
-            
-        if let userUID = UserDefaults.standard.object(forKey: K.fireStoreDb.userDefaultUUIDKey) {
-        do {
-            var dbArticle = newsArticle
-            dbArticle.uuid = userUID as? String
-            
-            try newsArticleDb.setData(from: dbArticle)
-            hideNewsLoading()
-            } catch {
-                print("Error encountered: \(error)")
-            }
-        }
     }
 }
 

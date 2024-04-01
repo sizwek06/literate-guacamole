@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension UserViewController: UserArticlesDelegate {
+extension ProfileViewController: UserArticlesDelegate {
     
     func showNewsLoading() {
         OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingNewsText)

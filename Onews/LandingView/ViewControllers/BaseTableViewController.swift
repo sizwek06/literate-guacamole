@@ -12,7 +12,7 @@ import FirebaseFirestore
 class BaseTableViewController: UIViewController {
     
     var openArticleURL: ((String) -> Void)?
-    let fireBaseDB = Firestore.firestore()
+    var isSignedIn: Bool = false
     
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
@@ -36,6 +36,11 @@ class BaseTableViewController: UIViewController {
         tableView.frame = view.bounds
         
         navigationItem.hidesSearchBarWhenScrolling = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpView()
     }
     
     func downloadImg(urlString: String?, imgView: UIImageView) {
@@ -80,5 +85,21 @@ class BaseTableViewController: UIViewController {
         activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
         
         self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    func setUpView() {
+        UserDefaults.standard.synchronize()
+        
+        DispatchQueue.main.async {
+            if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey) {
+                self.isSignedIn = !user.isEmpty
+                
+            } else {
+                self.isSignedIn = false
+            }
+            
+            self.tableView.reloadData()
+            self.tableView.refreshControl?.endRefreshing()
+        }
     }
 }

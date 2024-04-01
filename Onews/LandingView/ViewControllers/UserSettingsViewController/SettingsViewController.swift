@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
-class SettingsViewController: UserViewController {
+class SettingsViewController: ProfileViewController {
     
     var userAccessViewModel = UserAccessViewModel()
     

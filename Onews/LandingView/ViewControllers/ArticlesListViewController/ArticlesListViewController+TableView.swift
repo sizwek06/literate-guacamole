@@ -40,19 +40,20 @@ extension ArticlesListViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MainArticleTableViewCell.identifier) as? MainArticleTableViewCell else { return UITableViewCell() }
             
             cell.mainArticleView.articlesArray = Array(articlesListViewModel.articlesArray.prefix(3))
+            cell.mainArticleView.isSignedIn = self.isSignedIn
             
             cell.mainArticleView.didSelectArticle = { articleClicked, articleSource in
                 self.handleOpenArticleURL(url: articleClicked, source: articleSource)
             }
             
             cell.mainArticleView.didSaveArticle = { article in
-                self.saveNewsArticle(using: article)
+                self.articlesListViewModel.saveNewsArticle(using: article)
             }
             
             cell.mainArticleView.didShareArticle = { articleSource in
                 self.shareArticleLink(with: articleSource)
             }
-            
+            cell.mainArticleView.reload()
             return cell
         }
     }
@@ -75,7 +76,7 @@ extension ArticlesListViewController {
             }
             
             let likeAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
-                self.saveNewsArticle(using: self.articlesListViewModel.articlesArray[indexPath.row])
+                self.articlesListViewModel.saveNewsArticle(using: self.articlesListViewModel.articlesArray[indexPath.row])
                 
                 completionHandler(true)
             }
@@ -83,7 +84,9 @@ extension ArticlesListViewController {
             shareAction.backgroundColor = K.newsColor.oNewsBlue
             likeAction.backgroundColor = K.newsColor.oNewsMaroon
             
-            let swipeConfiguration = UISwipeActionsConfiguration(actions: [likeAction, shareAction])
+            let actions = self.isSignedIn ? [likeAction, shareAction] : [shareAction]
+            
+            let swipeConfiguration = UISwipeActionsConfiguration(actions: actions)
             swipeConfiguration.performsFirstActionWithFullSwipe = false
             
             likeAction.image = addLabelToImage(imageString: "bookmark", labelString: "Save")
