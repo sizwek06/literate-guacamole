@@ -18,7 +18,10 @@ class UserArticlesViewModel {
     
     func queryUserArticles(using uuid: String, completion: @escaping ([Article]) -> Void) {
         self.userArticleDelegate?.showNewsLoading()
-        fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).limit(to: 50).addSnapshotListener { [weak self] (querySnapshot, err) in
+        fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection)
+            .whereField(K.fireStoreDb.artileUUIDfield, isEqualTo: uuid)
+            .limit(to: 50)
+            .addSnapshotListener { [weak self] (querySnapshot, err) in
             
             guard let self else { return }
             self.userArticleDelegate?.hideNewsLoading()
@@ -36,6 +39,26 @@ class UserArticlesViewModel {
                 completion(self.articlesArray)
                 self.userArticleDelegate?.didReceiveArticlesSuccessfully()
             }
+        }
+    }
+    
+    func deleteUserArticles(using articleURL: String, uuid: String) {
+        self.userArticleDelegate?.showNewsLoading()
+        
+        fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection)
+            .whereField(K.fireStoreDb.artileUrlField, isEqualTo: articleURL)
+            .whereField(K.fireStoreDb.artileUUIDfield, isEqualTo: uuid)
+            .getDocuments { [weak self] (querySnapshot, err) in
+               
+            guard let self else { return }
+            self.userArticleDelegate?.hideNewsLoading()
+          if let err = err {
+              self.userArticleDelegate?.didFailWithError(error: err.localizedDescription)
+          } else {
+            for document in querySnapshot!.documents {
+              document.reference.delete()
+            }
+          }
         }
     }
 }
