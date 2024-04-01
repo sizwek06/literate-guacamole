@@ -60,7 +60,7 @@ class ArticlesListViewModel {
         self.delegate?.showNewsLoading()
         let newsArticleDb = fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).document()
             
-        if let userUID = UserDefaults.standard.object(forKey: K.fireStoreDb.userDefaultUUIDKey) {
+        if let userUID = UserDefaults.standard.object(forKey: K.userDefaultUUIDKey) {
             
         self.delegate?.hideNewsLoading()
         do {

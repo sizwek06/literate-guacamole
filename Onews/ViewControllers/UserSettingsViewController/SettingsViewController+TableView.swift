@@ -33,19 +33,20 @@ extension SettingsViewController {
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell") as? SettingsTableViewCell else { return UITableViewCell() }
-            
-            if indexPath.row == 0 {
-                cell.setUpSettingsCell(using: "bell.badge.fill",
-                                       backgroundColor: UIColor.red,
-                                       label: "Notifications")
-                cell.switchOption = .notifications
-            } else {
-                cell.setUpSettingsCell(using: "faceid",
-                                         backgroundColor: UIColor.systemGreen,
-                                         label: "FaceID")
-                cell.switchOption = .faceID
-            }
-            
+                
+                if indexPath.row == 0 {
+                    cell.setUpSettingsCell(using: "bell.badge.fill",
+                                           backgroundColor: UIColor.red,
+                                           label: "Notifications",
+                                           switchState: UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey))
+                    cell.switchOption = .notifications
+                } else {
+                    cell.setUpSettingsCell(using: "faceid",
+                                           backgroundColor: UIColor.systemGreen,
+                                           label: "FaceID",
+                                           switchState: UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey))
+                    cell.switchOption = .faceID
+                }
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell

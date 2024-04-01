@@ -38,12 +38,12 @@ struct K {
     
     static let getMoreArticlesText = "No articles, start reading!"
     
+    static let userDefaultEmailKey = "userEmail"
+    static let userDefaultUUIDKey = "userUUID"
+    static let userDefaultBiometricsKey = "faceID"
+    static let userDefaultNotificationsKey = "notification"
+    
     struct fireStoreDb {
-        static let userDefaultEmailKey = "userEmail"
-        static let userDefaultUUIDKey = "userUUID"
-        static let userDefaultBiometricsKey = "faceID"
-        static let userDefaultNotificationsKey = "notification"
-        
         static let articleField = "article"
         static let artileUUIDfield = "uuid"
         static let artileUrlField = "url"

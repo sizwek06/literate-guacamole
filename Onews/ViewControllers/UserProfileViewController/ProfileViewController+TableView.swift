@@ -111,7 +111,7 @@ extension ProfileViewController {
         if indexPath.section == 1 && isSignedIn {
             let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
                 
-                guard let uuid = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultUUIDKey) else { return }
+                guard let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) else { return }
                 
                 self.userArticlesViewModel.deleteUserArticles(using: self.userArticlesViewModel.articlesArray[indexPath.row].url,
                                                               uuid: uuid)

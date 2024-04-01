@@ -46,8 +46,8 @@ class ProfileViewController: BaseTableViewController {
         UserDefaults.standard.synchronize()
         
         DispatchQueue.main.async {
-            if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey),
-               let uuid = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultUUIDKey) {
+            if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey),
+               let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) {
                 self.userName = user
                 self.isSignedIn = !user.isEmpty
                 

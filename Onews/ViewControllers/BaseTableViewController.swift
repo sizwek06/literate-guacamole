@@ -91,7 +91,7 @@ class BaseTableViewController: UIViewController {
         UserDefaults.standard.synchronize()
         
         DispatchQueue.main.async {
-            if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey) {
+            if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
                 self.isSignedIn = !user.isEmpty
                 
             } else {
