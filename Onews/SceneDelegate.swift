@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let articlesNavigationController = UINavigationController(rootViewController: ArticlesListViewController())
         articlesNavigationController.title = "Onews"
-        let userNavigationController = UINavigationController(rootViewController: UserViewController())
+        let userNavigationController = UINavigationController(rootViewController: ProfileViewController())
         userNavigationController.title = "Profile"
         let settingsNavigationController = UINavigationController(rootViewController: SettingsViewController())
         settingsNavigationController.title = "Settings"

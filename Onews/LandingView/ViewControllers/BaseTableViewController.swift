@@ -88,11 +88,15 @@ class BaseTableViewController: UIViewController {
     }
     
     func setUpView() {
+        UserDefaults.standard.synchronize()
+        
         DispatchQueue.main.async {
             if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey) {
                 self.isSignedIn = !user.isEmpty
+                
+            } else {
+                self.isSignedIn = false
             }
-            print("Article List is user signed in? ", self.isSignedIn)
             
             self.tableView.reloadData()
             self.tableView.refreshControl?.endRefreshing()

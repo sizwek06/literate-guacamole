@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestoreSwift
 
-class UserViewController: BaseTableViewController {
+class ProfileViewController: BaseTableViewController {
     
     var userName: String?
     var currentUser: String?

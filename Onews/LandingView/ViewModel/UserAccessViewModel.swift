@@ -53,8 +53,8 @@ class UserAccessViewModel {
         do {
             self.userAccessDelegate?.hideLoader()
             try Auth.auth().signOut()
-            UserDefaults.standard.setValue("", forKey: K.fireStoreDb.userDefaultEmailKey)
-            UserDefaults.standard.setValue("", forKey: K.fireStoreDb.userDefaultUUIDKey)
+            UserDefaults.standard.removeObject(forKey: K.fireStoreDb.userDefaultEmailKey)
+            UserDefaults.standard.removeObject(forKey: K.fireStoreDb.userDefaultUUIDKey)
             UserDefaults.standard.synchronize()
         } catch {
             self.userAccessDelegate?.didFailWithError(error: error.localizedDescription,

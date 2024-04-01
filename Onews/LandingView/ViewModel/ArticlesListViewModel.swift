@@ -61,14 +61,15 @@ class ArticlesListViewModel {
         let newsArticleDb = fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).document()
             
         if let userUID = UserDefaults.standard.object(forKey: K.fireStoreDb.userDefaultUUIDKey) {
+            
+        self.delegate?.hideNewsLoading()
         do {
             var dbArticle = newsArticle
             dbArticle.uuid = userUID as? String
             
             try newsArticleDb.setData(from: dbArticle)
-            self.delegate?.hideNewsLoading()
             } catch {
-                print("Error encountered: \(error)")
+                self.delegate?.didFailWithError(error: error.localizedDescription)
             }
         }
     }

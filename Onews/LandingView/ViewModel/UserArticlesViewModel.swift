@@ -14,10 +14,11 @@ class UserArticlesViewModel {
     let fireBaseDB = Firestore.firestore()
     
     var articlesArray: [Article] = []
+    var fireBaseArray: [String] = []
     
-    func queryUserArticles(using uuid: String, completion: @escaping ([Article])->()) {
+    func queryUserArticles(using uuid: String, completion: @escaping ([Article]) -> Void) {
         self.userArticleDelegate?.showNewsLoading()
-        fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).addSnapshotListener { [weak self] (querySnapshot, err) in
+        fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).limit(to: 50).addSnapshotListener { [weak self] (querySnapshot, err) in
             
             guard let self else { return }
             self.userArticleDelegate?.hideNewsLoading()

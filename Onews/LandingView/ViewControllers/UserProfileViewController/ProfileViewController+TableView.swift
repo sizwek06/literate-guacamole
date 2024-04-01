@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension UserViewController {
+extension ProfileViewController {
     
      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
          return section == 0 ? "" : (self.isSignedIn ? "Articles" : "")
@@ -34,6 +34,7 @@ extension UserViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("Array count is: \(self.userArticlesViewModel.articlesArray.count)")
+        print("Array: \(self.userArticlesViewModel.articlesArray)")
         
         if indexPath.section == 1 {
             if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
