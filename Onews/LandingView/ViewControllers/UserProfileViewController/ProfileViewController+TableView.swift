@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension UserViewController {
+extension ProfileViewController {
     
      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
          return section == 0 ? "" : (self.isSignedIn ? "Articles" : "")
@@ -18,7 +18,13 @@ extension UserViewController {
         if section == 0 {
             return 1
         } else {
-            return self.isSignedIn ? self.articlesArray.count : 1
+            if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
+                return 1
+            } else if !self.userArticlesViewModel.articlesArray.isEmpty {
+                return self.userArticlesViewModel.articlesArray.count
+            } else {
+                return 1
+            }
         }
     }
     
@@ -27,10 +33,14 @@ extension UserViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("Array count is: \(self.userArticlesViewModel.articlesArray.count)")
+        print("Array: \(self.userArticlesViewModel.articlesArray)")
         
         if indexPath.section == 1 {
-            if self.isSignedIn {
-                let article = self.articlesArray[indexPath.row]
+            if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
+               return createNoSignInTableViewCell()
+            } else if self.isSignedIn {
+                let article = self.userArticlesViewModel.articlesArray[indexPath.row]
                 
                 return createArticleTableViewCell(with: article)
             } else {
@@ -45,26 +55,37 @@ extension UserViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            // TODO: Maybe show loader with icon bouncing and about text?
+            if self.isSignedIn {
+                OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserSignedInText)
+                OnewsLoaderViewController.sharedInstance.show()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                    guard let self else { return }
+                    self.hideNewsLoading()
+                }
+            } else {
+                self.navigateToSettingsSignIn()
+            }
         } else {
-            if isSignedIn {
-                let article = articlesArray[indexPath.row]
+            if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
+                self.navigateToArticles()
+            } else if !self.userArticlesViewModel.articlesArray.isEmpty {
+                let article = userArticlesViewModel.articlesArray[indexPath.row]
                 
                 DispatchQueue.main.async {
                     self.handleOpenArticleURL(url: article.url, source: article.source.name)
                 }
             } else {
-                    self.navigateToSettingsSignIn()
-                }
+                self.navigateToSettingsSignIn()
             }
+        }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        print("Array count is: \(self.articlesArray.count)")
         
-        if indexPath.section == 1 {
+        if indexPath.section == 1 && isSignedIn {
             let shareAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
-                self.shareArticleLink(with: self.articlesArray[indexPath.row].url)
+                self.shareArticleLink(with: self.userArticlesViewModel.articlesArray[indexPath.row].url)
                 
                 completionHandler(true)
             }
@@ -76,6 +97,8 @@ extension UserViewController {
             
             shareAction.image = addLabelToImage(imageString: "square.and.arrow.up", labelString: "Share")
             
+            self.setUpView()
+            
             return swipeConfiguration
         } else {
             let swipeConfiguration = UISwipeActionsConfiguration()
@@ -84,10 +107,14 @@ extension UserViewController {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        if indexPath.section == 1 {
+        
+        if indexPath.section == 1 && isSignedIn {
             let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
                 
-                self.articlesArray.remove(at: indexPath.row)
+                guard let uuid = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultUUIDKey) else { return }
+                
+                self.userArticlesViewModel.deleteUserArticles(using: self.userArticlesViewModel.articlesArray[indexPath.row].url,
+                                                              uuid: uuid)
                 
                 completionHandler(true)
             }
@@ -98,7 +125,7 @@ extension UserViewController {
             
             removeAction.image = addLabelToImage(imageString: "trash.fill", labelString: "Delete")
             
-            tableView.reloadData()
+            self.setUpView()
             
             return swipeConfiguration
         } else {
@@ -111,10 +138,12 @@ extension UserViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
         else { return UITableViewCell() }
         
-        cell.signOutLabel.font = UIFont(name: "SF-Pro-Display-Bold", size: 15)
-        
-        cell.signOutLabel.text = K.signInText
-        cell.signOutLabel.textColor = .systemBlue
+        cell.signOutLabel.font = 
+        self.isSignedIn ? UIFont(name: "SF-Pro-Text-SemiBold", size: 15.0) : UIFont(name: "SF-Pro-Rounded-Bold", size: 15.0)
+
+
+        cell.signOutLabel.text = self.isSignedIn ? K.getMoreArticlesText: K.signInText
+        cell.signOutLabel.textColor = self.isSignedIn ? .black : .systemBlue
         
         return cell
     }

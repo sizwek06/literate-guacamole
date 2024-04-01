@@ -33,8 +33,8 @@
                             <rect key="frame" x="45" y="16" width="160" height="96"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8W-0r-2Hg">
-                            <rect key="frame" x="30" y="123" width="188" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="s8W-0r-2Hg">
+                            <rect key="frame" x="15" y="123" width="227" height="21"/>
                             <fontDescription key="fontDescription" name="SFProRounded-Bold" family="SF Pro Rounded" pointSize="15"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -42,13 +42,13 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="s8W-0r-2Hg" firstAttribute="leading" secondItem="KOf-RC-bqF" secondAttribute="leading" constant="30" id="2rW-u2-Gxf"/>
+                        <constraint firstItem="s8W-0r-2Hg" firstAttribute="leading" secondItem="KOf-RC-bqF" secondAttribute="leading" constant="15" id="2rW-u2-Gxf"/>
                         <constraint firstItem="wIz-Pc-UCL" firstAttribute="leading" secondItem="KOf-RC-bqF" secondAttribute="leading" constant="45" id="EjB-df-Ioo"/>
                         <constraint firstAttribute="bottom" secondItem="wIz-Pc-UCL" secondAttribute="bottom" constant="51" id="F4m-2z-KF4"/>
                         <constraint firstItem="wIz-Pc-UCL" firstAttribute="top" secondItem="KOf-RC-bqF" secondAttribute="top" constant="16" id="Fth-T5-NbY"/>
                         <constraint firstAttribute="bottom" secondItem="s8W-0r-2Hg" secondAttribute="bottom" constant="19" id="Gn3-EC-s61"/>
                         <constraint firstItem="s8W-0r-2Hg" firstAttribute="top" secondItem="wIz-Pc-UCL" secondAttribute="bottom" constant="11" id="HcP-MO-3i5"/>
-                        <constraint firstAttribute="trailing" secondItem="s8W-0r-2Hg" secondAttribute="trailing" constant="39" id="Mxp-lx-i7H"/>
+                        <constraint firstAttribute="trailing" secondItem="s8W-0r-2Hg" secondAttribute="trailing" constant="15" id="Mxp-lx-i7H"/>
                         <constraint firstAttribute="trailing" secondItem="wIz-Pc-UCL" secondAttribute="trailing" constant="52" id="Vs9-7u-0Of"/>
                     </constraints>
                 </view>

@@ -32,7 +32,8 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
         
         navigationController?.navigationBar.backgroundColor = UIColor(named: "CollectionColor")
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeWebView))
+        navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeWebView)),
+                                            UIBarButtonItem(image: createBarButton(using: "safari"), style: .plain, target: self, action: #selector(openInSafari))]
         navigationItem.title = self.source
         navigationItem.rightBarButtonItems = 
         [UIBarButtonItem(image: createBarButton(using: "arrow.clockwise"), style: .plain, target: self, action: #selector(reloadWebView)),
@@ -47,6 +48,12 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
     
     @objc func closeWebView() {
         self.dismiss(animated: true)
+    }
+    
+    @objc func openInSafari() {
+        if let url = URL(string: self.url!) {
+            UIApplication.shared.open(url)
+        }
     }
     
     @objc func reloadWebView() {

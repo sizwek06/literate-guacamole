@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 extension ArticlesListViewController {
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section == 0 ? K.mainArticleHeader : K.otherArticlesHeader
     }
@@ -16,6 +17,7 @@ extension ArticlesListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 : articlesListViewModel.articlesArray.count
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 1 {
@@ -38,20 +40,29 @@ extension ArticlesListViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MainArticleTableViewCell.identifier) as? MainArticleTableViewCell else { return UITableViewCell() }
             
             cell.mainArticleView.articlesArray = Array(articlesListViewModel.articlesArray.prefix(3))
+            cell.mainArticleView.isSignedIn = self.isSignedIn
             
             cell.mainArticleView.didSelectArticle = { articleClicked, articleSource in
                 self.handleOpenArticleURL(url: articleClicked, source: articleSource)
             }
             
-            cell.mainArticleView.didSaveArticle = { articleSource in
-                self.handleOpenArticleURL(url: articleSource, source: articleSource)
+            cell.mainArticleView.didSaveArticle = { article in
+                self.articlesListViewModel.saveNewsArticle(using: article)
             }
             
             cell.mainArticleView.didShareArticle = { articleSource in
                 self.shareArticleLink(with: articleSource)
             }
-            
+            cell.mainArticleView.reload()
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let article = articlesListViewModel.articlesArray[indexPath.row]
+        
+        if indexPath.section == 1 {
+            self.handleOpenArticleURL(url: article.url, source: article.source.name)
         }
     }
     
@@ -65,7 +76,7 @@ extension ArticlesListViewController {
             }
             
             let likeAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
-                self.shareArticleLink(with: self.articlesListViewModel.articlesArray[indexPath.row].url)
+                self.articlesListViewModel.saveNewsArticle(using: self.articlesListViewModel.articlesArray[indexPath.row])
                 
                 completionHandler(true)
             }
@@ -73,7 +84,9 @@ extension ArticlesListViewController {
             shareAction.backgroundColor = K.newsColor.oNewsBlue
             likeAction.backgroundColor = K.newsColor.oNewsMaroon
             
-            let swipeConfiguration = UISwipeActionsConfiguration(actions: [likeAction, shareAction])
+            let actions = self.isSignedIn ? [likeAction, shareAction] : [shareAction]
+            
+            let swipeConfiguration = UISwipeActionsConfiguration(actions: actions)
             swipeConfiguration.performsFirstActionWithFullSwipe = false
             
             likeAction.image = addLabelToImage(imageString: "bookmark", labelString: "Save")

@@ -19,13 +19,13 @@ class UserAccessScreenViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
     
-    var userAccessViewModel = UserAcessViewModel()
+    var userAccessViewModel = UserAccessViewModel()
     public var isUserRegistration: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userAccessViewModel.delegate = self
+        userAccessViewModel.userAccessDelegate = self
         setupView()
     }
     
@@ -38,6 +38,8 @@ class UserAccessScreenViewController: UIViewController {
     }
     
     @IBAction func signInButtonPressed(_ sender: Any) {
+//        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "PeformAfterPresenting"), object: nil))
+
         authenticateUserDetails()
     }
     
@@ -100,21 +102,38 @@ extension UserAccessScreenViewController: UITextFieldDelegate {
             checkTextfieldsContent()
         }
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case passwordTextfield:
+            signInButton.isEnabled = true
+        default:
+            checkTextfieldsContent()
+        }
+    }
 }
 
+// TODO: Review if the below is required
 extension UserAccessScreenViewController: UserAcessDelegate {
+    
+    func confirmLogOut() {
+    }
     
     func successfulUserSignIn(user: User, isRegistration: Bool) {
         
         guard let email = user.email else { return }
-        OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: email)
         
-        print("Sign In/Up Successful with OnewsUserDefaults: ", OnewsUserDefaults.sharedInstance.userEmail)
+        UserDefaults.standard.set(email, forKey: K.fireStoreDb.userDefaultEmailKey)
+        UserDefaults.standard.set(user.uid, forKey: K.fireStoreDb.userDefaultUUIDKey)
+        UserDefaults.standard.synchronize()
         
         self.dismiss(animated: true)
         
-        print("User email: ", user.email as Any)
-        print("User details: ", user.displayName as Any)
+        DispatchQueue.main.async {
+            let tabBarController = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
+            tabBarController.selectedIndex = 1
+            self.dismiss(animated: true, completion: {})
+        }
     }
     
     func showLoader() {

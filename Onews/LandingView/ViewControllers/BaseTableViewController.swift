@@ -7,10 +7,12 @@
 
 import Foundation
 import UIKit
+import FirebaseFirestore
 
 class BaseTableViewController: UIViewController {
     
     var openArticleURL: ((String) -> Void)?
+    var isSignedIn: Bool = false
     
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
@@ -34,6 +36,11 @@ class BaseTableViewController: UIViewController {
         tableView.frame = view.bounds
         
         navigationItem.hidesSearchBarWhenScrolling = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpView()
     }
     
     func downloadImg(urlString: String?, imgView: UIImageView) {
@@ -80,18 +87,19 @@ class BaseTableViewController: UIViewController {
         self.present(activityViewController, animated: true, completion: nil)
     }
     
-    func showUserAccessController(_ isUserRegistration: Bool) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "ArticlesListViewController", bundle: Bundle(for: ArticlesListViewController.self))
+    func setUpView() {
+        UserDefaults.standard.synchronize()
         
-        let userAccessViewController: UserAccessScreenViewController = storyboard.instantiateViewController(withIdentifier: "UserAccessScreenViewController") as!
-        UserAccessScreenViewController
-        
-        userAccessViewController.isUserRegistration = isUserRegistration
-        
-        if let userAccessViewController = userAccessViewController.presentationController as? UISheetPresentationController {
-            userAccessViewController.detents = [.large()]
+        DispatchQueue.main.async {
+            if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey) {
+                self.isSignedIn = !user.isEmpty
+                
+            } else {
+                self.isSignedIn = false
+            }
+            
+            self.tableView.reloadData()
+            self.tableView.refreshControl?.endRefreshing()
         }
-        
-        self.present(userAccessViewController, animated: true, completion: nil)
     }
 }

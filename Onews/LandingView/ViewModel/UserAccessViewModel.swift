@@ -8,58 +8,56 @@
 import Foundation
 import FirebaseAuth
 
-class UserAcessViewModel {
+class UserAccessViewModel {
     
-    var delegate: UserAcessDelegate?
+    var userAccessDelegate: UserAcessDelegate?
     
     func signUp(email: String, password: String) {
-        self.delegate?.showLoader()
+        self.userAccessDelegate?.showLoader()
         
             Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
                 
                 guard let self else { return }
-                self.delegate?.hideLoader()
+                self.userAccessDelegate?.hideLoader()
                 
                 if let e = error {
-                    self.delegate?.didFailWithError(error: e.localizedDescription,
+                    self.userAccessDelegate?.didFailWithError(error: e.localizedDescription,
                                                     isRegistration: true)
                 } else if let auth = authResult {
-                    self.delegate?.successfulUserSignIn(user: auth.user,
+                    self.userAccessDelegate?.successfulUserSignIn(user: auth.user,
                                                           isRegistration: true)
-                    
-                    OnewsUserDefaults.sharedInstance.saveLoggedInUser(user: email)
                 }
             }
         }
     
     func signInUser(email: String, password: String) {
-        print("Logg In called")
-        self.delegate?.showLoader()
+        self.userAccessDelegate?.showLoader()
         
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
             guard let self else { return }
-            self.delegate?.hideLoader()
+            self.userAccessDelegate?.hideLoader()
             
             if let e = error {
-                self.delegate?.didFailWithError(error: e.localizedDescription,
-                                                isRegistration: true)
+                self.userAccessDelegate?.didFailWithError(error: e.localizedDescription,
+                                                isRegistration: false)
             } else if let auth = authResult {
-                self.delegate?.successfulUserSignIn(user: auth.user,
-                                                      isRegistration: true)
+                self.userAccessDelegate?.successfulUserSignIn(user: auth.user,
+                                                      isRegistration: false)
             }
         }
     }
     
     func signOutUser() {
-        self.delegate?.showLoader()
+        self.userAccessDelegate?.showLoader()
       
         do {
-            self.delegate?.hideLoader()
+            self.userAccessDelegate?.hideLoader()
             try Auth.auth().signOut()
-            OnewsUserDefaults.sharedInstance.clearLoggedInUser()
-            print("signOutsuccessful")
+            UserDefaults.standard.removeObject(forKey: K.fireStoreDb.userDefaultEmailKey)
+            UserDefaults.standard.removeObject(forKey: K.fireStoreDb.userDefaultUUIDKey)
+            UserDefaults.standard.synchronize()
         } catch {
-            self.delegate?.didFailWithError(error: error.localizedDescription,
+            self.userAccessDelegate?.didFailWithError(error: error.localizedDescription,
                                             isRegistration: true)
         }
     }
