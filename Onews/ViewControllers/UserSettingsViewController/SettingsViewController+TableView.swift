@@ -29,24 +29,24 @@ extension SettingsViewController {
             else { return UITableViewCell() }
             
             cell.usernameLabel.text = self.userName
-
+            
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell") as? SettingsTableViewCell else { return UITableViewCell() }
-                
-                if indexPath.row == 0 {
-                    cell.setUpSettingsCell(using: "bell.badge.fill",
-                                           backgroundColor: UIColor.red,
-                                           label: "Notifications",
-                                           switchState: UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey))
-                    cell.switchOption = .notifications
-                } else {
-                    cell.setUpSettingsCell(using: "faceid",
-                                           backgroundColor: UIColor.systemGreen,
-                                           label: "FaceID",
-                                           switchState: UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey))
-                    cell.switchOption = .faceID
-                }
+            
+            if indexPath.row == 0 {
+                cell.setUpSettingsCell(using: "bell.badge.fill",
+                                       backgroundColor: UIColor.red,
+                                       label: "Notifications",
+                                       switchState: UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey))
+                cell.switchOption = .notifications
+            } else {
+                cell.setUpSettingsCell(using: "faceid",
+                                       backgroundColor: UIColor.systemGreen,
+                                       label: "FaceID",
+                                       switchState: UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey))
+                cell.switchOption = .faceID
+            }
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
@@ -56,7 +56,7 @@ extension SettingsViewController {
             
             cell.signOutLabel.text = isSignedIn ? K.signOutText : K.signInText
             cell.signOutLabel.textColor = isSignedIn ? .red : .systemBlue
-        
+            
             return cell
         default:
             break
@@ -66,20 +66,30 @@ extension SettingsViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
+        case 0:
+            if self.isSignedIn {
+                OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserSignedInText)
+                OnewsLoaderViewController.sharedInstance.show()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                    guard let self else { return }
+                    self.hideNewsLoading()
+                }
+            }
         case 2:
             isSignedIn ? confirmLogOut() : showSignInSheet()
         default:
             break
         }
     }
-    
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let swipeConfiguration = UISwipeActionsConfiguration()
-        return swipeConfiguration
+        
+        override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+            let swipeConfiguration = UISwipeActionsConfiguration()
+            return swipeConfiguration
+        }
+        
+        override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+            let swipeConfiguration = UISwipeActionsConfiguration()
+            return swipeConfiguration
+        }
     }
-    
-    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let swipeConfiguration = UISwipeActionsConfiguration()
-        return swipeConfiguration
-    }
-}
