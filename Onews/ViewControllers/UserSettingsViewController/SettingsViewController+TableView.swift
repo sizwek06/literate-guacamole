@@ -23,41 +23,35 @@ extension SettingsViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell") as? SettingsTableViewCell else { return UITableViewCell() }
+        
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell", for: indexPath) as? UserProfileTableViewCell
-            else { return UITableViewCell() }
-            
-            cell.usernameLabel.text = self.userName
-            
-            return cell
+            return createProfileView()
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell") as? SettingsTableViewCell else { return UITableViewCell() }
-            
-            if indexPath.row == 0 {
+            switch indexPath.row {
+            case 0:
                 cell.setUpSettingsCell(using: "bell.badge.fill",
                                        backgroundColor: UIColor.red,
                                        label: "Notifications",
                                        switchState: UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey))
                 cell.switchOption = .notifications
-            } else {
+                
+                return cell
+            case 1:
                 cell.setUpSettingsCell(using: "faceid",
                                        backgroundColor: UIColor.systemGreen,
                                        label: "FaceID",
                                        switchState: UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey))
                 cell.switchOption = .faceID
+                
+                return cell
+            default:
+                return UITableViewCell()
             }
-            return cell
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
-            else { return UITableViewCell() }
-            
-            cell.signOutLabel.font = UIFont(name: "SF-Pro-Display-Bold", size: 15)
-            
-            cell.signOutLabel.text = isSignedIn ? K.signOutText : K.signInText
-            cell.signOutLabel.textColor = isSignedIn ? .red : .systemBlue
-            
-            return cell
+            return isSignedIn ? createSignOutView() : createNoSignInTableViewCell()
         default:
             break
         }
@@ -77,19 +71,37 @@ extension SettingsViewController {
                 }
             }
         case 2:
-            isSignedIn ? confirmLogOut() : showSignInSheet()
+            if self.isSignedIn {
+                self.confirmLogOut()
+            } else if self.isSignedIn && !self.isFaceIDVerified {
+                self.verifyUser()
+            } else {
+                self.showSignInSheet()
+            }
         default:
             break
         }
     }
-        
-        override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-            let swipeConfiguration = UISwipeActionsConfiguration()
-            return swipeConfiguration
-        }
-        
-        override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-            let swipeConfiguration = UISwipeActionsConfiguration()
-            return swipeConfiguration
-        }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let swipeConfiguration = UISwipeActionsConfiguration()
+        return swipeConfiguration
     }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let swipeConfiguration = UISwipeActionsConfiguration()
+        return swipeConfiguration
+    }
+    
+    func createSignOutView() -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
+        else { return UITableViewCell() }
+        
+        cell.signOutLabel.font = UIFont(name: "SF-Pro-Display-Bold", size: 15)
+        
+        cell.signOutLabel.text = self.isSignedIn ? K.signOutText : K.signInText
+        cell.signOutLabel.textColor = self.isSignedIn ? .red : .systemBlue
+        
+        return cell
+    }
+}

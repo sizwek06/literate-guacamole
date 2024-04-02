@@ -14,6 +14,8 @@ class ProfileViewController: BaseTableViewController {
     
     var userName: String?
     var currentUser: String?
+    var isFaceIDVerified: Bool = false
+    var isFaceIDEnabled: Bool = false
     
     var userArticlesViewModel = UserArticlesViewModel()
     private let biometricAuthManager = BiometricAuthManager()
@@ -22,19 +24,14 @@ class ProfileViewController: BaseTableViewController {
         super.viewDidLoad()
         
         title = K.profileViewHeader
-        super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
-        super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         
         tableView.refreshControl?.addTarget(self, action: #selector(setUpView), for: .valueChanged)
-
-        tableView.frame = view.bounds
-        view.addSubview(tableView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if self.isSignedIn { verifyUser() }
         self.setUpView()
+        if self.isSignedIn { verifyUser() }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -43,7 +40,16 @@ class ProfileViewController: BaseTableViewController {
     }
     
     @objc override func setUpView() {
+        
+        print("ViewWillAppear FaceID", self.isFaceIDVerified)
         UserDefaults.standard.synchronize()
+        
+        super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
+        super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
+        super.tableView.register(UserFaceIDTableViewCell.self, forCellReuseIdentifier: UserFaceIDTableViewCell.identifier)
+        
+        tableView.frame = view.bounds
+        view.addSubview(tableView)
         
         DispatchQueue.main.async {
             if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey),
@@ -56,7 +62,7 @@ class ProfileViewController: BaseTableViewController {
                 }
             } else {
                 self.userArticlesViewModel.articlesArray.removeAll()
-                self.userName = "Not signed in, click below to get started"
+                self.userName = K.noSessionText
                 self.isSignedIn = false
             }
             // User email:  Optional("test@gg.com")
@@ -94,7 +100,10 @@ class ProfileViewController: BaseTableViewController {
                         return
                     }
                     
-                    // You are successfully verified
+                    self.isFaceIDVerified = true
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 }
             }
         }

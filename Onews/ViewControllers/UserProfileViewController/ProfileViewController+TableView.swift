@@ -10,20 +10,35 @@ import UIKit
 
 extension ProfileViewController {
     
-     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-         return section == 0 ? "" : (self.isSignedIn ? "Articles" : "")
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+         return section == 0 ? "" : (self.isSignedIn && self.isFaceIDVerified ? "Articles" : "")
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
         } else {
-            if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
-                return 1
-            } else if !self.userArticlesViewModel.articlesArray.isEmpty {
-                return self.userArticlesViewModel.articlesArray.count
+            if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
+                
+                if self.isFaceIDVerified {
+                    if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
+                        return 1
+                    } else if !self.userArticlesViewModel.articlesArray.isEmpty {
+                        return self.userArticlesViewModel.articlesArray.count
+                    } else {
+                        return 1
+                    }
+                } else {
+                    return 1
+                }
             } else {
-                return 1
+                if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
+                    return 1
+                } else if !self.userArticlesViewModel.articlesArray.isEmpty {
+                    return self.userArticlesViewModel.articlesArray.count
+                } else {
+                    return 1
+                }
             }
         }
     }
@@ -36,9 +51,31 @@ extension ProfileViewController {
         print("Array count is: \(self.userArticlesViewModel.articlesArray.count)")
         print("Array: \(self.userArticlesViewModel.articlesArray)")
         
-        if indexPath.section == 1 {
+        if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
+            // The below is if the user has failed the faceID
+            if self.isFaceIDVerified {
+                if indexPath.section == 1 {
+                    return isSignedIn ? createUseFaceIdView() : createNoSignInTableViewCell()
+                } else {
+                    return createProfileView()
+                }
+            } else {
+                // The below is if the user has passed the faceID
+                if indexPath.section == 1 {
+                    if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
+                        return createNoSignInTableViewCell()
+                    } else if self.isSignedIn {
+                        let article = self.userArticlesViewModel.articlesArray[indexPath.row]
+                        
+                        return createArticleTableViewCell(with: article)
+                    } else {
+                        return createNoSignInTableViewCell()
+                    }
+                }
+            }
+        } else {
             if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
-               return createNoSignInTableViewCell()
+                return createNoSignInTableViewCell()
             } else if self.isSignedIn {
                 let article = self.userArticlesViewModel.articlesArray[indexPath.row]
                 
@@ -46,16 +83,13 @@ extension ProfileViewController {
             } else {
                 return createNoSignInTableViewCell()
             }
-        } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell", for: indexPath) as? UserProfileTableViewCell else { return UITableViewCell() }
-            cell.usernameLabel.text = self.userName
-            return cell
         }
+        return createProfileView()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            if self.isSignedIn {
+            if self.isSignedIn && self.isFaceIDVerified {
                 OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserSignedInText)
                 OnewsLoaderViewController.sharedInstance.show()
                 
@@ -67,16 +101,36 @@ extension ProfileViewController {
                 self.navigateToSettingsSignIn()
             }
         } else {
-            if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
-                self.navigateToArticles()
-            } else if !self.userArticlesViewModel.articlesArray.isEmpty {
-                let article = userArticlesViewModel.articlesArray[indexPath.row]
-                
-                DispatchQueue.main.async {
-                    self.handleOpenArticleURL(url: article.url, source: article.source.name)
+            if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
+                if self.isSignedIn && self.isFaceIDVerified {
+                    if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
+                        self.navigateToArticles()
+                    } else if !self.userArticlesViewModel.articlesArray.isEmpty {
+                        let article = userArticlesViewModel.articlesArray[indexPath.row]
+                        
+                        DispatchQueue.main.async {
+                            self.handleOpenArticleURL(url: article.url, source: article.source.name)
+                        }
+                    } else if !self.isSignedIn {
+                        self.navigateToSettingsSignIn()
+                    } else {
+                        self.verifyUser()
+                    }
                 }
             } else {
-                self.navigateToSettingsSignIn()
+                if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
+                    self.navigateToArticles()
+                } else if !self.userArticlesViewModel.articlesArray.isEmpty {
+                    let article = userArticlesViewModel.articlesArray[indexPath.row]
+                    
+                    DispatchQueue.main.async {
+                        self.handleOpenArticleURL(url: article.url, source: article.source.name)
+                    }
+                } else if !self.isSignedIn {
+                    self.navigateToSettingsSignIn()
+                } else {
+                    self.verifyUser()
+                }
             }
         }
     }
@@ -145,6 +199,26 @@ extension ProfileViewController {
         return cell
     }
     
+    func createProfileView() -> UITableViewCell {
+        print("CellForRow FaceID", self.isFaceIDVerified)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell,
+              let user = self.userName
+        else { return UITableViewCell() }
+        
+        print("CellForRow userName", user)
+        cell.usernameLabel.text = user
+        
+        cell.isFaceIDVerified = self.isFaceIDVerified
+        return cell
+    }
+    
+    func createUseFaceIdView() -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserFaceIDTableViewCell.identifier) as? UserFaceIDTableViewCell
+        else { return UITableViewCell() }
+
+        return cell
+    }
+    
     func createArticleTableViewCell(with article: Article) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsArticle") as? NewsArticleTableViewCell
@@ -162,4 +236,6 @@ extension ProfileViewController {
         
         return cell
     }
+    
+    // TODO: Add footer with a little text about current array count.
 }
