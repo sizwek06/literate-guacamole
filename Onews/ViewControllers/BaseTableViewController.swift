@@ -93,7 +93,6 @@ class BaseTableViewController: UIViewController {
         DispatchQueue.main.async {
             if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
                 self.isSignedIn = !user.isEmpty
-                
             } else {
                 self.isSignedIn = false
             }

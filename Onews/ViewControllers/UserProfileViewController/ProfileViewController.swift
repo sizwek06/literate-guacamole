@@ -27,13 +27,13 @@ class ProfileViewController: BaseTableViewController {
         
         tableView.refreshControl?.addTarget(self, action: #selector(setUpView), for: .valueChanged)
 
-        verifyUser()
         tableView.frame = view.bounds
         view.addSubview(tableView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if self.isSignedIn { verifyUser() }
         self.setUpView()
     }
     
@@ -59,8 +59,8 @@ class ProfileViewController: BaseTableViewController {
                 self.userName = "Not signed in, click below to get started"
                 self.isSignedIn = false
             }
-            //User email:  Optional("test@gg.com")
-            //        User details:  Optional("testing")
+            // User email:  Optional("test@gg.com")
+            // User details:  Optional("testing")
             
             self.tableView.reloadData()
             self.tableView.refreshControl?.endRefreshing()
@@ -80,21 +80,22 @@ class ProfileViewController: BaseTableViewController {
     }
     
     func verifyUser() {
-        biometricAuthManager.canEvaluate { (canEvaluate, _, canEvaluateError) in
-            guard canEvaluate else {
-                // Face ID/Touch ID may not be available or configured
-                print("Face ID/Touch ID may not be available or configured")
-                return
-            }
-            
-            biometricAuthManager.evaluate { [weak self] (success, error) in
-                guard let self else { return }
-                guard success else {
-                    // Face ID/Touch ID may not be configured
+        if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
+            biometricAuthManager.canEvaluate { (canEvaluate, _, _) in
+                guard canEvaluate else {
+                    // Face ID/Touch ID may not be available or configured
+                    print("Face ID/Touch ID may not be available or configured")
                     return
                 }
                 
-                // You are successfully verified
+                biometricAuthManager.evaluate { (success, _) in
+                    guard success else {
+                        // Face ID/Touch ID may not be configured
+                        return
+                    }
+                    
+                    // You are successfully verified
+                }
             }
         }
     }

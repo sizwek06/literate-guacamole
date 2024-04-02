@@ -137,13 +137,10 @@ extension ProfileViewController {
     func createNoSignInTableViewCell() -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
         else { return UITableViewCell() }
-        
-        cell.signOutLabel.font = 
-        self.isSignedIn ? UIFont(name: "SF-Pro-Text-SemiBold", size: 15.0) : UIFont(name: "SF-Pro-Rounded-Bold", size: 15.0)
-
 
         cell.signOutLabel.text = self.isSignedIn ? K.getMoreArticlesText: K.signInText
         cell.signOutLabel.textColor = self.isSignedIn ? .black : .systemBlue
+        cell.userState = self.isSignedIn
         
         return cell
     }

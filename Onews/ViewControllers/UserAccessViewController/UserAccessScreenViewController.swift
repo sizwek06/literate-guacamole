@@ -38,8 +38,6 @@ class UserAccessScreenViewController: UIViewController {
     }
     
     @IBAction func signInButtonPressed(_ sender: Any) {
-//        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "PeformAfterPresenting"), object: nil))
-
         authenticateUserDetails()
     }
     
@@ -113,7 +111,6 @@ extension UserAccessScreenViewController: UITextFieldDelegate {
     }
 }
 
-// TODO: Review if the below is required
 extension UserAccessScreenViewController: UserAcessDelegate {
     
     func confirmLogOut() {
