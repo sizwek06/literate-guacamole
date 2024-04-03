@@ -29,10 +29,12 @@ class SettingsTableViewCell: UITableViewCell {
         switch switchOption {
         case .faceID:
             UserDefaults.standard.set(sender.isOn, forKey: K.userDefaultBiometricsKey)
-            print("FaceID set on")
+            print("FaceID set ", sender.isOn)
         case .notifications:
             UserDefaults.standard.set(sender.isOn, forKey: K.userDefaultNotificationsKey)
-            print("Notifications set on")
+            print("Notifications set ", sender.isOn)
+        case .region: break
+            // TODO: Is the user signed in && fetch Userfault setting
         case .none:
             break
         }
@@ -51,4 +53,5 @@ class SettingsTableViewCell: UITableViewCell {
 enum SettingsOptions {
     case notifications
     case faceID
+    case region
 }

@@ -41,7 +41,6 @@ extension SettingsViewController {
                                        label: "Notifications",
                                        switchState: UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey))
                 cell.switchOption = .notifications
-                
                 return cell
             case 1:
                 cell.setUpSettingsCell(using: "faceid",
@@ -81,12 +80,13 @@ extension SettingsViewController {
                 }
             }
         case 2:
-            if self.isSignedIn {
-                self.confirmLogOut()
-            } else if self.isSignedIn && !self.isFaceIDVerified {
-                self.verifyUser()
-            } else {
-                self.showSignInSheet()
+            switch self.currentState {
+            case .signedInNoFaceId, .signingInWithFaceId:
+                return confirmLogOut()
+            case .signedOut:
+                return showSignInSheet()
+            case .signedInWithFaceId, .verifyFaceIdFailed:
+                return verifyUser()
             }
         default:
             break

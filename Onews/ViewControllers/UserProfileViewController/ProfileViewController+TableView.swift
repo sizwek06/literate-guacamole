@@ -67,7 +67,8 @@ extension ProfileViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            if self.isSignedIn && self.isFaceIDVerified {
+            switch self.currentState {
+            case .signedInNoFaceId, .signedInWithFaceId:
                 OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserSignedInText)
                 OnewsLoaderViewController.sharedInstance.show()
                 
@@ -75,27 +76,13 @@ extension ProfileViewController {
                     guard let self else { return }
                     self.hideNewsLoading()
                 }
-            } else {
+            default:
                 self.navigateToSettingsSignIn()
             }
         } else {
-            if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
-                if self.isSignedIn && self.isFaceIDVerified {
-                    if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
-                        self.navigateToArticles()
-                    } else if !self.userArticlesViewModel.articlesArray.isEmpty {
-                        let article = userArticlesViewModel.articlesArray[indexPath.row]
-                        
-                        DispatchQueue.main.async {
-                            self.handleOpenArticleURL(url: article.url, source: article.source.name)
-                        }
-                    } else if !self.isSignedIn {
-                        self.navigateToSettingsSignIn()
-                    } else {
-                        self.verifyUser()
-                    }
-                }
-            } else {
+            switch self.currentState {
+                
+            case .signedInNoFaceId, .signedInWithFaceId:
                 if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
                     self.navigateToArticles()
                 } else if !self.userArticlesViewModel.articlesArray.isEmpty {
@@ -104,11 +91,11 @@ extension ProfileViewController {
                     DispatchQueue.main.async {
                         self.handleOpenArticleURL(url: article.url, source: article.source.name)
                     }
-                } else if !self.isSignedIn {
-                    self.navigateToSettingsSignIn()
-                } else {
-                    self.verifyUser()
                 }
+            case .verifyFaceIdFailed, .signingInWithFaceId:
+                self.verifyUser()
+            case .signedOut:
+                self.navigateToSettingsSignIn()
             }
         }
     }
