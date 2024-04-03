@@ -23,11 +23,6 @@ class SettingsViewController: ProfileViewController {
         
         userAccessViewModel.userAccessDelegate = self
         
-        tableView.frame = view.bounds
-        view.addSubview(tableView)
-    }
-    
-    @objc func testFunc() {
         self.setUpView()
     }
     

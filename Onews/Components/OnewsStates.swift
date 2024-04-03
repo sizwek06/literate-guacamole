@@ -9,6 +9,8 @@ import Foundation
 
 enum OnewsStates {
     case signedInWithFaceId
-    case signInNoFaceId
+    case verifyFaceIdFailed
+    case signingInWithFaceId
+    case signedInNoFaceId
     case signedOut
 }

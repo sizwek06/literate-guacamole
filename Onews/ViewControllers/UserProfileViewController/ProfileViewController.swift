@@ -20,6 +20,13 @@ class ProfileViewController: BaseTableViewController {
     var userArticlesViewModel = UserArticlesViewModel()
     private let biometricAuthManager = BiometricAuthManager()
     
+    var currentState: OnewsStates = .signedOut {
+        didSet {
+            print("DidSet Current State: \(self.currentState)")
+            self.tableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,7 +37,6 @@ class ProfileViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setUpView()
         if self.isSignedIn { verifyUser() }
     }
     
@@ -40,16 +46,13 @@ class ProfileViewController: BaseTableViewController {
     }
     
     @objc override func setUpView() {
-        
+    
         print("ViewWillAppear FaceID", self.isFaceIDVerified)
         UserDefaults.standard.synchronize()
         
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         super.tableView.register(UserFaceIDTableViewCell.self, forCellReuseIdentifier: UserFaceIDTableViewCell.identifier)
-        
-        tableView.frame = view.bounds
-        view.addSubview(tableView)
         
         DispatchQueue.main.async {
             if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey),
@@ -60,13 +63,13 @@ class ProfileViewController: BaseTableViewController {
                 self.userArticlesViewModel.queryUserArticles(using: uuid) { articles in
                     self.userArticlesViewModel.articlesArray = articles
                 }
+                self.currentState = .signedInNoFaceId
             } else {
-                self.userArticlesViewModel.articlesArray.removeAll()
-                self.userName = K.noSessionText
-                self.isSignedIn = false
+                self.currentState = .signedOut
             }
-            // User email:  Optional("test@gg.com")
-            // User details:  Optional("testing")
+            
+            self.tableView.frame = self.view.bounds
+            self.view.addSubview(self.tableView)
             
             self.tableView.reloadData()
             self.tableView.refreshControl?.endRefreshing()
@@ -86,25 +89,33 @@ class ProfileViewController: BaseTableViewController {
     }
     
     func verifyUser() {
+        
         if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
+            self.currentState = .signingInWithFaceId
+            
             biometricAuthManager.canEvaluate { (canEvaluate, _, _) in
                 guard canEvaluate else {
-                    // Face ID/Touch ID may not be available or configured
-                    print("Face ID/Touch ID may not be available or configured")
+                    self.currentState = .signedInNoFaceId
                     return
                 }
                 
-                biometricAuthManager.evaluate { (success, _) in
+                biometricAuthManager.evaluate { [weak self] (success, _) in
+                    guard let self else { return }
                     guard success else {
-                        // Face ID/Touch ID may not be configured
+                        self.currentState = .verifyFaceIdFailed
                         return
                     }
                     
-                    self.isFaceIDVerified = true
                     DispatchQueue.main.async {
-                        self.tableView.reloadData()
+                        self.currentState = .signedInWithFaceId
+                        self.setUpView()
                     }
                 }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.currentState = .signedInNoFaceId
+                self.setUpView()
             }
         }
     }

@@ -16,6 +16,7 @@ extension SettingsViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return ""
+        // TODO: Add a header & footer, describing what is happening, don't forget the states!
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -23,12 +24,15 @@ extension SettingsViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        print("Array count is: \(self.userArticlesViewModel.articlesArray.count)")
+        print("Array: \(self.userArticlesViewModel.articlesArray)")
+        print("cellForRowAt Current State: \(self.currentState)")
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell") as? SettingsTableViewCell else { return UITableViewCell() }
         
         switch indexPath.section {
         case 0:
-            return createProfileView()
+            return createProfileView(using: self.currentState)
         case 1:
             switch indexPath.row {
             case 0:
@@ -51,11 +55,17 @@ extension SettingsViewController {
                 return UITableViewCell()
             }
         case 2:
-            return isSignedIn ? createSignOutView() : createNoSignInTableViewCell()
+            switch self.currentState {
+            case .signedInNoFaceId, .signingInWithFaceId:
+                return createSignOutView()
+            case .signedOut:
+                return createSignOutView()
+            case .signedInWithFaceId, .verifyFaceIdFailed:
+                return createUseFaceIdView()
+            }
         default:
-            break
+            return UITableViewCell()
         }
-        return UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -99,8 +109,16 @@ extension SettingsViewController {
         
         cell.signOutLabel.font = UIFont(name: "SF-Pro-Display-Bold", size: 15)
         
-        cell.signOutLabel.text = self.isSignedIn ? K.signOutText : K.signInText
-        cell.signOutLabel.textColor = self.isSignedIn ? .red : .systemBlue
+        switch self.currentState {
+        case .signedInNoFaceId, .signedInWithFaceId:
+            cell.signOutLabel.text = K.signOutText
+            cell.signOutLabel.textColor = .red
+        case  .signedOut:
+            cell.signOutLabel.text = K.signInText
+            cell.signOutLabel.textColor = .systemBlue
+        default:
+            return UITableViewCell()
+        }
         
         return cell
     }

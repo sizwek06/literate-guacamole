@@ -11,35 +11,33 @@ import UIKit
 extension ProfileViewController {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-         return section == 0 ? "" : (self.isSignedIn && self.isFaceIDVerified ? "Articles" : "")
+        if section == 1 {
+            switch self.currentState {
+            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed:
+                return ""
+            default:
+                return "Articles"
+            }
+        } else {
+            return ""
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
         } else {
-            if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
-                
+            switch self.currentState {
+            case .signedInWithFaceId:
                 if self.isFaceIDVerified {
-                    if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
-                        return 1
-                    } else if !self.userArticlesViewModel.articlesArray.isEmpty {
-                        return self.userArticlesViewModel.articlesArray.count
-                    } else {
-                        return 1
-                    }
-                } else {
-                    return 1
+                    return checkRowCount()
                 }
-            } else {
-                if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
-                    return 1
-                } else if !self.userArticlesViewModel.articlesArray.isEmpty {
-                    return self.userArticlesViewModel.articlesArray.count
-                } else {
-                    return 1
-                }
+            case .signedInNoFaceId:
+                return checkRowCount()
+            default:
+                return 1
             }
+            return 1
         }
     }
     
@@ -50,41 +48,21 @@ extension ProfileViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("Array count is: \(self.userArticlesViewModel.articlesArray.count)")
         print("Array: \(self.userArticlesViewModel.articlesArray)")
+        print("cellForRowAt Current State: \(self.currentState)")
         
-        if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
-            // The below is if the user has failed the faceID
-            if self.isFaceIDVerified {
-                if indexPath.section == 1 {
-                    return isSignedIn ? createUseFaceIdView() : createNoSignInTableViewCell()
-                } else {
-                    return createProfileView()
-                }
-            } else {
-                // The below is if the user has passed the faceID
-                if indexPath.section == 1 {
-                    if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
-                        return createNoSignInTableViewCell()
-                    } else if self.isSignedIn {
-                        let article = self.userArticlesViewModel.articlesArray[indexPath.row]
-                        
-                        return createArticleTableViewCell(with: article)
-                    } else {
-                        return createNoSignInTableViewCell()
-                    }
-                }
+        if indexPath.section == 1 {
+            switch self.currentState {
+            
+            case .signingInWithFaceId, .verifyFaceIdFailed:
+                return createUseFaceIdView()
+            case .signedInNoFaceId, .signedInWithFaceId:
+                return createNewsArticleSection(indexPathRow: indexPath.row)
+            case .signedOut:
+                return createNotSignInTableViewCell()
             }
         } else {
-            if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
-                return createNoSignInTableViewCell()
-            } else if self.isSignedIn {
-                let article = self.userArticlesViewModel.articlesArray[indexPath.row]
-                
-                return createArticleTableViewCell(with: article)
-            } else {
-                return createNoSignInTableViewCell()
-            }
+            return createProfileView(using: self.currentState)
         }
-        return createProfileView()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -188,7 +166,7 @@ extension ProfileViewController {
         }
     }
     
-    func createNoSignInTableViewCell() -> UITableViewCell {
+    func createNotSignInTableViewCell() -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
         else { return UITableViewCell() }
 
@@ -199,16 +177,27 @@ extension ProfileViewController {
         return cell
     }
     
-    func createProfileView() -> UITableViewCell {
+    func createProfileView(using currentState: OnewsStates) -> UITableViewCell {
         print("CellForRow FaceID", self.isFaceIDVerified)
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell,
-              let user = self.userName
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
         else { return UITableViewCell() }
         
-        print("CellForRow userName", user)
-        cell.usernameLabel.text = user
+        switch self.currentState {
+
+            case .signedInWithFaceId, .signedOut, .signedInNoFaceId:
+            cell.usernameLabel.text = self.userName ?? K.noSessionText
+                cell.usernameLabel.isHidden = false
+                cell.lockImageView.isHidden = true
+                cell.faceIDLabel.isHidden = true
+                cell.faceIDSubtitleLabel.isHidden = true
+
+            case .verifyFaceIdFailed, .signingInWithFaceId:
+                cell.usernameLabel.isHidden = true
+                cell.lockImageView.isHidden = false
+                cell.faceIDLabel.isHidden = false
+                cell.faceIDSubtitleLabel.isHidden = false
+            }
         
-        cell.isFaceIDVerified = self.isFaceIDVerified
         return cell
     }
     
@@ -235,6 +224,31 @@ extension ProfileViewController {
         cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
         
         return cell
+    }
+
+    func checkRowCount() -> Int {
+        if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
+            return 1
+        } else if !self.userArticlesViewModel.articlesArray.isEmpty {
+            return self.userArticlesViewModel.articlesArray.count
+        } else {
+            return 1
+        }
+    }
+
+    func createProfileSection(indexPathRowSection: Int) -> UITableViewCell {
+        return isSignedIn ? createUseFaceIdView() : createNotSignInTableViewCell()
+    }
+    
+    func createNewsArticleSection(indexPathRow: Int) -> UITableViewCell {
+        switch self.currentState {
+        case .signedInNoFaceId, .signedInWithFaceId:
+            let article = self.userArticlesViewModel.articlesArray[indexPathRow]
+            
+            return createArticleTableViewCell(with: article)
+        case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
+            return createNotSignInTableViewCell()
+        }
     }
     
     // TODO: Add footer with a little text about current array count.

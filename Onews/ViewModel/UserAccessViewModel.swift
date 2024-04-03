@@ -53,6 +53,7 @@ class UserAccessViewModel {
         do {
             self.userAccessDelegate?.hideLoader()
             try Auth.auth().signOut()
+            
             UserDefaults.standard.removeObject(forKey: K.userDefaultEmailKey)
             UserDefaults.standard.removeObject(forKey: K.userDefaultUUIDKey)
             UserDefaults.standard.synchronize()

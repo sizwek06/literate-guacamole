@@ -26,30 +26,17 @@ class SettingsTableViewCell: UITableViewCell {
     
     @IBAction func switchOn(_ sender: UISwitch) {
         
-        if sender.isOn == true {
-            switch switchOption {
-            case .faceID:
-                UserDefaults.standard.set(true, forKey: K.userDefaultBiometricsKey)
-                print("FaceID set on")
-            case .notifications:
-                UserDefaults.standard.set(true, forKey: K.userDefaultNotificationsKey)
-                print("Notifications set on")
-            case .none:
-                break
-            }
-            } else {
-                switch switchOption {
-                case .faceID:
-                    UserDefaults.standard.set(false, forKey: K.userDefaultBiometricsKey)
-                    print("FaceID set off")
-                case .notifications:
-                    UserDefaults.standard.set(false, forKey: K.userDefaultNotificationsKey)
-                    print("Notifications set off")
-                case .none:
-                    break
-                }
-            }
+        switch switchOption {
+        case .faceID:
+            UserDefaults.standard.set(sender.isOn, forKey: K.userDefaultBiometricsKey)
+            print("FaceID set on")
+        case .notifications:
+            UserDefaults.standard.set(sender.isOn, forKey: K.userDefaultNotificationsKey)
+            print("Notifications set on")
+        case .none:
+            break
         }
+    }
     
     func setUpSettingsCell(using sfSymbol: String, backgroundColor: UIColor,
                            label: String, switchState: Bool) {
