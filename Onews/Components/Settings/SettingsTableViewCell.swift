@@ -33,8 +33,6 @@ class SettingsTableViewCell: UITableViewCell {
         case .notifications:
             UserDefaults.standard.set(sender.isOn, forKey: K.userDefaultNotificationsKey)
             print("Notifications set ", sender.isOn)
-        case .region: break
-            // TODO: Is the user signed in && fetch Userfault setting
         case .none:
             break
         }
@@ -53,5 +51,4 @@ class SettingsTableViewCell: UITableViewCell {
 enum SettingsOptions {
     case notifications
     case faceID
-    case region
 }
