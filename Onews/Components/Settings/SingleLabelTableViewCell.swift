@@ -10,8 +10,6 @@ import UIKit
 
 class SingleLabelTableViewCell: UITableViewCell {
     
-    lazy var userState: Bool = false
-    
     lazy var cellView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -20,7 +18,7 @@ class SingleLabelTableViewCell: UITableViewCell {
     
     lazy var signOutLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.font = self.userState ? UIFont(name: "SF-Pro-Text-SemiBold", size: 15.0) : UIFont(name: "SF-Pro-Rounded", size: 15.0)
+        label.font = UIFont(name: "SF-Pro-Rounded", size: 15.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

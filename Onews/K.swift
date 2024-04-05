@@ -42,6 +42,7 @@ struct K {
     
     static let userDefaultEmailKey = "userEmail"
     static let userDefaultUUIDKey = "userUUID"
+    static let userDefaultSignedInKey = "userSignedIn"
     static let userDefaultBiometricsKey = "faceID"
     static let userDefaultNotificationsKey = "notification"
     

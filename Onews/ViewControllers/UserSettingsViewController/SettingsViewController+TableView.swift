@@ -32,7 +32,33 @@ extension SettingsViewController {
         
         switch indexPath.section {
         case 0:
-            return createProfileView(using: self.currentState)
+            print("CellForRow FaceID", self.isFaceIDVerified)
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
+            else { return UITableViewCell() }
+            
+            switch self.currentState {
+                
+            case .signedInWithFaceId, .signedInNoFaceId:
+                cell.usernameLabel.text = self.userName ?? K.noSessionText
+                cell.usernameLabel.isHidden = false
+                cell.lockImageView.isHidden = true
+                cell.faceIDLabel.isHidden = true
+                cell.faceIDSubtitleLabel.isHidden = true
+                
+            case .verifyFaceIdFailed, .signingInWithFaceId:
+                cell.usernameLabel.isHidden = true
+                cell.lockImageView.isHidden = false
+                cell.faceIDLabel.isHidden = false
+                cell.faceIDSubtitleLabel.isHidden = false
+                
+            case .signedOut:
+                cell.usernameLabel.text = K.noSessionText
+                cell.usernameLabel.isHidden = false
+                cell.lockImageView.isHidden = true
+                cell.faceIDLabel.isHidden = true
+                cell.faceIDSubtitleLabel.isHidden = true
+            }
+            return cell
         case 1:
             switch indexPath.row {
             case 0:
@@ -54,6 +80,8 @@ extension SettingsViewController {
                 return UITableViewCell()
             }
         case 2:
+            
+            
             switch self.currentState {
             case .signedInNoFaceId, .signingInWithFaceId:
                 return createSignOutView()

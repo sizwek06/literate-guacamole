@@ -122,7 +122,7 @@ extension UserAccessScreenViewController: UserAcessDelegate {
         
         UserDefaults.standard.set(email, forKey: K.userDefaultEmailKey)
         UserDefaults.standard.set(user.uid, forKey: K.userDefaultUUIDKey)
-        UserDefaults.standard.synchronize()
+        UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
         
         self.dismiss(animated: true)
         

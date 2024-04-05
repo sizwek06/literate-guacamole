@@ -48,13 +48,13 @@ class ProfileViewController: BaseTableViewController {
     @objc override func setUpView() {
     
         print("ViewWillAppear FaceID", self.isFaceIDVerified)
-        UserDefaults.standard.synchronize()
         
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         super.tableView.register(UserFaceIDTableViewCell.self, forCellReuseIdentifier: UserFaceIDTableViewCell.identifier)
         
         DispatchQueue.main.async {
+           if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
             if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey),
                let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) {
                 self.userName = user
@@ -64,6 +64,7 @@ class ProfileViewController: BaseTableViewController {
                     self.userArticlesViewModel.articlesArray = articles
                 }
                 self.currentState = .signedInNoFaceId
+            }
             } else {
                 self.currentState = .signedOut
             }

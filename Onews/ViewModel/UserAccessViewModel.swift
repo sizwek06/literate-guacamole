@@ -56,7 +56,7 @@ class UserAccessViewModel {
             
             UserDefaults.standard.removeObject(forKey: K.userDefaultEmailKey)
             UserDefaults.standard.removeObject(forKey: K.userDefaultUUIDKey)
-            UserDefaults.standard.synchronize()
+            UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
         } catch {
             self.userAccessDelegate?.didFailWithError(error: error.localizedDescription,
                                             isRegistration: true)

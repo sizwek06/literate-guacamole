@@ -61,7 +61,34 @@ extension ProfileViewController {
                 return createNotSignInTableViewCell()
             }
         } else {
-            return createProfileView(using: self.currentState)
+            print("CellForRow FaceID", self.isFaceIDVerified)
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
+            else { return UITableViewCell() }
+            
+            switch self.currentState {
+
+                case .signedInWithFaceId, .signedInNoFaceId:
+                cell.usernameLabel.text = self.userName ?? K.noSessionText
+                    cell.usernameLabel.isHidden = false
+                    cell.lockImageView.isHidden = true
+                    cell.faceIDLabel.isHidden = true
+                    cell.faceIDSubtitleLabel.isHidden = true
+
+                case .verifyFaceIdFailed, .signingInWithFaceId:
+                    cell.usernameLabel.isHidden = true
+                    cell.lockImageView.isHidden = false
+                    cell.faceIDLabel.isHidden = false
+                    cell.faceIDSubtitleLabel.isHidden = false
+            
+                case .signedOut:
+                    cell.usernameLabel.text = K.noSessionText
+                    cell.usernameLabel.isHidden = false
+                    cell.lockImageView.isHidden = true
+                    cell.faceIDLabel.isHidden = true
+                    cell.faceIDSubtitleLabel.isHidden = true
+                }
+            
+            return cell
         }
     }
     
@@ -157,33 +184,8 @@ extension ProfileViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
         else { return UITableViewCell() }
 
-        cell.signOutLabel.text = self.isSignedIn ? K.getMoreArticlesText: K.signInText
-        cell.signOutLabel.textColor = self.isSignedIn ? .black : .systemBlue
-        cell.userState = self.isSignedIn
-        
-        return cell
-    }
-    
-    func createProfileView(using currentState: OnewsStates) -> UITableViewCell {
-        print("CellForRow FaceID", self.isFaceIDVerified)
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
-        else { return UITableViewCell() }
-        
-        switch self.currentState {
-
-            case .signedInWithFaceId, .signedOut, .signedInNoFaceId:
-            cell.usernameLabel.text = self.userName ?? K.noSessionText
-                cell.usernameLabel.isHidden = false
-                cell.lockImageView.isHidden = true
-                cell.faceIDLabel.isHidden = true
-                cell.faceIDSubtitleLabel.isHidden = true
-
-            case .verifyFaceIdFailed, .signingInWithFaceId:
-                cell.usernameLabel.isHidden = true
-                cell.lockImageView.isHidden = false
-                cell.faceIDLabel.isHidden = false
-                cell.faceIDSubtitleLabel.isHidden = false
-            }
+        cell.signOutLabel.text = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? K.getMoreArticlesText: K.signInText
+        cell.signOutLabel.textColor = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? .black : .systemBlue
         
         return cell
     }
