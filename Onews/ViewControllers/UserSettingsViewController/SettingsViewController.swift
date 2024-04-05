@@ -16,8 +16,6 @@ class SettingsViewController: ProfileViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        NotificationCenter.default.addObserver(self, selector: #selector(testFunc), name: NSNotification.Name(rawValue:   "PeformAfterPresenting"), object: nil)
-
         title = "Settings"
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
@@ -25,11 +23,6 @@ class SettingsViewController: ProfileViewController {
         
         userAccessViewModel.userAccessDelegate = self
         
-        tableView.frame = view.bounds
-        view.addSubview(tableView)
-    }
-    
-    @objc func testFunc() {
         self.setUpView()
     }
     

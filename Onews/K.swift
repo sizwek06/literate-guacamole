@@ -23,10 +23,12 @@ struct K {
     public static let loadingNewsText = "Loading news, please wait."
     public static let loadingUserText = "Loading, please wait."
     public static let loadingUserSignedInText = "Bing Bong!, You're Logged In!"
+    public static let noSessionText = "Not signed in, click below to get started"
     
     static let signInText = "Sign in"
     static let signUpText = "Sign up"
     public static let signOutText = "Sign Out"
+    public static let useFaceIDText = "Use FaceID"
     
     static let newsLogo = UIImage(named: "NewsApp")
     static let newsFont = UIFont(name: "SF-Pro", size: 20)
@@ -38,10 +40,13 @@ struct K {
     
     static let getMoreArticlesText = "No articles, start reading!"
     
+    static let userDefaultEmailKey = "userEmail"
+    static let userDefaultUUIDKey = "userUUID"
+    static let userDefaultSignedInKey = "userSignedIn"
+    static let userDefaultBiometricsKey = "faceID"
+    static let userDefaultNotificationsKey = "notification"
+    
     struct fireStoreDb {
-        static let userDefaultEmailKey = "userEmail"
-        static let userDefaultUUIDKey = "userUUID"
-        
         static let articleField = "article"
         static let artileUUIDfield = "uuid"
         static let artileUrlField = "url"
@@ -56,5 +61,27 @@ struct K {
         static let oNewsMaroon = UIColor(red: 0.72, green: 0.00, blue: 0.00, alpha: 1.00)
         static let oNewsOrange = UIColor(red: 0.86, green: 0.24, blue: 0.00, alpha: 1.00)
         static let oNewsBlue = UIColor(red: 0.25, green: 0.47, blue: 0.77, alpha: 1.00)
+    }
+}
+
+enum BiometricError: LocalizedError {
+    case authenticationFailed
+    case userCancel
+    case userFallback
+    case biometryNotAvailable
+    case biometryNotEnrolled
+    case biometryLockout
+    case unknown
+
+    var errorDescription: String? {
+        switch self {
+        case .authenticationFailed: return "There was a problem verifying your identity."
+        case .userCancel: return "You pressed cancel."
+        case .userFallback: return "You pressed password."
+        case .biometryNotAvailable: return "Face ID/Touch ID is not available."
+        case .biometryNotEnrolled: return "Face ID/Touch ID is not set up."
+        case .biometryLockout: return "Face ID/Touch ID is locked."
+        case .unknown: return "Face ID/Touch ID may not be configured"
+        }
     }
 }
