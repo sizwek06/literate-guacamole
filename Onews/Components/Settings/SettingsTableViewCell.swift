@@ -33,15 +33,17 @@ class SettingsTableViewCell: UITableViewCell {
         case .notifications:
             UserDefaults.standard.set(sender.isOn, forKey: K.userDefaultNotificationsKey)
             print("Notifications set ", sender.isOn)
+        case .region:
+            break
         case .none:
             break
         }
     }
     
     func setUpSettingsCell(using sfSymbol: String, backgroundColor: UIColor,
-                           label: String, switchState: Bool) {
+                           label: String, switchState: Bool? = false) {
         
-        settingsSwitch.isOn = switchState
+        settingsSwitch.isOn = switchState ?? false
         settingsImageView.image = UIImage(systemName: sfSymbol)
         settingsImageView.backgroundColor = backgroundColor
         settingsLabel.text = label
@@ -51,4 +53,5 @@ class SettingsTableViewCell: UITableViewCell {
 enum SettingsOptions {
     case notifications
     case faceID
+    case region
 }

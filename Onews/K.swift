@@ -29,6 +29,7 @@ struct K {
     static let signUpText = "Sign up"
     public static let signOutText = "Sign Out"
     public static let useFaceIDText = "Use FaceID"
+    public static let settingsFooterText = "Use the above settings to improve your experience, they will be saved for your next reading."
     
     static let newsLogo = UIImage(named: "NewsApp")
     static let newsFont = UIFont(name: "SF-Pro", size: 20)

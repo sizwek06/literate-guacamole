@@ -19,8 +19,12 @@ extension SettingsViewController {
         // TODO: Add a header & footer, describing what is happening, don't forget the states!
     }
     
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return section == 1 ? K.settingsFooterText : ""
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 1 ? 2 : 1
+        return section == 1 ? 3 : 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -74,14 +78,23 @@ extension SettingsViewController {
                                        label: "FaceID",
                                        switchState: UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey))
                 cell.switchOption = .faceID
+                cell.accessoryType = .none
+                cell.settingsSwitch.isHidden = false
+                
+                return cell
+            case 2:
+                cell.setUpSettingsCell(using: "globe.europe.africa.fill",
+                                       backgroundColor: UIColor.systemMint,
+                                       label: "Change Region")
+                cell.switchOption = .region
+                cell.accessoryType = .disclosureIndicator
+                cell.settingsSwitch.isHidden = true
                 
                 return cell
             default:
                 return UITableViewCell()
             }
         case 2:
-            
-            
             switch self.currentState {
             case .signedInNoFaceId, .signingInWithFaceId:
                 return createSignOutView()
