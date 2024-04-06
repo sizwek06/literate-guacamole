@@ -11,7 +11,7 @@ import UIKit
 struct K {
     
     public static let newsArticleURL = "https://newsapi.org/v2/top-headlines?pageSize=50&apiKey=59fd1c88fc3f43d8a4dab7d839612abf&country="
-    static let searchURL = "https://newsapi.org/v2/everything?apiKey=59fd1c88fc3f43d8a4dab7d839612abf&from=2024-03-23&to=2024-03-23&sortBy=popularity&q="
+    static let searchURL = "https://newsapi.org/v2/everything?apiKey=59fd1c88fc3f43d8a4dab7d839612abf&sortBy=popularity&q="
     
     static let profileViewHeader = "Profile"
     static let settingsViewHeader = "Settings"

@@ -19,7 +19,6 @@ extension MainArticleView: UICollectionViewDelegate, UICollectionViewDataSource 
       
         if !articlesArray.isEmpty {
             let article = articlesArray[indexPath.row]
-            print("The Article is", article)
               
             downloadImg(urlString: article.urlToImage, imgView: cell.articleImg)
             cell.currentArticle = article

@@ -25,7 +25,7 @@ extension ArticlesListViewController: ArticleDelegate {
     }
     
     func didReceiveArticlesSuccessfully() {
-        tableView.reloadData()
+        setUpView()
     }
     
     func didFailWithError(error: String) {

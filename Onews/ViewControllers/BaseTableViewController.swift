@@ -42,7 +42,7 @@ class BaseTableViewController: UIViewController {
         if let urlStr = urlString {
             let url = URL(string: urlStr)
             imgView.kf.indicatorType = .activity
-            imgView.kf.setImage(with: url, options: [.transition(.fade(0.2))])
+            imgView.kf.setImage(with: url, placeholder: UIImage(named: "launchImg"), options: [.forceRefresh, .transition(.fade(0.2))])
         }
     }
     
