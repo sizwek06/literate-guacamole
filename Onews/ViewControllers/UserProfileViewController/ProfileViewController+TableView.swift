@@ -69,23 +69,14 @@ extension ProfileViewController {
 
                 case .signedInWithFaceId, .signedInNoFaceId:
                 cell.usernameLabel.text = self.userName ?? K.noSessionText
-                    cell.usernameLabel.isHidden = false
-                    cell.lockImageView.isHidden = true
-                    cell.faceIDLabel.isHidden = true
-                    cell.faceIDSubtitleLabel.isHidden = true
+                    cell.setUpProfileView(using: true)
 
                 case .verifyFaceIdFailed, .signingInWithFaceId:
-                    cell.usernameLabel.isHidden = true
-                    cell.lockImageView.isHidden = false
-                    cell.faceIDLabel.isHidden = false
-                    cell.faceIDSubtitleLabel.isHidden = false
+                    cell.setUpProfileView(using: false)
             
                 case .signedOut:
                     cell.usernameLabel.text = K.noSessionText
-                    cell.usernameLabel.isHidden = false
-                    cell.lockImageView.isHidden = true
-                    cell.faceIDLabel.isHidden = true
-                    cell.faceIDSubtitleLabel.isHidden = true
+                    cell.setUpProfileView(using: true)
                 }
             
             return cell

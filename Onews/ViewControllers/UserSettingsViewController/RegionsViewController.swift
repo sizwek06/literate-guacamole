@@ -43,23 +43,14 @@ extension RegionsViewController {
                 
             case .signedInWithFaceId, .signedInNoFaceId:
                 cell.usernameLabel.text = self.userName ?? "Choose one of the following \(K.regionOptions.count) countries!"
-                cell.usernameLabel.isHidden = false
-                cell.lockImageView.isHidden = true
-                cell.faceIDLabel.isHidden = true
-                cell.faceIDSubtitleLabel.isHidden = true
+                cell.setUpProfileView(using: true)
                 
             case .verifyFaceIdFailed, .signingInWithFaceId:
-                cell.usernameLabel.isHidden = true
-                cell.lockImageView.isHidden = false
-                cell.faceIDLabel.isHidden = false
-                cell.faceIDSubtitleLabel.isHidden = false
+                cell.setUpProfileView(using: false)
                 
             case .signedOut:
                 cell.usernameLabel.text = "Choose one of the following \(K.regionOptions.count) countries!"
-                cell.usernameLabel.isHidden = false
-                cell.lockImageView.isHidden = true
-                cell.faceIDLabel.isHidden = true
-                cell.faceIDSubtitleLabel.isHidden = true
+                cell.setUpProfileView(using: true)
             }
             return cell
         case 1:
