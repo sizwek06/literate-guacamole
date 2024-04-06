@@ -38,16 +38,11 @@ class BaseTableViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = true
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setUpView()
-    }
-    
     func downloadImg(urlString: String?, imgView: UIImageView) {
         if let urlStr = urlString {
             let url = URL(string: urlStr)
             imgView.kf.indicatorType = .activity
-            imgView.kf.setImage(with: url, options: [.transition(.fade(0.2))])
+            imgView.kf.setImage(with: url, placeholder: UIImage(named: "launchImg"), options: [.forceRefresh, .transition(.fade(0.2))])
         }
     }
     
@@ -91,10 +86,13 @@ class BaseTableViewController: UIViewController {
         UserDefaults.standard.synchronize()
         
         DispatchQueue.main.async {
-            if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey) {
-                self.isSignedIn = !user.isEmpty
-                
+            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
+                    UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
+                    self.isSignedIn = !user.isEmpty
+                }
             } else {
+                UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
                 self.isSignedIn = false
             }
             

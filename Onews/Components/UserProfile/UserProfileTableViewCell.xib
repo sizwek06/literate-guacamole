@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Rounded-Bold.otf">
+            <string>SFProRounded-Bold</string>
+        </array>
+        <array key="SF-Pro-Text-Regular.otf">
+            <string>SFProText-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userProfileTableViewCell" rowHeight="195" id="5il-tI-jBp" customClass="UserProfileTableViewCell" customModule="Onews" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="460" height="180"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5il-tI-jBp" id="0Yz-YR-gw9">
+                <rect key="frame" x="0.0" y="0.0" width="460" height="180"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVeryLongTestingNameForTest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="MZZ-Fb-H4d" userLabel="usernameLabel">
+                        <rect key="frame" x="22" y="80" width="412" height="23"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="23" id="3LN-Mh-9XL"/>
+                            <constraint firstAttribute="width" constant="412" id="fM1-ct-fXN"/>
+                        </constraints>
+                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                        <fontDescription key="fontDescription" name="SFProRounded-Bold" family="SF Pro Rounded" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Onews Locked" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="tLD-az-eUy" userLabel="FaceIDTitle">
+                        <rect key="frame" x="12" y="97" width="437" height="51"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="437" id="4kt-yc-yxn"/>
+                            <constraint firstAttribute="height" constant="51" id="gO3-O0-eUf"/>
+                        </constraints>
+                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                        <fontDescription key="fontDescription" name="SFProRounded-Bold" family="SF Pro Rounded" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Uak-2f-Put">
+                        <rect key="frame" x="159" y="6" width="139" height="106"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlock with Face ID to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="0up-zG-hJX" userLabel="FaceIDsubtitle">
+                        <rect key="frame" x="22" y="142" width="412" height="23"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="412" id="sWE-sZ-9xC"/>
+                            <constraint firstAttribute="height" constant="23" id="ypo-eR-xvB"/>
+                        </constraints>
+                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="0up-zG-hJX" firstAttribute="trailing" secondItem="0Yz-YR-gw9" secondAttribute="trailingMargin" constant="-6" id="0pq-F2-L6J"/>
+                    <constraint firstItem="tLD-az-eUy" firstAttribute="leading" secondItem="0Yz-YR-gw9" secondAttribute="leading" constant="12" id="Bae-zw-hy2"/>
+                    <constraint firstItem="tLD-az-eUy" firstAttribute="top" secondItem="Uak-2f-Put" secondAttribute="bottom" constant="-16" id="EDX-DA-Y9R"/>
+                    <constraint firstAttribute="trailing" secondItem="Uak-2f-Put" secondAttribute="trailing" constant="162" id="I09-VI-Fxc"/>
+                    <constraint firstItem="MZZ-Fb-H4d" firstAttribute="top" secondItem="0Yz-YR-gw9" secondAttribute="top" constant="80" id="Mha-rK-D8M"/>
+                    <constraint firstAttribute="trailing" secondItem="tLD-az-eUy" secondAttribute="trailing" constant="11" id="NNm-98-IW9"/>
+                    <constraint firstItem="tLD-az-eUy" firstAttribute="leading" secondItem="0Yz-YR-gw9" secondAttribute="leadingMargin" constant="-8" id="Szi-Ny-duo"/>
+                    <constraint firstAttribute="trailing" secondItem="0up-zG-hJX" secondAttribute="trailing" constant="26" id="TqV-ri-KjG"/>
+                    <constraint firstItem="0up-zG-hJX" firstAttribute="top" secondItem="Uak-2f-Put" secondAttribute="bottom" constant="29" id="U6L-E3-D8g"/>
+                    <constraint firstAttribute="bottom" secondItem="tLD-az-eUy" secondAttribute="bottom" constant="32" id="Ww0-KE-QOV"/>
+                    <constraint firstAttribute="bottom" secondItem="0up-zG-hJX" secondAttribute="bottom" constant="15" id="b30-y8-WuR"/>
+                    <constraint firstAttribute="trailing" secondItem="MZZ-Fb-H4d" secondAttribute="trailing" constant="26" id="cJP-ky-yba"/>
+                    <constraint firstItem="0up-zG-hJX" firstAttribute="top" secondItem="Uak-2f-Put" secondAttribute="bottom" constant="29" id="eDF-wM-eOd"/>
+                    <constraint firstItem="Uak-2f-Put" firstAttribute="leading" secondItem="0Yz-YR-gw9" secondAttribute="leading" constant="159" id="qGb-KS-bDB"/>
+                    <constraint firstItem="0up-zG-hJX" firstAttribute="leading" secondItem="0Yz-YR-gw9" secondAttribute="leading" constant="22" id="qYj-gd-WDt"/>
+                    <constraint firstItem="MZZ-Fb-H4d" firstAttribute="leading" secondItem="0Yz-YR-gw9" secondAttribute="leading" constant="22" id="sSH-NA-WId"/>
+                    <constraint firstItem="tLD-az-eUy" firstAttribute="top" secondItem="Uak-2f-Put" secondAttribute="bottom" constant="-16" id="stF-XB-q6H"/>
+                    <constraint firstItem="Uak-2f-Put" firstAttribute="top" secondItem="0Yz-YR-gw9" secondAttribute="top" constant="5" id="vTq-Vq-zr8"/>
+                    <constraint firstAttribute="bottom" secondItem="Uak-2f-Put" secondAttribute="bottom" constant="67" id="vYt-ap-fDH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <accessibility key="accessibilityConfiguration" identifier="userProfileTableViewCell"/>
+            <connections>
+                <outlet property="faceIDLabel" destination="tLD-az-eUy" id="YYP-GB-2gx"/>
+                <outlet property="faceIDSubtitleLabel" destination="0up-zG-hJX" id="Bsw-IL-53m"/>
+                <outlet property="lockImageView" destination="Uak-2f-Put" id="cBF-Va-NzK"/>
+                <outlet property="usernameLabel" destination="MZZ-Fb-H4d" id="pim-hy-mzF"/>
+            </connections>
+            <point key="canvasLocation" x="287.02290076335879" y="-51.408450704225352"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="lock.fill" catalog="system" width="125" height="128"/>
+    </resources>
+</document>
