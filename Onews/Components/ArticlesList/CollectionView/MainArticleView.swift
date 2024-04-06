@@ -20,7 +20,9 @@ class MainArticleView: UIView {
             if articlesArray.count > 3 {
                 return
             }
-            mainArticleCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.mainArticleCollectionView.reloadData()
+            }
         }
     }
     

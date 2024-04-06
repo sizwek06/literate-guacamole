@@ -20,6 +20,7 @@ extension SettingsViewController: UserAcessDelegate {
                 super.setUpView()
                 self.refreshUserDetails(1)
                 UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
+                UserDefaults.standard.set("us", forKey: K.userDefaultRegionKey)
             }))
             
         alert.addAction(UIAlertAction(title: K.alertCancel, style: .cancel, handler: { _ in

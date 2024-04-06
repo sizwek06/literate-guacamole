@@ -120,4 +120,14 @@ class ProfileViewController: BaseTableViewController {
             }
         }
     }
+    
+    func bingBong() {
+        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserSignedInText)
+        OnewsLoaderViewController.sharedInstance.show()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let self else { return }
+            self.hideNewsLoading()
+        }
+    }
 }
