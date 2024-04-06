@@ -29,7 +29,8 @@ class UserArticlesViewModel {
                 self.userArticleDelegate?.didFailWithError(error: err.localizedDescription)
             } else {
                 guard let documents = querySnapshot?.documents else {
-                    print("no documents")
+                    completion(self.articlesArray)
+                    self.userArticleDelegate?.didReceiveArticlesSuccessfully()
                     return
                 }
                 self.articlesArray = documents

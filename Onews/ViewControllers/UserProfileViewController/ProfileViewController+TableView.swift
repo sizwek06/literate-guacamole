@@ -46,10 +46,6 @@ extension ProfileViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("Array count is: \(self.userArticlesViewModel.articlesArray.count)")
-        print("Array: \(self.userArticlesViewModel.articlesArray)")
-        print("cellForRowAt Current State: \(self.currentState)")
-        
         if indexPath.section == 1 {
             switch self.currentState {
             
@@ -61,7 +57,6 @@ extension ProfileViewController {
                 return createNotSignInTableViewCell()
             }
         } else {
-            print("CellForRow FaceID", self.isFaceIDVerified)
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
             else { return UITableViewCell() }
             
