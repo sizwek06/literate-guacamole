@@ -15,7 +15,7 @@ class ArticlesListViewModel {
     let fireBaseDB = Firestore.firestore()
     
     func fetchNewsArticles() {
-        performRequest(with: K.newsArticleURL)
+        performRequest(with: K.newsArticleURL + (UserDefaults.standard.string(forKey: K.userDefaultRegionKey) ?? "us"))
     }
     
     func searchArticleTopic(with searchPhrase: String) {

@@ -10,7 +10,7 @@ import UIKit
 
 struct K {
     
-    static let newsArticleURL = "https://newsapi.org/v2/top-headlines?country=us&pageSize=50&apiKey=59fd1c88fc3f43d8a4dab7d839612abf"
+    public static let newsArticleURL = "https://newsapi.org/v2/top-headlines?pageSize=50&apiKey=59fd1c88fc3f43d8a4dab7d839612abf&country="
     static let searchURL = "https://newsapi.org/v2/everything?apiKey=59fd1c88fc3f43d8a4dab7d839612abf&from=2024-03-23&to=2024-03-23&sortBy=popularity&q="
     
     static let profileViewHeader = "Profile"
@@ -29,7 +29,7 @@ struct K {
     static let signUpText = "Sign up"
     public static let signOutText = "Sign Out"
     public static let useFaceIDText = "Use FaceID"
-    public static let settingsFooterText = "Use the above settings to improve your experience, they will be saved for your next reading."
+    public static let settingsFooterText = "Use the above settings to improve your experience, they will be saved for your next browsing."
     
     static let newsLogo = UIImage(named: "NewsApp")
     static let newsFont = UIFont(name: "SF-Pro", size: 20)
@@ -45,8 +45,23 @@ struct K {
     static let userDefaultUUIDKey = "userUUID"
     static let userDefaultSignedInKey = "userSignedIn"
     static let userDefaultBiometricsKey = "faceID"
+    static let userDefaultRegionKey = "region"
     static let userDefaultNotificationsKey = "notification"
     
+    public static let regionOptions: KeyValuePairs = ["ar": "Argentina", "au": "Australia", "at": "Austria", "be": "Belgium",
+                                       "br": "Brazil", "bg": "Bulgaria", "ca": "Canada", "cn": "China",
+                                       "co": "Colombia", "cu": "Cuba", "cz": "Czech Republic", "eg": "Egypt",
+                                       "fr": "France", "de": "Germany", "gr": "Greece", "hk": "Hong Kong",
+                                       "hu": "Hungary", "in": "India", "id": "Indonesia", "ie": "Ireland",
+                                       "il": "Israel", "jp": "Japan", "lv": "Latvia", "lt": "Lithuania",
+                                       "my": "Malaysia", "mx": "Mexico", "ma": "Morocco", "nl": "Netherlands",
+                                       "nz": "New Zealand", "ng": "Nigeria", "no": "Norway", "ph": "Philippines",
+                                       "pl": "Poland", "pt": "Portugal", "ru": "Russia", "sa": "Saudi Arabia",
+                                       "rs": "Serbia", "sg": "Singapore", "sk": "Slovakia", "si": "Slovenia",
+                                       "za": "South Africa", "kr": "South Korea", "se": "Sweden", "ch": "Switzerland",
+                                       "tw": "Taiwan", "th": "Thailand", "tr": "Turkey", "ae": "UAE",
+                                       "ua": "Ukraine", "gb": "United Kingdom", "us": "United States", "ve": "Venuzuela"]
+    // //A regions endpoint is not available from newsAPI, manually entered these.
     struct fireStoreDb {
         static let articleField = "article"
         static let artileUUIDfield = "uuid"

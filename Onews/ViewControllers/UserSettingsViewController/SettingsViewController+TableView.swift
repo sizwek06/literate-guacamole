@@ -111,14 +111,23 @@ extension SettingsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            if self.isSignedIn {
-                OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserSignedInText)
-                OnewsLoaderViewController.sharedInstance.show()
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                    guard let self else { return }
-                    self.hideNewsLoading()
+            switch self.currentState {
+                case .signedInNoFaceId, .signedInWithFaceId:
+                    self.bingBong()
+                default:
+                    break
                 }
+        case 1:
+            switch indexPath.row {
+            case 2:
+                print("Region Picker clicked")
+                let regionsViewController = RegionsViewController()
+                let navController = UINavigationController(rootViewController: regionsViewController)
+                navController.navigationBar.barTintColor = UIColor(named: "CollectionColor")
+                
+                self.present(navController, animated: true)
+            default:
+                break
             }
         case 2:
             switch self.currentState {

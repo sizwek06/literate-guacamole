@@ -48,6 +48,7 @@
 		2871DD132BB3F2C6007B6561 /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2871DD122BB3F2C6007B6561 /* SettingsTableViewCell.xib */; };
 		2871DD152BB3F384007B6561 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2871DD142BB3F384007B6561 /* SettingsTableViewCell.swift */; };
 		2871DD172BB3F71D007B6561 /* SingleLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2871DD162BB3F71D007B6561 /* SingleLabelTableViewCell.swift */; };
+		28921F822BC15C8C000B2826 /* RegionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28921F812BC15C8C000B2826 /* RegionsViewController.swift */; };
 		289C43DE2BB27AF9000FFE64 /* OnewsLoaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289C43DD2BB27AF9000FFE64 /* OnewsLoaderUIView.swift */; };
 		289C43E02BB27BC7000FFE64 /* OnewsLoader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 289C43DF2BB27BC7000FFE64 /* OnewsLoader.xib */; };
 		289C43E22BB27F3F000FFE64 /* OnewsLoaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289C43E12BB27F3F000FFE64 /* OnewsLoaderController.swift */; };
@@ -109,6 +110,7 @@
 		2871DD122BB3F2C6007B6561 /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
 		2871DD142BB3F384007B6561 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		2871DD162BB3F71D007B6561 /* SingleLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLabelTableViewCell.swift; sourceTree = "<group>"; };
+		28921F812BC15C8C000B2826 /* RegionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionsViewController.swift; sourceTree = "<group>"; };
 		289C43DD2BB27AF9000FFE64 /* OnewsLoaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnewsLoaderUIView.swift; sourceTree = "<group>"; };
 		289C43DF2BB27BC7000FFE64 /* OnewsLoader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnewsLoader.xib; sourceTree = "<group>"; };
 		289C43E12BB27F3F000FFE64 /* OnewsLoaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnewsLoaderController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				2811C5C92BB3EE6200880C52 /* SettingsViewController.swift */,
 				2831C43D2BB4BE8000B48920 /* SettingsViewController+TableView.swift */,
 				280ED8052BB8BAC0002C9342 /* SettingsViewController+Delegate.swift */,
+				28921F812BC15C8C000B2826 /* RegionsViewController.swift */,
 			);
 			path = UserSettingsViewController;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				28AF8F9B2BB7611800B6CB60 /* UserArticlesDelegate.swift in Sources */,
 				2869F63F29C2E07200CADFD7 /* ArticlesListViewController.swift in Sources */,
 				2801FE222BBC2CCB009D7967 /* OnewsStates.swift in Sources */,
+				28921F822BC15C8C000B2826 /* RegionsViewController.swift in Sources */,
 				280ED80B2BB98F2B002C9342 /* MainArticleView+CollectionView.swift in Sources */,
 				2801FE1E2BBAE0DC009D7967 /* BiometricAuthManager.swift in Sources */,
 				2805A8212BB04D31007FDA16 /* ArticlesListController+Delegate.swift in Sources */,

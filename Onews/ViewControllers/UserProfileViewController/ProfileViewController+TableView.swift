@@ -96,13 +96,7 @@ extension ProfileViewController {
         if indexPath.section == 0 {
             switch self.currentState {
             case .signedInNoFaceId, .signedInWithFaceId:
-                OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserSignedInText)
-                OnewsLoaderViewController.sharedInstance.show()
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                    guard let self else { return }
-                    self.hideNewsLoading()
-                }
+                self.bingBong()
             default:
                 self.navigateToSettingsSignIn()
             }
