@@ -24,4 +24,11 @@ class UserProfileTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         self.backgroundColor = .none
     }
+    
+    func setUpProfileView(using isShown: Bool) {
+        self.usernameLabel.isHidden = !isShown
+        self.lockImageView.isHidden = isShown
+        self.faceIDLabel.isHidden = isShown
+        self.faceIDSubtitleLabel.isHidden = isShown
+    }
 }
