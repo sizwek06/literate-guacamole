@@ -38,8 +38,6 @@ class UserAccessScreenViewController: UIViewController {
     }
     
     @IBAction func signInButtonPressed(_ sender: Any) {
-//        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "PeformAfterPresenting"), object: nil))
-
         authenticateUserDetails()
     }
     
@@ -113,7 +111,6 @@ extension UserAccessScreenViewController: UITextFieldDelegate {
     }
 }
 
-// TODO: Review if the below is required
 extension UserAccessScreenViewController: UserAcessDelegate {
     
     func confirmLogOut() {
@@ -123,9 +120,9 @@ extension UserAccessScreenViewController: UserAcessDelegate {
         
         guard let email = user.email else { return }
         
-        UserDefaults.standard.set(email, forKey: K.fireStoreDb.userDefaultEmailKey)
-        UserDefaults.standard.set(user.uid, forKey: K.fireStoreDb.userDefaultUUIDKey)
-        UserDefaults.standard.synchronize()
+        UserDefaults.standard.set(email, forKey: K.userDefaultEmailKey)
+        UserDefaults.standard.set(user.uid, forKey: K.userDefaultUUIDKey)
+        UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
         
         self.dismiss(animated: true)
         

@@ -15,9 +15,7 @@ class SettingsViewController: ProfileViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        NotificationCenter.default.addObserver(self, selector: #selector(testFunc), name: NSNotification.Name(rawValue:   "PeformAfterPresenting"), object: nil)
-
+        
         title = "Settings"
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
@@ -25,28 +23,23 @@ class SettingsViewController: ProfileViewController {
         
         userAccessViewModel.userAccessDelegate = self
         
-        tableView.frame = view.bounds
-        view.addSubview(tableView)
-    }
-    
-    @objc func testFunc() {
         self.setUpView()
     }
     
     func showSignInSheet() {
         let alert = UIAlertController(title: "Already a member?", message: "Please select an option to continue", preferredStyle: .actionSheet)
-            
+        
         alert.addAction(UIAlertAction(title: K.signInText, style: .destructive, handler: { _ in
-                self.showUserAccessController(false)
-            }))
+            self.showUserAccessController(false)
+        }))
         
         alert.addAction(UIAlertAction(title: K.signUpText, style: .default, handler: { _ in
-                self.showUserAccessController(true)
-            }))
-            
+            self.showUserAccessController(true)
+        }))
+        
         alert.addAction(UIAlertAction(title: K.alertCancel, style: .cancel, handler: { _ in
-                alert.dismiss(animated: true)
-            }))
+            alert.dismiss(animated: true)
+        }))
         
         self.present(alert, animated: true)
     }

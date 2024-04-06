@@ -20,7 +20,9 @@ class MainArticleView: UIView {
             if articlesArray.count > 3 {
                 return
             }
-            mainArticleCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.mainArticleCollectionView.reloadData()
+            }
         }
     }
     
@@ -57,10 +59,10 @@ class MainArticleView: UIView {
         mainArticleCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -5).isActive = true
         mainArticleCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
         
-        UserDefaults.standard.synchronize()
-        
-        if let user = UserDefaults.standard.string(forKey: K.fireStoreDb.userDefaultEmailKey) {
-            self.isSignedIn = !user.isEmpty
+        if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+            if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
+                self.isSignedIn = !user.isEmpty
+            }
         }
     }
     

@@ -16,7 +16,11 @@ extension SettingsViewController: UserAcessDelegate {
             
         alert.addAction(UIAlertAction(title: K.alertYes, style: .destructive, handler: { _ in
                 self.userAccessViewModel.signOutUser()
+                super.currentState = .signedOut
+                super.setUpView()
                 self.refreshUserDetails(1)
+                UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
+                UserDefaults.standard.set("us", forKey: K.userDefaultRegionKey)
             }))
             
         alert.addAction(UIAlertAction(title: K.alertCancel, style: .cancel, handler: { _ in
@@ -30,9 +34,13 @@ extension SettingsViewController: UserAcessDelegate {
         
         guard let email = user.email else { return }
        
-        UserDefaults.standard.set(email, forKey: K.fireStoreDb.userDefaultEmailKey)
-        UserDefaults.standard.set(user.uid, forKey: K.fireStoreDb.userDefaultUUIDKey)
-        UserDefaults.standard.synchronize()
+        UserDefaults.standard.set(email, forKey: K.userDefaultEmailKey)
+        UserDefaults.standard.set(user.uid, forKey: K.userDefaultUUIDKey)
+        
+        super.self.currentState = .signedInNoFaceId
+        self.currentState = .signedInNoFaceId
+        super.setUpView()
+        self.setUpView()
         
         self.dismiss(animated: true)
     }
