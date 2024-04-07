@@ -1,4 +1,4 @@
-# literate-guacamole ![GitHub language count](https://img.shields.io/github/languages/count/sizwek06/literate-guacamole) ![GitHub top language](https://img.shields.io/github/languages/sizwek06/https://github.com/sizwek06/literate-guacamole?color=yellow) 
+# literate-guacamole      ![Swift](https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white) 
 This application exercise serves as an introduction into more swift methodologies &amp; software delivery concepts via a News App.
 
 ## Installation
