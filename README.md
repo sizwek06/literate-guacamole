@@ -1,4 +1,4 @@
-# literate-guacamole ![GitHub language count](https://img.shields.io/github/languages/count/{username}/{repo-name}) 
+# literate-guacamole ![GitHub language count](https://img.shields.io/github/languages/count/{sizwek06}/{literate-guacamole}) 
 This application exercise serves as an introduction into more swift methodologies &amp; software delivery concepts via a News App.
 
 ## Installation
