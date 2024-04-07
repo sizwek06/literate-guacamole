@@ -56,7 +56,6 @@ class MainArticleCollectionViewCell: UICollectionViewCell {
     }
     
     func setUpSaveImage(using userSignedIn: Bool) {
-        print("setUpSaveImage userSignedIn: ", userSignedIn)
         let imageString = userSignedIn ? "bookmark" : "bookmark.slash"
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold, scale: .medium)
         

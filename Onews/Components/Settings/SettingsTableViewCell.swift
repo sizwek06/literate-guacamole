@@ -29,10 +29,8 @@ class SettingsTableViewCell: UITableViewCell {
         switch switchOption {
         case .faceID:
             UserDefaults.standard.set(sender.isOn, forKey: K.userDefaultBiometricsKey)
-            print("FaceID set ", sender.isOn)
         case .notifications:
             UserDefaults.standard.set(sender.isOn, forKey: K.userDefaultNotificationsKey)
-            print("Notifications set ", sender.isOn)
         case .region:
             break
         case .none:

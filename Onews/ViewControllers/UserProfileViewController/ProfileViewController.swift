@@ -22,7 +22,6 @@ class ProfileViewController: BaseTableViewController {
     
     var currentState: OnewsStates = .signedOut {
         didSet {
-            print("DidSet Current State: \(self.currentState)")
             self.tableView.reloadData()
         }
     }
@@ -46,9 +45,6 @@ class ProfileViewController: BaseTableViewController {
     }
     
     @objc override func setUpView() {
-    
-        print("ViewWillAppear FaceID", self.isFaceIDVerified)
-        
         super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         super.tableView.register(UserFaceIDTableViewCell.self, forCellReuseIdentifier: UserFaceIDTableViewCell.identifier)

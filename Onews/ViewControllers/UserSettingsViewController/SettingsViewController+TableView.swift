@@ -33,7 +33,6 @@ extension SettingsViewController {
         
         switch indexPath.section {
         case 0:
-            print("CellForRow FaceID", self.isFaceIDVerified)
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
             else { return UITableViewCell() }
             
@@ -108,7 +107,6 @@ extension SettingsViewController {
         case 1:
             switch indexPath.row {
             case 2:
-                print("Region Picker clicked")
                 let regionsViewController = RegionsViewController()
                 let navController = UINavigationController(rootViewController: regionsViewController)
                 navController.navigationBar.barTintColor = UIColor(named: "CollectionColor")
