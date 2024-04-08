@@ -133,14 +133,20 @@ extension ProfileViewController {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let currentArticle = self.userArticlesViewModel.articlesArray[indexPath.row]
         
         if indexPath.section == 1 && isSignedIn {
             let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
                 
                 guard let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) else { return }
                 
-                self.userArticlesViewModel.deleteUserArticles(using: self.userArticlesViewModel.articlesArray[indexPath.row].url,
+                self.userArticlesViewModel.deleteUserArticles(using: currentArticle.url,
                                                               uuid: uuid)
+                
+                if UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey) {
+                    self.sendArticleNotification(using: currentArticle, 
+                                                 isSaved: false)
+                }
                 
                 completionHandler(true)
             }
@@ -150,8 +156,6 @@ extension ProfileViewController {
             swipeConfiguration.performsFirstActionWithFullSwipe = true
             
             removeAction.image = addLabelToImage(imageString: "trash.fill", labelString: "Delete")
-            
-            self.setUpView()
             
             return swipeConfiguration
         } else {

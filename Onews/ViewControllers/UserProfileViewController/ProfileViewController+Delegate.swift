@@ -25,6 +25,7 @@ extension ProfileViewController: UserArticlesDelegate {
     
     func didReceiveArticlesSuccessfully() {
         DispatchQueue.main.async {
+            self.reloadNewsArticles()
             self.setUpView()
         }
     }

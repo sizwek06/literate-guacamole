@@ -68,8 +68,10 @@ class ProfileViewController: BaseTableViewController {
             self.tableView.frame = self.view.bounds
             self.view.addSubview(self.tableView)
             
-            self.tableView.reloadData()
-            self.tableView.refreshControl?.endRefreshing()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.tableView.refreshControl?.endRefreshing()
+            }
         }
     }
     

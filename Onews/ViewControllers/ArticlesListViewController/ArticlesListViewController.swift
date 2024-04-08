@@ -29,6 +29,8 @@ class ArticlesListViewController: BaseTableViewController {
         search.delegate = self
         search.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
+        
+        checkNotificationsAuthorizationStatus()
     }
     
     override func viewWillAppear(_ animated: Bool) {

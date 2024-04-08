@@ -206,16 +206,8 @@
 				2869F63129C1B22F00CADFD7 /* LaunchScreen.storyboard */,
 				2869F63429C1B22F00CADFD7 /* Info.plist */,
 				2831C4352BB4ABAA00B48920 /* GoogleService-Info.plist */,
-				2869F63A29C1D21B00CADFD7 /* LandingView */,
 			);
 			path = Onews;
-			sourceTree = "<group>";
-		};
-		2869F63A29C1D21B00CADFD7 /* LandingView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LandingView;
 			sourceTree = "<group>";
 		};
 		2869F63B29C1D22600CADFD7 /* ViewControllers */ = {
@@ -736,7 +728,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifty.Onews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -772,7 +764,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifty.Onews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

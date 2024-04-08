@@ -58,6 +58,7 @@ class UserArticlesViewModel {
           } else {
             for document in querySnapshot!.documents {
               document.reference.delete()
+              self.userArticleDelegate?.didReceiveArticlesSuccessfully()
             }
           }
         }

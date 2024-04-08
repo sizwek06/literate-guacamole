@@ -101,3 +101,33 @@ class BaseTableViewController: UIViewController {
         }
     }
 }
+
+// MARK: Notifications
+extension BaseTableViewController {
+    
+    public func checkNotificationsAuthorizationStatus() {
+        let userNotificationCenter = UNUserNotificationCenter.current()
+        userNotificationCenter.getNotificationSettings { (settings) in
+            
+            switch settings.authorizationStatus {
+            case .denied:
+                UserDefaults.standard.setValue(false, forKey: K.userDefaultNotificationsKey)
+            default:
+                UserDefaults.standard.setValue(true, forKey: K.userDefaultNotificationsKey)
+            }
+        }
+    }
+    
+    func sendArticleNotification(using article: Article, isSaved: Bool) {
+        let content = UNMutableNotificationContent()
+        
+        content.subtitle = isSaved ? "'\(article.title)' successfully saved!" : "'\(article.title)' successfully deleted!"
+        content.sound = UNNotificationSound.default
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.5, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request)
+    }
+}
