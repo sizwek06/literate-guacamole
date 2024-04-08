@@ -22,7 +22,7 @@ extension ArticlesListViewController {
         
         if indexPath.section == 1 {
             let article = articlesListViewModel.articlesArray[indexPath.row]
-            
+            print("News Article: ", article)
             let cell = tableView.dequeueReusableCell(withIdentifier: "newsArticle", for: indexPath) as! NewsArticleTableViewCell
             
             cell.selectionStyle = .none
@@ -48,6 +48,11 @@ extension ArticlesListViewController {
             
             cell.mainArticleView.didSaveArticle = { article in
                 self.articlesListViewModel.saveNewsArticle(using: article)
+                
+                if UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey) {
+                    self.sendArticleNotification(using: article, 
+                                                 isSaved: true)
+                }
             }
             
             cell.mainArticleView.didShareArticle = { articleSource in
@@ -67,16 +72,21 @@ extension ArticlesListViewController {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
+        let currentArticle = self.articlesListViewModel.articlesArray[indexPath.row]
         if indexPath.section == 1 {
             let shareAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
-                self.shareArticleLink(with: self.articlesListViewModel.articlesArray[indexPath.row].url)
+                self.shareArticleLink(with: currentArticle.url)
                 
                 completionHandler(true)
             }
             
             let likeAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
                 self.articlesListViewModel.saveNewsArticle(using: self.articlesListViewModel.articlesArray[indexPath.row])
+                
+                if UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey) {
+                    self.sendArticleNotification(using: currentArticle, 
+                                                 isSaved: true)
+                }
                 
                 completionHandler(true)
             }
