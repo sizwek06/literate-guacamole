@@ -62,18 +62,4 @@ class UserAccessViewModel {
                                             isRegistration: true)
         }
     }
-    
-    // TODO: Register and add username?
-//    self.addUserDisplayName(currentUser: auth.user, displayName: username)
-//    func addUserDisplayName(currentUser: User, displayName: String) {
-//        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-//    changeRequest?.displayName = username
-//    
-//    changeRequest?.commitChanges { (error) in
-//        if let e = error {
-//            self.delegate?.didFailWithError(error: e.localizedDescription,
-//                                            isRegistration: true)
-//        }
-//    }
-//    }
 }

@@ -143,7 +143,7 @@ extension UserAccessScreenViewController: UserAcessDelegate {
     }
     
     func didFailWithError(error: String, isRegistration: Bool) {
-        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        let alert = UIAlertController(title: K.alertErrorTitle, message: error, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: K.alertRetry, style: UIAlertAction.Style.default, handler: { (_) in
             self.authenticateUserDetails()

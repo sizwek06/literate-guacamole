@@ -100,6 +100,13 @@ class BaseTableViewController: UIViewController {
             self.tableView.refreshControl?.endRefreshing()
         }
     }
+    
+    func checkCurrentRegion() {
+        if let region = UserDefaults.standard.string(forKey: K.userDefaultRegionKey) {
+        } else {
+            UserDefaults.standard.setValue("us", forKey: K.userDefaultRegionKey)
+        }
+    }
 }
 
 // MARK: Notifications

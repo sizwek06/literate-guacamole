@@ -24,6 +24,7 @@
 		280ED80B2BB98F2B002C9342 /* MainArticleView+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280ED80A2BB98F2B002C9342 /* MainArticleView+CollectionView.swift */; };
 		2811C5BF2BB333A800880C52 /* ProfileViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2811C5BE2BB333A800880C52 /* ProfileViewController+TableView.swift */; };
 		2811C5CB2BB3F17600880C52 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2811C5C92BB3EE6200880C52 /* SettingsViewController.swift */; };
+		2821D4FD2BC43D2A00D1C075 /* ArticleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2821D4FC2BC43D2A00D1C075 /* ArticleRequest.swift */; };
 		2831C4212BB4601000B48920 /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2831C41E2BB4600F00B48920 /* SF-Pro-Text-Semibold.otf */; };
 		2831C4232BB4601000B48920 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2831C4202BB4601000B48920 /* SF-Pro-Text-Regular.otf */; };
 		2831C42D2BB4668F00B48920 /* UserAccessScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C42C2BB4668F00B48920 /* UserAccessScreenViewController.swift */; };
@@ -84,6 +85,7 @@
 		280ED80A2BB98F2B002C9342 /* MainArticleView+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainArticleView+CollectionView.swift"; sourceTree = "<group>"; };
 		2811C5BE2BB333A800880C52 /* ProfileViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileViewController+TableView.swift"; sourceTree = "<group>"; };
 		2811C5C92BB3EE6200880C52 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		2821D4FC2BC43D2A00D1C075 /* ArticleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRequest.swift; sourceTree = "<group>"; };
 		2831C41E2BB4600F00B48920 /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
 		2831C4202BB4601000B48920 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		2831C4242BB4608300B48920 /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				2801FE192BBADD56009D7967 /* NewsArticleData.swift */,
 				2831C4312BB48EA100B48920 /* UserAccessViewModel.swift */,
 				28AF8F982BB760A900B6CB60 /* UserArticlesViewModel.swift */,
+				2821D4FC2BC43D2A00D1C075 /* ArticleRequest.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				28346F4C2BB7D6BE007270A9 /* ProfileViewController+Delegate.swift in Sources */,
 				28A335D32BB2BFAC00A0D861 /* TabBarController.swift in Sources */,
 				2811C5CB2BB3F17600880C52 /* SettingsViewController.swift in Sources */,
+				2821D4FD2BC43D2A00D1C075 /* ArticleRequest.swift in Sources */,
 				2801FE1A2BBADD56009D7967 /* NewsArticleData.swift in Sources */,
 				28ECF5AC29CF3ED5006876B7 /* K.swift in Sources */,
 				2869F62929C1B22E00CADFD7 /* SceneDelegate.swift in Sources */,

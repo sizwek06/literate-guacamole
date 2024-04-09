@@ -34,8 +34,9 @@ class ArticlesListViewController: BaseTableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        articlesListViewModel.fetchNewsArticles()
+        articlesListViewModel.getArticles()
         setUpView()
+        checkCurrentRegion()
     }
     
     override func viewWillLayoutSubviews() {
@@ -44,7 +45,7 @@ class ArticlesListViewController: BaseTableViewController {
     }
     
     @objc func tableViewReloadNewsArticles() {
-        articlesListViewModel.fetchNewsArticles()
+        articlesListViewModel.getArticles()
         tableView.refreshControl?.endRefreshing()
     }
 }
@@ -58,7 +59,7 @@ extension ArticlesListViewController: UISearchControllerDelegate, UISearchBarDel
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchPhrase = searchBar.text else { return }
         
-        articlesListViewModel.searchArticleTopic(with: searchPhrase)
+        articlesListViewModel.getArticles(searchPhrase)
         return
     }
 }
