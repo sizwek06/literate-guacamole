@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Kingfisher
+import OnewsSDK
 
 class ArticlesListViewController: BaseTableViewController {
     
