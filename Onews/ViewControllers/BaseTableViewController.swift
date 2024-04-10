@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import FirebaseFirestore
+import OnewsSDK
 
 class BaseTableViewController: UIViewController {
     
@@ -98,6 +99,13 @@ class BaseTableViewController: UIViewController {
             
             self.tableView.reloadData()
             self.tableView.refreshControl?.endRefreshing()
+        }
+    }
+    
+    func checkCurrentRegion() {
+        if let region = UserDefaults.standard.string(forKey: K.userDefaultRegionKey) {
+        } else {
+            UserDefaults.standard.setValue("us", forKey: K.userDefaultRegionKey)
         }
     }
 }

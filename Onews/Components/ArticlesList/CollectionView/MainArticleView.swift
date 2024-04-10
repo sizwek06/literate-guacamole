@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import OnewsSDK
 
 class MainArticleView: UIView {
     
@@ -44,7 +45,7 @@ class MainArticleView: UIView {
         return collectionView
     }()
     
-    init(articlesArray: [Article], isSignedIn: Bool) {
+    public init(articlesArray: [Article], isSignedIn: Bool) {
         super.init(frame: .zero)
         self.articlesArray = articlesArray
         self.isSignedIn = isSignedIn

@@ -20,7 +20,7 @@ extension ArticlesListViewController: ArticleDelegate {
     }
 
     func reloadNewsArticles() {
-        articlesListViewModel.fetchNewsArticles()
+        articlesListViewModel.getArticles()
         tableView.reloadData()
     }
     
@@ -29,12 +29,12 @@ extension ArticlesListViewController: ArticleDelegate {
     }
     
     func didFailWithError(error: String) {
-        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Retry", style: UIAlertAction.Style.default, handler: { (_) in
+        let alert = UIAlertController(title: K.alertErrorTitle, message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: K.alertRetry, style: UIAlertAction.Style.default, handler: { (_) in
             self.reloadNewsArticles()
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (_) in
+        alert.addAction(UIAlertAction(title: K.alertCancel, style: UIAlertAction.Style.cancel, handler: { (_) in
             self.dismiss(animated: true)
         }))
         

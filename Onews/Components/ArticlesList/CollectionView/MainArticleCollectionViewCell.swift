@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import OnewsSDK
 
 class MainArticleCollectionViewCell: UICollectionViewCell {
     

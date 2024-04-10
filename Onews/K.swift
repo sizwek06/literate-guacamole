@@ -34,6 +34,7 @@ struct K {
     static let newsLogo = UIImage(named: "NewsApp")
     static let newsFont = UIFont(name: "SF-Pro", size: 20)
     
+    static let alertErrorTitle = "Error"
     static let alertRetry = "Retry"
     static let alertOK = "OK"
     static let alertYes = "Yes"

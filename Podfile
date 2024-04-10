@@ -10,6 +10,7 @@ pod 'Kingfisher', '~> 7.0'
 pod 'SwiftLint'
 pod 'FirebaseAuth'
 pod 'FirebaseFirestoreSwift'
+pod 'OnewsSDK', :git => 'https://github.com/sizwek06/onews-sdk.git'
 
 post_install do |installer|
  installer.pods_project.targets.each do |target|
