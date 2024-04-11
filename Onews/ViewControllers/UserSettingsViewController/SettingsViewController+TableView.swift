@@ -68,6 +68,13 @@ extension SettingsViewController {
                 cell.accessoryType = .none
                 cell.settingsSwitch.isHidden = false
                 
+                switch self.currentState {
+                case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
+                    cell.settingsSwitch.isEnabled = false
+                default:
+                    cell.settingsSwitch.isEnabled = true
+                }
+                
                 return cell
             case 2:
                 cell.setUpSettingsCell(using: "globe.europe.africa.fill",

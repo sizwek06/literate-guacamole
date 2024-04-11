@@ -17,9 +17,7 @@ class SettingsViewController: ProfileViewController {
         super.viewDidLoad()
         
         title = "Settings"
-        super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
-        super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         
         userAccessViewModel.userAccessDelegate = self
         

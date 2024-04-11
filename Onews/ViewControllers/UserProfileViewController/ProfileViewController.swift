@@ -49,29 +49,32 @@ class ProfileViewController: BaseTableViewController {
         super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         super.tableView.register(UserFaceIDTableViewCell.self, forCellReuseIdentifier: UserFaceIDTableViewCell.identifier)
         
-        DispatchQueue.main.async {
-           if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
-            if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey),
-               let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) {
-                self.userName = user
-                self.isSignedIn = !user.isEmpty
-                
-                self.userArticlesViewModel.queryUserArticles(using: uuid) { articles in
-                    self.userArticlesViewModel.articlesArray = articles
+        switch self.currentState {
+        case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
+            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey),
+                   let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) {
+                    self.userName = user
+                    self.isSignedIn = !user.isEmpty
+                    
+                    self.userArticlesViewModel.queryUserArticles(using: uuid) { articles in
+                        self.userArticlesViewModel.articlesArray = articles
+                    }
+                    self.currentState = .signedInNoFaceId
                 }
-                self.currentState = .signedInNoFaceId
+                
+                self.tableView.frame = self.view.bounds
+                self.view.addSubview(self.tableView)
             }
-            } else {
-                self.currentState = .signedOut
-            }
-            
-            self.tableView.frame = self.view.bounds
-            self.view.addSubview(self.tableView)
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.tableView.refreshControl?.endRefreshing()
-            }
+        case .verifyFaceIdFailed:
+            self.currentState = .verifyFaceIdFailed
+        case .signingInWithFaceId:
+            self.currentState = .signingInWithFaceId
+        }
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.tableView.refreshControl?.endRefreshing()
         }
     }
     
