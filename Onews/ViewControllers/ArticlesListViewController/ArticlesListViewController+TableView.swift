@@ -31,7 +31,7 @@ extension ArticlesListViewController {
             downloadImg(urlString: article.urlToImage, imgView: cell.articleImg)
             
             cell.articleLabel.text = article.title
-            cell.websiteLabel.text = article.source.name.uppercased()
+            cell.websiteLabel.text = (article.source.name ?? K.newsViewHeader).uppercased()
             cell.websiteLabel.textColor = returnSourceColour()
             cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
             
@@ -67,7 +67,7 @@ extension ArticlesListViewController {
         let article = articlesListViewModel.articlesArray[indexPath.row]
         
         if indexPath.section == 1 {
-            self.handleOpenArticleURL(url: article.url, source: article.source.name)
+            self.handleOpenArticleURL(url: article.url, source: article.source.name ?? K.newsViewHeader)
         }
     }
     

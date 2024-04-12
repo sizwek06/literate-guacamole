@@ -36,7 +36,9 @@ class ProfileViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if self.isSignedIn { verifyUser() }
+        DispatchQueue.main.async {
+            if self.isSignedIn { self.verifyUser() }
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -119,16 +121,6 @@ class ProfileViewController: BaseTableViewController {
                 self.currentState = .signedInNoFaceId
                 self.setUpView()
             }
-        }
-    }
-    
-    func bingBong() {
-        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserSignedInText)
-        OnewsLoaderViewController.sharedInstance.show()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            guard let self else { return }
-            self.hideNewsLoading()
         }
     }
 }

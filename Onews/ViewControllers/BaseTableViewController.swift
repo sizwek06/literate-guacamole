@@ -69,18 +69,26 @@ class BaseTableViewController: UIViewController {
     }
     
     func handleOpenArticleURL(url: String, source: String) {
-        let articleWebViewController = ArticleWebViewController(url: url, source: source)
-        let navController = UINavigationController(rootViewController: articleWebViewController)
-        navController.navigationBar.barTintColor = UIColor(named: "CollectionColor")
-        self.present(navController, animated: true, completion: nil)
+        if !url.isEmpty {
+            let articleWebViewController = ArticleWebViewController(url: url, source: source)
+            let navController = UINavigationController(rootViewController: articleWebViewController)
+            navController.navigationBar.barTintColor = UIColor(named: "CollectionColor")
+            self.present(navController, animated: true, completion: nil)
+        } else {
+            self.bingBong(K.noURLText)
+        }
     }
     
     func shareArticleLink(with urlString: String) {
-        let textToShare = [ urlString ]
-        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
-        
-        self.present(activityViewController, animated: true, completion: nil)
+        if !urlString.isEmpty {
+            let textToShare = [ urlString ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+            
+            self.present(activityViewController, animated: true, completion: nil)
+        } else {
+            self.bingBong(K.noURLText)
+        }
     }
     
     func setUpView() {
@@ -106,6 +114,15 @@ class BaseTableViewController: UIViewController {
         if let region = UserDefaults.standard.string(forKey: K.userDefaultRegionKey) {
         } else {
             UserDefaults.standard.setValue("us", forKey: K.userDefaultRegionKey)
+        }
+    }
+    
+    func bingBong(_ titleText: String = K.loadingNewsText) {
+        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: titleText)
+        OnewsLoaderViewController.sharedInstance.show()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            OnewsLoaderViewController.sharedInstance.hide()
         }
     }
 }
