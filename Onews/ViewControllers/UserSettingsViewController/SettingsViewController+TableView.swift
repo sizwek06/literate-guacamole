@@ -69,7 +69,7 @@ extension SettingsViewController {
                 cell.settingsSwitch.isHidden = false
                 
                 switch self.currentState {
-                case .verifyFaceIdFailed, .signingInWithFaceId:
+                case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
                     cell.settingsSwitch.isEnabled = false
                     cell.settingsLabel.textColor = .gray
                 default:
