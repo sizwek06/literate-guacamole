@@ -20,6 +20,7 @@ extension SettingsViewController: UserAcessDelegate {
                 self.setupTableView()
                 self.refreshUserDetails(1)
                 UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
+                UserDefaults.standard.set(false, forKey: K.userDefaultBiometricsKey)
                 UserDefaults.standard.set("us", forKey: K.userDefaultRegionKey)
             }))
             
