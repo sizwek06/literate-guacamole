@@ -133,8 +133,6 @@ extension ProfileViewController {
             
             shareAction.image = addLabelToImage(imageString: "square.and.arrow.up", labelString: "Share")
             
-            self.setUpView()
-            
             return swipeConfiguration
         } else {
             let swipeConfiguration = UISwipeActionsConfiguration()
@@ -152,12 +150,12 @@ extension ProfileViewController {
                 
                 self.userArticlesViewModel.deleteUserArticles(using: currentArticle.url,
                                                               uuid: uuid)
+                self.userArticlesViewModel.articlesArray.remove(at: indexPath.row)
                 
                 if UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey) {
                     self.sendArticleNotification(using: currentArticle, 
                                                  isSaved: false)
                 }
-                
                 completionHandler(true)
             }
             removeAction.backgroundColor = .systemRed
