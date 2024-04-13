@@ -21,8 +21,11 @@ struct K {
     static let otherArticlesHeader = "OTHER ARTICLES"
     
     public static let loadingNewsText = "Loading news, please wait."
-    public static let loadingUserText = "Loading, please wait."
+    public static let loadingUsersNewsText = "Loading your articles, please wait."
+    public static let loadingUserText = "Signing in, please wait."
+    public static let loadingUserSettingsText = "Setting Up, please wait."
     public static let loadingUserSignedInText = "Bing Bong!, You're Logged In!"
+    public static let noURLText = "Bing Bong!, Article Has No URL!"
     public static let noSessionText = "Not signed in, click below to get started"
     
     static let signInText = "Sign in"
@@ -34,6 +37,7 @@ struct K {
     static let newsLogo = UIImage(named: "NewsApp")
     static let newsFont = UIFont(name: "SF-Pro", size: 20)
     
+    static let alertErrorTitle = "Error"
     static let alertRetry = "Retry"
     static let alertOK = "OK"
     static let alertYes = "Yes"

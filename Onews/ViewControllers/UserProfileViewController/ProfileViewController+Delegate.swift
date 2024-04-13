@@ -10,8 +10,8 @@ import UIKit
 
 extension ProfileViewController: UserArticlesDelegate {
     
-    func showNewsLoading() {
-        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingNewsText)
+    func showUserArticlesLoading() {
+        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUsersNewsText)
         OnewsLoaderViewController.sharedInstance.show()
     }
     
@@ -25,17 +25,18 @@ extension ProfileViewController: UserArticlesDelegate {
     
     func didReceiveArticlesSuccessfully() {
         DispatchQueue.main.async {
-            self.setUpView()
+            self.reloadNewsArticles()
+            self.hideNewsLoading()
         }
     }
     
     func didFailWithError(error: String) {
-        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Retry", style: UIAlertAction.Style.default, handler: { (_) in
+        let alert = UIAlertController(title: K.alertErrorTitle, message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: K.alertRetry, style: UIAlertAction.Style.default, handler: { (_) in
             self.reloadNewsArticles()
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (_) in
+        alert.addAction(UIAlertAction(title: K.alertCancel, style: UIAlertAction.Style.cancel, handler: { (_) in
             self.dismiss(animated: true)
         }))
         
