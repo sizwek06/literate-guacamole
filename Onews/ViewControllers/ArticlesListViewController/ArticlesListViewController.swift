@@ -36,7 +36,7 @@ class ArticlesListViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         articlesListViewModel.getArticles()
-        setUpView()
+        super.setupTableView()
         checkCurrentRegion()
     }
     
@@ -48,25 +48,6 @@ class ArticlesListViewController: BaseTableViewController {
     @objc func tableViewReloadNewsArticles() {
         articlesListViewModel.getArticles()
         tableView.refreshControl?.endRefreshing()
-    }
-    
-    func setUpView() {
-        UserDefaults.standard.synchronize()
-        
-        DispatchQueue.main.async {
-            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
-                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
-                    UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
-                    self.isSignedIn = !user.isEmpty
-                }
-            } else {
-                UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
-                self.isSignedIn = false
-            }
-            
-            self.tableView.reloadData()
-            self.tableView.refreshControl?.endRefreshing()
-        }
     }
 }
 

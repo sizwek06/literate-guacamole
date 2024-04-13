@@ -101,6 +101,7 @@ class ProfileViewController: BaseTableViewController {
                     
                     DispatchQueue.main.async {
                         self.currentState = .signedInWithFaceId
+                        self.setUpView()
                     }
                 }
             }
