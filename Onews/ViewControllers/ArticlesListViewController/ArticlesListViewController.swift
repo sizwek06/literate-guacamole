@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Kingfisher
+import OnewsSDK
 
 class ArticlesListViewController: BaseTableViewController {
     
@@ -29,11 +30,14 @@ class ArticlesListViewController: BaseTableViewController {
         search.delegate = self
         search.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
+        
+        checkNotificationsAuthorizationStatus()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        articlesListViewModel.fetchNewsArticles()
-        setUpView()
+        articlesListViewModel.getArticles()
+        self.setUpView()
+        checkCurrentRegion()
     }
     
     override func viewWillLayoutSubviews() {
@@ -42,8 +46,27 @@ class ArticlesListViewController: BaseTableViewController {
     }
     
     @objc func tableViewReloadNewsArticles() {
-        articlesListViewModel.fetchNewsArticles()
+        articlesListViewModel.getArticles()
         tableView.refreshControl?.endRefreshing()
+    }
+    
+    func setUpView() {
+        UserDefaults.standard.synchronize()
+        
+        DispatchQueue.main.async {
+            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
+                    UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
+                    self.isSignedIn = !user.isEmpty
+                }
+            } else {
+                UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
+                self.isSignedIn = false
+            }
+            
+            self.setupTableView()
+            self.tableView.refreshControl?.endRefreshing()
+        }
     }
 }
 
@@ -56,7 +79,7 @@ extension ArticlesListViewController: UISearchControllerDelegate, UISearchBarDel
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchPhrase = searchBar.text else { return }
         
-        articlesListViewModel.searchArticleTopic(with: searchPhrase)
+        articlesListViewModel.getArticles(searchPhrase)
         return
     }
 }

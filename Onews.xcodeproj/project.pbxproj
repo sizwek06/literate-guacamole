@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2801FE1A2BBADD56009D7967 /* NewsArticleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801FE192BBADD56009D7967 /* NewsArticleData.swift */; };
 		2801FE1C2BBADD6C009D7967 /* ArticlesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801FE1B2BBADD6C009D7967 /* ArticlesListViewModel.swift */; };
 		2801FE1E2BBAE0DC009D7967 /* BiometricAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801FE1D2BBAE0DC009D7967 /* BiometricAuthManager.swift */; };
 		2801FE202BBBE429009D7967 /* UserFaceIDTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801FE1F2BBBE429009D7967 /* UserFaceIDTableViewCell.swift */; };
@@ -67,7 +66,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2801FE192BBADD56009D7967 /* NewsArticleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsArticleData.swift; sourceTree = "<group>"; };
 		2801FE1B2BBADD6C009D7967 /* ArticlesListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlesListViewModel.swift; sourceTree = "<group>"; };
 		2801FE1D2BBAE0DC009D7967 /* BiometricAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthManager.swift; sourceTree = "<group>"; };
 		2801FE1F2BBBE429009D7967 /* UserFaceIDTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFaceIDTableViewCell.swift; sourceTree = "<group>"; };
@@ -206,16 +204,8 @@
 				2869F63129C1B22F00CADFD7 /* LaunchScreen.storyboard */,
 				2869F63429C1B22F00CADFD7 /* Info.plist */,
 				2831C4352BB4ABAA00B48920 /* GoogleService-Info.plist */,
-				2869F63A29C1D21B00CADFD7 /* LandingView */,
 			);
 			path = Onews;
-			sourceTree = "<group>";
-		};
-		2869F63A29C1D21B00CADFD7 /* LandingView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LandingView;
 			sourceTree = "<group>";
 		};
 		2869F63B29C1D22600CADFD7 /* ViewControllers */ = {
@@ -359,7 +349,6 @@
 			isa = PBXGroup;
 			children = (
 				2801FE1B2BBADD6C009D7967 /* ArticlesListViewModel.swift */,
-				2801FE192BBADD56009D7967 /* NewsArticleData.swift */,
 				2831C4312BB48EA100B48920 /* UserAccessViewModel.swift */,
 				28AF8F982BB760A900B6CB60 /* UserArticlesViewModel.swift */,
 			);
@@ -564,7 +553,6 @@
 				28346F4C2BB7D6BE007270A9 /* ProfileViewController+Delegate.swift in Sources */,
 				28A335D32BB2BFAC00A0D861 /* TabBarController.swift in Sources */,
 				2811C5CB2BB3F17600880C52 /* SettingsViewController.swift in Sources */,
-				2801FE1A2BBADD56009D7967 /* NewsArticleData.swift in Sources */,
 				28ECF5AC29CF3ED5006876B7 /* K.swift in Sources */,
 				2869F62929C1B22E00CADFD7 /* SceneDelegate.swift in Sources */,
 				28A335E02BB2EF4E00A0D861 /* UserProfileTableViewCell.swift in Sources */,
@@ -736,7 +724,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifty.Onews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -772,7 +760,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swifty.Onews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

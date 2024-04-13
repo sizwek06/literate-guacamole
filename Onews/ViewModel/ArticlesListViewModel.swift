@@ -7,54 +7,43 @@
 
 import Foundation
 import FirebaseFirestore
+import OnewsSDK
 
 class ArticlesListViewModel {
     
     var articlesArray: [Article] = []
     var delegate: ArticleDelegate?
     let fireBaseDB = Firestore.firestore()
+    let articleRequest = ArticleRequest()
     
-    func fetchNewsArticles() {
-        performRequest(with: K.newsArticleURL + (UserDefaults.standard.string(forKey: K.userDefaultRegionKey) ?? "us"))
-    }
-    
-    func searchArticleTopic(with searchPhrase: String) {
-        performRequest(with: K.searchURL + searchPhrase)
-    }
-    
-    func performRequest(with urlString: String) {
+    func getArticles(_ searchPhrase: String? = nil) {
         self.delegate?.showNewsLoading()
-        if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            
-            let task = session.dataTask(with: url) { (data, _, error) in
-                self.delegate?.hideNewsLoading()
-                DispatchQueue.main.async {
-                    if let error = error {
-                        self.delegate?.didFailWithError(error: error.localizedDescription)
-                        return
-                    } else if let safeData = data {
-                        self.parseJSON(safeData)
-                        self.delegate?.didReceiveArticlesSuccessfully()
-                    }
-                }
-            }
-            task.resume()
-        }
-    }
-    
-    func parseJSON(_ newsData: Data) {
-        let decoder = JSONDecoder()
         
-        do {
-            let decodedData = try decoder.decode(NewsArticle.self, from: newsData)
-            self.articlesArray = decodedData.articles
-            self.articlesArray = articlesArray.filter { $0.title != "[Removed]" }
-
-        } catch {
-            delegate?.didFailWithError(error: error.localizedDescription)
+        var articleURL: String
+        
+        if let searchPhrase = searchPhrase {
+            articleURL = K.searchURL + searchPhrase
+        } else {
+            articleURL = K.newsArticleURL + (UserDefaults.standard.string(forKey: K.userDefaultRegionKey) ?? "us")
         }
-    }
+                                             
+        articleRequest.performGetArticlesRequest(with: articleURL, { [weak self] result in
+            guard let self else { return }
+            
+            self.delegate?.hideNewsLoading()
+            
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                self.articlesArray = data
+                
+                self.delegate?.didReceiveArticlesSuccessfully()
+                }
+            case .failure(let error):
+                self.delegate?.didFailWithError(error: error.localizedDescription)
+            }
+        })
+   }
     
     func saveNewsArticle(using newsArticle: Article) {
         self.delegate?.showNewsLoading()

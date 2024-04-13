@@ -33,7 +33,6 @@ extension SettingsViewController {
         
         switch indexPath.section {
         case 0:
-            print("CellForRow FaceID", self.isFaceIDVerified)
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
             else { return UITableViewCell() }
             
@@ -69,6 +68,15 @@ extension SettingsViewController {
                 cell.accessoryType = .none
                 cell.settingsSwitch.isHidden = false
                 
+                switch self.currentState {
+                case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
+                    cell.settingsSwitch.isEnabled = false
+                    cell.settingsLabel.textColor = .gray
+                default:
+                    cell.settingsSwitch.isEnabled = true
+                    cell.settingsLabel.textColor = .black
+                }
+                
                 return cell
             case 2:
                 cell.setUpSettingsCell(using: "globe.europe.africa.fill",
@@ -78,6 +86,15 @@ extension SettingsViewController {
                 cell.accessoryType = .disclosureIndicator
                 cell.settingsSwitch.isHidden = true
                 
+                switch self.currentState {
+                case .verifyFaceIdFailed, .signingInWithFaceId:
+                    cell.isUserInteractionEnabled = false
+                    cell.settingsLabel.textColor = .gray
+                default:
+                    cell.isUserInteractionEnabled = true
+                    cell.settingsLabel.textColor = .black
+                }
+//            TODO: FIX STATE AFTER SIGNED OUT
                 return cell
             default:
                 return UITableViewCell()
@@ -108,7 +125,6 @@ extension SettingsViewController {
         case 1:
             switch indexPath.row {
             case 2:
-                print("Region Picker clicked")
                 let regionsViewController = RegionsViewController()
                 let navController = UINavigationController(rootViewController: regionsViewController)
                 navController.navigationBar.barTintColor = UIColor(named: "CollectionColor")

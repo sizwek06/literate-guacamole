@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import OnewsSDK
 
 extension ProfileViewController {
     
@@ -24,21 +25,19 @@ extension ProfileViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
-        } else {
+        if section == 1 {
             switch self.currentState {
-            case .signedInWithFaceId:
-                if self.isFaceIDVerified {
-                    return checkRowCount()
+            case .signedInNoFaceId, .signedInWithFaceId:
+                if self.userArticlesViewModel.articlesArray.count > 1 {
+                    return self.userArticlesViewModel.articlesArray.count
                 }
-            case .signedInNoFaceId:
-                return checkRowCount()
             default:
                 return 1
             }
+        } else {
             return 1
         }
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -46,22 +45,28 @@ extension ProfileViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("Array count is: \(self.userArticlesViewModel.articlesArray.count)")
-        print("Array: \(self.userArticlesViewModel.articlesArray)")
-        print("cellForRowAt Current State: \(self.currentState)")
-        
         if indexPath.section == 1 {
             switch self.currentState {
             
             case .signingInWithFaceId, .verifyFaceIdFailed:
                 return createUseFaceIdView()
             case .signedInNoFaceId, .signedInWithFaceId:
-                return createNewsArticleSection(indexPathRow: indexPath.row)
+                switch self.currentState {
+                case .signedInNoFaceId, .signedInWithFaceId:
+                    if self.userArticlesViewModel.articlesArray.count > 1 {
+                        let article = self.userArticlesViewModel.articlesArray[indexPath.row]
+                        
+                        return createArticleTableViewCell(with: article)
+                    } else {
+                        return createNotSignInTableViewCell()
+                    }
+                case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
+                    return createNotSignInTableViewCell()
+                }
             case .signedOut:
                 return createNotSignInTableViewCell()
             }
         } else {
-            print("CellForRow FaceID", self.isFaceIDVerified)
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
             else { return UITableViewCell() }
             
@@ -101,7 +106,7 @@ extension ProfileViewController {
                     let article = userArticlesViewModel.articlesArray[indexPath.row]
                     
                     DispatchQueue.main.async {
-                        self.handleOpenArticleURL(url: article.url, source: article.source.name)
+                        self.handleOpenArticleURL(url: article.url, source: article.source.name ?? "No name")
                     }
                 }
             case .verifyFaceIdFailed, .signingInWithFaceId:
@@ -128,8 +133,6 @@ extension ProfileViewController {
             
             shareAction.image = addLabelToImage(imageString: "square.and.arrow.up", labelString: "Share")
             
-            self.setUpView()
-            
             return swipeConfiguration
         } else {
             let swipeConfiguration = UISwipeActionsConfiguration()
@@ -138,15 +141,21 @@ extension ProfileViewController {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let currentArticle = self.userArticlesViewModel.articlesArray[indexPath.row]
         
         if indexPath.section == 1 && isSignedIn {
             let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
                 
                 guard let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) else { return }
                 
-                self.userArticlesViewModel.deleteUserArticles(using: self.userArticlesViewModel.articlesArray[indexPath.row].url,
+                self.userArticlesViewModel.deleteUserArticles(using: currentArticle.url,
                                                               uuid: uuid)
+                self.userArticlesViewModel.articlesArray.remove(at: indexPath.row)
                 
+                if UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey) {
+                    self.sendArticleNotification(using: currentArticle, 
+                                                 isSaved: false)
+                }
                 completionHandler(true)
             }
             removeAction.backgroundColor = .systemRed
@@ -155,8 +164,6 @@ extension ProfileViewController {
             swipeConfiguration.performsFirstActionWithFullSwipe = true
             
             removeAction.image = addLabelToImage(imageString: "trash.fill", labelString: "Delete")
-            
-            self.setUpView()
             
             return swipeConfiguration
         } else {
@@ -193,36 +200,15 @@ extension ProfileViewController {
         downloadImg(urlString: article.urlToImage, imgView: cell.articleImg)
         
         cell.articleLabel.text = article.title
-        cell.websiteLabel.text = article.source.name.uppercased()
+        cell.websiteLabel.text = (article.source.name ?? K.newsViewHeader).uppercased()
         cell.websiteLabel.textColor = returnSourceColour()
         cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
         
         return cell
     }
-
-    func checkRowCount() -> Int {
-        if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
-            return 1
-        } else if !self.userArticlesViewModel.articlesArray.isEmpty {
-            return self.userArticlesViewModel.articlesArray.count
-        } else {
-            return 1
-        }
-    }
-
+    
     func createProfileSection(indexPathRowSection: Int) -> UITableViewCell {
         return isSignedIn ? createUseFaceIdView() : createNotSignInTableViewCell()
-    }
-    
-    func createNewsArticleSection(indexPathRow: Int) -> UITableViewCell {
-        switch self.currentState {
-        case .signedInNoFaceId, .signedInWithFaceId:
-            let article = self.userArticlesViewModel.articlesArray[indexPathRow]
-            
-            return createArticleTableViewCell(with: article)
-        case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
-            return createNotSignInTableViewCell()
-        }
     }
     
     // TODO: Add footer with a little text about current array count.

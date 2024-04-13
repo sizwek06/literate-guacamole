@@ -13,7 +13,6 @@ import FirebaseFirestoreSwift
 class ProfileViewController: BaseTableViewController {
     
     var userName: String?
-    var currentUser: String?
     var isFaceIDVerified: Bool = false
     var isFaceIDEnabled: Bool = false
     
@@ -22,7 +21,6 @@ class ProfileViewController: BaseTableViewController {
     
     var currentState: OnewsStates = .signedOut {
         didSet {
-            print("DidSet Current State: \(self.currentState)")
             self.tableView.reloadData()
         }
     }
@@ -37,44 +35,38 @@ class ProfileViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if self.isSignedIn { verifyUser() }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+        
+        self.userArticlesViewModel.userArticleDelegate = self
+        self.verifyUser()
         self.setUpView()
     }
     
-    @objc override func setUpView() {
-    
-        print("ViewWillAppear FaceID", self.isFaceIDVerified)
+    @objc func setUpView() {
         
-        super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
-        super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
-        super.tableView.register(UserFaceIDTableViewCell.self, forCellReuseIdentifier: UserFaceIDTableViewCell.identifier)
-        
-        DispatchQueue.main.async {
-           if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
-            if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey),
-               let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) {
-                self.userName = user
-                self.isSignedIn = !user.isEmpty
-                
-                self.userArticlesViewModel.queryUserArticles(using: uuid) { articles in
-                    self.userArticlesViewModel.articlesArray = articles
+        switch self.currentState {
+        case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
+            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey),
+                   let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) {
+                    self.userName = user
+                    self.isSignedIn = !user.isEmpty
+                    
+                    DispatchQueue.main.async {
+                        self.userArticlesViewModel.queryCurrentUserArticles(using: uuid)
+                        self.currentState = .signedInNoFaceId
+                    }
                 }
-                self.currentState = .signedInNoFaceId
-            }
             } else {
+                self.userArticlesViewModel.articlesArray = []
                 self.currentState = .signedOut
             }
-            
-            self.tableView.frame = self.view.bounds
-            self.view.addSubview(self.tableView)
-            
-            self.tableView.reloadData()
-            self.tableView.refreshControl?.endRefreshing()
+        case .verifyFaceIdFailed:
+            self.currentState = .verifyFaceIdFailed
+        case .signingInWithFaceId:
+            self.currentState = .signingInWithFaceId
         }
+        
+        self.setupTableView()
     }
     
     func navigateToSettingsSignIn() {
@@ -113,21 +105,6 @@ class ProfileViewController: BaseTableViewController {
                     }
                 }
             }
-        } else {
-            DispatchQueue.main.async {
-                self.currentState = .signedInNoFaceId
-                self.setUpView()
-            }
-        }
-    }
-    
-    func bingBong() {
-        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserSignedInText)
-        OnewsLoaderViewController.sharedInstance.show()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            guard let self else { return }
-            self.hideNewsLoading()
         }
     }
 }

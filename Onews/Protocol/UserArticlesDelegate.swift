@@ -11,6 +11,6 @@ import UIKit
 protocol UserArticlesDelegate {
     func didReceiveArticlesSuccessfully()
     func didFailWithError(error: String)
-    func showNewsLoading()
+    func showUserArticlesLoading()
     func hideNewsLoading()
 }

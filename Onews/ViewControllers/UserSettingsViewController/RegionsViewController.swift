@@ -16,6 +16,11 @@ class RegionsViewController: SettingsViewController {
         title = "Regions"
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setupTableView()
+    }
 }
 
 extension RegionsViewController {

@@ -19,24 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let tabBarViewController = TabBarController()
         
-        let articlesNavigationController = UINavigationController(rootViewController: ArticlesListViewController())
-        articlesNavigationController.title = "Onews"
-        let userNavigationController = UINavigationController(rootViewController: ProfileViewController())
-        userNavigationController.title = "Profile"
-        let settingsNavigationController = UINavigationController(rootViewController: SettingsViewController())
-        settingsNavigationController.title = "Settings"
-        
-        articlesNavigationController.tabBarItem.image = UIImage(systemName: "newspaper")
-        articlesNavigationController.tabBarItem.selectedImage = UIImage(systemName: "newspaper.fill")
-        
-        userNavigationController.tabBarItem.image = UIImage(systemName: "person.crop.circle")
-        userNavigationController.tabBarItem.selectedImage = UIImage(systemName: "person.crop.circle.fill")
-        
-        settingsNavigationController.tabBarItem.image = UIImage(systemName: "gearshape")
-        settingsNavigationController.tabBarItem.selectedImage = UIImage(systemName: "gearshape.fill")
-        
-        tabBarViewController.tabBar.tintColor = UIColor(named: "AppearanceColor")
-        tabBarViewController.setViewControllers([userNavigationController, articlesNavigationController, settingsNavigationController], animated: true)
+        tabBarViewController.setupTabBar()
         
         if let windowScene = scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
