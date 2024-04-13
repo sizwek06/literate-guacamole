@@ -37,7 +37,7 @@ class ProfileViewController: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.main.async {
-            if self.isSignedIn { self.verifyUser() }
+            self.verifyUser()
         }
     }
     
@@ -64,9 +64,9 @@ class ProfileViewController: BaseTableViewController {
                     }
                     self.currentState = .signedInNoFaceId
                 }
-                
-                self.tableView.frame = self.view.bounds
-                self.view.addSubview(self.tableView)
+            } else {
+                self.userArticlesViewModel.articlesArray = []
+                self.currentState = .signedOut
             }
         case .verifyFaceIdFailed:
             self.currentState = .verifyFaceIdFailed
@@ -75,6 +75,8 @@ class ProfileViewController: BaseTableViewController {
         }
         
         DispatchQueue.main.async {
+            self.tableView.frame = self.view.bounds
+            self.view.addSubview(self.tableView)
             self.tableView.reloadData()
             self.tableView.refreshControl?.endRefreshing()
         }
@@ -118,7 +120,6 @@ class ProfileViewController: BaseTableViewController {
             }
         } else {
             DispatchQueue.main.async {
-                self.currentState = .signedInNoFaceId
                 self.setUpView()
             }
         }
