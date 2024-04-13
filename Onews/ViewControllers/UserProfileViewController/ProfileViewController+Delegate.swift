@@ -10,8 +10,8 @@ import UIKit
 
 extension ProfileViewController: UserArticlesDelegate {
     
-    func showNewsLoading() {
-        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingNewsText)
+    func showUserArticlesLoading() {
+        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUsersNewsText)
         OnewsLoaderViewController.sharedInstance.show()
     }
     
@@ -26,7 +26,7 @@ extension ProfileViewController: UserArticlesDelegate {
     func didReceiveArticlesSuccessfully() {
         DispatchQueue.main.async {
             self.reloadNewsArticles()
-            self.setUpView()
+            self.hideNewsLoading()
         }
     }
     

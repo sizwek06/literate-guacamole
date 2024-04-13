@@ -25,21 +25,19 @@ extension ProfileViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
-        } else {
+        if section == 1 {
             switch self.currentState {
-            case .signedInWithFaceId:
-                if self.isFaceIDVerified {
-                    return checkRowCount()
+            case .signedInNoFaceId, .signedInWithFaceId:
+                if self.userArticlesViewModel.articlesArray.count > 1 {
+                    return self.userArticlesViewModel.articlesArray.count
                 }
-            case .signedInNoFaceId:
-                return checkRowCount()
             default:
                 return 1
             }
+        } else {
             return 1
         }
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -53,7 +51,18 @@ extension ProfileViewController {
             case .signingInWithFaceId, .verifyFaceIdFailed:
                 return createUseFaceIdView()
             case .signedInNoFaceId, .signedInWithFaceId:
-                return createNewsArticleSection(indexPathRow: indexPath.row)
+                switch self.currentState {
+                case .signedInNoFaceId, .signedInWithFaceId:
+                    if self.userArticlesViewModel.articlesArray.count > 1 {
+                        let article = self.userArticlesViewModel.articlesArray[indexPath.row]
+                        
+                        return createArticleTableViewCell(with: article)
+                    } else {
+                        return createNotSignInTableViewCell()
+                    }
+                case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
+                    return createNotSignInTableViewCell()
+                }
             case .signedOut:
                 return createNotSignInTableViewCell()
             }
@@ -199,30 +208,9 @@ extension ProfileViewController {
         
         return cell
     }
-
-    func checkRowCount() -> Int {
-        if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
-            return 1
-        } else if !self.userArticlesViewModel.articlesArray.isEmpty {
-            return self.userArticlesViewModel.articlesArray.count
-        } else {
-            return 1
-        }
-    }
-
+    
     func createProfileSection(indexPathRowSection: Int) -> UITableViewCell {
         return isSignedIn ? createUseFaceIdView() : createNotSignInTableViewCell()
-    }
-    
-    func createNewsArticleSection(indexPathRow: Int) -> UITableViewCell {
-        switch self.currentState {
-        case .signedInNoFaceId, .signedInWithFaceId:
-            let article = self.userArticlesViewModel.articlesArray[indexPathRow]
-            
-            return createArticleTableViewCell(with: article)
-        case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
-            return createNotSignInTableViewCell()
-        }
     }
     
     // TODO: Add footer with a little text about current array count.

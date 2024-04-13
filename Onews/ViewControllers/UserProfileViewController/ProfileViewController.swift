@@ -13,7 +13,6 @@ import FirebaseFirestoreSwift
 class ProfileViewController: BaseTableViewController {
     
     var userName: String?
-    var currentUser: String?
     var isFaceIDVerified: Bool = false
     var isFaceIDEnabled: Bool = false
     
@@ -36,20 +35,13 @@ class ProfileViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        DispatchQueue.main.async {
-            self.verifyUser()
-        }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+        
+        self.userArticlesViewModel.userArticleDelegate = self
+        self.verifyUser()
         self.setUpView()
     }
     
-    @objc override func setUpView() {
-        super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
-        super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
-        super.tableView.register(UserFaceIDTableViewCell.self, forCellReuseIdentifier: UserFaceIDTableViewCell.identifier)
+    @objc func setUpView() {
         
         switch self.currentState {
         case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
@@ -59,10 +51,10 @@ class ProfileViewController: BaseTableViewController {
                     self.userName = user
                     self.isSignedIn = !user.isEmpty
                     
-                    self.userArticlesViewModel.queryUserArticles(using: uuid) { articles in
-                        self.userArticlesViewModel.articlesArray = articles
+                    DispatchQueue.main.async {
+                        self.userArticlesViewModel.queryCurrentUserArticles(using: uuid)
+                        self.currentState = .signedInNoFaceId
                     }
-                    self.currentState = .signedInNoFaceId
                 }
             } else {
                 self.userArticlesViewModel.articlesArray = []
@@ -74,12 +66,7 @@ class ProfileViewController: BaseTableViewController {
             self.currentState = .signingInWithFaceId
         }
         
-        DispatchQueue.main.async {
-            self.tableView.frame = self.view.bounds
-            self.view.addSubview(self.tableView)
-            self.tableView.reloadData()
-            self.tableView.refreshControl?.endRefreshing()
-        }
+        self.setupTableView()
     }
     
     func navigateToSettingsSignIn() {
@@ -114,13 +101,8 @@ class ProfileViewController: BaseTableViewController {
                     
                     DispatchQueue.main.async {
                         self.currentState = .signedInWithFaceId
-                        self.setUpView()
                     }
                 }
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.setUpView()
             }
         }
     }

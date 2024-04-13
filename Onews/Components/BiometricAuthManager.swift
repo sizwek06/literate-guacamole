@@ -1,8 +1,8 @@
 //
 //  BiometricAuthManager.swift
-//  Onews
+//  Medium: https://medium.com/@fuadawaheed/biometric-authentication-in-ios-apps-a-comprehensive-how-to-guide
 //
-//  Created by Sizwe Khathi on 2024/04/01.
+//  Created by Fuad A. Waheed on 31 Oct 2023
 //
 
 import LocalAuthentication

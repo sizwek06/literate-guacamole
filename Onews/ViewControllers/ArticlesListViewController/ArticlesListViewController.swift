@@ -49,6 +49,25 @@ class ArticlesListViewController: BaseTableViewController {
         articlesListViewModel.getArticles()
         tableView.refreshControl?.endRefreshing()
     }
+    
+    func setUpView() {
+        UserDefaults.standard.synchronize()
+        
+        DispatchQueue.main.async {
+            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
+                    UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
+                    self.isSignedIn = !user.isEmpty
+                }
+            } else {
+                UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
+                self.isSignedIn = false
+            }
+            
+            self.tableView.reloadData()
+            self.tableView.refreshControl?.endRefreshing()
+        }
+    }
 }
 
 extension ArticlesListViewController: UISearchControllerDelegate, UISearchBarDelegate {
