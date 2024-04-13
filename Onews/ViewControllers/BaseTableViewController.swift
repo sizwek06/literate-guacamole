@@ -19,7 +19,6 @@ class BaseTableViewController: UIViewController {
         let table = UITableView(frame: .zero, style: .insetGrouped)
         table.register(MainArticleTableViewCell.self, forCellReuseIdentifier: MainArticleTableViewCell.identifier)
         table.refreshControl = UIRefreshControl()
-        table.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -37,6 +36,18 @@ class BaseTableViewController: UIViewController {
         tableView.frame = view.bounds
         
         navigationItem.hidesSearchBarWhenScrolling = true
+    }
+    
+    func setupTableView() {
+        self.tableView.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
+        self.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
+        self.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
+        self.tableView.register(UserFaceIDTableViewCell.self, forCellReuseIdentifier: UserFaceIDTableViewCell.identifier)
+        
+        self.tableView.frame = self.view.bounds
+        self.view.addSubview(self.tableView)
+        self.tableView.reloadData()
+        self.tableView.refreshControl?.endRefreshing()
     }
     
     func downloadImg(urlString: String?, imgView: UIImageView) {
@@ -69,36 +80,25 @@ class BaseTableViewController: UIViewController {
     }
     
     func handleOpenArticleURL(url: String, source: String) {
-        let articleWebViewController = ArticleWebViewController(url: url, source: source)
-        let navController = UINavigationController(rootViewController: articleWebViewController)
-        navController.navigationBar.barTintColor = UIColor(named: "CollectionColor")
-        self.present(navController, animated: true, completion: nil)
+        if !url.isEmpty {
+            let articleWebViewController = ArticleWebViewController(url: url, source: source)
+            let navController = UINavigationController(rootViewController: articleWebViewController)
+            navController.navigationBar.barTintColor = UIColor(named: "CollectionColor")
+            self.present(navController, animated: true, completion: nil)
+        } else {
+            self.bingBong(K.noURLText)
+        }
     }
     
     func shareArticleLink(with urlString: String) {
-        let textToShare = [ urlString ]
-        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
-        
-        self.present(activityViewController, animated: true, completion: nil)
-    }
-    
-    func setUpView() {
-        UserDefaults.standard.synchronize()
-        
-        DispatchQueue.main.async {
-            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
-                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
-                    UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
-                    self.isSignedIn = !user.isEmpty
-                }
-            } else {
-                UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
-                self.isSignedIn = false
-            }
+        if !urlString.isEmpty {
+            let textToShare = [ urlString ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
             
-            self.tableView.reloadData()
-            self.tableView.refreshControl?.endRefreshing()
+            self.present(activityViewController, animated: true, completion: nil)
+        } else {
+            self.bingBong(K.noURLText)
         }
     }
     
@@ -106,6 +106,15 @@ class BaseTableViewController: UIViewController {
         if let region = UserDefaults.standard.string(forKey: K.userDefaultRegionKey) {
         } else {
             UserDefaults.standard.setValue("us", forKey: K.userDefaultRegionKey)
+        }
+    }
+    
+    func bingBong(_ titleText: String = K.loadingNewsText) {
+        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: titleText)
+        OnewsLoaderViewController.sharedInstance.show()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            OnewsLoaderViewController.sharedInstance.hide()
         }
     }
 }

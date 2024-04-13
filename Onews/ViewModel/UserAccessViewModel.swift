@@ -49,7 +49,7 @@ class UserAccessViewModel {
     
     func signOutUser() {
         self.userAccessDelegate?.showLoader()
-      
+       // TODO: SIGNING OUT text?
         do {
             self.userAccessDelegate?.hideLoader()
             try Auth.auth().signOut()

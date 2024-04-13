@@ -21,8 +21,11 @@ struct K {
     static let otherArticlesHeader = "OTHER ARTICLES"
     
     public static let loadingNewsText = "Loading news, please wait."
-    public static let loadingUserText = "Loading, please wait."
+    public static let loadingUsersNewsText = "Loading your articles, please wait."
+    public static let loadingUserText = "Signing in, please wait."
+    public static let loadingUserSettingsText = "Setting Up, please wait."
     public static let loadingUserSignedInText = "Bing Bong!, You're Logged In!"
+    public static let noURLText = "Bing Bong!, Article Has No URL!"
     public static let noSessionText = "Not signed in, click below to get started"
     
     static let signInText = "Sign in"

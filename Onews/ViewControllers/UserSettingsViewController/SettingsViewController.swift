@@ -18,10 +18,15 @@ class SettingsViewController: ProfileViewController {
         
         title = "Settings"
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        userAccessViewModel.userAccessDelegate = self
-        
-        self.setUpView()
+        self.userAccessViewModel.userAccessDelegate = self
+        self.verifyUser()
+        self.setupTableView()
+        // TODO: Why does it show the Profile loader 
     }
     
     func showSignInSheet() {

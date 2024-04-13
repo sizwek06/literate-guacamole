@@ -71,8 +71,10 @@ extension SettingsViewController {
                 switch self.currentState {
                 case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
                     cell.settingsSwitch.isEnabled = false
+                    cell.settingsLabel.textColor = .gray
                 default:
                     cell.settingsSwitch.isEnabled = true
+                    cell.settingsLabel.textColor = .black
                 }
                 
                 return cell
@@ -84,6 +86,15 @@ extension SettingsViewController {
                 cell.accessoryType = .disclosureIndicator
                 cell.settingsSwitch.isHidden = true
                 
+                switch self.currentState {
+                case .verifyFaceIdFailed, .signingInWithFaceId:
+                    cell.isUserInteractionEnabled = false
+                    cell.settingsLabel.textColor = .gray
+                default:
+                    cell.isUserInteractionEnabled = true
+                    cell.settingsLabel.textColor = .black
+                }
+//            TODO: FIX STATE AFTER SIGNED OUT
                 return cell
             default:
                 return UITableViewCell()

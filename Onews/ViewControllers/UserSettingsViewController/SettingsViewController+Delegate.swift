@@ -17,9 +17,10 @@ extension SettingsViewController: UserAcessDelegate {
         alert.addAction(UIAlertAction(title: K.alertYes, style: .destructive, handler: { _ in
                 self.userAccessViewModel.signOutUser()
                 super.currentState = .signedOut
-                super.setUpView()
+                self.setupTableView()
                 self.refreshUserDetails(1)
                 UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
+                UserDefaults.standard.set(false, forKey: K.userDefaultBiometricsKey)
                 UserDefaults.standard.set("us", forKey: K.userDefaultRegionKey)
             }))
             
@@ -39,8 +40,7 @@ extension SettingsViewController: UserAcessDelegate {
         
         super.self.currentState = .signedInNoFaceId
         self.currentState = .signedInNoFaceId
-        super.setUpView()
-        self.setUpView()
+        self.setupTableView()
         
         self.dismiss(animated: true)
     }
@@ -60,7 +60,7 @@ extension SettingsViewController: UserAcessDelegate {
     }
     
     func showLoader() {
-        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserText)
+        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserSettingsText)
         OnewsLoaderViewController.sharedInstance.show()
     }
     

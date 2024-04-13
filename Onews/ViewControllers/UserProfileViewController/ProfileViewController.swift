@@ -13,7 +13,6 @@ import FirebaseFirestoreSwift
 class ProfileViewController: BaseTableViewController {
     
     var userName: String?
-    var currentUser: String?
     var isFaceIDVerified: Bool = false
     var isFaceIDEnabled: Bool = false
     
@@ -36,18 +35,13 @@ class ProfileViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if self.isSignedIn { verifyUser() }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+        
+        self.userArticlesViewModel.userArticleDelegate = self
+        self.verifyUser()
         self.setUpView()
     }
     
-    @objc override func setUpView() {
-        super.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
-        super.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
-        super.tableView.register(UserFaceIDTableViewCell.self, forCellReuseIdentifier: UserFaceIDTableViewCell.identifier)
+    @objc func setUpView() {
         
         switch self.currentState {
         case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
@@ -57,14 +51,14 @@ class ProfileViewController: BaseTableViewController {
                     self.userName = user
                     self.isSignedIn = !user.isEmpty
                     
-                    self.userArticlesViewModel.queryUserArticles(using: uuid) { articles in
-                        self.userArticlesViewModel.articlesArray = articles
+                    DispatchQueue.main.async {
+                        self.userArticlesViewModel.queryCurrentUserArticles(using: uuid)
+                        self.currentState = .signedInNoFaceId
                     }
-                    self.currentState = .signedInNoFaceId
                 }
-                
-                self.tableView.frame = self.view.bounds
-                self.view.addSubview(self.tableView)
+            } else {
+                self.userArticlesViewModel.articlesArray = []
+                self.currentState = .signedOut
             }
         case .verifyFaceIdFailed:
             self.currentState = .verifyFaceIdFailed
@@ -72,10 +66,7 @@ class ProfileViewController: BaseTableViewController {
             self.currentState = .signingInWithFaceId
         }
         
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.tableView.refreshControl?.endRefreshing()
-        }
+        self.setupTableView()
     }
     
     func navigateToSettingsSignIn() {
@@ -114,21 +105,6 @@ class ProfileViewController: BaseTableViewController {
                     }
                 }
             }
-        } else {
-            DispatchQueue.main.async {
-                self.currentState = .signedInNoFaceId
-                self.setUpView()
-            }
-        }
-    }
-    
-    func bingBong() {
-        OnewsLoaderViewController.sharedInstance.setDisplay(loadingText: K.loadingUserSignedInText)
-        OnewsLoaderViewController.sharedInstance.show()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            guard let self else { return }
-            self.hideNewsLoading()
         }
     }
 }
