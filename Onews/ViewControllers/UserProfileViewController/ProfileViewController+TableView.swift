@@ -148,7 +148,7 @@ extension ProfileViewController {
                 
                 guard let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) else { return }
                 
-                self.userArticlesViewModel.deleteUserArticles(using: currentArticle.url,
+                self.userArticlesViewModel.deleteUserArticle(currentArticle.url,
                                                               uuid: uuid)
                 self.userArticlesViewModel.articlesArray.remove(at: indexPath.row)
                 
