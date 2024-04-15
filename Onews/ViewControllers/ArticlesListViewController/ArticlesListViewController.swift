@@ -21,7 +21,7 @@ class ArticlesListViewController: BaseTableViewController {
         super.viewDidLoad()
         
         title = "Onews"
-        articlesListViewModel.delegate = self
+        articlesListViewModel.articleDelegate = self
         
         view.addSubview(tableView)
         tableView.refreshControl?.addTarget(self, action:
