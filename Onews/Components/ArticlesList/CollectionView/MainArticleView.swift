@@ -86,8 +86,7 @@ class MainArticleView: UIView {
     }
     
     func returnSourceColour() -> UIColor {
-        // TODO: Introduce source enums and map colours for
-        // for e.g. you-tube = oNewsRed, tech-crunch = oNewsRed, default still black.
+        
         let randomInt = Int.random(in: 1..<12)
         
         switch randomInt {

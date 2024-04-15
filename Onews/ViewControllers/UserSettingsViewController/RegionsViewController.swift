@@ -30,7 +30,7 @@ extension RegionsViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 1 ? "Select a region below to receive the latest top headlines from around the globe" : ""
+        return section == 1 ? "Select a region below to receive the latest top headlines from around the globe" : K.profileHeaderText
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

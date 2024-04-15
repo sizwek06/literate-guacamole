@@ -20,6 +20,24 @@ extension ProfileViewController {
                 return "Articles"
             }
         } else {
+            switch self.currentState {
+            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed:
+                return ""
+            default:
+                return K.profileHeaderText
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == 1 {
+            switch self.currentState {
+            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed:
+                return ""
+            default:
+                return "You have \(self.userArticlesViewModel.articlesArray.count) news articles, well done! Swipe on the articles to share!"
+            }
+        } else {
             return ""
         }
     }
@@ -200,7 +218,7 @@ extension ProfileViewController {
         downloadImg(urlString: article.urlToImage, imgView: cell.articleImg)
         
         cell.articleLabel.text = article.title
-        cell.websiteLabel.text = (article.source.name ?? K.newsViewHeader).uppercased()
+        cell.websiteLabel.text = (article.source.name ?? K.newsViewTitle).uppercased()
         cell.websiteLabel.textColor = returnSourceColour()
         cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
         

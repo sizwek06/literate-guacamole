@@ -28,7 +28,7 @@ class ProfileViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = K.profileViewHeader
+        title = K.profileViewTitle
         
         tableView.refreshControl?.addTarget(self, action: #selector(setUpView), for: .valueChanged)
     }

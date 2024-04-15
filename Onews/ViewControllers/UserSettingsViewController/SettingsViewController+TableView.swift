@@ -15,11 +15,19 @@ extension SettingsViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return ""
-        // TODO: Add a header & footer, describing what is happening, don't forget the states!
+        if section == 0 {
+            switch self.currentState {
+            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed:
+                return ""
+            default:
+                return K.profileHeaderText
+            }
+        } else {
+            return ""
+        }
     }
     
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return section == 1 ? K.settingsFooterText : ""
     }
     

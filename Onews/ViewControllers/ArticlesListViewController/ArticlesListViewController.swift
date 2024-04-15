@@ -21,7 +21,7 @@ class ArticlesListViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Onews"
+        title = K.newsViewTitle
         articlesListViewModel.articleDelegate = self
         
         view.addSubview(tableView)

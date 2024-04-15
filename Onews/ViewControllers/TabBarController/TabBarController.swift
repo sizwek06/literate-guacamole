@@ -17,11 +17,11 @@ class TabBarController: UITabBarController {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch tabBar.selectedItem?.title {
-        case "Profile":
+        case K.profileViewTitle:
             self.selectedIndex = 0
-        case "Onews":
+        case K.newsViewTitle:
             self.selectedIndex = 1
-        case "Settings":
+        case K.settingsViewTitle:
             self.selectedIndex = 2
         default:
             break
@@ -30,11 +30,11 @@ class TabBarController: UITabBarController {
     
     func setupTabBar() {
         let articlesNavigationController = UINavigationController(rootViewController: ArticlesListViewController())
-        articlesNavigationController.title = "Onews"
+        articlesNavigationController.title = K.newsViewTitle
         let userNavigationController = UINavigationController(rootViewController: ProfileViewController())
-        userNavigationController.title = "Profile"
+        userNavigationController.title = K.profileViewTitle
         let settingsNavigationController = UINavigationController(rootViewController: SettingsViewController())
-        settingsNavigationController.title = "Settings"
+        settingsNavigationController.title = K.settingsViewTitle
         
         articlesNavigationController.tabBarItem.image = UIImage(systemName: "newspaper")
         articlesNavigationController.tabBarItem.selectedImage = UIImage(systemName: "newspaper.fill")

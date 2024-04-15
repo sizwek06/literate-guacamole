@@ -23,7 +23,7 @@ extension MainArticleView: UICollectionViewDelegate, UICollectionViewDataSource 
             downloadImg(urlString: article.urlToImage, imgView: cell.articleImg)
             cell.currentArticle = article
             cell.articleLabel.text = article.title
-            cell.websiteLabel.text = (article.source.name ?? K.newsViewHeader).uppercased()
+            cell.websiteLabel.text = (article.source.name ?? K.newsViewTitle).uppercased()
             cell.websiteLabel.textColor = returnSourceColour()
             cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
             
@@ -50,6 +50,6 @@ extension MainArticleView: UICollectionViewDelegate, UICollectionViewDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        didSelectArticle?(articlesArray[indexPath.row].url, articlesArray[indexPath.row].source.name ?? K.newsViewHeader)
+        didSelectArticle?(articlesArray[indexPath.row].url, articlesArray[indexPath.row].source.name ?? K.newsViewTitle)
     }
 }

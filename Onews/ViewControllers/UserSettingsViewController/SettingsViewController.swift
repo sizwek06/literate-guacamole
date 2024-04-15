@@ -16,7 +16,7 @@ class SettingsViewController: ProfileViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Settings"
+        title = K.settingsViewTitle
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
     }
     
