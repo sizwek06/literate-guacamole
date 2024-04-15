@@ -22,6 +22,16 @@ class MainArticleTableViewCell: UITableViewCell {
         return mainArticle
     }()
     
+    lazy var pageIndicator: UIPageControl = {
+        let dots = UIPageControl(frame: CGRect(x: 100, y: 100, width: 120, height: 25))
+        dots.numberOfPages = 3
+        dots.currentPageIndicatorTintColor = .black
+        dots.pageIndicatorTintColor = .lightGray
+        dots.backgroundColor = .white
+        dots.translatesAutoresizingMaskIntoConstraints = false
+        return dots
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layer.shadowColor = UIColor.black.cgColor
@@ -39,11 +49,15 @@ class MainArticleTableViewCell: UITableViewCell {
         selectionStyle = .none
         
         contentView.addSubview(mainArticleView)
+        contentView.addSubview(pageIndicator)
         
         mainArticleView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        mainArticleView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        mainArticleView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 10).isActive = true
-        mainArticleView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: -10).isActive = true
+        mainArticleView.heightAnchor.constraint(equalToConstant: 480.0).isActive = true
+        mainArticleView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5).isActive = true
+        mainArticleView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 5).isActive = true
+        
+        pageIndicator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        pageIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
     }
     
     func reload() {

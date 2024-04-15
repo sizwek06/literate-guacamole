@@ -52,4 +52,8 @@ extension MainArticleView: UICollectionViewDelegate, UICollectionViewDataSource 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         didSelectArticle?(articlesArray[indexPath.row].url, articlesArray[indexPath.row].source.name ?? K.newsViewTitle)
     }
+//    
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        self.pageIndicator.currentPage = indexPath.row
+//    }
 }

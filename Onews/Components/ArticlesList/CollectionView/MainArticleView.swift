@@ -38,6 +38,7 @@ class MainArticleView: UIView {
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
         collectionView.isPagingEnabled = true
+        collectionView.indicatorStyle = .white
         collectionView.showsHorizontalScrollIndicator = true
         collectionView.register(UINib(nibName: "MainArticleCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "articleId")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
