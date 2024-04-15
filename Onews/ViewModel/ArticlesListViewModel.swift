@@ -46,23 +46,17 @@ class ArticlesListViewModel {
         })
    }
     
-    func saveNewsArticle(using newsArticle: Article) {
+    func saveNewsArticle(using newsArticle: Article, userUID: String) {
         self.articleDelegate?.showNewsLoading()
             
-        guard let userUID = UserDefaults.standard.object(forKey: K.userDefaultUUIDKey) as! String? else {
-            return }
-            
-        onewsFireStore.saveNewsArticle(using: newsArticle, userUID: userUID) { [weak self] error in
-        
+        onewsFireStore.saveNewsArticle(using: newsArticle, userUID: userUID, completion: { [weak self] error in
             guard let self else { return }
         
             self.articleDelegate?.hideNewsLoading()
         
             if let err = error {
                 self.articleDelegate?.didFailWithError(error: err.localizedDescription)
-            } else {
-                self.articleDelegate?.didReceiveArticlesSuccessfully()
             }
-        }
+        })
     }
 }

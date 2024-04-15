@@ -47,7 +47,7 @@ extension ArticlesListViewController {
             }
             
             cell.mainArticleView.didSaveArticle = { article in
-                self.articlesListViewModel.saveNewsArticle(using: article)
+                self.articlesListViewModel.saveNewsArticle(using: article, userUID: self.userUID)
                 
                 if UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey) {
                     self.sendArticleNotification(using: article, 
@@ -80,8 +80,9 @@ extension ArticlesListViewController {
                 completionHandler(true)
             }
             
-            let likeAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
-                self.articlesListViewModel.saveNewsArticle(using: self.articlesListViewModel.articlesArray[indexPath.row])
+            let saveAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
+                self.articlesListViewModel.saveNewsArticle(using: self.articlesListViewModel.articlesArray[indexPath.row], 
+                                                           userUID: self.userUID)
                 
                 if UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey) {
                     self.sendArticleNotification(using: currentArticle, 
@@ -92,14 +93,14 @@ extension ArticlesListViewController {
             }
             
             shareAction.backgroundColor = K.newsColor.oNewsBlue
-            likeAction.backgroundColor = K.newsColor.oNewsMaroon
+            saveAction.backgroundColor = K.newsColor.oNewsMaroon
             
-            let actions = self.isSignedIn ? [likeAction, shareAction] : [shareAction]
+            let actions = self.isSignedIn ? [saveAction, shareAction] : [shareAction]
             
             let swipeConfiguration = UISwipeActionsConfiguration(actions: actions)
             swipeConfiguration.performsFirstActionWithFullSwipe = false
             
-            likeAction.image = addLabelToImage(imageString: "bookmark", labelString: "Save")
+            saveAction.image = addLabelToImage(imageString: "bookmark", labelString: "Save")
             shareAction.image = addLabelToImage(imageString: "square.and.arrow.up", labelString: "Share")
             
             return swipeConfiguration
