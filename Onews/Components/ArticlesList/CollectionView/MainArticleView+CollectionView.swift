@@ -38,7 +38,6 @@ extension MainArticleView: UICollectionViewDelegate, UICollectionViewDataSource 
             cell.didShareArticle = { currentURL in
                 self.didShareArticle?(currentURL)
             }
-            
             return cell
         } else {
             return cell
@@ -52,8 +51,10 @@ extension MainArticleView: UICollectionViewDelegate, UICollectionViewDataSource 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         didSelectArticle?(articlesArray[indexPath.row].url, articlesArray[indexPath.row].source.name ?? K.newsViewTitle)
     }
-//    
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        self.pageIndicator.currentPage = indexPath.row
-//    }
+    
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let offSet = scrollView.contentOffset.x / 338
+        print("Current element for offset Int \(Int(offSet))")
+        didSwipeArticle?(Int(offSet))
+    }
 }

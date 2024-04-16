@@ -14,6 +14,7 @@ class MainArticleView: UIView {
     var didSelectArticle: ((String, String) -> Void)?
     var didShareArticle: ((String) -> Void)?
     var didSaveArticle: ((Article) -> Void)?
+    var didSwipeArticle: ((Int) -> Void)?
     var isSignedIn: Bool?
     
     var articlesArray: [Article] = [] {
@@ -32,14 +33,16 @@ class MainArticleView: UIView {
         flowLayout.minimumLineSpacing = 20
         flowLayout.estimatedItemSize = CGSize(width: (UIScreen.main.bounds.width - 144.0) / 3, height: (UIScreen.main.bounds.width - 144.0) / 3)
         flowLayout.scrollDirection = .horizontal
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.allowsSelection = true
         collectionView.isScrollEnabled = true
         collectionView.isPagingEnabled = true
-        collectionView.indicatorStyle = .white
-        collectionView.showsHorizontalScrollIndicator = true
+        
+        collectionView.backgroundColor = UIColor(named: "CollectionColor")
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(UINib(nibName: "MainArticleCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "articleId")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isUserInteractionEnabled = true

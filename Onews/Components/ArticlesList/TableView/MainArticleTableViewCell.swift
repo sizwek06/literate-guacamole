@@ -13,6 +13,7 @@ class MainArticleTableViewCell: UITableViewCell {
     
     var articlesArray: [Article]?
     var isUserSignedIn: Bool?
+    var didSwipeArticle: ((Int) -> Void)?
     
     lazy var mainArticleView: MainArticleView = {
         let mainArticle = MainArticleView(articlesArray: articlesArray ?? [],
@@ -25,9 +26,10 @@ class MainArticleTableViewCell: UITableViewCell {
     lazy var pageIndicator: UIPageControl = {
         let dots = UIPageControl(frame: CGRect(x: 100, y: 100, width: 120, height: 25))
         dots.numberOfPages = 3
-        dots.currentPageIndicatorTintColor = .black
+        dots.currentPageIndicatorTintColor = UIColor(named: "AppearanceColor")
         dots.pageIndicatorTintColor = .lightGray
-        dots.backgroundColor = .white
+        dots.backgroundColor = UIColor(named: "CollectionColor")
+        dots.addTarget(self, action: #selector(didSelectPageIndicator(sender:)), for: .valueChanged)
         dots.translatesAutoresizingMaskIntoConstraints = false
         return dots
     }()
@@ -36,6 +38,10 @@ class MainArticleTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = .zero
+        
+        mainArticleView.didSwipeArticle = { indexPathRow in
+            self.pageIndicator.currentPage = indexPathRow
+        }
         
         setupView()
     }
@@ -62,5 +68,18 @@ class MainArticleTableViewCell: UITableViewCell {
     
     func reload() {
         self.mainArticleView.reload()
+    }
+    
+    @objc func didSelectPageIndicator(sender: UIPageControl) {
+        
+        mainArticleView.mainArticleCollectionView.isPagingEnabled = false
+        
+        mainArticleView.mainArticleCollectionView.scrollToItem(at: IndexPath(item: sender.currentPage, section: 0),
+                                                               at: .centeredHorizontally,
+                                                               animated: true)
+        
+        mainArticleView.mainArticleCollectionView.isPagingEnabled = true
+        
+        mainArticleView.mainArticleCollectionView.setNeedsLayout()
     }
 }
