@@ -33,7 +33,8 @@ class TabBarController: UITabBarController {
         let articlesNavigationController = UINavigationController(rootViewController: articlesListViewController)
         articlesNavigationController.title = K.newsViewTitle
         
-        let userNavigationController = UINavigationController(rootViewController: ProfileViewController())
+        let profileViewController = ProfileViewController.create()
+        let userNavigationController = UINavigationController(rootViewController: profileViewController)
         userNavigationController.title = K.profileViewTitle
         
         let settingsNavigationController = UINavigationController(rootViewController: SettingsViewController())

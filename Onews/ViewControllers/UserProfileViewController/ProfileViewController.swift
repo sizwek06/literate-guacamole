@@ -12,11 +12,17 @@ import FirebaseFirestoreSwift
 
 class ProfileViewController: BaseTableViewController {
     
+    class func create() -> ProfileViewController {
+        let profileViewController = ProfileViewController()
+        profileViewController.userArticlesViewModel = UserArticlesViewModel(userArticleDelegate: profileViewController)
+        return profileViewController
+    }
+    
     var userName: String?
     var isFaceIDVerified: Bool = false
     var isFaceIDEnabled: Bool = false
     
-    var userArticlesViewModel = UserArticlesViewModel()
+    var userArticlesViewModel: UserArticlesViewModel!
     private let biometricAuthManager = BiometricAuthManager()
     
     var currentState: OnewsStates = .signedOut {
@@ -36,7 +42,6 @@ class ProfileViewController: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.userArticlesViewModel.userArticleDelegate = self
         self.verifyUser()
         self.setUpView()
     }
@@ -57,7 +62,6 @@ class ProfileViewController: BaseTableViewController {
                     }
                 }
             } else {
-                self.userArticlesViewModel.articlesArray = []
                 self.currentState = .signedOut
             }
         case .verifyFaceIdFailed:

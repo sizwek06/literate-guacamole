@@ -12,7 +12,7 @@ import OnewsSDK
 class ArticlesListViewModel {
     
     var articlesArray: [Article] = []
-    var articleDelegate: ArticleDelegate?
+    var articleDelegate: ArticleDelegate
     let fireBaseDB = Firestore.firestore()
     let articleRequest = ArticleRequest()
     let onewsFireStore = OnewsFirestore()
@@ -22,7 +22,7 @@ class ArticlesListViewModel {
     }
     
     func getArticles(_ searchPhrase: String? = nil) {
-        self.articleDelegate?.showNewsLoading()
+        self.articleDelegate.showNewsLoading()
         
         var articleURL: String
         
@@ -35,31 +35,31 @@ class ArticlesListViewModel {
         articleRequest.performGetArticlesRequest(with: articleURL, { [weak self] result in
             guard let self else { return }
             
-            self.articleDelegate?.hideNewsLoading()
+            self.articleDelegate.hideNewsLoading()
             
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
                 self.articlesArray = data
                 
-                self.articleDelegate?.didReceiveArticlesSuccessfully()
+                self.articleDelegate.didReceiveArticlesSuccessfully()
                 }
             case .failure(let error):
-                self.articleDelegate?.didFailWithError(error: error.localizedDescription)
+                self.articleDelegate.didFailWithError(error: error.localizedDescription)
             }
         })
    }
     
     func saveNewsArticle(using newsArticle: Article, userUID: String) {
-        self.articleDelegate?.showNewsLoading()
+        self.articleDelegate.showNewsLoading()
             
         onewsFireStore.saveNewsArticle(using: newsArticle, userUID: userUID, completion: { [weak self] error in
             guard let self else { return }
         
-            self.articleDelegate?.hideNewsLoading()
+            self.articleDelegate.hideNewsLoading()
         
             if let err = error {
-                self.articleDelegate?.didFailWithError(error: err.localizedDescription)
+                self.articleDelegate.didFailWithError(error: err.localizedDescription)
             }
         })
     }

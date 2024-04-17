@@ -11,17 +11,21 @@ import OnewsSDK
 
 class UserArticlesViewModel {
     
-    var userArticleDelegate: UserArticlesDelegate?
     let fireBaseDB = Firestore.firestore().collection(K.fireStoreDb.fireStoreDbCollection)
     
     var articlesArray: [Article] = []
     var fireBaseArray: [String] = []
     
     let onewsFireStore = OnewsFirestore()
+    var userArticleDelegate: UserArticlesDelegate
+    
+    init(userArticleDelegate: UserArticlesDelegate) {
+        self.userArticleDelegate = userArticleDelegate
+    }
     
     func queryCurrentUserArticles(using uuid: String) {
         
-        self.userArticleDelegate?.showUserArticlesLoading()
+        self.userArticleDelegate.showUserArticlesLoading()
         
         let query = fireBaseDB
             .whereField(K.fireStoreDb.artileUUIDfield, isEqualTo: uuid)
@@ -30,16 +34,16 @@ class UserArticlesViewModel {
             guard let self else { return }
             
             if let err = error {
-                self.userArticleDelegate?.didFailWithError(error: err.localizedDescription)
+                self.userArticleDelegate.didFailWithError(error: err.localizedDescription)
             } else {
                 self.articlesArray = articlesArray ?? []
-                self.userArticleDelegate?.didReceiveArticlesSuccessfully()
+                self.userArticleDelegate.didReceiveArticlesSuccessfully()
             }
         })
     }
     
     func deleteUserArticle(_ articleURL: String, uuid: String) {
-        self.userArticleDelegate?.showUserArticlesLoading()
+        self.userArticleDelegate.showUserArticlesLoading()
         
         let query = fireBaseDB
             .whereField(K.fireStoreDb.artileUrlField, isEqualTo: articleURL)
@@ -49,9 +53,9 @@ class UserArticlesViewModel {
             guard let self else { return }
             
             if let err = error {
-                self.userArticleDelegate?.didFailWithError(error: err.localizedDescription)
+                self.userArticleDelegate.didFailWithError(error: err.localizedDescription)
             } else {
-                self.userArticleDelegate?.didReceiveArticlesSuccessfully()
+                self.userArticleDelegate.didReceiveArticlesSuccessfully()
             }
         })
     }
