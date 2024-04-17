@@ -12,7 +12,13 @@ import OnewsSDK
 
 class ArticlesListViewController: BaseTableViewController {
     
-    var articlesListViewModel = ArticlesListViewModel()
+    class func create() -> ArticlesListViewController {
+        let articlesViewController = ArticlesListViewController()
+        articlesViewController.articlesListViewModel = ArticlesListViewModel(articleDelegate: articlesViewController)
+        return articlesViewController
+    }
+    
+    var articlesListViewModel: ArticlesListViewModel!
     
     let search = UISearchController(searchResultsController: nil)
     var searchText: String = ""
@@ -22,7 +28,6 @@ class ArticlesListViewController: BaseTableViewController {
         super.viewDidLoad()
         
         title = K.newsViewTitle
-        articlesListViewModel.articleDelegate = self
         
         view.addSubview(tableView)
         tableView.refreshControl?.addTarget(self, action:
@@ -73,6 +78,7 @@ class ArticlesListViewController: BaseTableViewController {
     }
 }
 
+// MARK: Search Bar Delegate
 extension ArticlesListViewController: UISearchControllerDelegate, UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

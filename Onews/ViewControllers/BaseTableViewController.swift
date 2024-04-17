@@ -13,7 +13,7 @@ import OnewsSDK
 class BaseTableViewController: UIViewController {
     
     var openArticleURL: ((String) -> Void)?
-    var isSignedIn: Bool = false
+    var isSignedIn: Bool
     
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
@@ -22,6 +22,15 @@ class BaseTableViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
+    
+    public init() {
+        self.isSignedIn = false
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,7 +112,7 @@ class BaseTableViewController: UIViewController {
     }
     
     func checkCurrentRegion() {
-        if let region = UserDefaults.standard.string(forKey: K.userDefaultRegionKey) {
+        if UserDefaults.standard.string(forKey: K.userDefaultRegionKey) != nil {
         } else {
             UserDefaults.standard.setValue("us", forKey: K.userDefaultRegionKey)
         }

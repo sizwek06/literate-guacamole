@@ -29,10 +29,13 @@ class TabBarController: UITabBarController {
     }
     
     func setupTabBar() {
-        let articlesNavigationController = UINavigationController(rootViewController: ArticlesListViewController())
+        let articlesListViewController = ArticlesListViewController.create()
+        let articlesNavigationController = UINavigationController(rootViewController: articlesListViewController)
         articlesNavigationController.title = K.newsViewTitle
+        
         let userNavigationController = UINavigationController(rootViewController: ProfileViewController())
         userNavigationController.title = K.profileViewTitle
+        
         let settingsNavigationController = UINavigationController(rootViewController: SettingsViewController())
         settingsNavigationController.title = K.settingsViewTitle
         

@@ -17,6 +17,10 @@ class ArticlesListViewModel {
     let articleRequest = ArticleRequest()
     let onewsFireStore = OnewsFirestore()
     
+    init(articleDelegate: ArticleDelegate) {
+        self.articleDelegate = articleDelegate
+    }
+    
     func getArticles(_ searchPhrase: String? = nil) {
         self.articleDelegate?.showNewsLoading()
         
