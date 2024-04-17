@@ -20,7 +20,7 @@ class ArticlesListViewController: BaseTableViewController {
     
     var articlesListViewModel: ArticlesListViewModel!
     
-    let search = UISearchController(searchResultsController: nil)
+    let searchController = UISearchController(searchResultsController: nil)
     var searchText: String = ""
     var userUID: String = ""
     
@@ -33,8 +33,8 @@ class ArticlesListViewController: BaseTableViewController {
         tableView.refreshControl?.addTarget(self, action:
                                                 #selector(tableViewReloadNewsArticles),
                                               for: .valueChanged)
-        search.delegate = self
-        search.searchBar.delegate = self
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
         
         checkNotificationsAuthorizationStatus()
@@ -48,7 +48,7 @@ class ArticlesListViewController: BaseTableViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        self.navigationItem.searchController = search
+        self.navigationItem.searchController = searchController
     }
     
     @objc func tableViewReloadNewsArticles() {
@@ -58,6 +58,7 @@ class ArticlesListViewController: BaseTableViewController {
     
     func setUpView() {
         UserDefaults.standard.synchronize()
+        searchController.searchBar.tintColor = UIColor(named: "AppearanceColor")
         
         DispatchQueue.main.async {
             if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {

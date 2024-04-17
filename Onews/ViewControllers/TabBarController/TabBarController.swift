@@ -37,7 +37,8 @@ class TabBarController: UITabBarController {
         let userNavigationController = UINavigationController(rootViewController: profileViewController)
         userNavigationController.title = K.profileViewTitle
         
-        let settingsNavigationController = UINavigationController(rootViewController: SettingsViewController())
+        let settingsViewController = SettingsViewController.create()
+        let settingsNavigationController = UINavigationController(rootViewController: settingsViewController)
         settingsNavigationController.title = K.settingsViewTitle
         
         articlesNavigationController.tabBarItem.image = UIImage(systemName: "newspaper")

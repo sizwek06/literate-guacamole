@@ -11,7 +11,13 @@ import FirebaseAuth
 
 class SettingsViewController: ProfileViewController {
     
-    var userAccessViewModel = UserAccessViewModel()
+    override class func create() -> SettingsViewController {
+        let settingsViewController = SettingsViewController()
+        settingsViewController.userArticlesViewModel = UserArticlesViewModel(userArticleDelegate: settingsViewController)
+        return settingsViewController
+    }
+    
+    var userAccessViewModel: UserAccessViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +29,6 @@ class SettingsViewController: ProfileViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.userAccessViewModel.userAccessDelegate = self
         self.verifyUser()
         self.setupTableView()
         // TODO: Why does it show the Profile loader 
@@ -56,11 +61,11 @@ class SettingsViewController: ProfileViewController {
     }
     
     func showUserAccessController(_ isUserRegistration: Bool) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "ArticlesListViewController", bundle: Bundle(for: ArticlesListViewController.self))
         
-        let userAccessViewController: UserAccessScreenViewController = storyboard.instantiateViewController(withIdentifier: "UserAccessScreenViewController") as!
-        UserAccessScreenViewController
-        
+        guard let userAccessViewController = UserAccessScreenViewController.create() else {
+            return
+        }
+       
         userAccessViewController.isUserRegistration = isUserRegistration
         
         if let userAccessViewController = userAccessViewController.presentationController as? UISheetPresentationController {
