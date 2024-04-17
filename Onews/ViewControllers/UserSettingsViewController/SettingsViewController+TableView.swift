@@ -82,7 +82,7 @@ extension SettingsViewController {
                     cell.settingsLabel.textColor = .gray
                 default:
                     cell.settingsSwitch.isEnabled = true
-                    cell.settingsLabel.textColor = .black
+                    cell.settingsLabel.textColor = UIColor(named: "AppearanceColor")
                 }
                 
                 return cell
@@ -100,7 +100,7 @@ extension SettingsViewController {
                     cell.settingsLabel.textColor = .gray
                 default:
                     cell.isUserInteractionEnabled = true
-                    cell.settingsLabel.textColor = .black
+                    cell.settingsLabel.textColor = UIColor(named: "AppearanceColor")
                 }
 //            TODO: FIX STATE AFTER SIGNED OUT
                 return cell
