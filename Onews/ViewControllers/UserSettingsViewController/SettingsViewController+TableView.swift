@@ -58,51 +58,19 @@ extension SettingsViewController {
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell") as? SettingsTableViewCell else { return UITableViewCell() }
-            // TODO: Did this resolve the deque issues form the bottom
+            
             switch indexPath.row {
             case 0:
-                cell.setUpSettingsCell(using: "bell.badge.fill",
-                                       backgroundColor: UIColor.red,
-                                       label: "Notifications",
-                                       switchState: UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey))
                 cell.switchOption = .notifications
+                cell.setUpSettingsCell()
                 return cell
             case 1:
-                cell.setUpSettingsCell(using: "faceid",
-                                       backgroundColor: UIColor.systemGreen,
-                                       label: "FaceID",
-                                       switchState: UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey))
                 cell.switchOption = .faceID
-                cell.accessoryType = .none
-                cell.settingsSwitch.isHidden = false
-                
-                switch OnewsState.sharedInstance.currentState {
-                case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
-                    cell.settingsSwitch.isEnabled = false
-                    cell.settingsLabel.textColor = .gray
-                default:
-                    cell.settingsSwitch.isEnabled = true
-                    cell.settingsLabel.textColor = UIColor(named: "AppearanceColor")
-                }
-                
+                cell.setUpSettingsCell()
                 return cell
             case 2:
-                cell.setUpSettingsCell(using: "globe.europe.africa.fill",
-                                       backgroundColor: UIColor.systemMint,
-                                       label: "Change Region")
                 cell.switchOption = .region
-                cell.accessoryType = .disclosureIndicator
-                cell.settingsSwitch.isHidden = true
-                
-                switch OnewsState.sharedInstance.currentState {
-                case .verifyFaceIdFailed, .signingInWithFaceId:
-                    cell.isUserInteractionEnabled = false
-                    cell.settingsLabel.textColor = .gray
-                default:
-                    cell.isUserInteractionEnabled = true
-                    cell.settingsLabel.textColor = UIColor(named: "AppearanceColor")
-                }
-//            TODO: FIX STATE AFTER SIGNED OUT
+                cell.setUpSettingsCell()
                 return cell
             default:
                 return UITableViewCell()
