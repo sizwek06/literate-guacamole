@@ -29,25 +29,25 @@ class ProfileViewController: BaseTableViewController {
         
         title = K.profileViewTitle
         
-        tableView.refreshControl?.addTarget(self, action: #selector(setUpView), for: .valueChanged)
+        tableView.refreshControl?.addTarget(self, action: #selector(setProfileView), for: .valueChanged)
     
         print("ProfileViewController - Current Super State \(String(describing: OnewsState.sharedInstance.currentState))")
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        verifyUser()
+        verifyUserState()
+        setProfileView()
         setUpView()
         tableView.reloadData()
     }
     
-    @objc func setUpView() {
+    @objc func setProfileView() {
         
         switch OnewsState.sharedInstance.currentState {
         case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
             if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
                 if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
                     self.userName = user
-                    self.isSignedIn = !user.isEmpty
                     
                     self.checkNewsArticlesArray()
                 }

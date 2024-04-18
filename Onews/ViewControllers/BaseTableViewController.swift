@@ -18,7 +18,7 @@ class BaseTableViewController: UIViewController {
     
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
-        table.register(MainArticleTableViewCell.self, forCellReuseIdentifier: MainArticleTableViewCell.identifier)
+        
         table.refreshControl = UIRefreshControl()
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
@@ -50,6 +50,7 @@ class BaseTableViewController: UIViewController {
     
     func setupTableView() {
         self.tableView.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
+        self.tableView.register(MainArticleTableViewCell.self, forCellReuseIdentifier: MainArticleTableViewCell.identifier)
         self.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         self.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         self.tableView.register(UserFaceIDTableViewCell.self, forCellReuseIdentifier: UserFaceIDTableViewCell.identifier)
@@ -127,6 +128,26 @@ class BaseTableViewController: UIViewController {
             OnewsLoaderViewController.sharedInstance.hide()
         }
     }
+
+    func setUpView() {
+        UserDefaults.standard.synchronize()
+        
+        DispatchQueue.main.async {
+            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
+                    UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
+                    self.isSignedIn = !user.isEmpty
+                    OnewsState.sharedInstance.currentState = .signedInNoFaceId
+                }
+            } else {
+                UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
+                self.isSignedIn = false
+                OnewsState.sharedInstance.currentState = .signedOut
+            }
+            
+            self.setupTableView()
+        }
+    }
 }
 
 // MARK: Notifications
@@ -158,29 +179,29 @@ extension BaseTableViewController {
         UNUserNotificationCenter.current().add(request)
     }
     
-    func verifyUser() {
+    func verifyUserState() {
         
-        if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
-            OnewsState.sharedInstance.currentState = .signingInWithFaceId
-            
-            biometricAuthManager.canEvaluate { (canEvaluate, _, _) in
-                guard canEvaluate else {
-                    OnewsState.sharedInstance.currentState = .signedInNoFaceId
-                    return
-                }
+        if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+            if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
+                OnewsState.sharedInstance.currentState = .signingInWithFaceId
                 
-                biometricAuthManager.evaluate { [weak self] (success, _) in
-                    guard let self else { return }
-                    guard success else {
-                        OnewsState.sharedInstance.currentState = .verifyFaceIdFailed
+                biometricAuthManager.canEvaluate { (canEvaluate, _, _) in
+                    guard canEvaluate else {
+                        OnewsState.sharedInstance.currentState = .signedInNoFaceId
                         return
                     }
                     
-                    DispatchQueue.main.async {
-                        OnewsState.sharedInstance.currentState = .signedInWithFaceId
+                    biometricAuthManager.evaluate { [weak self] (success, _) in
+                        guard let self else { return }
+                        guard success else {
+                            OnewsState.sharedInstance.currentState = .verifyFaceIdFailed
+                            return
+                        }
                     }
                 }
             }
+            OnewsState.sharedInstance.currentState = .signedInNoFaceId
         }
+        OnewsState.sharedInstance.currentState = .signedOut
     }
 }

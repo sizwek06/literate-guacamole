@@ -37,8 +37,6 @@ extension SettingsViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell") as? SettingsTableViewCell else { return UITableViewCell() }
-        
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
@@ -59,6 +57,8 @@ extension SettingsViewController {
             }
             return cell
         case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell") as? SettingsTableViewCell else { return UITableViewCell() }
+            // TODO: Did this resolve the deque issues form the bottom
             switch indexPath.row {
             case 0:
                 cell.setUpSettingsCell(using: "bell.badge.fill",
@@ -109,9 +109,7 @@ extension SettingsViewController {
             }
         case 2:
             switch OnewsState.sharedInstance.currentState {
-            case .signedInNoFaceId, .signingInWithFaceId:
-                return createSignOutView()
-            case .signedOut:
+            case .signedInNoFaceId, .signingInWithFaceId, .signedOut:
                 return createSignOutView()
             case .signedInWithFaceId, .verifyFaceIdFailed:
                 return createUseFaceIdView()
@@ -149,7 +147,7 @@ extension SettingsViewController {
             case .signedOut:
                 return showSignInSheet()
             case .signedInWithFaceId, .verifyFaceIdFailed:
-                return verifyUser()
+                return verifyUserState()
             }
         default:
             break

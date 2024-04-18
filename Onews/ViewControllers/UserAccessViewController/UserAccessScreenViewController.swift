@@ -127,6 +127,8 @@ extension UserAccessScreenViewController: UserAcessDelegate {
     
     func successfulUserSignIn(user: User, isRegistration: Bool) {
         
+        OnewsState.sharedInstance.currentState = .signedInNoFaceId
+        
         guard let email = user.email else { return }
         
         UserDefaults.standard.set(email, forKey: K.userDefaultEmailKey)

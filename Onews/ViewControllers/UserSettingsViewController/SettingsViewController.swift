@@ -33,8 +33,10 @@ class SettingsViewController: BaseTableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        verifyUser()
-        setupTableView()
+        verifyUserState()
+
+        print("SettingsViewController - ViewWillAppear State \(OnewsState.sharedInstance.currentState)")
+        setUpView()
         tableView.reloadData()
     }
     

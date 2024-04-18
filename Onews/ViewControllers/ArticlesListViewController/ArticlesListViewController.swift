@@ -56,30 +56,6 @@ class ArticlesListViewController: BaseTableViewController {
         articlesListViewModel.getArticles()
         tableView.refreshControl?.endRefreshing()
     }
-    
-    func setUpView() {
-        UserDefaults.standard.synchronize()
-        searchController.searchBar.tintColor = UIColor(named: "AppearanceColor")
-        
-        DispatchQueue.main.async {
-            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
-                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey),
-                   let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) {
-                    UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
-                    self.isSignedIn = !user.isEmpty
-                    self.userUID = uuid
-                    OnewsState.sharedInstance.currentState = .signedInNoFaceId
-                }
-            } else {
-                UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
-                self.isSignedIn = false
-                OnewsState.sharedInstance.currentState = .signedOut
-            }
-            
-            self.setupTableView()
-            self.tableView.refreshControl?.endRefreshing()
-        }
-    }
 }
 
 // MARK: Search Bar Delegate

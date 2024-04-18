@@ -124,7 +124,7 @@ extension ProfileViewController {
                     }
                 }
             case .verifyFaceIdFailed, .signingInWithFaceId:
-                self.verifyUser()
+                self.verifyUserState()
             case .signedOut:
                 self.navigateToSettingsSignIn()
             }

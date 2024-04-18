@@ -20,6 +20,7 @@ class RegionsViewController: SettingsViewController {
         super.viewDidLoad()
         
         title = "Regions"
+        self.tableView.isScrollEnabled = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
