@@ -14,6 +14,7 @@ class BaseTableViewController: UIViewController {
     
     var openArticleURL: ((String) -> Void)?
     var isSignedIn: Bool
+    let biometricAuthManager = BiometricAuthManager()
     
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
@@ -155,5 +156,31 @@ extension BaseTableViewController {
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request)
+    }
+    
+    func verifyUser() {
+        
+        if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
+            OnewsState.sharedInstance.currentState = .signingInWithFaceId
+            
+            biometricAuthManager.canEvaluate { (canEvaluate, _, _) in
+                guard canEvaluate else {
+                    OnewsState.sharedInstance.currentState = .signedInNoFaceId
+                    return
+                }
+                
+                biometricAuthManager.evaluate { [weak self] (success, _) in
+                    guard let self else { return }
+                    guard success else {
+                        OnewsState.sharedInstance.currentState = .verifyFaceIdFailed
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        OnewsState.sharedInstance.currentState = .signedInWithFaceId
+                    }
+                }
+            }
+        }
     }
 }

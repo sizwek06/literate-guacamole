@@ -7,6 +7,15 @@
 
 import Foundation
 
+public class OnewsState {
+    
+    var currentState: OnewsStates = .signedOut
+    
+    public static let sharedInstance = OnewsState()
+    
+    public init() {}
+}
+
 enum OnewsStates {
     case signedInWithFaceId
     case verifyFaceIdFailed

@@ -14,9 +14,9 @@ extension SettingsViewController {
         return 3
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
             case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed:
                 return ""
             default:
@@ -27,7 +27,7 @@ extension SettingsViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return section == 1 ? K.settingsFooterText : ""
     }
     
@@ -44,7 +44,7 @@ extension SettingsViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
             else { return UITableViewCell() }
             
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
                 
             case .signedInWithFaceId, .signedInNoFaceId:
                 cell.usernameLabel.text = self.userName ?? K.noSessionText
@@ -76,7 +76,7 @@ extension SettingsViewController {
                 cell.accessoryType = .none
                 cell.settingsSwitch.isHidden = false
                 
-                switch self.currentState {
+                switch OnewsState.sharedInstance.currentState {
                 case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
                     cell.settingsSwitch.isEnabled = false
                     cell.settingsLabel.textColor = .gray
@@ -94,7 +94,7 @@ extension SettingsViewController {
                 cell.accessoryType = .disclosureIndicator
                 cell.settingsSwitch.isHidden = true
                 
-                switch self.currentState {
+                switch OnewsState.sharedInstance.currentState {
                 case .verifyFaceIdFailed, .signingInWithFaceId:
                     cell.isUserInteractionEnabled = false
                     cell.settingsLabel.textColor = .gray
@@ -108,7 +108,7 @@ extension SettingsViewController {
                 return UITableViewCell()
             }
         case 2:
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
             case .signedInNoFaceId, .signingInWithFaceId:
                 return createSignOutView()
             case .signedOut:
@@ -121,10 +121,10 @@ extension SettingsViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
                 case .signedInNoFaceId, .signedInWithFaceId:
                     self.bingBong()
                 default:
@@ -133,7 +133,8 @@ extension SettingsViewController {
         case 1:
             switch indexPath.row {
             case 2:
-                let regionsViewController = RegionsViewController()
+                let regionsViewController = RegionsViewController.create()
+                regionsViewController.userAccessViewModel = UserAccessViewModel(userAccessDelegate: regionsViewController)
                 let navController = UINavigationController(rootViewController: regionsViewController)
                 navController.navigationBar.barTintColor = UIColor(named: "CollectionColor")
                 
@@ -142,7 +143,7 @@ extension SettingsViewController {
                 break
             }
         case 2:
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
             case .signedInNoFaceId, .signingInWithFaceId:
                 return confirmLogOut()
             case .signedOut:
@@ -155,23 +156,13 @@ extension SettingsViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let swipeConfiguration = UISwipeActionsConfiguration()
-        return swipeConfiguration
-    }
-    
-    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let swipeConfiguration = UISwipeActionsConfiguration()
-        return swipeConfiguration
-    }
-    
     func createSignOutView() -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
         else { return UITableViewCell() }
         
         cell.signOutLabel.font = UIFont(name: "SF-Pro-Display-Bold", size: 15)
         
-        switch self.currentState {
+        switch OnewsState.sharedInstance.currentState {
         case .signedInNoFaceId, .signedInWithFaceId:
             cell.signOutLabel.text = K.signOutText
             cell.signOutLabel.textColor = .red

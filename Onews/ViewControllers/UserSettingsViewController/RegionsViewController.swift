@@ -10,6 +10,12 @@ import UIKit
 
 class RegionsViewController: SettingsViewController {
     
+    override class func create() -> SettingsViewController {
+        let regionsViewController = RegionsViewController()
+        regionsViewController.userName = UserDefaults.standard.string(forKey: K.userDefaultEmailKey)
+        return regionsViewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,7 +50,7 @@ extension RegionsViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
             else { return UITableViewCell() }
             
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
                 
             case .signedInWithFaceId, .signedInNoFaceId:
                 cell.usernameLabel.text = self.userName ?? "Choose one of the following \(K.regionOptions.count) countries!"

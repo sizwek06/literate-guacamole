@@ -66,7 +66,8 @@ struct K {
                                        "za": "South Africa", "kr": "South Korea", "se": "Sweden", "ch": "Switzerland",
                                        "tw": "Taiwan", "th": "Thailand", "tr": "Turkey", "ae": "UAE",
                                        "ua": "Ukraine", "gb": "United Kingdom", "us": "United States", "ve": "Venuzuela"]
-    // //A regions endpoint is not available from newsAPI, manually entered these.
+    // A regions endpoint is not available from newsAPI, manually entered these.
+    
     struct fireStoreDb {
         static let articleField = "article"
         static let artileUUIDfield = "uuid"

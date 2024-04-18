@@ -13,6 +13,7 @@ import OnewsSDK
 class ArticlesListViewController: BaseTableViewController {
     
     class func create() -> ArticlesListViewController {
+        print("ArticlesListViewController created.")
         let articlesViewController = ArticlesListViewController()
         articlesViewController.articlesListViewModel = ArticlesListViewModel(articleDelegate: articlesViewController)
         return articlesViewController
@@ -67,10 +68,12 @@ class ArticlesListViewController: BaseTableViewController {
                     UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
                     self.isSignedIn = !user.isEmpty
                     self.userUID = uuid
+                    OnewsState.sharedInstance.currentState = .signedInNoFaceId
                 }
             } else {
                 UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
                 self.isSignedIn = false
+                OnewsState.sharedInstance.currentState = .signedOut
             }
             
             self.setupTableView()

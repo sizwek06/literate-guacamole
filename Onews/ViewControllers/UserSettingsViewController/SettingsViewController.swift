@@ -9,14 +9,17 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
-class SettingsViewController: ProfileViewController {
+class SettingsViewController: BaseTableViewController {
     
-    override class func create() -> SettingsViewController {
+    class func create() -> SettingsViewController {
+        print("SettingsViewController created.")
         let settingsViewController = SettingsViewController()
-        settingsViewController.userArticlesViewModel = UserArticlesViewModel(userArticleDelegate: settingsViewController)
+        settingsViewController.userAccessViewModel = UserAccessViewModel(userAccessDelegate: settingsViewController)
+        settingsViewController.userName = UserDefaults.standard.string(forKey: K.userDefaultEmailKey)
         return settingsViewController
     }
     
+    var userName: String?
     var userAccessViewModel: UserAccessViewModel!
     
     override func viewDidLoad() {
@@ -24,14 +27,11 @@ class SettingsViewController: ProfileViewController {
         
         title = K.settingsViewTitle
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        tableView.isScrollEnabled = false
         
-        self.verifyUser()
+        verifyUser()
         self.setupTableView()
-        // TODO: Why does it show the Profile loader 
+        print("SettingsViewController - Current Super State \(OnewsState.sharedInstance.currentState)")
     }
     
     func showSignInSheet() {

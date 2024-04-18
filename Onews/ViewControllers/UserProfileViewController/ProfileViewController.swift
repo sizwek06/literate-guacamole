@@ -23,13 +23,6 @@ class ProfileViewController: BaseTableViewController {
     var isFaceIDEnabled: Bool = false
     
     var userArticlesViewModel: UserArticlesViewModel!
-    private let biometricAuthManager = BiometricAuthManager()
-    
-    var currentState: OnewsStates = .signedOut {
-        didSet {
-            self.tableView.reloadData()
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,40 +30,47 @@ class ProfileViewController: BaseTableViewController {
         title = K.profileViewTitle
         
         tableView.refreshControl?.addTarget(self, action: #selector(setUpView), for: .valueChanged)
+    
+        print("ProfileViewController - Current Super State \(String(describing: OnewsState.sharedInstance.currentState))")
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.verifyUser()
-        self.setUpView()
+        verifyUser()
+        setUpView()
+        tableView.reloadData()
     }
     
     @objc func setUpView() {
         
-        switch self.currentState {
+        switch OnewsState.sharedInstance.currentState {
         case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
             if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
-                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey),
-                   let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) {
+                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
                     self.userName = user
                     self.isSignedIn = !user.isEmpty
                     
-                    DispatchQueue.main.async {
-                        self.userArticlesViewModel.queryCurrentUserArticles(using: uuid)
-                        self.currentState = .signedInNoFaceId
-                    }
+                    self.checkNewsArticlesArray()
                 }
             } else {
-                self.currentState = .signedOut
+                OnewsState.sharedInstance.currentState = .signedOut
             }
         case .verifyFaceIdFailed:
-            self.currentState = .verifyFaceIdFailed
+            OnewsState.sharedInstance.currentState = .verifyFaceIdFailed
         case .signingInWithFaceId:
-            self.currentState = .signingInWithFaceId
+            OnewsState.sharedInstance.currentState = .signingInWithFaceId
         }
         
         self.setupTableView()
+    }
+    
+    func checkNewsArticlesArray() {
+        if let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) {
+            
+            DispatchQueue.main.async {
+                self.userArticlesViewModel.queryCurrentUserArticles(using: uuid)
+                OnewsState.sharedInstance.currentState = .signedInNoFaceId
+            }
+        }
     }
     
     func navigateToSettingsSignIn() {
@@ -83,32 +83,5 @@ class ProfileViewController: BaseTableViewController {
         let tabBarController = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
         tabBarController.selectedIndex = 1
         self.dismiss(animated: true, completion: {})
-    }
-    
-    func verifyUser() {
-        
-        if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
-            self.currentState = .signingInWithFaceId
-            
-            biometricAuthManager.canEvaluate { (canEvaluate, _, _) in
-                guard canEvaluate else {
-                    self.currentState = .signedInNoFaceId
-                    return
-                }
-                
-                biometricAuthManager.evaluate { [weak self] (success, _) in
-                    guard let self else { return }
-                    guard success else {
-                        self.currentState = .verifyFaceIdFailed
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self.currentState = .signedInWithFaceId
-                        self.setUpView()
-                    }
-                }
-            }
-        }
     }
 }

@@ -13,14 +13,14 @@ extension ProfileViewController {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
             case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed:
                 return ""
             default:
                 return "Articles"
             }
         } else {
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
             case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed:
                 return ""
             default:
@@ -31,7 +31,7 @@ extension ProfileViewController {
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == 1 {
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
             case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed:
                 return ""
             default:
@@ -44,7 +44,7 @@ extension ProfileViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1 {
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
             case .signedInNoFaceId, .signedInWithFaceId:
                 if self.userArticlesViewModel.articlesArray.count > 1 {
                     return self.userArticlesViewModel.articlesArray.count
@@ -58,18 +58,14 @@ extension ProfileViewController {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 180 : UITableView.automaticDimension
-    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 1 {
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
             
             case .signingInWithFaceId, .verifyFaceIdFailed:
                 return createUseFaceIdView()
             case .signedInNoFaceId, .signedInWithFaceId:
-                switch self.currentState {
+                switch OnewsState.sharedInstance.currentState {
                 case .signedInNoFaceId, .signedInWithFaceId:
                     if self.userArticlesViewModel.articlesArray.count > 1 {
                         let article = self.userArticlesViewModel.articlesArray[indexPath.row]
@@ -88,7 +84,7 @@ extension ProfileViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
             else { return UITableViewCell() }
             
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
 
                 case .signedInWithFaceId, .signedInNoFaceId:
                 cell.usernameLabel.text = self.userName ?? K.noSessionText
@@ -108,14 +104,14 @@ extension ProfileViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
             case .signedInNoFaceId, .signedInWithFaceId:
                 self.bingBong()
             default:
                 self.navigateToSettingsSignIn()
             }
         } else {
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
                 
             case .signedInNoFaceId, .signedInWithFaceId:
                 if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
@@ -197,13 +193,6 @@ extension ProfileViewController {
         cell.signOutLabel.text = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? K.getMoreArticlesText: K.signInText
         cell.signOutLabel.textColor = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? .black : .systemBlue
         
-        return cell
-    }
-    
-    func createUseFaceIdView() -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserFaceIDTableViewCell.identifier) as? UserFaceIDTableViewCell
-        else { return UITableViewCell() }
-
         return cell
     }
     

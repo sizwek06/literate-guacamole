@@ -19,7 +19,7 @@ extension BaseTableViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 530 : UITableView.automaticDimension
+        return indexPath.section == 0 ? 180 : UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,5 +50,12 @@ extension BaseTableViewController: UITableViewDelegate, UITableViewDataSource {
             tempView.layer.render(in: rendererContext.cgContext)
         }
         return image
+    }
+    
+    func createUseFaceIdView() -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserFaceIDTableViewCell.identifier) as? UserFaceIDTableViewCell
+        else { return UITableViewCell() }
+
+        return cell
     }
 }
