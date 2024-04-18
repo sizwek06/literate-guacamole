@@ -29,9 +29,13 @@ class SettingsViewController: BaseTableViewController {
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
         tableView.isScrollEnabled = false
         
-        verifyUser()
-        self.setupTableView()
         print("SettingsViewController - Current Super State \(OnewsState.sharedInstance.currentState)")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        verifyUser()
+        setupTableView()
+        tableView.reloadData()
     }
     
     func showSignInSheet() {
