@@ -58,7 +58,7 @@ class SettingsTableViewCell: UITableViewCell {
             settingsSwitch.isOn = UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey)
             
             switch OnewsState.sharedInstance.currentState {
-            case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
+            case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired, .signedOut:
                 self.settingsSwitch.isEnabled = false
                 self.settingsLabel.textColor = .gray
             default:
@@ -79,7 +79,7 @@ class SettingsTableViewCell: UITableViewCell {
             self.switchOption = .region
             
             switch OnewsState.sharedInstance.currentState {
-            case .verifyFaceIdFailed, .signingInWithFaceId:
+            case .verifyFaceIdFailed, .faceIDRequired, .signingInWithFaceId:
                 self.isUserInteractionEnabled = false
                 self.settingsLabel.textColor = .gray
             default:

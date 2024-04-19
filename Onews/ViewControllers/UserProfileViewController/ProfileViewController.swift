@@ -18,7 +18,6 @@ class ProfileViewController: BaseTableViewController {
         return profileViewController
     }
     
-    var userName: String?
     var isFaceIDVerified: Bool = false
     var isFaceIDEnabled: Bool = false
     
@@ -31,36 +30,37 @@ class ProfileViewController: BaseTableViewController {
         
         tableView.refreshControl?.addTarget(self, action: #selector(setProfileView), for: .valueChanged)
     
-        print("ProfileViewController - Current Super State \(String(describing: OnewsState.sharedInstance.currentState))")
+        print("ProfileViewController - Current State \(String(describing: OnewsState.sharedInstance.currentState))")
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("ProfileViewController - ViewWillAppear State \(OnewsState.sharedInstance.currentState)")
+        
+        self.setupTableView()
+        self.setUpView()
         verifyUserState()
-        setProfileView()
-        setUpView()
-        tableView.reloadData()
     }
     
     @objc func setProfileView() {
         
         switch OnewsState.sharedInstance.currentState {
+        case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired:
+            break
         case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
             if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
-                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
-                    self.userName = user
-                    
-                    self.checkNewsArticlesArray()
-                }
+                OnewsState.sharedInstance.currentState = .signedInWithFaceId
+                NotificationCenter.default.post(name: Notification.Name("reloadSettingsViewControllerTable"), object: nil)
+                self.checkNewsArticlesArray()
             } else {
                 OnewsState.sharedInstance.currentState = .signedOut
             }
-        case .verifyFaceIdFailed:
-            OnewsState.sharedInstance.currentState = .verifyFaceIdFailed
-        case .signingInWithFaceId:
-            OnewsState.sharedInstance.currentState = .signingInWithFaceId
         }
+        print("ProfileViewController - Setup State \(OnewsState.sharedInstance.currentState)")
+        print("ProfileViewController - userName \(super.userName)")
         
         self.setupTableView()
+        tableView.refreshControl?.endRefreshing()
     }
     
     func checkNewsArticlesArray() {
@@ -68,7 +68,6 @@ class ProfileViewController: BaseTableViewController {
             
             DispatchQueue.main.async {
                 self.userArticlesViewModel.queryCurrentUserArticles(using: uuid)
-                OnewsState.sharedInstance.currentState = .signedInNoFaceId
             }
         }
     }
@@ -83,5 +82,30 @@ class ProfileViewController: BaseTableViewController {
         let tabBarController = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
         tabBarController.selectedIndex = 1
         self.dismiss(animated: true, completion: {})
+    }
+    
+    func verifyUserState() {
+        
+        if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
+            OnewsState.sharedInstance.currentState = .signingInWithFaceId
+            
+            biometricAuthManager.canEvaluate { (canEvaluate, _, _) in
+                guard canEvaluate else {
+                    OnewsState.sharedInstance.currentState = .signedInNoFaceId
+                    return
+                }
+                
+                biometricAuthManager.evaluate { [weak self] (success, _) in
+                    guard let self else { return }
+                    guard success else {
+                        OnewsState.sharedInstance.currentState = .verifyFaceIdFailed
+                        return
+                    }
+                    OnewsState.sharedInstance.currentState = .signedInWithFaceId
+                    self.setProfileView()
+                }
+            }
+        }
+        
     }
 }

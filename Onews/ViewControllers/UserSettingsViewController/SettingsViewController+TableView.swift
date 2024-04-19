@@ -17,7 +17,7 @@ extension SettingsViewController {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             switch OnewsState.sharedInstance.currentState {
-            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed:
+            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed, .faceIDRequired:
                 return ""
             default:
                 return K.profileHeaderText
@@ -48,7 +48,7 @@ extension SettingsViewController {
                 cell.usernameLabel.text = self.userName ?? K.noSessionText
                 cell.setUpProfileView(using: true)
                 
-            case .verifyFaceIdFailed, .signingInWithFaceId:
+            case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired:
                 cell.setUpProfileView(using: false)
                 
             case .signedOut:
@@ -77,9 +77,9 @@ extension SettingsViewController {
             }
         case 2:
             switch OnewsState.sharedInstance.currentState {
-            case .signedInNoFaceId, .signingInWithFaceId, .signedOut:
+            case .signedInNoFaceId, .signingInWithFaceId, .signedInWithFaceId, .signedOut:
                 return createSignOutView()
-            case .signedInWithFaceId, .verifyFaceIdFailed:
+            case .verifyFaceIdFailed, .faceIDRequired:
                 return createUseFaceIdView()
             }
         default:
@@ -110,12 +110,13 @@ extension SettingsViewController {
             }
         case 2:
             switch OnewsState.sharedInstance.currentState {
-            case .signedInNoFaceId, .signingInWithFaceId:
-                return confirmLogOut()
+            case .signedInWithFaceId, .signedInNoFaceId, .signingInWithFaceId:
+                confirmLogOut()
             case .signedOut:
-                return showSignInSheet()
-            case .signedInWithFaceId, .verifyFaceIdFailed:
-                return verifyUserState()
+                showSignInSheet()
+            case .verifyFaceIdFailed, .faceIDRequired:
+                OnewsState.sharedInstance.currentState = .verifyFaceIdFailed
+                self.refreshUserDetails(0)
             }
         default:
             break

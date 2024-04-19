@@ -57,7 +57,7 @@ extension RegionsViewController {
                 cell.usernameLabel.text = self.userName ?? "Choose one of the following \(K.regionOptions.count) countries!"
                 cell.setUpProfileView(using: true)
                 
-            case .verifyFaceIdFailed, .signingInWithFaceId:
+            case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired:
                 cell.setUpProfileView(using: false)
                 
             case .signedOut:

@@ -21,5 +21,6 @@ enum OnewsStates {
     case verifyFaceIdFailed
     case signingInWithFaceId
     case signedInNoFaceId
+    case faceIDRequired
     case signedOut
 }

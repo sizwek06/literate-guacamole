@@ -15,6 +15,7 @@ class BaseTableViewController: UIViewController {
     var openArticleURL: ((String) -> Void)?
     var isSignedIn: Bool
     let biometricAuthManager = BiometricAuthManager()
+    var userName: String?
     
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
@@ -132,21 +133,23 @@ class BaseTableViewController: UIViewController {
     func setUpView() {
         UserDefaults.standard.synchronize()
         
-        DispatchQueue.main.async {
-            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
-                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
-                    UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
-                    self.isSignedIn = !user.isEmpty
-                    OnewsState.sharedInstance.currentState = .signedInNoFaceId
+        if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+            if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
+                UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
+                self.isSignedIn = !user.isEmpty
+                self.userName = user
+                
+                if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
+                    OnewsState.sharedInstance.currentState = OnewsState.sharedInstance.currentState == .faceIDRequired ? .faceIDRequired : OnewsState.sharedInstance.currentState
                 }
-            } else {
-                UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
-                self.isSignedIn = false
-                OnewsState.sharedInstance.currentState = .signedOut
             }
-            
-            self.setupTableView()
+        } else {
+            UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
+            self.isSignedIn = false
+            OnewsState.sharedInstance.currentState = .signedOut
         }
+        
+        self.setupTableView()
     }
 }
 
@@ -177,31 +180,5 @@ extension BaseTableViewController {
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request)
-    }
-    
-    func verifyUserState() {
-        
-        if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
-            if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
-                OnewsState.sharedInstance.currentState = .signingInWithFaceId
-                
-                biometricAuthManager.canEvaluate { (canEvaluate, _, _) in
-                    guard canEvaluate else {
-                        OnewsState.sharedInstance.currentState = .signedInNoFaceId
-                        return
-                    }
-                    
-                    biometricAuthManager.evaluate { [weak self] (success, _) in
-                        guard let self else { return }
-                        guard success else {
-                            OnewsState.sharedInstance.currentState = .verifyFaceIdFailed
-                            return
-                        }
-                    }
-                }
-            }
-            OnewsState.sharedInstance.currentState = .signedInNoFaceId
-        }
-        OnewsState.sharedInstance.currentState = .signedOut
     }
 }

@@ -14,14 +14,14 @@ extension ProfileViewController {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
             switch OnewsState.sharedInstance.currentState {
-            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed:
+            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed, .faceIDRequired:
                 return ""
             default:
                 return "Articles"
             }
         } else {
             switch OnewsState.sharedInstance.currentState {
-            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed:
+            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed, .faceIDRequired:
                 return ""
             default:
                 return K.profileHeaderText
@@ -32,7 +32,7 @@ extension ProfileViewController {
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == 1 {
             switch OnewsState.sharedInstance.currentState {
-            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed:
+            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed, .faceIDRequired:
                 return ""
             default:
                 return "You have \(self.userArticlesViewModel.articlesArray.count) news articles, well done! Swipe on the articles to share!"
@@ -62,7 +62,7 @@ extension ProfileViewController {
         if indexPath.section == 1 {
             switch OnewsState.sharedInstance.currentState {
             
-            case .signingInWithFaceId, .verifyFaceIdFailed:
+            case .signingInWithFaceId, .verifyFaceIdFailed, .faceIDRequired:
                 return createUseFaceIdView()
             case .signedInNoFaceId, .signedInWithFaceId:
                 switch OnewsState.sharedInstance.currentState {
@@ -74,7 +74,7 @@ extension ProfileViewController {
                     } else {
                         return createNotSignInTableViewCell()
                     }
-                case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
+                case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut, .faceIDRequired:
                     return createNotSignInTableViewCell()
                 }
             case .signedOut:
@@ -90,7 +90,7 @@ extension ProfileViewController {
                 cell.usernameLabel.text = self.userName ?? K.noSessionText
                     cell.setUpProfileView(using: true)
 
-                case .verifyFaceIdFailed, .signingInWithFaceId:
+                case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired:
                     cell.setUpProfileView(using: false)
             
                 case .signedOut:
@@ -123,7 +123,7 @@ extension ProfileViewController {
                         self.handleOpenArticleURL(url: article.url, source: article.source.name ?? "No name")
                     }
                 }
-            case .verifyFaceIdFailed, .signingInWithFaceId:
+            case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired:
                 self.verifyUserState()
             case .signedOut:
                 self.navigateToSettingsSignIn()

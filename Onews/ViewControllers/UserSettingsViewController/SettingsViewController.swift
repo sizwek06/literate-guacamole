@@ -19,7 +19,6 @@ class SettingsViewController: BaseTableViewController {
         return settingsViewController
     }
     
-    var userName: String?
     var userAccessViewModel: UserAccessViewModel!
     
     override func viewDidLoad() {
@@ -27,17 +26,36 @@ class SettingsViewController: BaseTableViewController {
         
         title = K.settingsViewTitle
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
-        tableView.isScrollEnabled = false
-        
-        print("SettingsViewController - Current Super State \(OnewsState.sharedInstance.currentState)")
+//        tableView.isScrollEnabled = false
+
+        print("SettingsViewController - Current State \(OnewsState.sharedInstance.currentState)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        verifyUserState()
 
         print("SettingsViewController - ViewWillAppear State \(OnewsState.sharedInstance.currentState)")
-        setUpView()
-        tableView.reloadData()
+        
+        self.setupTableView()
+        self.setUpSettingsView()
+    }
+    
+    func setUpSettingsView() {
+        
+        switch OnewsState.sharedInstance.currentState {
+        case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired:
+            break
+        case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
+            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+                OnewsState.sharedInstance.currentState = .signedInWithFaceId
+            } else {
+                OnewsState.sharedInstance.currentState = .signedOut
+            }
+        }
+        print("SettingsViewController - Setup State \(OnewsState.sharedInstance.currentState)")
+        print("SettingsViewController - userName \(self.userName)")
+        
+        self.setupTableView()
+        tableView.refreshControl?.endRefreshing()
     }
     
     func showSignInSheet() {
