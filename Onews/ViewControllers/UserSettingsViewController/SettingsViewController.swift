@@ -12,7 +12,6 @@ import FirebaseAuth
 class SettingsViewController: BaseTableViewController {
     
     class func create() -> SettingsViewController {
-        print("SettingsViewController created.")
         let settingsViewController = SettingsViewController()
         settingsViewController.userAccessViewModel = UserAccessViewModel(userAccessDelegate: settingsViewController)
         settingsViewController.userName = UserDefaults.standard.string(forKey: K.userDefaultEmailKey)
@@ -26,14 +25,10 @@ class SettingsViewController: BaseTableViewController {
         
         title = K.settingsViewTitle
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
-//        tableView.isScrollEnabled = false
-
-        print("SettingsViewController - Current State \(OnewsState.sharedInstance.currentState)")
+        tableView.isScrollEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
-        print("SettingsViewController - ViewWillAppear State \(OnewsState.sharedInstance.currentState)")
         
         self.setupTableView()
         self.setUpSettingsView()
@@ -51,8 +46,6 @@ class SettingsViewController: BaseTableViewController {
                 OnewsState.sharedInstance.currentState = .signedOut
             }
         }
-        print("SettingsViewController - Setup State \(OnewsState.sharedInstance.currentState)")
-        print("SettingsViewController - userName \(self.userName)")
         
         self.setupTableView()
         tableView.refreshControl?.endRefreshing()

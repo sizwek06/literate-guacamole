@@ -29,13 +29,10 @@ class ProfileViewController: BaseTableViewController {
         title = K.profileViewTitle
         
         tableView.refreshControl?.addTarget(self, action: #selector(setProfileView), for: .valueChanged)
-    
-        print("ProfileViewController - Current State \(String(describing: OnewsState.sharedInstance.currentState))")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("ProfileViewController - ViewWillAppear State \(OnewsState.sharedInstance.currentState)")
         
         self.setupTableView()
         self.setUpView()
@@ -56,8 +53,6 @@ class ProfileViewController: BaseTableViewController {
                 OnewsState.sharedInstance.currentState = .signedOut
             }
         }
-        print("ProfileViewController - Setup State \(OnewsState.sharedInstance.currentState)")
-        print("ProfileViewController - userName \(super.userName)")
         
         self.setupTableView()
         tableView.refreshControl?.endRefreshing()

@@ -26,7 +26,7 @@ extension ArticlesListViewController {
         
         if indexPath.section == 1 {
             let article = articlesListViewModel.articlesArray[indexPath.row]
-            print("News Article: ", article)
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "newsArticle", for: indexPath) as! NewsArticleTableViewCell
             
             cell.selectionStyle = .none

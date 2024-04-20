@@ -13,7 +13,6 @@ import OnewsSDK
 class ArticlesListViewController: BaseTableViewController {
     
     class func create() -> ArticlesListViewController {
-        print("ArticlesListViewController created.")
         let articlesViewController = ArticlesListViewController()
         articlesViewController.articlesListViewModel = ArticlesListViewModel(articleDelegate: articlesViewController)
         return articlesViewController
