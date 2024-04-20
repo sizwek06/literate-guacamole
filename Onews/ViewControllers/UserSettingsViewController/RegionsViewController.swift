@@ -10,10 +10,17 @@ import UIKit
 
 class RegionsViewController: SettingsViewController {
     
+    override class func create() -> SettingsViewController {
+        let regionsViewController = RegionsViewController()
+        regionsViewController.userName = UserDefaults.standard.string(forKey: K.userDefaultEmailKey)
+        return regionsViewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Regions"
+        self.tableView.isScrollEnabled = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,7 +37,7 @@ extension RegionsViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 1 ? "Select a region below to receive the latest top headlines from around the globe" : ""
+        return section == 1 ? "Select a region below to receive the latest top headlines from around the globe" : K.profileHeaderText
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,13 +51,13 @@ extension RegionsViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
             else { return UITableViewCell() }
             
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
                 
             case .signedInWithFaceId, .signedInNoFaceId:
                 cell.usernameLabel.text = self.userName ?? "Choose one of the following \(K.regionOptions.count) countries!"
                 cell.setUpProfileView(using: true)
                 
-            case .verifyFaceIdFailed, .signingInWithFaceId:
+            case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired:
                 cell.setUpProfileView(using: false)
                 
             case .signedOut:

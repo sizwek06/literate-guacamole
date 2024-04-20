@@ -13,15 +13,26 @@ import OnewsSDK
 class BaseTableViewController: UIViewController {
     
     var openArticleURL: ((String) -> Void)?
-    var isSignedIn: Bool = false
+    var isSignedIn: Bool
+    let biometricAuthManager = BiometricAuthManager()
+    var userName: String?
     
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
-        table.register(MainArticleTableViewCell.self, forCellReuseIdentifier: MainArticleTableViewCell.identifier)
+        
         table.refreshControl = UIRefreshControl()
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
+    
+    public init() {
+        self.isSignedIn = false
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +51,7 @@ class BaseTableViewController: UIViewController {
     
     func setupTableView() {
         self.tableView.register(UINib(nibName: "NewsArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "newsArticle")
+        self.tableView.register(MainArticleTableViewCell.self, forCellReuseIdentifier: MainArticleTableViewCell.identifier)
         self.tableView.register(UINib(nibName: "UserProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "userProfileTableViewCell")
         self.tableView.register(SingleLabelTableViewCell.self, forCellReuseIdentifier: SingleLabelTableViewCell.identifier)
         self.tableView.register(UserFaceIDTableViewCell.self, forCellReuseIdentifier: UserFaceIDTableViewCell.identifier)
@@ -103,7 +115,7 @@ class BaseTableViewController: UIViewController {
     }
     
     func checkCurrentRegion() {
-        if let region = UserDefaults.standard.string(forKey: K.userDefaultRegionKey) {
+        if UserDefaults.standard.string(forKey: K.userDefaultRegionKey) != nil {
         } else {
             UserDefaults.standard.setValue("us", forKey: K.userDefaultRegionKey)
         }
@@ -116,6 +128,28 @@ class BaseTableViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             OnewsLoaderViewController.sharedInstance.hide()
         }
+    }
+
+    func setUpView() {
+        UserDefaults.standard.synchronize()
+        
+        if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+            if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
+                UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
+                self.isSignedIn = !user.isEmpty
+                self.userName = user
+                
+                if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
+                    OnewsState.sharedInstance.currentState = OnewsState.sharedInstance.currentState == .faceIDRequired ? .faceIDRequired : OnewsState.sharedInstance.currentState
+                }
+            }
+        } else {
+            UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
+            self.isSignedIn = false
+            OnewsState.sharedInstance.currentState = .signedOut
+        }
+        
+        self.setupTableView()
     }
 }
 

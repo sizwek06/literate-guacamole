@@ -12,61 +12,64 @@ import FirebaseFirestoreSwift
 
 class ProfileViewController: BaseTableViewController {
     
-    var userName: String?
+    class func create() -> ProfileViewController {
+        let profileViewController = ProfileViewController()
+        profileViewController.userArticlesViewModel = UserArticlesViewModel(userArticleDelegate: profileViewController)
+        return profileViewController
+    }
+    
     var isFaceIDVerified: Bool = false
     var isFaceIDEnabled: Bool = false
     
-    var userArticlesViewModel = UserArticlesViewModel()
-    private let biometricAuthManager = BiometricAuthManager()
-    
-    var currentState: OnewsStates = .signedOut {
-        didSet {
-            self.tableView.reloadData()
-        }
-    }
+    var userArticlesViewModel: UserArticlesViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = K.profileViewHeader
+        title = K.profileViewTitle
         
-        tableView.refreshControl?.addTarget(self, action: #selector(setUpView), for: .valueChanged)
+        tableView.refreshControl?.addTarget(self, action: #selector(setProfileView), for: .valueChanged)
+    
+        print("ProfileViewController - Current State \(String(describing: OnewsState.sharedInstance.currentState))")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.userArticlesViewModel.userArticleDelegate = self
-        self.verifyUser()
-        self.setUpView()
-    }
-    
-    @objc func setUpView() {
-        
-        switch self.currentState {
-        case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
-            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
-                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey),
-                   let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) {
-                    self.userName = user
-                    self.isSignedIn = !user.isEmpty
-                    
-                    DispatchQueue.main.async {
-                        self.userArticlesViewModel.queryCurrentUserArticles(using: uuid)
-                        self.currentState = .signedInNoFaceId
-                    }
-                }
-            } else {
-                self.userArticlesViewModel.articlesArray = []
-                self.currentState = .signedOut
-            }
-        case .verifyFaceIdFailed:
-            self.currentState = .verifyFaceIdFailed
-        case .signingInWithFaceId:
-            self.currentState = .signingInWithFaceId
-        }
+        print("ProfileViewController - ViewWillAppear State \(OnewsState.sharedInstance.currentState)")
         
         self.setupTableView()
+        self.setUpView()
+        verifyUserState()
+    }
+    
+    @objc func setProfileView() {
+        
+        switch OnewsState.sharedInstance.currentState {
+        case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired:
+            break
+        case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
+            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+                OnewsState.sharedInstance.currentState = .signedInWithFaceId
+                NotificationCenter.default.post(name: Notification.Name("reloadSettingsViewControllerTable"), object: nil)
+                self.checkNewsArticlesArray()
+            } else {
+                OnewsState.sharedInstance.currentState = .signedOut
+            }
+        }
+        print("ProfileViewController - Setup State \(OnewsState.sharedInstance.currentState)")
+        print("ProfileViewController - userName \(super.userName)")
+        
+        self.setupTableView()
+        tableView.refreshControl?.endRefreshing()
+    }
+    
+    func checkNewsArticlesArray() {
+        if let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) {
+            
+            DispatchQueue.main.async {
+                self.userArticlesViewModel.queryCurrentUserArticles(using: uuid)
+            }
+        }
     }
     
     func navigateToSettingsSignIn() {
@@ -81,30 +84,28 @@ class ProfileViewController: BaseTableViewController {
         self.dismiss(animated: true, completion: {})
     }
     
-    func verifyUser() {
+    func verifyUserState() {
         
         if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
-            self.currentState = .signingInWithFaceId
+            OnewsState.sharedInstance.currentState = .signingInWithFaceId
             
             biometricAuthManager.canEvaluate { (canEvaluate, _, _) in
                 guard canEvaluate else {
-                    self.currentState = .signedInNoFaceId
+                    OnewsState.sharedInstance.currentState = .signedInNoFaceId
                     return
                 }
                 
                 biometricAuthManager.evaluate { [weak self] (success, _) in
                     guard let self else { return }
                     guard success else {
-                        self.currentState = .verifyFaceIdFailed
+                        OnewsState.sharedInstance.currentState = .verifyFaceIdFailed
                         return
                     }
-                    
-                    DispatchQueue.main.async {
-                        self.currentState = .signedInWithFaceId
-                        self.setUpView()
-                    }
+                    OnewsState.sharedInstance.currentState = .signedInWithFaceId
+                    self.setProfileView()
                 }
             }
         }
+        
     }
 }

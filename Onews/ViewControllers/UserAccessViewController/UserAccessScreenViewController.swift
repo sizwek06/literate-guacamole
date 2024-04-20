@@ -19,13 +19,22 @@ class UserAccessScreenViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
     
-    var userAccessViewModel = UserAccessViewModel()
+    var userAccessViewModel: UserAccessViewModel!
     public var isUserRegistration: Bool = false
+    
+    class func create() -> UserAccessScreenViewController? {
+        let storyboard: UIStoryboard = UIStoryboard(name: "ArticlesListViewController", bundle: Bundle(for: ArticlesListViewController.self))
+        
+        guard let userAccessViewController: UserAccessScreenViewController = storyboard.instantiateViewController(withIdentifier: "UserAccessScreenViewController") as?
+                UserAccessScreenViewController else { return nil }
+        userAccessViewController.userAccessViewModel = UserAccessViewModel(userAccessDelegate: userAccessViewController)
+        
+        return userAccessViewController
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userAccessViewModel.userAccessDelegate = self
         setupView()
     }
     
@@ -117,6 +126,8 @@ extension UserAccessScreenViewController: UserAcessDelegate {
     }
     
     func successfulUserSignIn(user: User, isRegistration: Bool) {
+        
+        OnewsState.sharedInstance.currentState = .signedInNoFaceId
         
         guard let email = user.email else { return }
         
