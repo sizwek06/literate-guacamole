@@ -32,7 +32,7 @@ class ArticlesListViewController: BaseTableViewController {
         view.addSubview(tableView)
         tableView.refreshControl?.addTarget(self, action:
                                                 #selector(tableViewReloadNewsArticles),
-                                              for: .valueChanged)
+                                            for: .valueChanged)
         searchController.delegate = self
         searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true

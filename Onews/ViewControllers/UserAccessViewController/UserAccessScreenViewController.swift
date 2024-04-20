@@ -78,7 +78,7 @@ class UserAccessScreenViewController: UIViewController {
     
     func checkTextfieldsContent() {
         guard let passwordFieldText = passwordTextfield.text,
-        let emailFieldText = passwordTextfield.text
+              let emailFieldText = passwordTextfield.text
         else { return }
         
         signInButton.isEnabled = !passwordFieldText.isEmpty && !emailFieldText.isEmpty ? true : false
@@ -88,7 +88,7 @@ class UserAccessScreenViewController: UIViewController {
 extension UserAccessScreenViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    switch textField {
+        switch textField {
         case emailTextField:
             passwordTextfield.becomeFirstResponder()
         case passwordTextfield:

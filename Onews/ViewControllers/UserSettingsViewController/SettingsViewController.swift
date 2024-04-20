@@ -82,7 +82,7 @@ class SettingsViewController: BaseTableViewController {
         guard let userAccessViewController = UserAccessScreenViewController.create() else {
             return
         }
-       
+        
         userAccessViewController.isUserRegistration = isUserRegistration
         
         if let userAccessViewController = userAccessViewController.presentationController as? UISheetPresentationController {

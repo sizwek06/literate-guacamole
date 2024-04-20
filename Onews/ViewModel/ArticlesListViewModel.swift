@@ -31,7 +31,7 @@ class ArticlesListViewModel {
         } else {
             articleURL = K.newsArticleURL + (UserDefaults.standard.string(forKey: K.userDefaultRegionKey) ?? "us")
         }
-                                             
+        
         articleRequest.performGetArticlesRequest(with: articleURL, { [weak self] result in
             guard let self else { return }
             
@@ -40,24 +40,24 @@ class ArticlesListViewModel {
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
-                self.articlesArray = data
-                
-                self.articleDelegate.didReceiveArticlesSuccessfully()
+                    self.articlesArray = data
+                    
+                    self.articleDelegate.didReceiveArticlesSuccessfully()
                 }
             case .failure(let error):
                 self.articleDelegate.didFailWithError(error: error.localizedDescription)
             }
         })
-   }
+    }
     
     func saveNewsArticle(using newsArticle: Article, userUID: String) {
         self.articleDelegate.showNewsLoading()
-            
+        
         onewsFireStore.saveNewsArticle(using: newsArticle, userUID: userUID, completion: { [weak self] error in
             guard let self else { return }
-        
+            
             self.articleDelegate.hideNewsLoading()
-        
+            
             if let err = error {
                 self.articleDelegate.didFailWithError(error: err.localizedDescription)
             }
