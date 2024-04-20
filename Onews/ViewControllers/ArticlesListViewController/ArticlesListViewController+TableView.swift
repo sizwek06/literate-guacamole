@@ -13,6 +13,10 @@ extension ArticlesListViewController {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section == 0 ? K.mainArticleHeader : K.otherArticlesHeader
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.section == 0 ? 535 : UITableView.automaticDimension
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 : articlesListViewModel.articlesArray.count
@@ -31,7 +35,7 @@ extension ArticlesListViewController {
             downloadImg(urlString: article.urlToImage, imgView: cell.articleImg)
             
             cell.articleLabel.text = article.title
-            cell.websiteLabel.text = (article.source.name ?? K.newsViewHeader).uppercased()
+            cell.websiteLabel.text = (article.source.name ?? K.newsViewTitle).uppercased()
             cell.websiteLabel.textColor = returnSourceColour()
             cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
             
@@ -67,7 +71,7 @@ extension ArticlesListViewController {
         let article = articlesListViewModel.articlesArray[indexPath.row]
         
         if indexPath.section == 1 {
-            self.handleOpenArticleURL(url: article.url, source: article.source.name ?? K.newsViewHeader)
+            self.handleOpenArticleURL(url: article.url, source: article.source.name ?? K.newsViewTitle)
         }
     }
     

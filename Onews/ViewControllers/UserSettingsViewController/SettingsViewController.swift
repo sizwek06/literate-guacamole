@@ -9,24 +9,53 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
-class SettingsViewController: ProfileViewController {
+class SettingsViewController: BaseTableViewController {
     
-    var userAccessViewModel = UserAccessViewModel()
+    class func create() -> SettingsViewController {
+        print("SettingsViewController created.")
+        let settingsViewController = SettingsViewController()
+        settingsViewController.userAccessViewModel = UserAccessViewModel(userAccessDelegate: settingsViewController)
+        settingsViewController.userName = UserDefaults.standard.string(forKey: K.userDefaultEmailKey)
+        return settingsViewController
+    }
+    
+    var userAccessViewModel: UserAccessViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Settings"
+        title = K.settingsViewTitle
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
+//        tableView.isScrollEnabled = false
+
+        print("SettingsViewController - Current State \(OnewsState.sharedInstance.currentState)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+
+        print("SettingsViewController - ViewWillAppear State \(OnewsState.sharedInstance.currentState)")
         
-        self.userAccessViewModel.userAccessDelegate = self
-        self.verifyUser()
         self.setupTableView()
-        // TODO: Why does it show the Profile loader 
+        self.setUpSettingsView()
+    }
+    
+    func setUpSettingsView() {
+        
+        switch OnewsState.sharedInstance.currentState {
+        case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired:
+            break
+        case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
+            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+                OnewsState.sharedInstance.currentState = .signedInWithFaceId
+            } else {
+                OnewsState.sharedInstance.currentState = .signedOut
+            }
+        }
+        print("SettingsViewController - Setup State \(OnewsState.sharedInstance.currentState)")
+        print("SettingsViewController - userName \(self.userName)")
+        
+        self.setupTableView()
+        tableView.refreshControl?.endRefreshing()
     }
     
     func showSignInSheet() {
@@ -56,11 +85,11 @@ class SettingsViewController: ProfileViewController {
     }
     
     func showUserAccessController(_ isUserRegistration: Bool) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "ArticlesListViewController", bundle: Bundle(for: ArticlesListViewController.self))
         
-        let userAccessViewController: UserAccessScreenViewController = storyboard.instantiateViewController(withIdentifier: "UserAccessScreenViewController") as!
-        UserAccessScreenViewController
-        
+        guard let userAccessViewController = UserAccessScreenViewController.create() else {
+            return
+        }
+       
         userAccessViewController.isUserRegistration = isUserRegistration
         
         if let userAccessViewController = userAccessViewController.presentationController as? UISheetPresentationController {

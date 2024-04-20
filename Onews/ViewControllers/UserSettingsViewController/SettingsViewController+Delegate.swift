@@ -16,8 +16,10 @@ extension SettingsViewController: UserAcessDelegate {
             
         alert.addAction(UIAlertAction(title: K.alertYes, style: .destructive, handler: { _ in
                 self.userAccessViewModel.signOutUser()
-                super.currentState = .signedOut
+            
+                OnewsState.sharedInstance.currentState = .signedOut
                 self.setupTableView()
+            
                 self.refreshUserDetails(1)
                 UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
                 UserDefaults.standard.set(false, forKey: K.userDefaultBiometricsKey)
@@ -38,8 +40,7 @@ extension SettingsViewController: UserAcessDelegate {
         UserDefaults.standard.set(email, forKey: K.userDefaultEmailKey)
         UserDefaults.standard.set(user.uid, forKey: K.userDefaultUUIDKey)
         
-        super.self.currentState = .signedInNoFaceId
-        self.currentState = .signedInNoFaceId
+        OnewsState.sharedInstance.currentState = .signedInNoFaceId
         self.setupTableView()
         
         self.dismiss(animated: true)

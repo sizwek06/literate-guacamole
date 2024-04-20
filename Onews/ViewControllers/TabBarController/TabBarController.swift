@@ -17,11 +17,11 @@ class TabBarController: UITabBarController {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch tabBar.selectedItem?.title {
-        case "Profile":
+        case K.profileViewTitle:
             self.selectedIndex = 0
-        case "Onews":
+        case K.newsViewTitle:
             self.selectedIndex = 1
-        case "Settings":
+        case K.settingsViewTitle:
             self.selectedIndex = 2
         default:
             break
@@ -29,12 +29,17 @@ class TabBarController: UITabBarController {
     }
     
     func setupTabBar() {
-        let articlesNavigationController = UINavigationController(rootViewController: ArticlesListViewController())
-        articlesNavigationController.title = "Onews"
-        let userNavigationController = UINavigationController(rootViewController: ProfileViewController())
-        userNavigationController.title = "Profile"
-        let settingsNavigationController = UINavigationController(rootViewController: SettingsViewController())
-        settingsNavigationController.title = "Settings"
+        let articlesListViewController = ArticlesListViewController.create()
+        let articlesNavigationController = UINavigationController(rootViewController: articlesListViewController)
+        articlesNavigationController.title = K.newsViewTitle
+        
+        let profileViewController = ProfileViewController.create()
+        let userNavigationController = UINavigationController(rootViewController: profileViewController)
+        userNavigationController.title = K.profileViewTitle
+        
+        let settingsViewController = SettingsViewController.create()
+        let settingsNavigationController = UINavigationController(rootViewController: settingsViewController)
+        settingsNavigationController.title = K.settingsViewTitle
         
         articlesNavigationController.tabBarItem.image = UIImage(systemName: "newspaper")
         articlesNavigationController.tabBarItem.selectedImage = UIImage(systemName: "newspaper.fill")
