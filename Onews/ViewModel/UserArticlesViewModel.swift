@@ -10,17 +10,19 @@ import FirebaseFirestore
 import OnewsSDK
 
 class UserArticlesViewModel {
+
+    var userArticleDelegate: UserArticlesDelegate
+    let onewsFireStore: OnewsFirestoreProtocol
+    
+    var articlesArray: [Article] = []
     
     let fireBaseDB = Firestore.firestore().collection(K.fireStoreDb.fireStoreDbCollection)
     
-    var articlesArray: [Article] = []
-    var fireBaseArray: [String] = []
-    
-    let onewsFireStore = OnewsFirestore()
-    var userArticleDelegate: UserArticlesDelegate
-    
-    init(userArticleDelegate: UserArticlesDelegate) {
+    init(userArticleDelegate: UserArticlesDelegate,
+         onewsFireStore: OnewsFirestoreProtocol) {
+        
         self.userArticleDelegate = userArticleDelegate
+        self.onewsFireStore = onewsFireStore
     }
     
     func queryCurrentUserArticles(using uuid: String) {
@@ -30,9 +32,10 @@ class UserArticlesViewModel {
         let query = fireBaseDB
             .whereField(K.fireStoreDb.artileUUIDfield, isEqualTo: uuid)
         
-        OnewsFirestore().queryUserArticles(using: query, completion: { [weak self] articlesArray, error in
+        onewsFireStore.queryUserArticles(using: query, completion: { [weak self] articlesArray, error in
             guard let self else { return }
             
+            self.userArticleDelegate.hideNewsLoading()
             if let err = error {
                 self.userArticleDelegate.didFailWithError(error: err.localizedDescription)
             } else {
@@ -49,9 +52,10 @@ class UserArticlesViewModel {
             .whereField(K.fireStoreDb.artileUrlField, isEqualTo: articleURL)
             .whereField(K.fireStoreDb.artileUUIDfield, isEqualTo: uuid)
         
-        OnewsFirestore().deleteUserArticles(query, completion: { [weak self] error in
+        onewsFireStore.deleteUserArticles(query, completion: { [weak self] error in
             guard let self else { return }
             
+            self.userArticleDelegate.hideNewsLoading()
             if let err = error {
                 self.userArticleDelegate.didFailWithError(error: err.localizedDescription)
             } else {

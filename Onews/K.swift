@@ -10,8 +10,10 @@ import UIKit
 
 struct K {
     
-    public static let newsArticleURL = "https://newsapi.org/v2/top-headlines?pageSize=50&apiKey=59fd1c88fc3f43d8a4dab7d839612abf&country="
-    static let searchURL = "https://newsapi.org/v2/everything?apiKey=59fd1c88fc3f43d8a4dab7d839612abf&sortBy=popularity&q="
+    static let apiKey = Bundle.main.infoDictionary?["API_KEY"] ?? ""
+    
+    public static let newsArticleURL = "https://newsapi.org/v2/top-headlines?pageSize=50&apiKey=\(apiKey)&country="
+    static let searchURL = "https://newsapi.org/v2/everything?apiKey=\(apiKey)&sortBy=popularity&q="
     
     static let profileViewTitle = "Profile"
     static let settingsViewTitle = "Settings"

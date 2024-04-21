@@ -14,7 +14,12 @@ class ArticlesListViewController: BaseTableViewController {
     
     class func create() -> ArticlesListViewController {
         let articlesViewController = ArticlesListViewController()
-        articlesViewController.articlesListViewModel = ArticlesListViewModel(articleDelegate: articlesViewController)
+        let articleRequest = ArticleRequest()
+        let fireStoreQuery = OnewsFirestore()
+        
+        articlesViewController.articlesListViewModel = ArticlesListViewModel(articleDelegate: articlesViewController, 
+                                                                             articleRequest: articleRequest,
+                                                                             onewsFirestore: fireStoreQuery)
         return articlesViewController
     }
     

@@ -9,12 +9,15 @@ import Foundation
 import UIKit
 import FirebaseAuth
 import FirebaseFirestoreSwift
+import OnewsSDK
 
 class ProfileViewController: BaseTableViewController {
     
     class func create() -> ProfileViewController {
         let profileViewController = ProfileViewController()
-        profileViewController.userArticlesViewModel = UserArticlesViewModel(userArticleDelegate: profileViewController)
+        let onewsFirestore = OnewsFirestore()
+        profileViewController.userArticlesViewModel = UserArticlesViewModel(userArticleDelegate: profileViewController,
+                                                                            onewsFireStore: onewsFirestore)
         return profileViewController
     }
     
