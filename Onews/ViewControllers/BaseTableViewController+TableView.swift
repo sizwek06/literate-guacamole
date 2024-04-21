@@ -13,7 +13,7 @@ extension BaseTableViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
@@ -55,7 +55,7 @@ extension BaseTableViewController: UITableViewDelegate, UITableViewDataSource {
     func createUseFaceIdView() -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: UserFaceIDTableViewCell.identifier) as? UserFaceIDTableViewCell
         else { return UITableViewCell() }
-
+        
         return cell
     }
 }

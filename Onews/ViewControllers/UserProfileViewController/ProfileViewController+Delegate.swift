@@ -18,7 +18,7 @@ extension ProfileViewController: UserArticlesDelegate {
     func hideNewsLoading() {
         OnewsLoaderViewController.sharedInstance.hide()
     }
-
+    
     func reloadNewsArticles() {
         tableView.reloadData()
     }

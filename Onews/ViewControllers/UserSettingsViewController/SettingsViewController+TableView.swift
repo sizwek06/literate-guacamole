@@ -91,11 +91,11 @@ extension SettingsViewController {
         switch indexPath.section {
         case 0:
             switch OnewsState.sharedInstance.currentState {
-                case .signedInNoFaceId, .signedInWithFaceId:
-                    self.bingBong()
-                default:
-                    break
-                }
+            case .signedInNoFaceId, .signedInWithFaceId:
+                self.bingBong()
+            default:
+                break
+            }
         case 1:
             switch indexPath.row {
             case 2:

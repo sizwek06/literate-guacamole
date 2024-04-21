@@ -54,7 +54,6 @@ extension MainArticleView: UICollectionViewDelegate, UICollectionViewDataSource 
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let offSet = scrollView.contentOffset.x / 338
-        print("Current element for offset Int \(Int(offSet))")
         didSwipeArticle?(Int(offSet))
     }
 }
