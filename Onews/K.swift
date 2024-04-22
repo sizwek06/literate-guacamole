@@ -13,9 +13,9 @@ struct K {
     public static let newsArticleURL = "https://newsapi.org/v2/top-headlines?pageSize=50&apiKey=59fd1c88fc3f43d8a4dab7d839612abf&country="
     static let searchURL = "https://newsapi.org/v2/everything?apiKey=59fd1c88fc3f43d8a4dab7d839612abf&sortBy=popularity&q="
     
-    static let profileViewHeader = "Profile"
-    static let settingsViewHeader = "Settings"
-    static let newsViewHeader = "Onews"
+    static let profileViewTitle = "Profile"
+    static let settingsViewTitle = "Settings"
+    static let newsViewTitle = "Onews"
     
     static let mainArticleHeader = "TOP NEWS"
     static let otherArticlesHeader = "OTHER ARTICLES"
@@ -33,6 +33,7 @@ struct K {
     public static let signOutText = "Sign Out"
     public static let useFaceIDText = "Use FaceID"
     public static let settingsFooterText = "Use the above settings to improve your experience, they will be saved for your next browsing."
+    public static let profileHeaderText = "LOGGED IN AS:"
     
     static let newsLogo = UIImage(named: "NewsApp")
     static let newsFont = UIFont(name: "SF-Pro", size: 20)
@@ -65,7 +66,8 @@ struct K {
                                        "za": "South Africa", "kr": "South Korea", "se": "Sweden", "ch": "Switzerland",
                                        "tw": "Taiwan", "th": "Thailand", "tr": "Turkey", "ae": "UAE",
                                        "ua": "Ukraine", "gb": "United Kingdom", "us": "United States", "ve": "Venuzuela"]
-    // //A regions endpoint is not available from newsAPI, manually entered these.
+    // A regions endpoint is not available from newsAPI, manually entered these.
+    
     struct fireStoreDb {
         static let articleField = "article"
         static let artileUUIDfield = "uuid"

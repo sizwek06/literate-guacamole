@@ -31,6 +31,7 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
         webView.allowsBackForwardNavigationGestures = true
         
         navigationController?.navigationBar.backgroundColor = UIColor(named: "CollectionColor")
+        navigationController?.navigationBar.tintColor = UIColor(named: "AppearanceColor")
         
         navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeWebView)),
                                             UIBarButtonItem(image: createBarButton(using: "safari"), style: .plain, target: self, action: #selector(openInSafari))]
@@ -38,6 +39,7 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
         navigationItem.rightBarButtonItems = 
         [UIBarButtonItem(image: createBarButton(using: "arrow.clockwise"), style: .plain, target: self, action: #selector(reloadWebView)),
          UIBarButtonItem(image: createBarButton(using: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareNewsArticleLink))]
+        
     }
     
     override func loadView() {

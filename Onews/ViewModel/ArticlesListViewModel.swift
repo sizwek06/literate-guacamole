@@ -12,12 +12,17 @@ import OnewsSDK
 class ArticlesListViewModel {
     
     var articlesArray: [Article] = []
-    var delegate: ArticleDelegate?
+    var articleDelegate: ArticleDelegate
     let fireBaseDB = Firestore.firestore()
     let articleRequest = ArticleRequest()
+    let onewsFireStore = OnewsFirestore()
+    
+    init(articleDelegate: ArticleDelegate) {
+        self.articleDelegate = articleDelegate
+    }
     
     func getArticles(_ searchPhrase: String? = nil) {
-        self.delegate?.showNewsLoading()
+        self.articleDelegate.showNewsLoading()
         
         var articleURL: String
         
@@ -30,36 +35,32 @@ class ArticlesListViewModel {
         articleRequest.performGetArticlesRequest(with: articleURL, { [weak self] result in
             guard let self else { return }
             
-            self.delegate?.hideNewsLoading()
+            self.articleDelegate.hideNewsLoading()
             
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
                 self.articlesArray = data
                 
-                self.delegate?.didReceiveArticlesSuccessfully()
+                self.articleDelegate.didReceiveArticlesSuccessfully()
                 }
             case .failure(let error):
-                self.delegate?.didFailWithError(error: error.localizedDescription)
+                self.articleDelegate.didFailWithError(error: error.localizedDescription)
             }
         })
    }
     
-    func saveNewsArticle(using newsArticle: Article) {
-        self.delegate?.showNewsLoading()
-        let newsArticleDb = fireBaseDB.collection(K.fireStoreDb.fireStoreDbCollection).document()
+    func saveNewsArticle(using newsArticle: Article, userUID: String) {
+        self.articleDelegate.showNewsLoading()
             
-        if let userUID = UserDefaults.standard.object(forKey: K.userDefaultUUIDKey) {
-            
-        self.delegate?.hideNewsLoading()
-        do {
-            var dbArticle = newsArticle
-            dbArticle.uuid = userUID as? String
-            
-            try newsArticleDb.setData(from: dbArticle)
-            } catch {
-                self.delegate?.didFailWithError(error: error.localizedDescription)
+        onewsFireStore.saveNewsArticle(using: newsArticle, userUID: userUID, completion: { [weak self] error in
+            guard let self else { return }
+        
+            self.articleDelegate.hideNewsLoading()
+        
+            if let err = error {
+                self.articleDelegate.didFailWithError(error: err.localizedDescription)
             }
-        }
+        })
     }
 }

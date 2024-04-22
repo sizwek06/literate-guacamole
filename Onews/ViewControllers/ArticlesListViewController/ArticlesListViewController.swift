@@ -12,23 +12,30 @@ import OnewsSDK
 
 class ArticlesListViewController: BaseTableViewController {
     
-    var articlesListViewModel = ArticlesListViewModel()
+    class func create() -> ArticlesListViewController {
+        print("ArticlesListViewController created.")
+        let articlesViewController = ArticlesListViewController()
+        articlesViewController.articlesListViewModel = ArticlesListViewModel(articleDelegate: articlesViewController)
+        return articlesViewController
+    }
     
-    let search = UISearchController(searchResultsController: nil)
+    var articlesListViewModel: ArticlesListViewModel!
+    
+    let searchController = UISearchController(searchResultsController: nil)
     var searchText: String = ""
+    var userUID: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Onews"
-        articlesListViewModel.delegate = self
+        title = K.newsViewTitle
         
         view.addSubview(tableView)
         tableView.refreshControl?.addTarget(self, action:
                                                 #selector(tableViewReloadNewsArticles),
                                               for: .valueChanged)
-        search.delegate = self
-        search.searchBar.delegate = self
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
         
         checkNotificationsAuthorizationStatus()
@@ -42,34 +49,16 @@ class ArticlesListViewController: BaseTableViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        self.navigationItem.searchController = search
+        self.navigationItem.searchController = searchController
     }
     
     @objc func tableViewReloadNewsArticles() {
         articlesListViewModel.getArticles()
         tableView.refreshControl?.endRefreshing()
     }
-    
-    func setUpView() {
-        UserDefaults.standard.synchronize()
-        
-        DispatchQueue.main.async {
-            if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
-                if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
-                    UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
-                    self.isSignedIn = !user.isEmpty
-                }
-            } else {
-                UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
-                self.isSignedIn = false
-            }
-            
-            self.setupTableView()
-            self.tableView.refreshControl?.endRefreshing()
-        }
-    }
 }
 
+// MARK: Search Bar Delegate
 extension ArticlesListViewController: UISearchControllerDelegate, UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

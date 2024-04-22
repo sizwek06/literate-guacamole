@@ -16,8 +16,6 @@ class UserProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var faceIDLabel: UILabel!
     @IBOutlet weak var faceIDSubtitleLabel: UILabel!
     
-    var currentState: OnewsStates = .signingInWithFaceId
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         

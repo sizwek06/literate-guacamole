@@ -13,11 +13,29 @@ extension ProfileViewController {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
-            switch self.currentState {
-            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed:
+            switch OnewsState.sharedInstance.currentState {
+            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed, .faceIDRequired:
                 return ""
             default:
                 return "Articles"
+            }
+        } else {
+            switch OnewsState.sharedInstance.currentState {
+            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed, .faceIDRequired:
+                return ""
+            default:
+                return K.profileHeaderText
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == 1 {
+            switch OnewsState.sharedInstance.currentState {
+            case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed, .faceIDRequired:
+                return ""
+            default:
+                return "You have \(self.userArticlesViewModel.articlesArray.count) news articles, well done! Swipe on the articles to share!"
             }
         } else {
             return ""
@@ -26,7 +44,7 @@ extension ProfileViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1 {
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
             case .signedInNoFaceId, .signedInWithFaceId:
                 if self.userArticlesViewModel.articlesArray.count > 1 {
                     return self.userArticlesViewModel.articlesArray.count
@@ -40,18 +58,14 @@ extension ProfileViewController {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 180 : UITableView.automaticDimension
-    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 1 {
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
             
-            case .signingInWithFaceId, .verifyFaceIdFailed:
+            case .signingInWithFaceId, .verifyFaceIdFailed, .faceIDRequired:
                 return createUseFaceIdView()
             case .signedInNoFaceId, .signedInWithFaceId:
-                switch self.currentState {
+                switch OnewsState.sharedInstance.currentState {
                 case .signedInNoFaceId, .signedInWithFaceId:
                     if self.userArticlesViewModel.articlesArray.count > 1 {
                         let article = self.userArticlesViewModel.articlesArray[indexPath.row]
@@ -60,7 +74,7 @@ extension ProfileViewController {
                     } else {
                         return createNotSignInTableViewCell()
                     }
-                case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut:
+                case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut, .faceIDRequired:
                     return createNotSignInTableViewCell()
                 }
             case .signedOut:
@@ -70,13 +84,13 @@ extension ProfileViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell") as? UserProfileTableViewCell
             else { return UITableViewCell() }
             
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
 
                 case .signedInWithFaceId, .signedInNoFaceId:
                 cell.usernameLabel.text = self.userName ?? K.noSessionText
                     cell.setUpProfileView(using: true)
 
-                case .verifyFaceIdFailed, .signingInWithFaceId:
+                case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired:
                     cell.setUpProfileView(using: false)
             
                 case .signedOut:
@@ -90,14 +104,14 @@ extension ProfileViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
             case .signedInNoFaceId, .signedInWithFaceId:
                 self.bingBong()
             default:
                 self.navigateToSettingsSignIn()
             }
         } else {
-            switch self.currentState {
+            switch OnewsState.sharedInstance.currentState {
                 
             case .signedInNoFaceId, .signedInWithFaceId:
                 if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
@@ -109,8 +123,8 @@ extension ProfileViewController {
                         self.handleOpenArticleURL(url: article.url, source: article.source.name ?? "No name")
                     }
                 }
-            case .verifyFaceIdFailed, .signingInWithFaceId:
-                self.verifyUser()
+            case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired:
+                self.verifyUserState()
             case .signedOut:
                 self.navigateToSettingsSignIn()
             }
@@ -148,7 +162,7 @@ extension ProfileViewController {
                 
                 guard let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) else { return }
                 
-                self.userArticlesViewModel.deleteUserArticles(using: currentArticle.url,
+                self.userArticlesViewModel.deleteUserArticle(currentArticle.url,
                                                               uuid: uuid)
                 self.userArticlesViewModel.articlesArray.remove(at: indexPath.row)
                 
@@ -182,13 +196,6 @@ extension ProfileViewController {
         return cell
     }
     
-    func createUseFaceIdView() -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserFaceIDTableViewCell.identifier) as? UserFaceIDTableViewCell
-        else { return UITableViewCell() }
-
-        return cell
-    }
-    
     func createArticleTableViewCell(with article: Article) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsArticle") as? NewsArticleTableViewCell
@@ -200,7 +207,7 @@ extension ProfileViewController {
         downloadImg(urlString: article.urlToImage, imgView: cell.articleImg)
         
         cell.articleLabel.text = article.title
-        cell.websiteLabel.text = (article.source.name ?? K.newsViewHeader).uppercased()
+        cell.websiteLabel.text = (article.source.name ?? K.newsViewTitle).uppercased()
         cell.websiteLabel.textColor = returnSourceColour()
         cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
         
