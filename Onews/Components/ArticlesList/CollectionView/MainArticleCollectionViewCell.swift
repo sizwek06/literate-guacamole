@@ -56,13 +56,13 @@ class MainArticleCollectionViewCell: UICollectionViewCell {
         didSaveArticle?(article)
     }
     
-    func setUpSaveImage(using userSignedIn: Bool) {
-        let imageString = userSignedIn ? "bookmark" : "bookmark.slash"
+    func setUpSaveImage() {
+        let imageString = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? "bookmark" : "bookmark.slash"
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold, scale: .medium)
         
         let image = UIImage(systemName: imageString, withConfiguration: largeConfig)
         
-        self.articleSaveButton.isUserInteractionEnabled = userSignedIn
+        self.articleSaveButton.isUserInteractionEnabled = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey)
         self.articleSaveButton.image = image
     }
 }

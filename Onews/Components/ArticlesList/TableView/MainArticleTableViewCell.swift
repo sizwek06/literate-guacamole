@@ -16,8 +16,7 @@ class MainArticleTableViewCell: UITableViewCell {
     var didSwipeArticle: ((Int) -> Void)?
     
     lazy var mainArticleView: MainArticleView = {
-        let mainArticle = MainArticleView(articlesArray: articlesArray ?? [],
-                                          isSignedIn: isUserSignedIn ?? false)
+        let mainArticle = MainArticleView(articlesArray: articlesArray ?? [])
         mainArticle.translatesAutoresizingMaskIntoConstraints = false
         mainArticle.isUserInteractionEnabled = true
         return mainArticle

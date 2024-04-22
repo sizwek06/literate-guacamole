@@ -27,9 +27,7 @@ extension MainArticleView: UICollectionViewDelegate, UICollectionViewDataSource 
             cell.websiteLabel.textColor = returnSourceColour()
             cell.timeLabel.text = Date().convertStringToDate(dateString: article.publishedAt)
             
-            if let userSignedIn = self.isSignedIn {
-                cell.setUpSaveImage(using: userSignedIn)
-            }
+            cell.setUpSaveImage()
             
             cell.didSaveArticle = { article in
                 self.didSaveArticle?(article)
