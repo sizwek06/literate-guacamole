@@ -14,7 +14,6 @@ class SettingsViewController: BaseTableViewController {
     class func create() -> SettingsViewController {
         let settingsViewController = SettingsViewController()
         settingsViewController.userAccessViewModel = UserAccessViewModel(userAccessDelegate: settingsViewController)
-        settingsViewController.userName = UserDefaults.standard.string(forKey: K.userDefaultEmailKey)
         return settingsViewController
     }
     
@@ -41,6 +40,7 @@ class SettingsViewController: BaseTableViewController {
             break
         case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
             if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+                self.setUpView()
                 OnewsState.sharedInstance.currentState = .signedInWithFaceId
             } else {
                 OnewsState.sharedInstance.currentState = .signedOut

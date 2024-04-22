@@ -35,7 +35,7 @@ extension ProfileViewController {
             case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed, .faceIDRequired:
                 return ""
             default:
-                return "You have \(self.userArticlesViewModel.articlesArray.count) news articles, well done! Swipe on the articles to share!"
+                return "You have \(self.userArticlesViewModel.articlesArray.count) news articles, well done! Swipe on the articles to save or share!"
             }
         } else {
             return ""
@@ -72,7 +72,7 @@ extension ProfileViewController {
                         
                         return createArticleTableViewCell(with: article)
                     } else {
-                        return createNotSignInTableViewCell()
+                        return createNotSignInTableViewCell(true)
                     }
                 case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut, .faceIDRequired:
                     return createNotSignInTableViewCell()
@@ -186,12 +186,13 @@ extension ProfileViewController {
         }
     }
     
-    func createNotSignInTableViewCell() -> UITableViewCell {
+    func createNotSignInTableViewCell(_ forUserArticles: Bool = false) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
         else { return UITableViewCell() }
         
         cell.signOutLabel.text = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? K.getMoreArticlesText: K.signInText
         cell.signOutLabel.textColor = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? .black : .systemBlue
+        cell.signOutLabel.font =  UIFont(name: forUserArticles ? "SFProRounded-Bold" : "SFProText-Regular", size: 15.0)
         
         return cell
     }
