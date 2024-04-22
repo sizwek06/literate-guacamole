@@ -51,6 +51,7 @@ class SettingsTableViewCell: UITableViewCell {
         case .notifications:
             settingsSwitch.isOn = UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey)
             
+            self.settingsLabel.textColor = UIColor(named: "AppearanceColor")
             settingsImageView.image = UIImage(systemName: "bell.badge.fill")
             self.switchOption = .notifications
             settingsImageView.backgroundColor = UIColor.red
