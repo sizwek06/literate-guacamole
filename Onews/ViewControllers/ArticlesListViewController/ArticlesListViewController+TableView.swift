@@ -17,7 +17,7 @@ extension ArticlesListViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return indexPath.section == 0 ? 535 : UITableView.automaticDimension
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 : articlesListViewModel.articlesArray.count
     }
@@ -26,7 +26,7 @@ extension ArticlesListViewController {
         
         if indexPath.section == 1 {
             let article = articlesListViewModel.articlesArray[indexPath.row]
-            print("News Article: ", article)
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "newsArticle", for: indexPath) as! NewsArticleTableViewCell
             
             cell.selectionStyle = .none
@@ -85,8 +85,13 @@ extension ArticlesListViewController {
             }
             
             let saveAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
-                self.articlesListViewModel.saveNewsArticle(using: self.articlesListViewModel.articlesArray[indexPath.row], 
-                                                           userUID: self.userUID)
+                switch OnewsState.sharedInstance.currentState {
+                case .signedInWithFaceId, .signedInNoFaceId, .faceIDRequired:
+                    self.articlesListViewModel.saveNewsArticle(using: self.articlesListViewModel.articlesArray[indexPath.row],
+                                                               userUID: self.userUID)
+                default:
+                    self.bingBong(K.articlesSignInErrorMessage)
+                }
                 
                 if UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey) {
                     self.sendArticleNotification(using: currentArticle, 

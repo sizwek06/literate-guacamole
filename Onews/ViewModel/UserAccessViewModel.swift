@@ -19,20 +19,20 @@ class UserAccessViewModel {
     func signUp(email: String, password: String) {
         self.userAccessDelegate.showLoader()
         
-            Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
-                
-                guard let self else { return }
-                self.userAccessDelegate.hideLoader()
-                
-                if let e = error {
-                    self.userAccessDelegate.didFailWithError(error: e.localizedDescription,
-                                                    isRegistration: true)
-                } else if let auth = authResult {
-                    self.userAccessDelegate.successfulUserSignIn(user: auth.user,
-                                                          isRegistration: true)
-                }
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
+            
+            guard let self else { return }
+            self.userAccessDelegate.hideLoader()
+            
+            if let e = error {
+                self.userAccessDelegate.didFailWithError(error: e.localizedDescription,
+                                                         isRegistration: true)
+            } else if let auth = authResult {
+                self.userAccessDelegate.successfulUserSignIn(user: auth.user,
+                                                             isRegistration: true)
             }
         }
+    }
     
     func signInUser(email: String, password: String) {
         self.userAccessDelegate.showLoader()
@@ -43,10 +43,10 @@ class UserAccessViewModel {
             
             if let e = error {
                 self.userAccessDelegate.didFailWithError(error: e.localizedDescription,
-                                                isRegistration: false)
+                                                         isRegistration: false)
             } else if let auth = authResult {
                 self.userAccessDelegate.successfulUserSignIn(user: auth.user,
-                                                      isRegistration: false)
+                                                             isRegistration: false)
             }
         }
     }
@@ -63,7 +63,7 @@ class UserAccessViewModel {
             UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
         } catch {
             self.userAccessDelegate.didFailWithError(error: error.localizedDescription,
-                                            isRegistration: true)
+                                                     isRegistration: true)
         }
     }
 }

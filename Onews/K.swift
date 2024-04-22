@@ -10,8 +10,10 @@ import UIKit
 
 struct K {
     
-    public static let newsArticleURL = "https://newsapi.org/v2/top-headlines?pageSize=50&apiKey=59fd1c88fc3f43d8a4dab7d839612abf&country="
-    static let searchURL = "https://newsapi.org/v2/everything?apiKey=59fd1c88fc3f43d8a4dab7d839612abf&sortBy=popularity&q="
+    static let apiKey = Bundle.main.infoDictionary?["API_KEY"] ?? ""
+    
+    public static let newsArticleURL = "https://newsapi.org/v2/top-headlines?pageSize=50&apiKey=\(apiKey)&country="
+    static let searchURL = "https://newsapi.org/v2/everything?apiKey=\(apiKey)&sortBy=popularity&q="
     
     static let profileViewTitle = "Profile"
     static let settingsViewTitle = "Settings"
@@ -21,6 +23,7 @@ struct K {
     static let otherArticlesHeader = "OTHER ARTICLES"
     
     public static let loadingNewsText = "Loading news, please wait."
+    public static let articlesSignInErrorMessage = "Bing Bong, sign in required!"
     public static let loadingUsersNewsText = "Loading your articles, please wait."
     public static let loadingUserText = "Signing in, please wait."
     public static let loadingUserSettingsText = "Setting Up, please wait."
@@ -54,18 +57,18 @@ struct K {
     static let userDefaultNotificationsKey = "notification"
     
     public static let regionOptions: KeyValuePairs = ["ar": "Argentina", "au": "Australia", "at": "Austria", "be": "Belgium",
-                                       "br": "Brazil", "bg": "Bulgaria", "ca": "Canada", "cn": "China",
-                                       "co": "Colombia", "cu": "Cuba", "cz": "Czech Republic", "eg": "Egypt",
-                                       "fr": "France", "de": "Germany", "gr": "Greece", "hk": "Hong Kong",
-                                       "hu": "Hungary", "in": "India", "id": "Indonesia", "ie": "Ireland",
-                                       "il": "Israel", "jp": "Japan", "lv": "Latvia", "lt": "Lithuania",
-                                       "my": "Malaysia", "mx": "Mexico", "ma": "Morocco", "nl": "Netherlands",
-                                       "nz": "New Zealand", "ng": "Nigeria", "no": "Norway", "ph": "Philippines",
-                                       "pl": "Poland", "pt": "Portugal", "ru": "Russia", "sa": "Saudi Arabia",
-                                       "rs": "Serbia", "sg": "Singapore", "sk": "Slovakia", "si": "Slovenia",
-                                       "za": "South Africa", "kr": "South Korea", "se": "Sweden", "ch": "Switzerland",
-                                       "tw": "Taiwan", "th": "Thailand", "tr": "Turkey", "ae": "UAE",
-                                       "ua": "Ukraine", "gb": "United Kingdom", "us": "United States", "ve": "Venuzuela"]
+                                                      "br": "Brazil", "bg": "Bulgaria", "ca": "Canada", "cn": "China",
+                                                      "co": "Colombia", "cu": "Cuba", "cz": "Czech Republic", "eg": "Egypt",
+                                                      "fr": "France", "de": "Germany", "gr": "Greece", "hk": "Hong Kong",
+                                                      "hu": "Hungary", "in": "India", "id": "Indonesia", "ie": "Ireland",
+                                                      "il": "Israel", "jp": "Japan", "lv": "Latvia", "lt": "Lithuania",
+                                                      "my": "Malaysia", "mx": "Mexico", "ma": "Morocco", "nl": "Netherlands",
+                                                      "nz": "New Zealand", "ng": "Nigeria", "no": "Norway", "ph": "Philippines",
+                                                      "pl": "Poland", "pt": "Portugal", "ru": "Russia", "sa": "Saudi Arabia",
+                                                      "rs": "Serbia", "sg": "Singapore", "sk": "Slovakia", "si": "Slovenia",
+                                                      "za": "South Africa", "kr": "South Korea", "se": "Sweden", "ch": "Switzerland",
+                                                      "tw": "Taiwan", "th": "Thailand", "tr": "Turkey", "ae": "UAE",
+                                                      "ua": "Ukraine", "gb": "United Kingdom", "us": "United States", "ve": "Venuzuela"]
     // A regions endpoint is not available from newsAPI, manually entered these.
     
     struct fireStoreDb {
@@ -94,7 +97,7 @@ enum BiometricError: LocalizedError {
     case biometryNotEnrolled
     case biometryLockout
     case unknown
-
+    
     var errorDescription: String? {
         switch self {
         case .authenticationFailed: return "There was a problem verifying your identity."

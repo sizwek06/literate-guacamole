@@ -77,7 +77,7 @@ class BaseTableViewController: UIViewController {
         
         switch randomInt {
         case 0:
-           return K.newsColor.oNewsBlue
+            return K.newsColor.oNewsBlue
         case 1..<3:
             return K.newsColor.oNewsGold
         case 4..<6:
@@ -129,7 +129,7 @@ class BaseTableViewController: UIViewController {
             OnewsLoaderViewController.sharedInstance.hide()
         }
     }
-
+    
     func setUpView() {
         UserDefaults.standard.synchronize()
         
@@ -174,7 +174,7 @@ extension BaseTableViewController {
         
         content.subtitle = isSaved ? "'\(article.title)' successfully saved!" : "'\(article.title)' successfully deleted!"
         content.sound = UNNotificationSound.default
-
+        
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.5, repeats: false)
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)

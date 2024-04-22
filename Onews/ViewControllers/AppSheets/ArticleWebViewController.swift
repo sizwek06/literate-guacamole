@@ -34,7 +34,7 @@ class ArticleWebViewController: UIViewController, WKNavigationDelegate {
         navigationController?.navigationBar.tintColor = UIColor(named: "AppearanceColor")
         
         navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeWebView)),
-                                            UIBarButtonItem(image: createBarButton(using: "safari"), style: .plain, target: self, action: #selector(openInSafari))]
+                                             UIBarButtonItem(image: createBarButton(using: "safari"), style: .plain, target: self, action: #selector(openInSafari))]
         navigationItem.title = self.source
         navigationItem.rightBarButtonItems = 
         [UIBarButtonItem(image: createBarButton(using: "arrow.clockwise"), style: .plain, target: self, action: #selector(reloadWebView)),

@@ -22,6 +22,8 @@ class SettingsTableViewCell: UITableViewCell {
         settingsImageView.layer.cornerRadius = 8.0
         self.selectionStyle = .none
         self.backgroundColor = .none
+        
+        self.settingsLabel.textColor = UIColor(named: "AppearanceColor")
     }
     
     @IBAction func switchOn(_ sender: UISwitch) {
@@ -31,6 +33,8 @@ class SettingsTableViewCell: UITableViewCell {
         switch switchOption {
         case .faceID:
             UserDefaults.standard.setValue(sender.isOn, forKey: K.userDefaultBiometricsKey)
+            OnewsState.sharedInstance.currentState = sender.isOn ? .faceIDRequired : .signedInNoFaceId
+            // TODO: Kick off FaceID verification when this is on.
         case .notifications:
             UserDefaults.standard.setValue(sender.isOn, forKey: K.userDefaultNotificationsKey)
         case .region:
@@ -47,12 +51,12 @@ class SettingsTableViewCell: UITableViewCell {
         case .notifications:
             settingsSwitch.isOn = UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey)
             
+            self.settingsLabel.textColor = UIColor(named: "AppearanceColor")
             settingsImageView.image = UIImage(systemName: "bell.badge.fill")
             self.switchOption = .notifications
             settingsImageView.backgroundColor = UIColor.red
             self.settingsSwitch.isHidden = false
             self.settingsSwitch.isEnabled = true
-            self.settingsLabel.textColor = UIColor(named: "AppearanceColor")
             
         case .faceID:
             settingsSwitch.isOn = UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey)
@@ -63,7 +67,6 @@ class SettingsTableViewCell: UITableViewCell {
                 self.settingsLabel.textColor = .gray
             default:
                 self.settingsSwitch.isEnabled = true
-                self.settingsLabel.textColor = UIColor(named: "AppearanceColor")
             }
             
             settingsImageView.image = UIImage(systemName: "faceid")
@@ -84,7 +87,6 @@ class SettingsTableViewCell: UITableViewCell {
                 self.settingsLabel.textColor = .gray
             default:
                 self.isUserInteractionEnabled = true
-                self.settingsLabel.textColor = UIColor(named: "AppearanceColor")
             }
         }
     }
@@ -101,5 +103,5 @@ enum SettingsOptions {
         case .faceID: return "FaceID"
         case .region: return "Change Region"
         }
-      }
+    }
 }

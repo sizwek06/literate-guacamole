@@ -12,10 +12,8 @@ import FirebaseAuth
 class SettingsViewController: BaseTableViewController {
     
     class func create() -> SettingsViewController {
-        print("SettingsViewController created.")
         let settingsViewController = SettingsViewController()
         settingsViewController.userAccessViewModel = UserAccessViewModel(userAccessDelegate: settingsViewController)
-        settingsViewController.userName = UserDefaults.standard.string(forKey: K.userDefaultEmailKey)
         return settingsViewController
     }
     
@@ -26,14 +24,10 @@ class SettingsViewController: BaseTableViewController {
         
         title = K.settingsViewTitle
         super.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
-//        tableView.isScrollEnabled = false
-
-        print("SettingsViewController - Current State \(OnewsState.sharedInstance.currentState)")
+        tableView.isScrollEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
-        print("SettingsViewController - ViewWillAppear State \(OnewsState.sharedInstance.currentState)")
         
         self.setupTableView()
         self.setUpSettingsView()
@@ -46,13 +40,12 @@ class SettingsViewController: BaseTableViewController {
             break
         case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
             if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
+                self.setUpView()
                 OnewsState.sharedInstance.currentState = .signedInWithFaceId
             } else {
                 OnewsState.sharedInstance.currentState = .signedOut
             }
         }
-        print("SettingsViewController - Setup State \(OnewsState.sharedInstance.currentState)")
-        print("SettingsViewController - userName \(self.userName)")
         
         self.setupTableView()
         tableView.refreshControl?.endRefreshing()
@@ -89,7 +82,7 @@ class SettingsViewController: BaseTableViewController {
         guard let userAccessViewController = UserAccessScreenViewController.create() else {
             return
         }
-       
+        
         userAccessViewController.isUserRegistration = isUserRegistration
         
         if let userAccessViewController = userAccessViewController.presentationController as? UISheetPresentationController {
