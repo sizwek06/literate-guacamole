@@ -35,7 +35,7 @@ extension ProfileViewController {
             case .signingInWithFaceId, .signedOut, .verifyFaceIdFailed, .faceIDRequired:
                 return ""
             default:
-                return "You have \(self.userArticlesViewModel.articlesArray.count) news articles, well done! Swipe on the articles to share!"
+                return "You have \(self.userArticlesViewModel.articlesArray.count) news articles, well done! Swipe on the articles to save or share!"
             }
         } else {
             return ""
@@ -61,7 +61,7 @@ extension ProfileViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 1 {
             switch OnewsState.sharedInstance.currentState {
-            
+                
             case .signingInWithFaceId, .verifyFaceIdFailed, .faceIDRequired:
                 return createUseFaceIdView()
             case .signedInNoFaceId, .signedInWithFaceId:
@@ -72,7 +72,7 @@ extension ProfileViewController {
                         
                         return createArticleTableViewCell(with: article)
                     } else {
-                        return createNotSignInTableViewCell()
+                        return createNotSignInTableViewCell(true)
                     }
                 case .verifyFaceIdFailed, .signingInWithFaceId, .signedOut, .faceIDRequired:
                     return createNotSignInTableViewCell()
@@ -85,18 +85,18 @@ extension ProfileViewController {
             else { return UITableViewCell() }
             
             switch OnewsState.sharedInstance.currentState {
-
-                case .signedInWithFaceId, .signedInNoFaceId:
+                
+            case .signedInWithFaceId, .signedInNoFaceId:
                 cell.usernameLabel.text = self.userName ?? K.noSessionText
-                    cell.setUpProfileView(using: true)
-
-                case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired:
-                    cell.setUpProfileView(using: false)
-            
-                case .signedOut:
-                    cell.usernameLabel.text = K.noSessionText
-                    cell.setUpProfileView(using: true)
-                }
+                cell.setUpProfileView(using: true)
+                
+            case .verifyFaceIdFailed, .signingInWithFaceId, .faceIDRequired:
+                cell.setUpProfileView(using: false)
+                
+            case .signedOut:
+                cell.usernameLabel.text = K.noSessionText
+                cell.setUpProfileView(using: true)
+            }
             
             return cell
         }
@@ -163,7 +163,7 @@ extension ProfileViewController {
                 guard let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) else { return }
                 
                 self.userArticlesViewModel.deleteUserArticle(currentArticle.url,
-                                                              uuid: uuid)
+                                                             uuid: uuid)
                 self.userArticlesViewModel.articlesArray.remove(at: indexPath.row)
                 
                 if UserDefaults.standard.bool(forKey: K.userDefaultNotificationsKey) {
@@ -186,12 +186,13 @@ extension ProfileViewController {
         }
     }
     
-    func createNotSignInTableViewCell() -> UITableViewCell {
+    func createNotSignInTableViewCell(_ forUserArticles: Bool = false) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
         else { return UITableViewCell() }
-
+        
         cell.signOutLabel.text = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? K.getMoreArticlesText: K.signInText
         cell.signOutLabel.textColor = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? .black : .systemBlue
+        cell.signOutLabel.font =  UIFont(name: forUserArticles ? "SFProRounded-Bold" : "SFProText-Regular", size: 15.0)
         
         return cell
     }

@@ -13,22 +13,22 @@ extension SettingsViewController: UserAcessDelegate {
     
     func confirmLogOut() {
         let alert = UIAlertController(title: "Sign out", message: "\nAre you sure you want to Sign out", preferredStyle: .alert)
-            
+        
         alert.addAction(UIAlertAction(title: K.alertYes, style: .destructive, handler: { _ in
-                self.userAccessViewModel.signOutUser()
+            self.userAccessViewModel.signOutUser()
             
-                OnewsState.sharedInstance.currentState = .signedOut
-                self.setupTableView()
+            OnewsState.sharedInstance.currentState = .signedOut
+            self.setupTableView()
             
-                self.refreshUserDetails(1)
-                UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
-                UserDefaults.standard.set(false, forKey: K.userDefaultBiometricsKey)
-                UserDefaults.standard.set("us", forKey: K.userDefaultRegionKey)
-            }))
-            
+            self.refreshUserDetails(1)
+            UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
+            UserDefaults.standard.set(false, forKey: K.userDefaultBiometricsKey)
+            UserDefaults.standard.set("us", forKey: K.userDefaultRegionKey)
+        }))
+        
         alert.addAction(UIAlertAction(title: K.alertCancel, style: .cancel, handler: { _ in
-                alert.dismiss(animated: true)
-            }))
+            alert.dismiss(animated: true)
+        }))
         
         self.present(alert, animated: true)
     }
@@ -36,10 +36,10 @@ extension SettingsViewController: UserAcessDelegate {
     func successfulUserSignIn(user: User, isRegistration: Bool) {
         
         guard let email = user.email else { return }
-       
+        
         UserDefaults.standard.set(email, forKey: K.userDefaultEmailKey)
         UserDefaults.standard.set(user.uid, forKey: K.userDefaultUUIDKey)
-        
+        UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
         OnewsState.sharedInstance.currentState = .signedInNoFaceId
         self.setupTableView()
         

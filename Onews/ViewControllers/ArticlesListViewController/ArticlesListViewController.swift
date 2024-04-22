@@ -13,9 +13,13 @@ import OnewsSDK
 class ArticlesListViewController: BaseTableViewController {
     
     class func create() -> ArticlesListViewController {
-        print("ArticlesListViewController created.")
         let articlesViewController = ArticlesListViewController()
-        articlesViewController.articlesListViewModel = ArticlesListViewModel(articleDelegate: articlesViewController)
+        let articleRequest = ArticleRequest()
+        let fireStoreQuery = OnewsFirestore()
+        
+        articlesViewController.articlesListViewModel = ArticlesListViewModel(articleDelegate: articlesViewController, 
+                                                                             articleRequest: articleRequest,
+                                                                             onewsFirestore: fireStoreQuery)
         return articlesViewController
     }
     
@@ -33,7 +37,7 @@ class ArticlesListViewController: BaseTableViewController {
         view.addSubview(tableView)
         tableView.refreshControl?.addTarget(self, action:
                                                 #selector(tableViewReloadNewsArticles),
-                                              for: .valueChanged)
+                                            for: .valueChanged)
         searchController.delegate = self
         searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true

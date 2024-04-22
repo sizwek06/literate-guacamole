@@ -35,8 +35,15 @@
 		2831C43E2BB4BE8000B48920 /* SettingsViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C43D2BB4BE8000B48920 /* SettingsViewController+TableView.swift */; };
 		28346F4A2BB7AC6F007270A9 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2831C4242BB4608300B48920 /* SF-Pro-Rounded-Bold.otf */; };
 		28346F4C2BB7D6BE007270A9 /* ProfileViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28346F4B2BB7D6BE007270A9 /* ProfileViewController+Delegate.swift */; };
-		284BB4592BCC1E5600D6D369 /* Pods_Onews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D9A807CF3E93149C3D493C /* Pods_Onews.framework */; };
-		284BB45A2BCC1E5600D6D369 /* Pods_Onews.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04D9A807CF3E93149C3D493C /* Pods_Onews.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2857A7202BD36A0700C5D1FE /* FirestoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2857A71F2BD36A0700C5D1FE /* FirestoreTests.swift */; };
+		2857A7262BD36A2600C5D1FE /* ArticleRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2857A7132BD3647D00C5D1FE /* ArticleRequestTests.swift */; };
+		2857A7272BD36A5800C5D1FE /* ArticleResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 2857A70F2BD3646900C5D1FE /* ArticleResponse.json */; };
+		2857A7282BD36A5A00C5D1FE /* Empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 2857A7102BD3646900C5D1FE /* Empty.json */; };
+		2857A7292BD36A5D00C5D1FE /* ArticleDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2857A7152BD3653200C5D1FE /* ArticleDelegateMock.swift */; };
+		2857A72A2BD36A6000C5D1FE /* OnewsMockHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2857A7172BD3684100C5D1FE /* OnewsMockHelper.swift */; };
+		2857A72F2BD4FAEB00C5D1FE /* FirestoreMockHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2857A72E2BD4FAEB00C5D1FE /* FirestoreMockHelper.swift */; };
+		2857A73F2BD503FD00C5D1FE /* ArticleExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 2857A73E2BD503FD00C5D1FE /* ArticleExample.json */; };
+		2857A7422BD50BD200C5D1FE /* UserArticleDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2857A7412BD50BD200C5D1FE /* UserArticleDelegateMock.swift */; };
 		2869F62729C1B22E00CADFD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F62629C1B22E00CADFD7 /* AppDelegate.swift */; };
 		2869F62929C1B22E00CADFD7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869F62829C1B22E00CADFD7 /* SceneDelegate.swift */; };
 		2869F62E29C1B22E00CADFD7 /* ArticlesListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2869F62C29C1B22E00CADFD7 /* ArticlesListViewController.storyboard */; };
@@ -64,7 +71,18 @@
 		28D0BFF22AE7BDD700DC08F2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 28D0BFF12AE7BDD700DC08F2 /* .swiftlint.yml */; };
 		28ECF5A429CB4C7A006876B7 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28ECF5A329CB4C7A006876B7 /* SF-Pro.ttf */; };
 		28ECF5AC29CF3ED5006876B7 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ECF5AB29CF3ED5006876B7 /* K.swift */; };
+		8BDFDCAB0BEBD95D3F6D98E4 /* Pods_Onews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53A75C6BCCB6C5C911AD57C6 /* Pods_Onews.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2857A7212BD36A0700C5D1FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2869F61B29C1B22E00CADFD7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2869F62229C1B22E00CADFD7;
+			remoteInfo = Onews;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		284BB45B2BCC1E5600D6D369 /* Embed Frameworks */ = {
@@ -73,7 +91,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				284BB45A2BCC1E5600D6D369 /* Pods_Onews.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,10 +104,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2857A73A2BD500B500C5D1FE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		04D9A807CF3E93149C3D493C /* Pods_Onews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Onews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		07F1986550E36484431056EE /* Pods-Onews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Onews.release.xcconfig"; path = "Target Support Files/Pods-Onews/Pods-Onews.release.xcconfig"; sourceTree = "<group>"; };
 		2801FE1B2BBADD6C009D7967 /* ArticlesListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlesListViewModel.swift; sourceTree = "<group>"; };
 		2801FE1D2BBAE0DC009D7967 /* BiometricAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthManager.swift; sourceTree = "<group>"; };
 		2801FE1F2BBBE429009D7967 /* UserFaceIDTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFaceIDTableViewCell.swift; sourceTree = "<group>"; };
@@ -124,6 +151,18 @@
 		284BB4542BCC1D0100D6D369 /* FirebaseFirestoreSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseFirestoreSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		284BB4782BCCF07700D6D369 /* FirebaseFirestoreSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseFirestoreSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		284BB47C2BCCF14500D6D369 /* FirebaseFirestoreSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseFirestoreSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2857A70F2BD3646900C5D1FE /* ArticleResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ArticleResponse.json; sourceTree = "<group>"; };
+		2857A7102BD3646900C5D1FE /* Empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Empty.json; sourceTree = "<group>"; };
+		2857A7132BD3647D00C5D1FE /* ArticleRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleRequestTests.swift; sourceTree = "<group>"; };
+		2857A7152BD3653200C5D1FE /* ArticleDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDelegateMock.swift; sourceTree = "<group>"; };
+		2857A7172BD3684100C5D1FE /* OnewsMockHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnewsMockHelper.swift; sourceTree = "<group>"; };
+		2857A71D2BD36A0700C5D1FE /* OnewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2857A71F2BD36A0700C5D1FE /* FirestoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirestoreTests.swift; sourceTree = "<group>"; };
+		2857A72E2BD4FAEB00C5D1FE /* FirestoreMockHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreMockHelper.swift; sourceTree = "<group>"; };
+		2857A7312BD4FF0000C5D1FE /* OnewsSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OnewsSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2857A73B2BD500C700C5D1FE /* OnewsSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OnewsSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2857A73E2BD503FD00C5D1FE /* ArticleExample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ArticleExample.json; sourceTree = "<group>"; };
+		2857A7412BD50BD200C5D1FE /* UserArticleDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArticleDelegateMock.swift; sourceTree = "<group>"; };
 		2869F62329C1B22E00CADFD7 /* Onews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Onews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2869F62629C1B22E00CADFD7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2869F62829C1B22E00CADFD7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,16 +192,23 @@
 		28D0BFF12AE7BDD700DC08F2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		28ECF5A329CB4C7A006876B7 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 		28ECF5AB29CF3ED5006876B7 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
-		542E9C7F346ED36B6F7CA0D0 /* Pods-Onews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Onews.release.xcconfig"; path = "Target Support Files/Pods-Onews/Pods-Onews.release.xcconfig"; sourceTree = "<group>"; };
-		967D73A086362F0447ACA92E /* Pods-Onews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Onews.debug.xcconfig"; path = "Target Support Files/Pods-Onews/Pods-Onews.debug.xcconfig"; sourceTree = "<group>"; };
+		53A75C6BCCB6C5C911AD57C6 /* Pods_Onews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Onews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F360E0B5FC0737ACC02EA073 /* Pods-Onews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Onews.debug.xcconfig"; path = "Target Support Files/Pods-Onews/Pods-Onews.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2857A71A2BD36A0700C5D1FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2869F62029C1B22E00CADFD7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				284BB4592BCC1E5600D6D369 /* Pods_Onews.framework in Frameworks */,
+				8BDFDCAB0BEBD95D3F6D98E4 /* Pods_Onews.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,8 +218,8 @@
 		181D59313C10A1FBF6DEDA8A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				967D73A086362F0447ACA92E /* Pods-Onews.debug.xcconfig */,
-				542E9C7F346ED36B6F7CA0D0 /* Pods-Onews.release.xcconfig */,
+				F360E0B5FC0737ACC02EA073 /* Pods-Onews.debug.xcconfig */,
+				07F1986550E36484431056EE /* Pods-Onews.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -181,12 +227,14 @@
 		1FA3EE9C03C998CC2572DF3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2857A73B2BD500C700C5D1FE /* OnewsSDK.framework */,
+				2857A7312BD4FF0000C5D1FE /* OnewsSDK.framework */,
 				284BB47C2BCCF14500D6D369 /* FirebaseFirestoreSwift.framework */,
 				284BB4782BCCF07700D6D369 /* FirebaseFirestoreSwift.framework */,
 				284BB4542BCC1D0100D6D369 /* FirebaseFirestoreSwift.framework */,
 				284BB44F2BCC131000D6D369 /* FirebaseFirestoreSwift.framework */,
 				284BB4492BCC0D0700D6D369 /* FirebaseFirestore.framework */,
-				04D9A807CF3E93149C3D493C /* Pods_Onews.framework */,
+				53A75C6BCCB6C5C911AD57C6 /* Pods_Onews.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -212,11 +260,52 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		2857A70D2BD3644100C5D1FE /* ArticlesRequestTests */ = {
+			isa = PBXGroup;
+			children = (
+				2857A7152BD3653200C5D1FE /* ArticleDelegateMock.swift */,
+				2857A7132BD3647D00C5D1FE /* ArticleRequestTests.swift */,
+			);
+			path = ArticlesRequestTests;
+			sourceTree = "<group>";
+		};
+		2857A70E2BD3644F00C5D1FE /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				2857A70F2BD3646900C5D1FE /* ArticleResponse.json */,
+				2857A7102BD3646900C5D1FE /* Empty.json */,
+				2857A73E2BD503FD00C5D1FE /* ArticleExample.json */,
+				2857A7172BD3684100C5D1FE /* OnewsMockHelper.swift */,
+				2857A72E2BD4FAEB00C5D1FE /* FirestoreMockHelper.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		2857A71E2BD36A0700C5D1FE /* OnewsTests */ = {
+			isa = PBXGroup;
+			children = (
+				2857A70E2BD3644F00C5D1FE /* Mocks */,
+				2857A70D2BD3644100C5D1FE /* ArticlesRequestTests */,
+				2857A7402BD50AAD00C5D1FE /* FireStoreTest */,
+			);
+			path = OnewsTests;
+			sourceTree = "<group>";
+		};
+		2857A7402BD50AAD00C5D1FE /* FireStoreTest */ = {
+			isa = PBXGroup;
+			children = (
+				2857A7412BD50BD200C5D1FE /* UserArticleDelegateMock.swift */,
+				2857A71F2BD36A0700C5D1FE /* FirestoreTests.swift */,
+			);
+			path = FireStoreTest;
+			sourceTree = "<group>";
+		};
 		2869F61A29C1B22E00CADFD7 = {
 			isa = PBXGroup;
 			children = (
 				28D0BFF12AE7BDD700DC08F2 /* .swiftlint.yml */,
 				2869F62529C1B22E00CADFD7 /* Onews */,
+				2857A71E2BD36A0700C5D1FE /* OnewsTests */,
 				2869F62429C1B22E00CADFD7 /* Products */,
 				181D59313C10A1FBF6DEDA8A /* Pods */,
 				1FA3EE9C03C998CC2572DF3F /* Frameworks */,
@@ -227,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				2869F62329C1B22E00CADFD7 /* Onews.app */,
+				2857A71D2BD36A0700C5D1FE /* OnewsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -411,18 +501,37 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2857A71C2BD36A0700C5D1FE /* OnewsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2857A7232BD36A0800C5D1FE /* Build configuration list for PBXNativeTarget "OnewsTests" */;
+			buildPhases = (
+				2857A7192BD36A0700C5D1FE /* Sources */,
+				2857A71A2BD36A0700C5D1FE /* Frameworks */,
+				2857A71B2BD36A0700C5D1FE /* Resources */,
+				2857A73A2BD500B500C5D1FE /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2857A7222BD36A0700C5D1FE /* PBXTargetDependency */,
+			);
+			name = OnewsTests;
+			productName = OnewsTests;
+			productReference = 2857A71D2BD36A0700C5D1FE /* OnewsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		2869F62229C1B22E00CADFD7 /* Onews */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2869F63729C1B22F00CADFD7 /* Build configuration list for PBXNativeTarget "Onews" */;
 			buildPhases = (
-				26FBA59CEAA1A4DE73D57AC5 /* [CP] Check Pods Manifest.lock */,
+				FF3622B9518C908579EB9FDB /* [CP] Check Pods Manifest.lock */,
 				2869F61F29C1B22E00CADFD7 /* Sources */,
 				2869F62029C1B22E00CADFD7 /* Frameworks */,
 				2869F62129C1B22E00CADFD7 /* Resources */,
 				28D0BFF02AE7BB2A00DC08F2 /* SwiftLint Script */,
-				E2A682A0F066BD68FC21632C /* [CP] Embed Pods Frameworks */,
 				284BB45B2BCC1E5600D6D369 /* Embed Frameworks */,
 				284BB47F2BCCF16500D6D369 /* CopyFiles */,
+				D2A63CD6C9633E83363EB707 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -440,9 +549,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
+					2857A71C2BD36A0700C5D1FE = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 2869F62229C1B22E00CADFD7;
+					};
 					2869F62229C1B22E00CADFD7 = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -462,11 +575,22 @@
 			projectRoot = "";
 			targets = (
 				2869F62229C1B22E00CADFD7 /* Onews */,
+				2857A71C2BD36A0700C5D1FE /* OnewsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2857A71B2BD36A0700C5D1FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2857A73F2BD503FD00C5D1FE /* ArticleExample.json in Resources */,
+				2857A7272BD36A5800C5D1FE /* ArticleResponse.json in Resources */,
+				2857A7282BD36A5A00C5D1FE /* Empty.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2869F62129C1B22E00CADFD7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -492,7 +616,43 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		26FBA59CEAA1A4DE73D57AC5 /* [CP] Check Pods Manifest.lock */ = {
+		28D0BFF02AE7BB2A00DC08F2 /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		D2A63CD6C9633E83363EB707 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Onews/Pods-Onews-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Onews/Pods-Onews-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Onews/Pods-Onews-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF3622B9518C908579EB9FDB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -514,45 +674,22 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		28D0BFF02AE7BB2A00DC08F2 /* SwiftLint Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "SwiftLint Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
-		E2A682A0F066BD68FC21632C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Onews/Pods-Onews-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Onews/Pods-Onews-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Onews/Pods-Onews-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2857A7192BD36A0700C5D1FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2857A72F2BD4FAEB00C5D1FE /* FirestoreMockHelper.swift in Sources */,
+				2857A7262BD36A2600C5D1FE /* ArticleRequestTests.swift in Sources */,
+				2857A7292BD36A5D00C5D1FE /* ArticleDelegateMock.swift in Sources */,
+				2857A72A2BD36A6000C5D1FE /* OnewsMockHelper.swift in Sources */,
+				2857A7422BD50BD200C5D1FE /* UserArticleDelegateMock.swift in Sources */,
+				2857A7202BD36A0700C5D1FE /* FirestoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2869F61F29C1B22E00CADFD7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -602,6 +739,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		2857A7222BD36A0700C5D1FE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2869F62229C1B22E00CADFD7 /* Onews */;
+			targetProxy = 2857A7212BD36A0700C5D1FE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		2869F62C29C1B22E00CADFD7 /* ArticlesListViewController.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -622,6 +767,53 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2857A7242BD36A0800C5D1FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U7HFT6QF4H;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.swifty.OnewsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Onews.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Onews";
+			};
+			name = Debug;
+		};
+		2857A7252BD36A0800C5D1FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U7HFT6QF4H;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.swifty.OnewsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Onews.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Onews";
+			};
+			name = Release;
+		};
 		2869F63529C1B22F00CADFD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -658,6 +850,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -720,6 +913,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -742,7 +936,7 @@
 		};
 		2869F63829C1B22F00CADFD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 967D73A086362F0447ACA92E /* Pods-Onews.debug.xcconfig */;
+			baseConfigurationReference = F360E0B5FC0737ACC02EA073 /* Pods-Onews.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -779,7 +973,7 @@
 		};
 		2869F63929C1B22F00CADFD7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 542E9C7F346ED36B6F7CA0D0 /* Pods-Onews.release.xcconfig */;
+			baseConfigurationReference = 07F1986550E36484431056EE /* Pods-Onews.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -817,6 +1011,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2857A7232BD36A0800C5D1FE /* Build configuration list for PBXNativeTarget "OnewsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2857A7242BD36A0800C5D1FE /* Debug */,
+				2857A7252BD36A0800C5D1FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2869F61E29C1B22E00CADFD7 /* Build configuration list for PBXProject "Onews" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

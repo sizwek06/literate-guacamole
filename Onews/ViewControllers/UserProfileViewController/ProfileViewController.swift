@@ -9,12 +9,15 @@ import Foundation
 import UIKit
 import FirebaseAuth
 import FirebaseFirestoreSwift
+import OnewsSDK
 
 class ProfileViewController: BaseTableViewController {
     
     class func create() -> ProfileViewController {
         let profileViewController = ProfileViewController()
-        profileViewController.userArticlesViewModel = UserArticlesViewModel(userArticleDelegate: profileViewController)
+        let onewsFirestore = OnewsFirestore()
+        profileViewController.userArticlesViewModel = UserArticlesViewModel(userArticleDelegate: profileViewController,
+                                                                            onewsFireStore: onewsFirestore)
         return profileViewController
     }
     
@@ -29,14 +32,10 @@ class ProfileViewController: BaseTableViewController {
         title = K.profileViewTitle
         
         tableView.refreshControl?.addTarget(self, action: #selector(setProfileView), for: .valueChanged)
-    
-        print("ProfileViewController - Current State \(String(describing: OnewsState.sharedInstance.currentState))")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("ProfileViewController - ViewWillAppear State \(OnewsState.sharedInstance.currentState)")
-        
         self.setupTableView()
         self.setUpView()
         verifyUserState()
@@ -50,14 +49,12 @@ class ProfileViewController: BaseTableViewController {
         case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
             if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
                 OnewsState.sharedInstance.currentState = .signedInWithFaceId
-                NotificationCenter.default.post(name: Notification.Name("reloadSettingsViewControllerTable"), object: nil)
+                
                 self.checkNewsArticlesArray()
             } else {
                 OnewsState.sharedInstance.currentState = .signedOut
             }
         }
-        print("ProfileViewController - Setup State \(OnewsState.sharedInstance.currentState)")
-        print("ProfileViewController - userName \(super.userName)")
         
         self.setupTableView()
         tableView.refreshControl?.endRefreshing()
@@ -106,6 +103,6 @@ class ProfileViewController: BaseTableViewController {
                 }
             }
         }
-        
+        self.setProfileView()
     }
 }

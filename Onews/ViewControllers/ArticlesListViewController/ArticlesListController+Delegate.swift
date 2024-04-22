@@ -18,7 +18,7 @@ extension ArticlesListViewController: ArticleDelegate {
     func hideNewsLoading() {
         OnewsLoaderViewController.sharedInstance.hide()
     }
-
+    
     func reloadNewsArticles() {
         articlesListViewModel.getArticles()
         tableView.reloadData()
