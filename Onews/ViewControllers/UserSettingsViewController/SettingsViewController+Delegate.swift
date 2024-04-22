@@ -39,7 +39,7 @@ extension SettingsViewController: UserAcessDelegate {
         
         UserDefaults.standard.set(email, forKey: K.userDefaultEmailKey)
         UserDefaults.standard.set(user.uid, forKey: K.userDefaultUUIDKey)
-        
+        UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
         OnewsState.sharedInstance.currentState = .signedInNoFaceId
         self.setupTableView()
         

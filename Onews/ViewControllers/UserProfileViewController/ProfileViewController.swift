@@ -36,7 +36,6 @@ class ProfileViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.setupTableView()
         self.setUpView()
         verifyUserState()
@@ -50,7 +49,7 @@ class ProfileViewController: BaseTableViewController {
         case .signedInWithFaceId, .signedInNoFaceId, .signedOut:
             if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
                 OnewsState.sharedInstance.currentState = .signedInWithFaceId
-                NotificationCenter.default.post(name: Notification.Name("reloadSettingsViewControllerTable"), object: nil)
+                
                 self.checkNewsArticlesArray()
             } else {
                 OnewsState.sharedInstance.currentState = .signedOut
@@ -104,6 +103,6 @@ class ProfileViewController: BaseTableViewController {
                 }
             }
         }
-        
+        self.setProfileView()
     }
 }
