@@ -87,7 +87,7 @@ extension RegionsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            self.bingBong()
+            self.bingBong(K.loadingUserSignedInText)
         case 1:
             DispatchQueue.main.async {
                 let country = K.regionOptions[indexPath.row].key

@@ -21,6 +21,10 @@ class FirestoreMockHelper: OnewsFirestoreProtocol {
                         userInfo: [NSLocalizedDescriptionKey: "Unit Test: Firestore Error"]
                        )
     
+    static func returnArticleExampleResponse() -> Article? {
+        return OnewsMockHelper.fetchAndUnbox(in: "ArticleExample")
+    }
+    
     func saveNewsArticle(using newsArticle: Article, userUID: String, completion: @escaping (Error?) -> Void) {
         if invokeSuccess {
             completion(nil)
@@ -34,7 +38,7 @@ class FirestoreMockHelper: OnewsFirestoreProtocol {
     func queryUserArticles(using query: Query, completion: @escaping ([Article]?, Error?) -> Void) {
         if invokeSuccess {
             for _ in 1...3 {
-                self.articlesArray.append(OnewsMockHelper.returnArticleExampleResponse()!)
+                self.articlesArray.append(FirestoreMockHelper.returnArticleExampleResponse()!)
             }
             completion(articlesArray, nil)
         }

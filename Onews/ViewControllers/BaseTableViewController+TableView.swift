@@ -58,4 +58,15 @@ extension BaseTableViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    func createNotSignInTableViewCell(_ forUserArticles: Bool = false) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
+        else { return UITableViewCell() }
+        
+        cell.signOutLabel.text = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? K.getMoreArticlesText: K.signInText
+        cell.signOutLabel.textColor = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? .black : .systemBlue
+        cell.signOutLabel.font =  UIFont(name: forUserArticles ? "SFProRounded-Bold" : "SF-ProText-Regular", size: 17.0)
+        
+        return cell
+    }
 }

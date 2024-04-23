@@ -77,6 +77,7 @@ class SettingsTableViewCell: UITableViewCell {
             
         case .region:
             settingsImageView.backgroundColor = UIColor.systemMint
+            settingsImageView.image = UIImage(systemName: "globe.europe.africa.fill")
             self.accessoryType = .disclosureIndicator
             self.settingsSwitch.isHidden = true
             self.switchOption = .region
