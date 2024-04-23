@@ -44,7 +44,6 @@ extension ArticlesListViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MainArticleTableViewCell.identifier) as? MainArticleTableViewCell else { return UITableViewCell() }
             
             cell.mainArticleView.articlesArray = Array(articlesListViewModel.articlesArray.prefix(3))
-            cell.mainArticleView.isSignedIn = self.isSignedIn
             
             cell.mainArticleView.didSelectArticle = { articleClicked, articleSource in
                 self.handleOpenArticleURL(url: articleClicked, source: articleSource)
@@ -104,7 +103,7 @@ extension ArticlesListViewController {
             shareAction.backgroundColor = K.newsColor.oNewsBlue
             saveAction.backgroundColor = K.newsColor.oNewsMaroon
             
-            let actions = self.isSignedIn ? [saveAction, shareAction] : [shareAction]
+            let actions = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? [saveAction, shareAction] : [shareAction]
             
             let swipeConfiguration = UISwipeActionsConfiguration(actions: actions)
             swipeConfiguration.performsFirstActionWithFullSwipe = false

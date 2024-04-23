@@ -13,7 +13,6 @@ import OnewsSDK
 class BaseTableViewController: UIViewController {
     
     var openArticleURL: ((String) -> Void)?
-    var isSignedIn: Bool
     let biometricAuthManager = BiometricAuthManager()
     var userName: String?
     
@@ -26,7 +25,6 @@ class BaseTableViewController: UIViewController {
     }()
     
     public init() {
-        self.isSignedIn = false
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -136,7 +134,6 @@ class BaseTableViewController: UIViewController {
         if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
             if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
                 UserDefaults.standard.set(true, forKey: K.userDefaultSignedInKey)
-                self.isSignedIn = !user.isEmpty
                 self.userName = user
                 
                 if UserDefaults.standard.bool(forKey: K.userDefaultBiometricsKey) {
@@ -145,7 +142,6 @@ class BaseTableViewController: UIViewController {
             }
         } else {
             UserDefaults.standard.set(false, forKey: K.userDefaultSignedInKey)
-            self.isSignedIn = false
             OnewsState.sharedInstance.currentState = .signedOut
         }
         

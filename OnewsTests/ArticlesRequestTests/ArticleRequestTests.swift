@@ -30,7 +30,7 @@ class ArticleRequestTests: XCTestCase {
         articleDelegateMock = ArticleDelegateMock()
         articleGeneratorMock = OnewsMockHelper()
         fireBaseGeneratorMock = FirestoreMockHelper()
-        savedArticle = OnewsMockHelper.returnArticleExampleResponse()
+        savedArticle = FirestoreMockHelper.returnArticleExampleResponse()
         
         viewModelUnderTesst = ArticlesListViewModel(articleDelegate: articleDelegateMock,
                                                     articleRequest: articleGeneratorMock,

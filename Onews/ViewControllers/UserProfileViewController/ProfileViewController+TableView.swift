@@ -106,7 +106,7 @@ extension ProfileViewController {
         if indexPath.section == 0 {
             switch OnewsState.sharedInstance.currentState {
             case .signedInNoFaceId, .signedInWithFaceId:
-                self.bingBong()
+                self.bingBong(K.loadingUserSignedInText)
             default:
                 self.navigateToSettingsSignIn()
             }
@@ -114,7 +114,7 @@ extension ProfileViewController {
             switch OnewsState.sharedInstance.currentState {
                 
             case .signedInNoFaceId, .signedInWithFaceId:
-                if self.isSignedIn && self.userArticlesViewModel.articlesArray.isEmpty {
+                if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) && self.userArticlesViewModel.articlesArray.isEmpty {
                     self.navigateToArticles()
                 } else if !self.userArticlesViewModel.articlesArray.isEmpty {
                     let article = userArticlesViewModel.articlesArray[indexPath.row]
@@ -133,7 +133,7 @@ extension ProfileViewController {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        if indexPath.section == 1 && isSignedIn {
+        if indexPath.section == 1 && UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
             let shareAction = UIContextualAction(style: .normal, title: nil) {_, _, completionHandler in
                 self.shareArticleLink(with: self.userArticlesViewModel.articlesArray[indexPath.row].url)
                 
@@ -157,7 +157,7 @@ extension ProfileViewController {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let currentArticle = self.userArticlesViewModel.articlesArray[indexPath.row]
         
-        if indexPath.section == 1 && isSignedIn {
+        if indexPath.section == 1 && UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
             let removeAction = UIContextualAction(style: .destructive, title: nil) {_, _, completionHandler in
                 
                 guard let uuid = UserDefaults.standard.string(forKey: K.userDefaultUUIDKey) else { return }
@@ -186,17 +186,6 @@ extension ProfileViewController {
         }
     }
     
-    func createNotSignInTableViewCell(_ forUserArticles: Bool = false) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
-        else { return UITableViewCell() }
-        
-        cell.signOutLabel.text = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? K.getMoreArticlesText: K.signInText
-        cell.signOutLabel.textColor = UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? .black : .systemBlue
-        cell.signOutLabel.font =  UIFont(name: forUserArticles ? "SFProRounded-Bold" : "SFProText-Regular", size: 15.0)
-        
-        return cell
-    }
-    
     func createArticleTableViewCell(with article: Article) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsArticle") as? NewsArticleTableViewCell
@@ -216,8 +205,6 @@ extension ProfileViewController {
     }
     
     func createProfileSection(indexPathRowSection: Int) -> UITableViewCell {
-        return isSignedIn ? createUseFaceIdView() : createNotSignInTableViewCell()
+        return UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) ? createUseFaceIdView() : createNotSignInTableViewCell()
     }
-    
-    // TODO: Add footer with a little text about current array count.
 }

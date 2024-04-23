@@ -15,7 +15,6 @@ class MainArticleView: UIView {
     var didShareArticle: ((String) -> Void)?
     var didSaveArticle: ((Article) -> Void)?
     var didSwipeArticle: ((Int) -> Void)?
-    var isSignedIn: Bool?
     
     var articlesArray: [Article] = [] {
         didSet {
@@ -49,10 +48,9 @@ class MainArticleView: UIView {
         return collectionView
     }()
     
-    public init(articlesArray: [Article], isSignedIn: Bool) {
+    public init(articlesArray: [Article]) {
         super.init(frame: .zero)
         self.articlesArray = articlesArray
-        self.isSignedIn = isSignedIn
         setupView()
     }
     
@@ -63,12 +61,6 @@ class MainArticleView: UIView {
         mainArticleCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         mainArticleCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -5).isActive = true
         mainArticleCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
-        
-        if UserDefaults.standard.bool(forKey: K.userDefaultSignedInKey) {
-            if let user = UserDefaults.standard.string(forKey: K.userDefaultEmailKey) {
-                self.isSignedIn = !user.isEmpty
-            }
-        }
     }
     
     func reload() {

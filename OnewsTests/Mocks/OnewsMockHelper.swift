@@ -38,10 +38,6 @@ class OnewsMockHelper: OnewsArticleProtocol {
         return OnewsMockHelper.fetchAndUnbox(in: "Empty")
     }
     
-    static func returnArticleExampleResponse() -> Article? {
-        return OnewsMockHelper.fetchAndUnbox(in: "ArticleExample")
-    }
-    
     func handleGetArticlesRequest(_ url: String, completion: @escaping (NewsArticleResponse?, Error?) -> Void) {
         if invokeSuccess {
             completion(OnewsMockHelper.returnArticlesResponse(), nil)
