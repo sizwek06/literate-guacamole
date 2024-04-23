@@ -78,7 +78,7 @@ extension SettingsViewController {
         case 2:
             switch OnewsState.sharedInstance.currentState {
             case .signedInNoFaceId, .signingInWithFaceId, .signedInWithFaceId, .signedOut:
-                return createSignOutView()
+                return createNotSignInTableViewCell()
             case .verifyFaceIdFailed, .faceIDRequired:
                 return createUseFaceIdView()
             }
@@ -92,7 +92,7 @@ extension SettingsViewController {
         case 0:
             switch OnewsState.sharedInstance.currentState {
             case .signedInNoFaceId, .signedInWithFaceId:
-                self.bingBong()
+                self.bingBong(K.loadingUserSignedInText)
             default:
                 break
             }
@@ -123,11 +123,9 @@ extension SettingsViewController {
         }
     }
     
-    func createSignOutView() -> UITableViewCell {
+    func createNotSignInTableViewCell() -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleLabelTableViewCell.identifier) as? SingleLabelTableViewCell
         else { return UITableViewCell() }
-        
-        cell.signOutLabel.font = UIFont(name: "SF-Pro-Display-Bold", size: 15)
         
         switch OnewsState.sharedInstance.currentState {
         case .signedInNoFaceId, .signedInWithFaceId:
